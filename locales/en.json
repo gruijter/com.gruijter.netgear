@@ -1,0 +1,23 @@
+{
+	"pair": {
+		"start": {
+			"intro": "Please fill in the admin password of the Netgear router. Change the other defaults if needed.",
+			"title": "Add device",
+			"error": "An error has occurred.",
+			"success": "Success! ",
+			"required": "All fields are required",
+			"username": "Username",
+			"password": "Password",
+			"host": "IP address",
+			"port": "SOAP Port",
+			"testSettings": "Test settings"
+		}
+	},
+  "settings": {
+		"app": {
+			"title": "Debug Log information",
+			"logs": "Logs",
+			"getlogs": "Get/refresh logs"
+		}
+	}
+}

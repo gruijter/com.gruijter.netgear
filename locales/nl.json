@@ -1,0 +1,17 @@
+{
+	"pair": {
+		"start": {
+			"intro": "Vul het admin wachtwoord van de Netgear router in. Indien nodig de andere velden aanpassen.",
+			"title": "Device toevoegen",
+			"error": "Er is een fout opgetreden.",
+			"success": "Succes! ",
+			"required": "Alle velden moeten zijn ingevuld!",
+			"username": "Gebruikersnaam",
+			"password": "Wachtwoord",
+			"host": "IP adres",
+			"port": "SOAP Poort",
+			"testSettings": "Test de instellingen"
+		}
+	},
+  "whatever": "Whatever"
+}

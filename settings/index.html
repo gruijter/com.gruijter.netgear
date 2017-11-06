@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+    <head>
+        <!-- The '/homey.js' script must be included in your settings view to work -->
+        <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
+   </head>
+    <body>
+
+        <h1 data-i18n="settings.app.title"></h1>
+        <form id="netgear">
+
+        </form>
+
+        <div>
+        	<button type="button" class="right" id="button_getlog" onclick="showLogs()" data-i18n="settings.app.getlogs">Get Logs</button>
+        </div>
+
+        <p data-i18n="settings.app.logs"></p>
+        <div id="loglines"></div>
+
+        <script type="text/javascript">
+
+        var currentValues = {};
+        var HomeyAPI = null;
+
+        function onHomeyReady(Homey){
+           HomeyAPI = Homey;
+           Homey.ready();
+        }
+
+        function showLogs() {
+           HomeyAPI.api('GET', 'getlogs/', function(err, result) {
+              if (!err) {
+                 document.getElementById('loglines').innerHTML = '';
+                 for (var i=0; i < result.length; i++) {
+                    document.getElementById('loglines').innerHTML += result[i];
+                    document.getElementById('loglines').innerHTML += "<br />";
+                 }
+              };
+           });
+        }
+
+
+        </script>
+
+    </body>
+</html>

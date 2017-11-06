@@ -1,0 +1,106 @@
+<script>
+Homey.setTitle( __('pair.start.title') );
+// Homey.on('error', function( errortype, callback ){
+// 	if (errortype == 'error') {
+// 		Homey.alert(__('pair.start.error'), 'error');
+// 		Homey.done();
+// 	}
+// 	if (errortype == 'nosettings') {
+// 		Homey.alert(__('pair.start.nosettings'), 'error');
+// 		Homey.done();
+// 	}
+// })
+// Homey.on('continue', function( success, callback ){
+// 		Homey.showView('list_devices');
+// })
+function testSettings () {
+	// variables
+	var username = document.getElementById( 'username' ).value;
+	var password = document.getElementById( 'password' ).value;
+	var host = document.getElementById( 'host' ).value;
+	var port = document.getElementById( 'port' ).value;
+
+	if (username != '' && password != '' && host != '' && port != '') {
+		var settings = {
+			username: username,
+			password: password,
+			host: host,
+			port: Number(port)
+		};
+		// Continue to back-end, pass along data
+		Homey.emit( 'save', settings, function( err, result ){
+			if (err) {
+				console.log(err);
+				console.log(result);
+				Homey.alert(err.message, 'error');
+			} else {
+				var info = JSON.parse(result);
+				Homey.alert(__('pair.start.success')+result, 'info');
+				settings.model_name = info.ModelName;
+				settings.serial_number = info.SerialNumber;
+				settings.firmware_version = info.Firmwareversion;
+				settings.smart_agent_version = info.SmartAgentversion;
+				settings.host = info.host;
+				var device = {
+					name: info.ModelName,
+					data: { id: info.SerialNumber },
+					settings: settings
+				};
+				Homey.addDevice(device, function( err, result ){
+		    	if( err ) {	Homey.alert(err, 'error'); return }
+					setTimeout(function () {
+						Homey.done();
+					}, 5000);
+
+				});
+			}
+		});
+	} else {
+		Homey.alert(__('pair.start.required'), 'error');
+		// Homey.done();
+	}
+}
+</script>
+
+    <p data-i18n="pair.start.intro">enter IP address</p>
+
+		<!-- /*<style>
+			.pairSettings {
+				font-size:16px;
+				border:none;
+			}
+			input {
+				font-size:16px;
+			}
+			.button {
+				font-size:16px;
+				border:none;
+			}
+		</style>*/ -->
+
+		<table class="pairSettings">
+			<tr>
+				<td style="width:100px;" data-i18n="pair.start.username">username</td>
+				<td><input id="username" type="text" value="admin" placeholder="e.g. admin"/></td>
+			</tr>
+			<tr>
+				<td style="width:100px;" data-i18n="pair.start.password">password</td>
+				<td><input id="password" type="password" value="" placeholder=""/></td>
+			</tr>
+			<tr>
+				<td style="width:100px;" data-i18n="pair.start.host">host</td>
+				<td><input id="host" type="text" value="routerlogin.net" placeholder="e.g. 192.168.1.1"/></td>
+			</tr>
+			<tr>
+				<td style="width:100px;" data-i18n="pair.start.port">port</td>
+				<td><input id="port" type="number" value=5000 placeholder="e.g. 80 or 5000"/></td>
+			</tr>
+		</table>
+
+		<p>
+		&nbsp;
+	  </p>
+
+<fieldset>
+    <button class="button" data-i18n="pair.start.testSettings" onclick="testSettings()">Save</button>
+</fieldset>
