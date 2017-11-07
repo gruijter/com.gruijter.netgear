@@ -46,8 +46,8 @@ class NetgearDriver extends Homey.Driver {
 				let lastSeen = new Date();
 				this.knownDevices[attachedDevices[i].MAC].lastSeen = lastSeen.toISOString(); // to turn it back into a date: Date.parse(test.lastSeen)
 				if (!this.knownDevices[attachedDevices[i].MAC].online) {
-					this.log(`Device ${attachedDevices[i].MAC} came online!`);
-					this.logger.log(`Device ${attachedDevices[i].MAC} came online!`);
+					this.log(`Device came online: ${attachedDevices[i].MAC} ${attachedDevices[i].Name} ${attachedDevices[i].IP}`);
+					this.logger.log(`Device came online: ${attachedDevices[i].MAC} ${attachedDevices[i].Name} ${attachedDevices[i].IP}`);
 					let tokens = {
 							'mac': attachedDevices[i].MAC,
 							'name': attachedDevices[i].Name,
@@ -73,8 +73,8 @@ class NetgearDriver extends Homey.Driver {
 					if ( (new Date() - Date.parse(device.lastSeen)) > offlineDelay ) {	// if not seen for more than offlineDelay
 						// console.log(`device ${device.MAC} went missing for too long ....`);
 						if (device.online) {
-							this.log(`Device ${device.MAC} went offline!`);
-							this.logger.log(`Device ${device.MAC} went offline!`);
+							this.log(`Device went offline: ${device.MAC} ${device.Name} ${device.IP}`);
+							this.logger.log(`Device went offline: ${device.MAC} ${device.Name}`);
 							let tokens = {
 									'mac': device.MAC,
 									'name': device.Name,

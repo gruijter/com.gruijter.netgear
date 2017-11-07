@@ -3,7 +3,7 @@
 const http = require('http');
 const parseString = require('xml2js').parseString;
 // const util = require('util');
-const crypto = require('crypto');
+// const crypto = require('crypto');
 
 const ACTION_LOGIN = 'urn:NETGEAR-ROUTER:service:ParentalControl:1#Authenticate';
 const ACTION_GET_INFO = 'urn:NETGEAR-ROUTER:service:DeviceInfo:1#GetInfo';
@@ -15,7 +15,7 @@ const ACTION_CONFIGURATION_FINISHED = 'urn:NETGEAR-ROUTER:service:DeviceConfig:1
 const ACTION_SET_BLOCK_DEVICE = 'urn:NETGEAR-ROUTER:service:DeviceConfig:1#SetBlockDeviceByMAC';
 const ACTION_REBOOT = 'urn:NETGEAR-ROUTER:service:DeviceConfig:1#Reboot';
 
-const SESSION_ID = crypto.randomBytes(Math.ceil(20/2)).toString('hex').slice(0,20).toUpperCase(); //'A7D88AE69687E58D9A00'; // '10588AE69687E58D9A00'
+const SESSION_ID = '10588AE69687E58D9A00';	// crypto.randomBytes(Math.ceil(20/2)).toString('hex').slice(0,20).toUpperCase(); //'A7D88AE69687E58D9A00'; // '10588AE69687E58D9A00'
 
 const REGEX_ATTACHED_DEVICES = new RegExp('<NewAttachDevice>(.*)</NewAttachDevice>');
 const REGEX_NEW_TODAY_UPLOAD = new RegExp('<NewTodayUpload>(.*)</NewTodayUpload>');
@@ -28,23 +28,38 @@ const UNKNOWN_DEVICE_ENCODED = '&lt;unknown&gt;';
 const DEFAULT_HOST = 'routerlogin.net';
 const DEFAULT_USER = 'admin';
 const DEFAULT_PASSWORD = 'password';
-const DEFAULT_PORT = 5000;
+const DEFAULT_PORT = 5000;	// 80 for orbi and R7800
 
 function soapLogin(sessionId, username, password) {
 	return `<?xml version="1.0" encoding="utf-8" standalone="no"?>
-	  <SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
-	    <SOAP-ENV:Header>
-	    	<SessionID>${sessionId}</SessionID>
-	    </SOAP-ENV:Header>
-	    <SOAP-ENV:Body>
-		    <Authenticate>
-			    <NewUsername>${username}</NewUsername>
-			    <NewPassword>${password}</NewPassword>
-		    </Authenticate>
-	    </SOAP-ENV:Body>
-	  </SOAP-ENV:Envelope>
-	  `;
+<SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+<SOAP-ENV:Header>
+<SessionID>${sessionId}</SessionID>
+</SOAP-ENV:Header>
+<SOAP-ENV:Body>
+<Authenticate>
+<NewUsername xsi:type="xsd:string" xmlns:xsi="http://www.w3.org/1999/XMLSchema-instance">${username}</NewUsername>
+<NewPassword xsi:type="xsd:string" xmlns:xsi="http://www.w3.org/1999/XMLSchema-instance">${password}</NewPassword>
+</Authenticate>
+</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>`;
 }
+
+// function soapLoginOld(sessionId, username, password) {
+// 	return `<?xml version="1.0" encoding="utf-8" standalone="no"?>
+// 	  <SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+// 	    <SOAP-ENV:Header>
+// 	    	<SessionID>${sessionId}</SessionID>
+// 	    </SOAP-ENV:Header>
+// 	    <SOAP-ENV:Body>
+// 		    <Authenticate>
+// 			    <NewUsername>${username}</NewUsername>
+// 			    <NewPassword>${password}</NewPassword>
+// 		    </Authenticate>
+// 	    </SOAP-ENV:Body>
+// 	  </SOAP-ENV:Envelope>
+// 	  `;
+// }
 
 function soapGetInfo(sessionId) {
 	return `<?xml version="1.0" encoding="utf-8" standalone="no"?>
