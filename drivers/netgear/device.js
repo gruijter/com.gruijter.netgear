@@ -116,6 +116,20 @@ class NetgearDevice extends Homey.Device {
 		this.deviceOffline = new Homey.FlowCardTriggerDevice('device_offline')
 			.register();
 
+		// register condition flow flowcards
+		const deviceOnline = new Homey.FlowCardCondition('device_online');
+		deviceOnline.register()
+		  .registerRunListener(( args, state ) => {
+				if (args.hasOwnProperty('NetgearDevice')) {
+					let deviceOnline = false;
+					if (args.NetgearDevice.knownDevices.hasOwnProperty(args.mac)) {
+						deviceOnline = args.NetgearDevice.knownDevices[args.mac].online;	// true or false
+					}
+					return Promise.resolve(deviceOnline);
+				}
+				return Promise.reject(Error('The netgear device is unknown or not ready'));
+			})
+
 		// register action flow cards
 		const blockDevice = new Homey.FlowCardAction('block_device');
 		blockDevice.register()

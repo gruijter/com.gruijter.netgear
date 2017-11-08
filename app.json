@@ -432,6 +432,33 @@
 			 	]
 			}
 		],
+		"conditions": [
+			{
+				"id": "device_online",
+				"title": {
+					"en": "Device !{{is|isn't}} online",
+					"nl": "Apparaat !{{is|is niet}} online"
+				},
+				"args": [
+					{
+						"name": "NetgearDevice",
+						"type": "device",
+						"filter": "driver_id=netgear",
+						"placeholder": {
+							"en": "Which device",
+							"nl": "Welk apparaat"
+						 }
+					},
+					{
+						"type": "text",
+						"name": "mac",
+						"placeholder": {
+							"en": "AA:BB:CC:DD:EE:FF"
+						}
+					}
+				]
+			}
+		],
     "actions": [
 			{
 				"id": "block_device",

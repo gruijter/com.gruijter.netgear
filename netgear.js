@@ -523,6 +523,9 @@ class NetgearRouter {
 				// console.log(`problem with request: ${e.message}`);
 				return reject(e);
 			});
+			// req.setTimeout(20000, () => {
+			// 	req.abort();
+			// });
 			req.write(message);
 			req.end();
 		});
