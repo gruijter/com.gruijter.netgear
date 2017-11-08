@@ -45,34 +45,18 @@ function soapLogin(sessionId, username, password) {
 </SOAP-ENV:Envelope>`;
 }
 
-// function soapLoginOld(sessionId, username, password) {
-// 	return `<?xml version="1.0" encoding="utf-8" standalone="no"?>
-// 	  <SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
-// 	    <SOAP-ENV:Header>
-// 	    	<SessionID>${sessionId}</SessionID>
-// 	    </SOAP-ENV:Header>
-// 	    <SOAP-ENV:Body>
-// 		    <Authenticate>
-// 			    <NewUsername>${username}</NewUsername>
-// 			    <NewPassword>${password}</NewPassword>
-// 		    </Authenticate>
-// 	    </SOAP-ENV:Body>
-// 	  </SOAP-ENV:Envelope>
-// 	  `;
-// }
-
 function soapGetInfo(sessionId) {
 	return `<?xml version="1.0" encoding="utf-8" standalone="no"?>
-	<SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
-		<SOAP-ENV:Header>
-			<SessionID>${sessionId}</SessionID>
-		</SOAP-ENV:Header>
-		<SOAP-ENV:Body>
-			<M1:GetInfo xmlns:M1="urn:NETGEAR-ROUTER:service:DeviceInfo:1">
-			</M1:GetInfo>
-		</SOAP-ENV:Body>
-	</SOAP-ENV:Envelope>
-	`;
+<SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+<SOAP-ENV:Header>
+<SessionID>${sessionId}</SessionID>
+</SOAP-ENV:Header>
+<SOAP-ENV:Body>
+<M1:GetInfo xmlns:M1="urn:NETGEAR-ROUTER:service:DeviceInfo:1">
+</M1:GetInfo>
+</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+`;
 }
 
 function soapConfigurationStarted(sessionId) {
@@ -90,24 +74,23 @@ function soapConfigurationStarted(sessionId) {
 `;
 }
 
-
 function soapConfigurationFinished(sessionId) {
 	return `<?xml version="1.0" encoding="utf-8" standalone="no"?>
-		<SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
-			<SOAP-ENV:Header>
-				<SessionID>${sessionId}</SessionID>
-			</SOAP-ENV:Header>
-			<SOAP-ENV:Body>
-				<M1:ConfigurationFinished xmlns:M1="urn:NETGEAR-ROUTER:service:DeviceConfig:1">
-					<NewStatus>ChangesApplied</NewStatus>
-				</M1:ConfigurationFinished>
-			</SOAP-ENV:Body>
-		</SOAP-ENV:Envelope>
-		`;
+<SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+<SOAP-ENV:Header>
+<SessionID>${sessionId}</SessionID>
+</SOAP-ENV:Header>
+<SOAP-ENV:Body>
+<M1:ConfigurationFinished xmlns:M1="urn:NETGEAR-ROUTER:service:DeviceConfig:1">
+<NewStatus>ChangesApplied</NewStatus>
+</M1:ConfigurationFinished>
+</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+`;
 }
 
 function soapSetBlockDevice(sessionId, mac, AllowOrBlock) {
-	return `<?xml version="1.0" encoding="utf-8" standalone="no"?>
+	return`<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
 <SOAP-ENV:Header>
 <SessionID>${sessionId}</SessionID>
@@ -124,56 +107,59 @@ function soapSetBlockDevice(sessionId, mac, AllowOrBlock) {
 
 function soapAttachedDevices(sessionId) {
 	return `<?xml version="1.0" encoding="utf-8" standalone="no"?>
-    <SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance"	xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
-    <SOAP-ENV:Header>
-    <SessionID>${sessionId}</SessionID>
-    </SOAP-ENV:Header>
-    <SOAP-ENV:Body>
-    <M1:GetAttachDevice xmlns:M1="urn:NETGEAR-ROUTER:service:DeviceInfo:1">
-    </M1:GetAttachDevice>
-    </SOAP-ENV:Body>
-    </SOAP-ENV:Envelope>`;
+<SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance"	xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+<SOAP-ENV:Header>
+<SessionID>${sessionId}</SessionID>
+</SOAP-ENV:Header>
+<SOAP-ENV:Body>
+<M1:GetAttachDevice xmlns:M1="urn:NETGEAR-ROUTER:service:DeviceInfo:1">
+</M1:GetAttachDevice>
+</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+`;
 }
 
 function soapAttachedDevices2(sessionId) {
 	return `<?xml version="1.0" encoding="utf-8" standalone="no"?>
-	<SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
-		<SOAP-ENV:Header>
-			<SessionID>${sessionId}</SessionID>
-		</SOAP-ENV:Header>
-		<SOAP-ENV:Body>
-			<M1:GetAttachDevice2 xmlns:M1="urn:NETGEAR-ROUTER:service:DeviceInfo:1">
-			</M1:GetAttachDevice2>
-		</SOAP-ENV:Body>
-	</SOAP-ENV:Envelope>
-	`;
+<SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+<SOAP-ENV:Header>
+<SessionID>${sessionId}</SessionID>
+</SOAP-ENV:Header>
+<SOAP-ENV:Body>
+<M1:GetAttachDevice2 xmlns:M1="urn:NETGEAR-ROUTER:service:DeviceInfo:1">
+</M1:GetAttachDevice2>
+</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+`;
 }
 
 function soapTrafficMeter(sessionId) {
 	return `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-		<SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
-		<SOAP-ENV:Header>
-		<SessionID>${sessionId}</SessionID>
-		</SOAP-ENV:Header>
-		<SOAP-ENV:Body>
-		<M1:GetTrafficMeterStatistics xmlns:M1="urn:NETGEAR-ROUTER:service:DeviceConfig:1"></M1:GetTrafficMeterStatistics>
-		</SOAP-ENV:Body>
-		</SOAP-ENV:Envelope>
-		`;
+<SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+<SOAP-ENV:Header>
+<SessionID>${sessionId}</SessionID>
+</SOAP-ENV:Header>
+<SOAP-ENV:Body>
+<M1:GetTrafficMeterStatistics xmlns:M1="urn:NETGEAR-ROUTER:service:DeviceConfig:1"></M1:GetTrafficMeterStatistics>
+</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+`;
 }
 
 function soapReboot(sessionId) {
-	return `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-		<SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
-		<SOAP-ENV:Header>
-		<SessionID>${sessionId}</SessionID>
-		</SOAP-ENV:Header>
-		<SOAP-ENV:Body>
-		<M1:Reboot xmlns:M1="urn:NETGEAR-ROUTER:service:DeviceConfig:1"></M1:Reboot>
-		</SOAP-ENV:Body>
-		</SOAP-ENV:Envelope>
-		`;
+	return `<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+<SOAP-ENV:Header>
+<SessionID>${sessionId}</SessionID>
+</SOAP-ENV:Header>
+<SOAP-ENV:Body>
+<M1:Reboot xmlns:M1="urn:NETGEAR-ROUTER:service:DeviceConfig:1">
+</M1:Reboot>
+</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+`;
 }
+
 
 function isValidResponse(resp) {
 	const validResponse = resp.statusCode === 200 && resp.body.includes('<ResponseCode>000</ResponseCode>');
@@ -500,13 +486,15 @@ class NetgearRouter {
 			}
 			const headers = {
 				SOAPAction: action,
-				Connection: 'keep-alive'
-				// 'Host': this.host,
-				// 'Content-Type': 'text/xml; charset=utf-8',
-				// 'Pragma': 'no-cache',
-				// 'Accept-Encoding': 'gzip, deflate',
-				// 'User-Agent': 'SOAP Toolkit 3.0',
-				// 'Content-Length': NUMBER OF CHARACTERS OF MESSAGE
+				Host: `${this.host}:${this.port}`,
+				Pragma: 'no-cache',
+				Accept: 'text/xml',
+				Connection: 'keep-alive',
+				'Accept-Encoding': 'gzip, deflate',
+				'Content-Type': 'text/xml; charset=utf-8',
+				'Cache-Control': 'no-cache',
+				'Content-Length': Buffer.byteLength(message)
+				// 'User-Agent': 'SOAP Toolkit 3.0'
 			};
 			const options = {
 				host: this.host,

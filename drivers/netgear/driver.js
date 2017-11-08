@@ -161,6 +161,8 @@ class NetgearDriver extends Homey.Driver {
 			if (!this.routerSession.logged_in) {
 				await this.routerSession.login();
 			}
+			this.log(`${action} requested for device ${mac}`);
+			this.logger.log(`${action} requested for device ${mac}`);
 			await this.routerSession.configurationStarted();
 			await this.routerSession.setBlockDevice(mac, action);
 			await this.routerSession.configurationFinished();
@@ -173,6 +175,8 @@ class NetgearDriver extends Homey.Driver {
 
 	async reboot() {   // call with NetgearDevice as this
 		try {
+			this.log(`router reboot requested`);
+			this.logger.log(`router reboot requested`);
 			await this.routerSession.login();
 			await this.routerSession.configurationStarted();
 			await this.routerSession.reboot();
@@ -191,7 +195,7 @@ class NetgearDriver extends Homey.Driver {
 			this.logger.log('save button pressed in frontend');
 
 			// get setting for debug purposes
-			router.getCurrentSetting('routerlogin.net')
+			router.getCurrentSetting(data.host)
 				.then( (result) => {
 					this.logger.log(JSON.stringify(result));
 				})
