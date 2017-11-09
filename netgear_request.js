@@ -1,6 +1,7 @@
 'use strict';
 
-const http = require('http');
+// const http = require('http');
+const request = require('request');
 const parseString = require('xml2js').parseString;
 // const util = require('util');
 // const crypto = require('crypto');
@@ -225,35 +226,59 @@ class NetgearRouter {
 		// console.log('Get current setting');
 		host = host || this.host;
 		return new Promise((resolve, reject) => {
-			const req = http.get(`http://${host}/currentsetting.htm`, (res) => {
-				// res.setEncoding('utf8');
-				let resBody = '';
-				res.on('data', (chunk) => {
-					resBody += chunk;
-					// console.log(`BODY: ${chunk}`);
-				});
-				res.on('end', () => {
-					res.body = resBody;
-					if (res.body == '') { return reject(Error('Error getting current setting')); }
-					if (!res.body.includes('SOAPVersion=') && !res.body.includes('Model=')) {
-						return reject(Error('This is not a valid Netgear router'));
+			request.get(host, (err, res, body) => {
+				if (err) { return reject(err); }
+				if (res.body == '') { return reject(Error('Error getting current setting')); }
+				if (!res.body.includes('SOAPVersion=') && !res.body.includes('Model=')) {
+					return reject(Error('This is not a valid Netgear router'));
+				}
+				const currentSetting = {};
+				const entries = res.body.split('\r\n');
+				for (const entry in entries) {
+					const info = entries[entry].split('=');
+					if (info.length === 2) {
+						currentSetting[info[0]] = info[1];
 					}
-					const currentSetting = {};
-					const entries = res.body.split('\r\n');
-					for (const entry in entries) {
-						const info = entries[entry].split('=');
-						if (info.length === 2) {
-							currentSetting[info[0]] = info[1];
-						}
-					}
-					resolve(currentSetting);
-				});
-			});
-			req.on('error', (e) => {
-				return reject(e);
+				}
+				resolve(currentSetting);
 			});
 		});
 	}
+
+	// getCurrentSettingHTTP(host) {
+	// 	// Get router information without need for credentials
+	// 	// console.log('Get current setting');
+	// 	host = host || this.host;
+	// 	return new Promise((resolve, reject) => {
+	// 		const req = http.get(`http://${host}/currentsetting.htm`, (res) => {
+	// 			// res.setEncoding('utf8');
+	// 			let resBody = '';
+	// 			res.on('data', (chunk) => {
+	// 				resBody += chunk;
+	// 				// console.log(`BODY: ${chunk}`);
+	// 			});
+	// 			res.on('end', () => {
+	// 				res.body = resBody;
+	// 				if (res.body == '') { return reject(Error('Error getting current setting')); }
+	// 				if (!res.body.includes('SOAPVersion=') && !res.body.includes('Model=')) {
+	// 					return reject(Error('This is not a valid Netgear router'));
+	// 				}
+	// 				const currentSetting = {};
+	// 				const entries = res.body.split('\r\n');
+	// 				for (const entry in entries) {
+	// 					const info = entries[entry].split('=');
+	// 					if (info.length === 2) {
+	// 						currentSetting[info[0]] = info[1];
+	// 					}
+	// 				}
+	// 				resolve(currentSetting);
+	// 			});
+	// 		});
+	// 		req.on('error', (e) => {
+	// 			return reject(e);
+	// 		});
+	// 	});
+	// }
 
 	getInfo() {
 		// Resolves promise of device information. Rejects if error occurred.
@@ -485,9 +510,9 @@ class NetgearRouter {
 				return reject(Error('Not logged in'));
 			}
 			const headers = {
-				SOAPAction: action
-				// Connection: 'keep-alive',
-				// 'Content-Length': Buffer.byteLength(message)
+				SOAPAction: action,
+				Connection: 'keep-alive',
+				'Content-Length': Buffer.byteLength(message)
 				// Host: `${this.host}:${this.port}`,
 				// Pragma: 'no-cache',
 				// Accept: 'text/xml',
@@ -496,40 +521,79 @@ class NetgearRouter {
 				// 'Cache-Control': 'no-cache',
 				// 'User-Agent': 'SOAP Toolkit 3.0'
 			};
-			const options = {
-				hostname: this.host,
-				port: this.port,
-				path: '/soap/server_sa/',
-				headers,
-				method: 'POST'
-			};
+
 			const router = this;
-			const req = http.request(options, (res) => {
-				let resBody = '';
-				res.on('data', (chunk) => {
-					resBody += chunk;
-				});
-				res.on('end', () => {
-					res.body = resBody;
-					const success = isValidResponse(res);
-					if (success) { return resolve(res); } // resolve the request
-					else {
-						router.logged_in = false;
-						reject(Error(`invalid response code from router: ${res.body}`));
-					} // request failed
-				});
+			request.post({
+				headers: headers,
+				url:     this.soap_url,
+				body:    message
+			}, (error, res, body) => {
+				if (error) {
+					// console.log(`problem with request: ${error.message}`);
+					return reject(error);
+				}
+				const success = isValidResponse(res);
+				if (success) { return resolve(res); } // resolve the request
+				else {
+					router.logged_in = false;
+					reject(Error(`invalid response code from router: ${res.body}`));
+				} // request failed
 			});
-			req.on('error', (e) => {
-				// console.log(`problem with request: ${e.message}`);
-				return reject(e);
-			});
-			// req.setTimeout(20000, () => {
-			// 	req.abort();
-			// });
-			req.write(message);
-			req.end();
 		});
 	}
+
+	// _makeRequestHTTP(action, message) {
+	// 	return new Promise((resolve, reject) => {
+	// 		if (!this.logged_in && action != ACTION_LOGIN) {
+	// 			return reject(Error('Not logged in'));
+	// 		}
+	// 		const headers = {
+	// 			SOAPAction: action,
+	// 			Connection: 'keep-alive',
+	// 			'Content-Length': Buffer.byteLength(message)
+	// 			// Host: `${this.host}:${this.port}`,
+	// 			// Pragma: 'no-cache',
+	// 			// Accept: 'text/xml',
+	// 			// 'Accept-Encoding': 'gzip, deflate',
+	// 			// 'Content-Type': 'text/xml; charset=utf-8',
+	// 			// 'Cache-Control': 'no-cache',
+	// 			// 'User-Agent': 'SOAP Toolkit 3.0'
+	// 		};
+	// 		const options = {
+	// 			host: this.host,
+	// 			port: this.port,
+	// 			path: '/soap/server_sa/',
+	// 			headers,
+	// 			method: 'POST',
+	// 		};
+	// 		const router = this;
+	// 		const req = http.request(options, (res) => {
+	// 			let resBody = '';
+	// 			res.on('data', (chunk) => {
+	// 				resBody += chunk;
+	// 			});
+	// 			res.on('end', () => {
+	// 				res.body = resBody;
+	// 				const success = isValidResponse(res);
+	// 				if (success) { return resolve(res); } // resolve the request
+	// 				else {
+	// 					router.logged_in = false;
+	// 					reject(Error(`invalid response code from router: ${res.body}`));
+	// 				} // request failed
+	// 			});
+	// 		});
+	// 		req.on('error', (e) => {
+	// 			// console.log(`problem with request: ${e.message}`);
+	// 			return reject(e);
+	// 		});
+	// 		// req.setTimeout(20000, () => {
+	// 		// 	req.abort();
+	// 		// });
+	// 		req.write(message);
+	// 		req.end();
+	// 	});
+	// }
+
 }
 
 module.exports = NetgearRouter;
