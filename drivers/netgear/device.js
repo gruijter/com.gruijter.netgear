@@ -129,6 +129,16 @@ class NetgearDevice extends Homey.Device {
 				}
 				return Promise.reject(Error('The netgear device is unknown or not ready'));
 			})
+			.getArgument('mac')
+			.registerAutocompleteListener(( query, args ) => {
+				let results = this._driver.makeAutocompleteList.call(this);
+				results = results.filter( result => {		// filter for query on MAC and Name
+					let macFound = result.name.toLowerCase().indexOf(query.toLowerCase()) > -1;
+					let nameFound = result.description.toLowerCase().indexOf(query.toLowerCase()) > -1;
+					return macFound || nameFound;
+				})
+				return Promise.resolve(results);
+			})
 
 		// register action flow cards
 		const blockDevice = new Homey.FlowCardAction('block_device');
@@ -138,7 +148,17 @@ class NetgearDevice extends Homey.Device {
 			// console.log(state);
 				this._driver.blockOrAllow.call(this, args.mac, 'Block');
 				callback( null, true );
-			});
+			})
+			.getArgument('mac')
+			.registerAutocompleteListener(( query, args ) => {
+				let results = this._driver.makeAutocompleteList.call(this);
+				results = results.filter( result => {		// filter for query on MAC and Name
+					let macFound = result.name.toLowerCase().indexOf(query.toLowerCase()) > -1;
+					let nameFound = result.description.toLowerCase().indexOf(query.toLowerCase()) > -1;
+					return macFound || nameFound;
+				})
+				return Promise.resolve(results);
+			})
 
 		const allowDevice = new Homey.FlowCardAction('allow_device');
 		allowDevice.register()
@@ -147,7 +167,17 @@ class NetgearDevice extends Homey.Device {
 			// console.log(state);
 				this._driver.blockOrAllow.call(this, args.mac, 'Allow');
 				callback( null, true );
-			});
+			})
+			.getArgument('mac')
+			.registerAutocompleteListener(( query, args ) => {
+				let results = this._driver.makeAutocompleteList.call(this);
+				results = results.filter( result => {		// filter for query on MAC and Name
+					let macFound = result.name.toLowerCase().indexOf(query.toLowerCase()) > -1;
+					let nameFound = result.description.toLowerCase().indexOf(query.toLowerCase()) > -1;
+					return macFound || nameFound;
+				})
+				return Promise.resolve(results);
+			})
 
 		const reboot = new Homey.FlowCardAction('reboot');
 		reboot.register()
@@ -193,6 +223,12 @@ class NetgearDevice extends Homey.Device {
 		setTimeout( () => {
 			this.onInit();
 		}, 10000);
+		// wait for Homey firmware fix https://github.com/athombv/homey-issues-dp/issues/126
+		// if (newSettingsObj['clear_known_devices']) {
+		// 	this.knownDevices = {};
+		// 	this.setStoreValue('knownDevices', this.knownDevices);
+		// 	return callback( 'Deleting known devices list', null );
+		// }
 		// do callback to confirm settings change
 		callback( null, true );
 	}

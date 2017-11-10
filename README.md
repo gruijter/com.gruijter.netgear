@@ -56,11 +56,12 @@ If you really like the app you can buy me a beer.
 Version changelog
 
 ```
+v0.0.8	2017.11.11 added device autocomplete in flowcards. prepared option to empty the known devices list.
 v0.0.7	2017.11.xx trying to get orbi and r7800 to work as well: changed sessionId. added presence condition flowcard.
 v0.0.6 	2017.11.05 Added automatic IP resolver during pairing, added logger in app settings, improved error handling and debug information, implemented more compatible router interrogation (more router types should now work), added action 'new unknown device', added action 'online/offline', bugfixes
 v0.0.5	2017.10.29 Beta release
 
-to do: improve stability. add option to empty the known devices list. add device autocomplete in flowcards. add support for r7800 and orbi.
+to do: improve stability. fix option to empty the known devices list (bugreport: https://github.com/athombv/homey-issues-dp/issues/126). add support for r7800 and orbi.
 
 ```
 [forum]: https://forum.athom.com/discussion/3532

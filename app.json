@@ -7,7 +7,7 @@
     "en": "monitor your Netgear router",
     "nl": "verbind je Netgear router"
   },
-  "version": "0.0.7",
+  "version": "0.0.8",
 	"sdk": 2,
   "compatibility": ">= 1.5",
   "author": {
@@ -26,7 +26,8 @@
 			"internet_connection_status": {
 					"type": "boolean",
 					"title": {
-							"en": "Internet Connected"
+							"en": "Internet connected",
+							"nl": "Internet verbonden"
 					},
 					"getable": true,
 					"setable": false
@@ -34,7 +35,8 @@
 			"download_speed": {
 					"type": "number",
 					"title": {
-							"en": "Download speed"
+							"en": "Download speed",
+							"nl": "Download snelheid"
 					},
 					"getable": true,
 					"setable": false,
@@ -45,7 +47,8 @@
 			"upload_speed": {
 					"type": "number",
 					"title": {
-							"en": "Upload speed"
+							"en": "Upload speed",
+							"en": "Upload snelheid"
 					},
 					"getable": true,
 					"setable": false,
@@ -56,7 +59,8 @@
 			"attached_devices": {
 					"type": "number",
 					"title": {
-							"en": "Attached Devices"
+							"en": "Attached devices",
+							"en": "Verbonden apparaten"
 					},
 					"getable": true,
 					"setable": false
@@ -187,6 +191,15 @@
 							},
 							"attr": { "min": 60 },
 							"value": 300
+						},
+						{
+							"id": "clear_known_devices",
+							"type": "checkbox",
+							"label": {
+								"en": "Delete devicelist",
+								"nl": "Apparaatlijst leegmaken"
+							},
+							"value": false
 						}
 					]
 				},
@@ -450,7 +463,7 @@
 						 }
 					},
 					{
-						"type": "text",
+						"type": "autocomplete",
 						"name": "mac",
 						"placeholder": {
 							"en": "AA:BB:CC:DD:EE:FF"
@@ -464,7 +477,7 @@
 				"id": "block_device",
 				"title": {
 					"en": "Block a device",
-					"nl": "Device blokkeren"
+					"nl": "Apparaat blokkeren"
 				},
 				"args": [
 					{
@@ -473,7 +486,7 @@
 						"filter": "driver_id=netgear"
 					},
 			    {
-		        "type": "text",
+		        "type": "autocomplete",
 		        "name": "mac",
 		        "placeholder": {
 		          "en": "AA:BB:CC:DD:EE:FF"
@@ -485,7 +498,7 @@
 				"id": "allow_device",
 				"title": {
 					"en": "Allow a device",
-					"nl": "Device vrijgeven"
+					"nl": "Apparaat vrijgeven"
 				},
 				"args": [
 					{
@@ -494,7 +507,7 @@
 						"filter": "driver_id=netgear"
 					},
 			    {
-		        "type": "text",
+		        "type": "autocomplete",
 		        "name": "mac",
 		        "placeholder": {
 		          "en": "AA:BB:CC:DD:EE:FF"

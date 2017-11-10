@@ -111,6 +111,23 @@ class NetgearDriver extends Homey.Driver {
 		}
 	}
 
+	// function to return the list of known attached devices for autocomplete flowcards
+	makeAutocompleteList() {	// call with NetgearDevice as this
+		let list = [];
+		for (let key in this.knownDevices) {
+			if( this.knownDevices.hasOwnProperty(key) ) {
+				const device = this.knownDevices[key];
+				list.push(
+					{
+						name: device.MAC,
+						description: device.Name
+					}
+				)
+			}
+		}
+		return list;
+	}
+
 	login()	{	// call with NetgearDevice as this
 		return new Promise ((resolve, reject) => {
 			this.routerSession.login()
