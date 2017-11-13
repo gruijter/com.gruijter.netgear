@@ -19,9 +19,9 @@ Do:
 
 ![image][mobile-card-image]
 
-![image][flow-cards-image]
+![image][flow-cards-image]{:height="50%" width="50%"}
 
-![image][insights-image]
+![image][insights-image]{:height="50%" width="50%"}
 
 ### Device setup in Homey ###
 Only netgear devices that work in router mode can be added. Your Homey should be connected inside the LAN part of the router, not from outside (WAN). To setup go to "Devices" and add the Netgear router by filling in the admin password. The other fields can be left on default, unless you know what you are doing :). For some routertypes the SOAP port has to be changed to 80. After the router device is added successfully you can change the polling interval which is set to 1 minute as default.
