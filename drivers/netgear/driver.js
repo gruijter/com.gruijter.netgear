@@ -165,7 +165,6 @@ class NetgearDriver extends Homey.Driver {
 				resolve(readings);
 			} catch (error) {
 					this.error('getRouterData error', error);
-					this.logger.log('getRouterData error', error);
 					// this.setUnavailable(error.message)
 					// 	.catch(this.error);
 					reject(error);

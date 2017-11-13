@@ -7,7 +7,7 @@
     "en": "monitor your Netgear router",
     "nl": "verbind je Netgear router"
   },
-  "version": "0.0.8",
+  "version": "1.0.0",
 	"sdk": 2,
   "compatibility": ">= 1.5",
   "author": {
@@ -60,7 +60,7 @@
 					"type": "number",
 					"title": {
 							"en": "Attached devices",
-							"en": "Verbonden apparaten"
+							"nl": "Verbonden apparaten"
 					},
 					"getable": true,
 					"setable": false

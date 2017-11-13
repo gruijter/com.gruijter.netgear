@@ -2,8 +2,6 @@
 
 App to make Homey interact with Netgear routers.
 
-It allows you to
-
 See and log:
 * internet connection status
 * the internet upload and download speed
@@ -20,6 +18,10 @@ Do:
 * reboot the router
 
 ![image][mobile-card-image]
+
+![image][flow-cards-image]
+
+![image][insights-image]
 
 ### Device setup in Homey ###
 Only netgear devices that work in router mode can be added. Your Homey should be connected inside the LAN part of the router, not from outside (WAN). To setup go to "Devices" and add the Netgear router by filling in the admin password. The other fields can be left on default, unless you know what you are doing :). For some routertypes the SOAP port has to be changed to 80. After the router device is added successfully you can change the polling interval which is set to 1 minute as default.
@@ -56,15 +58,16 @@ If you really like the app you can buy me a beer.
 Version changelog
 
 ```
-v0.0.8	2017.11.11 added device autocomplete in flowcards. prepared option to empty the known devices list.
-v0.0.7	2017.11.xx trying to get orbi and r7800 to work as well: changed sessionId. added presence condition flowcard.
-v0.0.6 	2017.11.05 Added automatic IP resolver during pairing, added logger in app settings, improved error handling and debug information, implemented more compatible router interrogation (more router types should now work), added action 'new unknown device', added action 'online/offline', bugfixes
-v0.0.5	2017.10.29 Beta release
+v1.0.0	2017.11.13 First stable release
 
-to do: improve stability. fix option to empty the known devices list (bugreport: https://github.com/athombv/homey-issues-dp/issues/126). add support for r7800 and orbi.
+to do:
+fix option to empty the known devices list (bugreport: https://github.com/athombv/homey-issues-dp/issues/126 ).
+add support for r7800 and orbi (note: soap port is 80 for these devices)
 
 ```
 [forum]: https://forum.athom.com/discussion/3532
 [pp-donate-link]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VB7VKG5Y28M6N
 [pp-donate-image]: https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif
-[mobile-card-image]: https://forum.athom.com/uploads/editor/n3/ktcwwkqgvr1p.png
+[mobile-card-image]: https://forum.athom.com/uploads/editor/uy/8gbc8icfg8aj.png
+[flow-cards-image]: https://forum.athom.com/uploads/editor/bk/d0ckmek9ok0r.png
+[insights-image]: https://forum.athom.com/uploads/editor/qj/l7hpjcacn1qf.png
