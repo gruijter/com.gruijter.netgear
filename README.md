@@ -19,9 +19,9 @@ Do:
 
 ![image][mobile-card-image]
 
-![image][flow-cards-image]{:height="50%" width="50%"}
+![image][flow-cards-image]
 
-![image][insights-image]{:height="50%" width="50%"}
+![image][insights-image]
 
 ### Device setup in Homey ###
 Only netgear devices that work in router mode can be added. Your Homey should be connected inside the LAN part of the router, not from outside (WAN). To setup go to "Devices" and add the Netgear router by filling in the admin password. The other fields can be left on default, unless you know what you are doing :). For some routertypes the SOAP port has to be changed to 80. After the router device is added successfully you can change the polling interval which is set to 1 minute as default.
@@ -68,6 +68,6 @@ add support for r7800 and orbi (note: soap port is 80 for these devices)
 [forum]: https://forum.athom.com/discussion/3532
 [pp-donate-link]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VB7VKG5Y28M6N
 [pp-donate-image]: https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif
-[mobile-card-image]: https://forum.athom.com/uploads/editor/uy/8gbc8icfg8aj.png
+[mobile-card-image]: https://forum.athom.com/uploads/editor/uy/8gbc8icfg8aj.png {:height="50%" width="50%"}
 [flow-cards-image]: https://forum.athom.com/uploads/editor/bk/d0ckmek9ok0r.png | width=250
-[insights-image]: https://forum.athom.com/uploads/editor/qj/l7hpjcacn1qf.png
+[insights-image]: https://forum.athom.com/uploads/editor/qj/l7hpjcacn1qf.png | width="50%"
