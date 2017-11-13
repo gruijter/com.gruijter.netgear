@@ -69,5 +69,5 @@ add support for r7800 and orbi (note: soap port is 80 for these devices)
 [pp-donate-link]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VB7VKG5Y28M6N
 [pp-donate-image]: https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif
 [mobile-card-image]: https://forum.athom.com/uploads/editor/uy/8gbc8icfg8aj.png
-[flow-cards-image]: https://forum.athom.com/uploads/editor/bk/d0ckmek9ok0r.png | width=250
-[insights-image]: https://forum.athom.com/uploads/editor/qj/l7hpjcacn1qf.png | width="50%"
+[flow-cards-image]: https://forum.athom.com/uploads/editor/bk/d0ckmek9ok0r.png
+[insights-image]: https://forum.athom.com/uploads/editor/qj/l7hpjcacn1qf.png
