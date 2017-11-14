@@ -1,15 +1,15 @@
 const Homey = require('homey');
+
 module.exports = [
 	{
-		description:	'Show loglines',
-		method:      'GET',
-		path:        '/getlogs/',
+		description: 'Show loglines',
+		method: 'GET',
+		path: '/getlogs/',
 		requires_authorization: true,
 		role: 'owner',
-		fn: function( args, callback ) {
+		fn: function fn(args, callback) {
 			const result = Homey.app.getLogs();
 			callback(null, result);
-		}
-	}
-
+		},
+	},
 ];

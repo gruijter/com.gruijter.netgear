@@ -19,7 +19,7 @@ class MyApp extends Homey.App {
 		// const logfile = fs.createWriteStream('./userdata/logfile.txt');
 		// process.stdout.write = process.stderr.write = logfile.write.bind(logfile);
 
-		process.on('unhandledRejection', error => {
+		process.on('unhandledRejection', (error) => {
 			const logger = Homey.ManagerDrivers.getDriver('netgear').logger;
 			this.error('unhandledRejection! ', error);
 			logger.log('unhandledRejection! ', error);

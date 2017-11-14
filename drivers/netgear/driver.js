@@ -21,81 +21,79 @@ class NetgearDriver extends Homey.Driver {
 			let persistent = false;
 			const attachedDevices = this.readings.attachedDevices;
 			this.knownDevices = this.knownDevices || {};
-			for (let i = 0; i < attachedDevices.length; i++) {
+			for (let i = 0; i < attachedDevices.length; i += 1) {
 				if (!this.knownDevices.hasOwnProperty(attachedDevices[i].MAC)) {	// new device detected!
 					this.log(`new device added: ${attachedDevices[i].MAC} ${attachedDevices[i].Name}`);
 					this.logger.log(`new device added: ${attachedDevices[i].MAC} ${attachedDevices[i].Name}`);
 					persistent = true;
 					this.knownDevices[attachedDevices[i].MAC] = attachedDevices[i];
-					let tokens = {
-							'mac': attachedDevices[i].MAC,
-							'name': attachedDevices[i].Name,
-							'ip': attachedDevices[i].IP
+					const tokens = {
+						mac: attachedDevices[i].MAC,
+						name: attachedDevices[i].Name,
+						ip: attachedDevices[i].IP,
 					};
 					this.newAttachedDevice
-							.trigger(this, tokens)
-							.then( this.log(tokens) )
-							.catch((error) => {
-								this.error('trigger error', error);
-								this.logger.log('trigger error', error)
-							});
+						.trigger(this, tokens)
+						.then(this.log(tokens))
+						.catch((error) => {
+							this.error('trigger error', error);
+							this.logger.log('trigger error', error);
+						});
 				}
 				const lastOnline = this.knownDevices[attachedDevices[i].MAC].online || 0;
 				this.knownDevices[attachedDevices[i].MAC] = attachedDevices[i];
 				this.knownDevices[attachedDevices[i].MAC].online = lastOnline;
-				let lastSeen = new Date();
+				const lastSeen = new Date();
 				this.knownDevices[attachedDevices[i].MAC].lastSeen = lastSeen.toISOString(); // to turn it back into a date: Date.parse(test.lastSeen)
 				if (!this.knownDevices[attachedDevices[i].MAC].online) {
 					this.log(`Device came online: ${attachedDevices[i].MAC} ${attachedDevices[i].Name} ${attachedDevices[i].IP}`);
 					this.logger.log(`Device came online: ${attachedDevices[i].MAC} ${attachedDevices[i].Name} ${attachedDevices[i].IP}`);
-					let tokens = {
-							'mac': attachedDevices[i].MAC,
-							'name': attachedDevices[i].Name,
-							'ip': attachedDevices[i].IP
+					const tokens = {
+						mac: attachedDevices[i].MAC,
+						name: attachedDevices[i].Name,
+						ip: attachedDevices[i].IP,
 					};
 					this.deviceOnline
-							.trigger(this, tokens)
-							.then( this.log(tokens) )
-							.catch((error) => {
-								this.error('trigger error', error);
-								this.logger.log('trigger error', error)
-							});
+						.trigger(this, tokens)
+						.then(this.log(tokens))
+						.catch((error) => {
+							this.error('trigger error', error);
+							this.logger.log('trigger error', error);
+						});
 				}
 				this.knownDevices[attachedDevices[i].MAC].online = true;
 			}
 
 			// Loop through all known devices to see if they got detached
-			const offlineDelay = this.getSettings().offline_after*1000;	// default 5 minutes
+			const offlineDelay = this.getSettings().offline_after * 1000;	// default 5 minutes
 			let onlineCount = 0;
-			for (let key in this.knownDevices) {
-		    if( this.knownDevices.hasOwnProperty(key) ) {
-		      const device = this.knownDevices[key];
-					if ( (new Date() - Date.parse(device.lastSeen)) > offlineDelay ) {	// if not seen for more than offlineDelay
-						// console.log(`device ${device.MAC} went missing for too long ....`);
-						if (device.online) {
-							this.log(`Device went offline: ${device.MAC} ${device.Name} ${device.IP}`);
-							this.logger.log(`Device went offline: ${device.MAC} ${device.Name}`);
-							let tokens = {
-									'mac': device.MAC,
-									'name': device.Name,
-									'ip': device.IP
-							};
-							this.deviceOffline
-									.trigger(this, tokens)
-									.then( this.log(tokens) )
-									.catch((error) => {
-										this.error('trigger error', error);
-										this.logger.log('trigger error', error)
-									});
-						}
-						this.knownDevices[key].online = false;
+			Object.keys(this.knownDevices).forEach((key) => {
+				const device = this.knownDevices[key];
+				if ((new Date() - Date.parse(device.lastSeen)) > offlineDelay) {	// if not seen for more than offlineDelay
+					// console.log(`device ${device.MAC} went missing for too long ....`);
+					if (device.online) {
+						this.log(`Device went offline: ${device.MAC} ${device.Name} ${device.IP}`);
+						this.logger.log(`Device went offline: ${device.MAC} ${device.Name}`);
+						const tokens = {
+							mac: device.MAC,
+							name: device.Name,
+							ip: device.IP,
+						};
+						this.deviceOffline
+							.trigger(this, tokens)
+							.then(this.log(tokens))
+							.catch((error) => {
+								this.error('trigger error', error);
+								this.logger.log('trigger error', error);
+							});
 					}
-					// calculate online devices count
-					if (this.knownDevices[key].online) {
-						onlineCount++;
-					};
-		    }
-		  }
+					this.knownDevices[key].online = false;
+				}
+				// calculate online devices count
+				if (this.knownDevices[key].online) {
+					onlineCount += 1;
+				}
+			});
 			// store online devices count
 			this.onlineDeviceCount = onlineCount;
 
@@ -104,8 +102,7 @@ class NetgearDriver extends Homey.Driver {
 				this.setStoreValue('knownDevices', this.knownDevices);
 			}
 
-		}
-		catch (error) {
+		}	catch (error) {
 			this.error('error:', error);
 			this.logger.log('error:', error);
 		}
@@ -113,44 +110,42 @@ class NetgearDriver extends Homey.Driver {
 
 	// function to return the list of known attached devices for autocomplete flowcards
 	makeAutocompleteList() {	// call with NetgearDevice as this
-		let list = [];
-		for (let key in this.knownDevices) {
-			if( this.knownDevices.hasOwnProperty(key) ) {
-				const device = this.knownDevices[key];
-				list.push(
-					{
-						name: device.MAC,
-						description: device.Name
-					}
-				)
-			}
-		}
+		const list = [];
+		Object.keys(this.knownDevices).forEach((key) => {
+			const device = this.knownDevices[key];
+			list.push(
+				{
+					name: device.MAC,
+					description: device.Name,
+				},
+			);
+		});
 		return list;
 	}
 
 	login()	{	// call with NetgearDevice as this
-		return new Promise ((resolve, reject) => {
+		return new Promise((resolve, reject) => {
 			this.routerSession.login()
 				.then((result) => {
 					this.log('login succsesfull @ driver');
 					this.logger.log('login succsesfull @ driver');
 					this.setAvailable()
 						.catch(this.error);
-					resolve(result);
+					return resolve(result);
 				})
 				.catch((error) => {
 					this.error('Login error @ driver', error.message);
 					this.logger.log('Login error @ driver', error.message);
 					this.setUnavailable(error.message)
 						.catch(this.error);
-					reject(error);
+					return reject(error);
 				});
 		});
 	}
 
 	getRouterData() {		// call with NetgearDevice as this
-		let readings = {};
-		return new Promise ( async (resolve, reject) => {
+		const readings = {};
+		return new Promise(async (resolve, reject) => {
 			try {
 				// get new data from router
 				if (!this.routerSession.logged_in) {
@@ -160,19 +155,19 @@ class NetgearDriver extends Homey.Driver {
 				readings.info = await this.routerSession.getInfo();
 				readings.attachedDevices = await this.routerSession.getAttachedDevices();
 				readings.trafficMeter = await this.routerSession.getTrafficMeter();
-				readings.timestamp = new Date ();
+				readings.timestamp = new Date();
 				// console.log(util.inspect(readings));
-				resolve(readings);
+				return resolve(readings);
 			} catch (error) {
-					this.error('getRouterData error', error);
-					// this.setUnavailable(error.message)
-					// 	.catch(this.error);
-					reject(error);
-				}
+				this.error('getRouterData error', error);
+				// this.setUnavailable(error.message)
+				// 	.catch(this.error);
+				return reject(error);
+			}
 		});
 	}
 
-	async blockOrAllow(mac, action) {   // call with NetgearDevice as this
+	async blockOrAllow(mac, action) { // call with NetgearDevice as this
 		try {
 			if (!this.routerSession.logged_in) {
 				await this.routerSession.login();
@@ -182,23 +177,21 @@ class NetgearDriver extends Homey.Driver {
 			await this.routerSession.configurationStarted();
 			await this.routerSession.setBlockDevice(mac, action);
 			await this.routerSession.configurationFinished();
-		}
-		catch (error) {
+		}	catch (error) {
 			this.error('blockOrAllow error', error);
 			this.logger.log('blockOrAllow error', error);
 		}
 	}
 
-	async reboot() {   // call with NetgearDevice as this
+	async reboot() { // call with NetgearDevice as this
 		try {
-			this.log(`router reboot requested`);
-			this.logger.log(`router reboot requested`);
+			this.log('router reboot requested');
+			this.logger.log('router reboot requested');
 			await this.routerSession.login();
 			await this.routerSession.configurationStarted();
 			await this.routerSession.reboot();
 			await this.routerSession.configurationFinished();
-		}
-		catch (error) {
+		}	catch (error) {
 			this.error('reboot error', error);
 			this.logger.log('reboot error', error);
 		}
@@ -212,7 +205,7 @@ class NetgearDriver extends Homey.Driver {
 
 			// get setting for debug purposes
 			router.getCurrentSetting(data.host)
-				.then( (result) => {
+				.then((result) => {
 					this.logger.log(JSON.stringify(result));
 				})
 				.catch((error) => {
@@ -224,11 +217,11 @@ class NetgearDriver extends Homey.Driver {
 				if (!err) {
 					data.host = address || data.host;
 				}
-			  this.log(`using as router address: ${data.host}`);
+				this.log(`using as router address: ${data.host}`);
 				this.logger.log(`using as router address: ${data.host}`);
 				// try to login
 				router.login()
-					.then( () => {
+					.then(() => {
 						router.getInfo()
 							.then((result) => {
 								this.logger.log(JSON.stringify(result));
