@@ -235,7 +235,7 @@ class NetgearRouter {
 				res.on('end', () => {
 					res.body = resBody;
 					if (res.body == '') { return reject(Error('Error getting current setting')); }
-					if (!res.body.includes('SOAPVersion=') && !res.body.includes('Model=')) {
+					if (!res.body.includes('Model=')) {
 						return reject(Error('This is not a valid Netgear router'));
 					}
 					const currentSetting = {};
@@ -485,7 +485,7 @@ class NetgearRouter {
 				return reject(Error('Not logged in'));
 			}
 			const headers = {
-				SOAPAction: action
+				SOAPAction: action,
 				// Connection: 'keep-alive',
 				// 'Content-Length': Buffer.byteLength(message)
 				// Host: `${this.host}:${this.port}`,
@@ -494,7 +494,7 @@ class NetgearRouter {
 				// 'Accept-Encoding': 'gzip, deflate',
 				// 'Content-Type': 'text/xml; charset=utf-8',
 				// 'Cache-Control': 'no-cache',
-				// 'User-Agent': 'SOAP Toolkit 3.0'
+				'User-Agent': 'SOAP Toolkit 3.0'
 			};
 			const options = {
 				hostname: this.host,

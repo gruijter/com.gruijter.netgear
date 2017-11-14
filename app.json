@@ -48,7 +48,7 @@
 					"type": "number",
 					"title": {
 							"en": "Upload speed",
-							"en": "Upload snelheid"
+							"nl": "Upload snelheid"
 					},
 					"getable": true,
 					"setable": false,
