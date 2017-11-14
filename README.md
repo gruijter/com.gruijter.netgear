@@ -63,7 +63,7 @@ v1.0.0	2017.11.13 First stable release
 
 to do:
 fix option to empty the known devices list (bugreport: https://github.com/athombv/homey-issues-dp/issues/126 ).
-add support for r7800 and orbi (note: soap port is 80 for these devices)
+add support for r7800, R9000 and orbi (note: soap port is 80 for these devices)
 
 ```
 [forum]: https://forum.athom.com/discussion/3532
