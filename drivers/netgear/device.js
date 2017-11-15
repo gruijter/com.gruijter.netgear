@@ -123,8 +123,8 @@ class NetgearDevice extends Homey.Device {
 		  .registerRunListener((args, state) => {
 				if (args.hasOwnProperty('NetgearDevice')) {
 					let deviceOnline2 = false;
-					if (args.NetgearDevice.knownDevices.hasOwnProperty(args.mac)) {
-						deviceOnline2 = args.NetgearDevice.knownDevices[args.mac].online;	// true or false
+					if (args.NetgearDevice.knownDevices.hasOwnProperty(args.mac.name)) {
+						deviceOnline2 = args.NetgearDevice.knownDevices[args.mac.name].online;	// true or false
 					}
 					return Promise.resolve(deviceOnline2);
 				}
@@ -145,9 +145,9 @@ class NetgearDevice extends Homey.Device {
 		const blockDevice = new Homey.FlowCardAction('block_device');
 		blockDevice.register()
 			.on('run', (args, state, callback) => {
-			// console.log(args);  //args.mac and args.device
+			// console.log(args.mac.name);  //args.mac and args.device
 			// console.log(state);
-				this._driver.blockOrAllow.call(this, args.mac, 'Block');
+				this._driver.blockOrAllow.call(this, args.mac.name, 'Block');
 				callback(null, true);
 			})
 			.getArgument('mac')
@@ -164,9 +164,9 @@ class NetgearDevice extends Homey.Device {
 		const allowDevice = new Homey.FlowCardAction('allow_device');
 		allowDevice.register()
 			.on('run', (args, state, callback) => {
-			// console.log(args);
+			// console.log(args.mac.name);
 			// console.log(state);
-				this._driver.blockOrAllow.call(this, args.mac, 'Allow');
+				this._driver.blockOrAllow.call(this, args.mac.name, 'Allow');
 				callback(null, true);
 			})
 			.getArgument('mac')

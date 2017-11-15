@@ -186,6 +186,7 @@ class NetgearRouter {
 	async login(password, user, host, port) {
 		// Resolves promise of login status. Rejects if login fails or error occurred.
 		// console.log('Login');
+
 		if (this.soapVerion === undefined) {
 			await this.getCurrentSetting(host)
 				.catch(console.log);
@@ -202,12 +203,6 @@ class NetgearRouter {
 					this.logged_in = isValidResponse(result);
 					if (this.logged_in) {
 						return resolve(this.logged_in);
-					}
-					if (result.body.includes('<ResponseCode>401</ResponseCode>')) {
-						return reject(Error('incorrect username/password, or reboot netgear required'));
-					}
-					if (!result.body.includes('<ResponseCode>')) {
-						return reject(Error('incorrect SOAP port / response'));
 					}
 					return reject(Error(`${result.statusCode}`));
 				})
@@ -480,7 +475,10 @@ class NetgearRouter {
 					resolve(res.body);
 				})
 				.catch((error) => {
-					reject(error);
+					if (error.message.includes('<ResponseCode>002</ResponseCode>')) {
+						return reject(Error(`Block/Allow failed for ${MAC}. Unknown MAC address?`));
+					}
+					return reject(error);
 				});
 		});
 	}
@@ -492,14 +490,15 @@ class NetgearRouter {
 			}
 			const headers = {
 				SOAPAction: action,
-				// Connection: 'keep-alive',
-				// 'Content-Length': Buffer.byteLength(message)
+				Connection: 'keep-alive',
+				'Content-Length': Buffer.byteLength(message),
 				// Host: `${this.host}:${this.port}`,
 				// Pragma: 'no-cache',
-				// Accept: 'text/xml',
+				Accept: 'text/xml',
 				// 'Accept-Encoding': 'gzip, deflate',
-				// 'Content-Type': 'text/xml; charset=utf-8',
+				'Content-Type': 'text/xml; charset=utf-8',
 				// 'Cache-Control': 'no-cache',
+				// 'Accept-Language': 'nl-nl',
 				// 'User-Agent': 'SOAP Toolkit 3.0'
 			};
 			if (this.soapVersion === 3) {
@@ -511,6 +510,7 @@ class NetgearRouter {
 				path: '/soap/server_sa/',
 				headers,
 				method: 'POST',
+				auth: `${this.username}:${this.password}`,
 			};
 			const router = this;
 			const req = http.request(options, (res) => {

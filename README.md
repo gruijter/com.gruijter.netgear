@@ -58,7 +58,7 @@ If you really like the app you can buy me a beer.
 Version changelog
 
 ```
-v1.0.1	2017.11.14 ***WIP*** minor fixes. Another try for orbi etc.
+v1.0.2	2017.11.15 Bugfixes in flowcards. Another try for orbi, R7800, R9000 etc.
 v1.0.0	2017.11.13 First stable release
 
 to do:
