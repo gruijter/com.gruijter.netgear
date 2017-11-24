@@ -7,13 +7,20 @@
     "en": "monitor your Netgear router",
     "nl": "verbind je Netgear router"
   },
-  "version": "1.0.2",
+  "version": "1.1.0",
 	"sdk": 2,
   "compatibility": ">= 1.5",
   "author": {
       "name": "Robin Gruijter",
       "email": "gruijter@hotmail.com"
   },
+	"contributing": {
+		"donate": {
+			"paypal": {
+				"username": "gruijter"
+			}
+		}
+	},
 
   "images": {
     "large": "./assets/images/large.jpg",

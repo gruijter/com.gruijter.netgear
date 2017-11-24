@@ -24,7 +24,7 @@ Do:
 ![image][insights-image]
 
 ### Device setup in Homey ###
-Only netgear devices that work in router mode can be added. Your Homey should be connected inside the LAN part of the router, not from outside (WAN). To setup go to "Devices" and add the Netgear router by filling in the admin password. The other fields can be left on default, unless you know what you are doing :). For some routertypes the SOAP port has to be changed to 80. After the router device is added successfully you can change the polling interval which is set to 1 minute as default.
+Only netgear devices that work in router mode can be added. Your Homey should be connected inside the LAN part of the router, not from outside (WAN). To setup go to "Devices" and add the Netgear router by filling in the admin password. For some router types (like Orbi, R7800 and R9000) the SOAP port has to be set to 80 in stead of 5000. The other fields can be left on default, unless you know what you are doing :). After the router device is added successfully you can change the polling interval which is set to 1 minute as default.
 
 ### One time setup of the router ###
 For Homey to get all the functionality you need to do some one time settings in the router. Depending on the router type and firmware you might not have some of this functionality. Make sure you are on the latest router firmware.
@@ -32,7 +32,7 @@ For Homey to get all the functionality you need to do some one time settings in 
 - To be able to block or allow a device, enable access control: routerlogin.net > advanced > security > access control.
 
 ### Supported routers ###
-In general: If you can use the genie app to manage the router then my app will likely do something. The app has been confirmed to work with WNDR4500v2, R6250, R7000 and R8000. Other types like Orbi and R7800 are still work in progress.
+In general: If you can use the genie app to manage the router then my app will likely do something. The app has been confirmed to work with WNDR4500v2, R6250, R7000, R7800 and R8000.
 You can check your router version by browsing to http://routerlogin.net/currentsetting.htm . According to the NETGEAR Genie app description, the following routers might work:
 
 Wi-Fi Routers: Orbi AC1450 Centria (WNDR4700, WND4720) JNR1010 JNR3210 JR6150 JWNR2010 R6050 R6100 R6200 R6220 R6250 R6300 R6400 R6700 R6900 R7000 R7500 R7500 R7800 R7900 R8000 R8300 R8500 R9000 WNDR3400v2 WNDR3700v3 WNDR3800 WNDR4000 WNDR4300 WNDR4500 WNDRMAC WNR1000v2 WNR1500 WNR2020 WNR2020v2 WNR2000v3 WNR2200 WNR2500 WNR3500Lv2 WNR612v2 WNR614
@@ -58,12 +58,15 @@ If you really like the app you can buy me a beer.
 Version changelog
 
 ```
+v1.1.0	2017.11.25 Router compatibility confirmed for R7800 (orbi, R9000 etc. ?)
 v1.0.2	2017.11.15 Bugfixes in flowcards. Another try for orbi, R7800, R9000 etc.
 v1.0.0	2017.11.13 First stable release
 
 to do:
+Stability: Fix responseCode 501 warnings. Fix Error parsing device-list.
 fix option to empty the known devices list (bugreport: https://github.com/athombv/homey-issues-dp/issues/126 ).
-add support for r7800, R9000 and orbi (note: soap port is 80 for these devices)
+Auto soap port detection during pairing.
+Allow all and Block all action card?
 
 ```
 [forum]: https://forum.athom.com/discussion/3532

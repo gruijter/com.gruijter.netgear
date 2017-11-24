@@ -43,11 +43,11 @@ class MyApp extends Homey.App {
 module.exports = MyApp;
 
 // const router = new NetgearRouter([password], [user], [host], [port]);
-
+//
 // router.login()	// [password], [user], [host], [port]
-// 	.then(
-// 		console.log(util.inspect(router))
-// 	)
+// 	.then(() => {
+// 		console.log(util.inspect(router));
+// 	})
 // 	.catch((error) => {
 // 		console.log(error);
 // 	});
@@ -87,18 +87,23 @@ module.exports = MyApp;
 // const blockme = async () => {
 // 	try {
 // 		await router.login();
-// 		console.log(await router.configurationStarted());
-// 		console.log(await router.setBlockDevice('xxxx', 'Block'));
-// 		console.log(await router.getAttachedDevices());
-// 		console.log(await router.setBlockDevice('xxxx', 'Allow'));
-// 		console.log(await router.getAttachedDevices());
-// 		console.log(await router.configurationFinished());
+// 		await router.setBlockDevice('68:A4:0E:04:B1:0F', 'Block');
+// 		// console.log(await router.getAttachedDevices2());
+// 		await router.setBlockDevice('68:A4:0E:04:B1:0F', 'Allow');
+// 		router.setBlockDevice('68:A4:0E:04:B1:0F', 'Block')
+// 			.catch((error) => {
+// 				console.log(error);
+// 			});
+// 		router.setBlockDevice('68:A4:0E:04:B1:0F', 'Allow')
+// 			.catch((error) => {
+// 				console.log(error);
+// 			});
+// 		// console.log(await router.getAttachedDevices());
+// 	}	catch (error) {
+// 		console.log(error);
 // 	}
-// 	catch (error) {
-// 	console.log(error);
-// 	}
-// }
-
+// };
+//
 // blockme();
 
 // router.reboot()

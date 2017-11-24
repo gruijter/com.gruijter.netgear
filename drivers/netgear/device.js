@@ -43,7 +43,6 @@ class NetgearDevice extends Homey.Device {
 			}
 			if (this.getCapabilityValue('attached_devices') !== this.onlineDeviceCount) {
 				this.setCapabilityValue('attached_devices', this.onlineDeviceCount);
-				// make a flowcard trigger here
 			}
 			if (downloadSpeed >= 0 && uploadSpeed >= 0) {	// disregard midnight measurements
 				if ((this.getCapabilityValue('download_speed') !== downloadSpeed) || (this.getCapabilityValue('upload_speed') !== uploadSpeed)) {
@@ -144,10 +143,9 @@ class NetgearDevice extends Homey.Device {
 		// register action flow cards
 		const blockDevice = new Homey.FlowCardAction('block_device');
 		blockDevice.register()
-			.on('run', (args, state, callback) => {
-			// console.log(args.mac.name);  //args.mac and args.device
-			// console.log(state);
-				this._driver.blockOrAllow.call(this, args.mac.name, 'Block');
+			.on('run', async (args, state, callback) => {
+				await this._driver.blockOrAllow.call(this, args.mac.name, 'Block');
+				// this.log(args.mac.name);
 				callback(null, true);
 			})
 			.getArgument('mac')
@@ -163,10 +161,9 @@ class NetgearDevice extends Homey.Device {
 
 		const allowDevice = new Homey.FlowCardAction('allow_device');
 		allowDevice.register()
-			.on('run', (args, state, callback) => {
-			// console.log(args.mac.name);
-			// console.log(state);
-				this._driver.blockOrAllow.call(this, args.mac.name, 'Allow');
+			.on('run', async (args, state, callback) => {
+				await this._driver.blockOrAllow.call(this, args.mac.name, 'Allow');
+				// this.log(args.mac.name);
 				callback(null, true);
 			})
 			.getArgument('mac')
@@ -183,8 +180,6 @@ class NetgearDevice extends Homey.Device {
 		const reboot = new Homey.FlowCardAction('reboot');
 		reboot.register()
 			.on('run', (args, state, callback) => {
-			// console.log(args);  //args.mac and args.device
-			// console.log(state);
 				this._driver.reboot.call(this);
 				callback(null, true);
 			});

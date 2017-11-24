@@ -34,7 +34,7 @@ class NetgearDriver extends Homey.Driver {
 					};
 					this.newAttachedDevice
 						.trigger(this, tokens)
-						.then(this.log(tokens))
+						// .then(this.log(tokens))
 						.catch((error) => {
 							this.error('trigger error', error);
 							this.logger.log('trigger error', error);
@@ -55,7 +55,7 @@ class NetgearDriver extends Homey.Driver {
 					};
 					this.deviceOnline
 						.trigger(this, tokens)
-						.then(this.log(tokens))
+						// .then(this.log(tokens))
 						.catch((error) => {
 							this.error('trigger error', error);
 							this.logger.log('trigger error', error);
@@ -69,8 +69,7 @@ class NetgearDriver extends Homey.Driver {
 			let onlineCount = 0;
 			Object.keys(this.knownDevices).forEach((key) => {
 				const device = this.knownDevices[key];
-				if ((new Date() - Date.parse(device.lastSeen)) > offlineDelay) {	// if not seen for more than offlineDelay
-					// console.log(`device ${device.MAC} went missing for too long ....`);
+				if ((new Date() - Date.parse(device.lastSeen)) > offlineDelay) {
 					if (device.online) {
 						this.log(`Device went offline: ${device.MAC} ${device.Name} ${device.IP}`);
 						this.logger.log(`Device went offline: ${device.MAC} ${device.Name}`);
@@ -81,7 +80,7 @@ class NetgearDriver extends Homey.Driver {
 						};
 						this.deviceOffline
 							.trigger(this, tokens)
-							.then(this.log(tokens))
+							// .then(this.log(tokens))
 							.catch((error) => {
 								this.error('trigger error', error);
 								this.logger.log('trigger error', error);
@@ -148,39 +147,43 @@ class NetgearDriver extends Homey.Driver {
 		return new Promise(async (resolve, reject) => {
 			try {
 				// get new data from router
-				if (!this.routerSession.logged_in) {
+				if (!this.routerSession.loggedIn) {
 					await this._driver.login.call(this);
 				}
 				readings.currentSetting = await this.routerSession.getCurrentSetting();
 				readings.info = await this.routerSession.getInfo();
-				readings.attachedDevices = await this.routerSession.getAttachedDevices();
+				if (this.routerSession.soapVersion === 3) {
+					readings.attachedDevices = await this.routerSession.getAttachedDevices2();
+				} else {
+					readings.attachedDevices = await this.routerSession.getAttachedDevices();
+				}
 				readings.trafficMeter = await this.routerSession.getTrafficMeter();
 				readings.timestamp = new Date();
 				// console.log(util.inspect(readings));
 				return resolve(readings);
 			} catch (error) {
 				this.error('getRouterData error', error);
-				// this.setUnavailable(error.message)
-				// 	.catch(this.error);
 				return reject(error);
 			}
 		});
 	}
 
-	async blockOrAllow(mac, action) { // call with NetgearDevice as this
-		try {
-			if (!this.routerSession.logged_in) {
-				await this.routerSession.login();
+	blockOrAllow(mac, action) { // call with NetgearDevice as this
+		return new Promise(async (resolve, reject) => {
+			try {
+				this.log(`${action} requested for device ${mac}`);
+				this.logger.log(`${action} requested for device ${mac}`);
+				if (!this.routerSession.loggedIn) {
+					await this.routerSession.login();
+				}
+				await this.routerSession.setBlockDevice(mac, action);
+				resolve(true);
+			}	catch (error) {
+				this.error('blockOrAllow error', error);
+				this.logger.log('blockOrAllow error', error.message);
+				resolve(false);
 			}
-			this.log(`${action} requested for device ${mac}`);
-			this.logger.log(`${action} requested for device ${mac}`);
-			await this.routerSession.configurationStarted();
-			await this.routerSession.setBlockDevice(mac, action);
-			await this.routerSession.configurationFinished();
-		}	catch (error) {
-			this.error('blockOrAllow error', error);
-			this.logger.log('blockOrAllow error', error);
-		}
+		});
 	}
 
 	async reboot() { // call with NetgearDevice as this
@@ -188,12 +191,10 @@ class NetgearDriver extends Homey.Driver {
 			this.log('router reboot requested');
 			this.logger.log('router reboot requested');
 			await this.routerSession.login();
-			await this.routerSession.configurationStarted();
 			await this.routerSession.reboot();
-			await this.routerSession.configurationFinished();
 		}	catch (error) {
 			this.error('reboot error', error);
-			this.logger.log('reboot error', error);
+			this.logger.log('reboot error', error.message);
 		}
 	}
 
