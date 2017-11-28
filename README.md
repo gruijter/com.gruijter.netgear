@@ -58,6 +58,7 @@ If you really like the app you can buy me a beer.
 Version changelog
 
 ```
+v1.1.1	2017.11.28 Workaround for Netgear non complaincy to the XML standard (& in devicenames)
 v1.1.0	2017.11.25 Router compatibility confirmed for R7800 (orbi, R9000 etc. ?)
 v1.0.2	2017.11.15 Bugfixes in flowcards. Another try for orbi, R7800, R9000 etc.
 v1.0.0	2017.11.13 First stable release

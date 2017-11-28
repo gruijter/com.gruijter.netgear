@@ -1,13 +1,13 @@
 {
   "id": "com.gruijter.netgear",
   "name": {
-      "en": "Netgear router"
+      "en": "Netgear Router"
   },
   "description": {
     "en": "monitor your Netgear router",
     "nl": "verbind je Netgear router"
   },
-  "version": "1.1.0",
+  "version": "1.1.1",
 	"sdk": 2,
   "compatibility": ">= 1.5",
   "author": {

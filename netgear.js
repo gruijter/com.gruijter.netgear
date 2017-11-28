@@ -334,13 +334,13 @@ class NetgearRouter {
 					const decoded = raw.replace(unknownDeviceEncoded, unknownDeviceDecoded);
 					const entries = decoded.split('@');
 					if (entries.length < 1) {
-						return reject(Error('Error parsing device-list'));
+						return reject(Error('Error parsing device-list (soap v2)'));
 					}
 					// for (const entry in entries) {
 					Object.keys(entries).forEach((entry) => {
 						const info = entries[entry].split(';');
 						if (info.length === 0) {
-							return reject(Error('Error parsing device-list'));
+							return reject(Error('Error parsing device-list (soap v2)'));
 						}
 						if (info.length >= 5) { // Ignore first element if it is the total device count (info.length == 1)
 							const device = {
@@ -380,7 +380,12 @@ class NetgearRouter {
 			const message = soapAttachedDevices2(this.sessionId);
 			this._makeRequest(actionGetAttachedDevices2, message)
 				.then((result) => {
-					parseString(result.body, async (err, res) => {
+					// Fix use of special characters in the devicename
+					// Netgear output is not conforming to XML standards!
+					const patchedBody = result.body
+						.replace('<DeviceName>', '<DeviceName><![CDATA[')
+						.replace('</DeviceName>', ']]>/DeviceName>');
+					parseString(patchedBody, async (err, res) => {
 						if (err) {
 							reject(Error(err));
 							return;
@@ -390,7 +395,12 @@ class NetgearRouter {
 								reject(error);
 							});
 						const entries = soapBody['m:GetAttachDevice2Response'][0]['NewAttachDevice'][0]['Device'];
-						if (entries === undefined || entries.length < 1) {
+						if (entries === undefined) {
+							this.log('result: ', res);
+							this.log('soapBody: ', soapBody);
+							reject(Error('Error parsing device-list (entries undefined)'));
+						}
+						if (entries.length < 1) {
 							reject(Error('Error parsing device-list'));
 						}
 						const entryCount = entries.length;
@@ -412,7 +422,15 @@ class NetgearRouter {
 								Upload: Number(entries[i].Upload[0]),
 								Download: Number(entries[i].Download[0]),
 								QosPriority: Number(entries[i].QosPriority[0]),	// 1, 2, 3, 4
+								DeviceModel: '',
+								Grouping: '0',
+								SchedulePeriod: '0',
 							};
+							if (entries[i].length >= 18) { // only available for certain routers?:
+								device.DeviceModel = entries[i].DeviceModel[0]; // '',
+								device.Grouping = Number(entries[i].Grouping[0]); // 0
+								device.SchedulePeriod = Number(entries[i].SchedulePeriod[0]); // 0
+							}
 							devices.push(device);
 						}
 						resolve(devices);
