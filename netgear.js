@@ -382,12 +382,11 @@ class NetgearRouter {
 				.then((result) => {
 					// Fix use of special characters in the devicename
 					// Netgear output is not conforming to XML standards!
-					const patchedBody = device.body
-					const patchedBody = device
+					const patchedBody = result.body
 						.replace(/<Name>/g, '<Name><![CDATA[')
 						.replace(/<\/Name>/g, ']]></Name>')
 						.replace(/<DeviceModel>/g, '<DeviceModel><![CDATA[')
-						.replace(/<\/DeviceModel>/g, ']]></DeviceModel>');
+						.replace(/<\/DeviceModel>/g, ']]></DeviceModel>')
 						.replace(/<DeviceTypeName>/g, '<DeviceTypeName><![CDATA[')
 						.replace(/<\/DeviceTypeName>/g, ']]></DeviceTypeName>');
 					parseString(patchedBody, async (err, res) => {
