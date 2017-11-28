@@ -382,9 +382,14 @@ class NetgearRouter {
 				.then((result) => {
 					// Fix use of special characters in the devicename
 					// Netgear output is not conforming to XML standards!
-					const patchedBody = result.body
-						.replace(/<DeviceName>/g, '<DeviceName><![CDATA[')
-						.replace(/<\/DeviceName>/g, ']]></DeviceName>');
+					const patchedBody = device.body
+					const patchedBody = device
+						.replace(/<Name>/g, '<Name><![CDATA[')
+						.replace(/<\/Name>/g, ']]></Name>')
+						.replace(/<DeviceModel>/g, '<DeviceModel><![CDATA[')
+						.replace(/<\/DeviceModel>/g, ']]></DeviceModel>');
+						.replace(/<DeviceTypeName>/g, '<DeviceTypeName><![CDATA[')
+						.replace(/<\/DeviceTypeName>/g, ']]></DeviceTypeName>');
 					parseString(patchedBody, async (err, res) => {
 						if (err) {
 							reject(Error(err));
@@ -396,8 +401,7 @@ class NetgearRouter {
 							});
 						const entries = soapBody['m:GetAttachDevice2Response'][0]['NewAttachDevice'][0]['Device'];
 						if (entries === undefined) {
-							this.log('result: ', res);
-							this.log('soapBody: ', soapBody);
+							console.log(soapBody);
 							reject(Error('Error parsing device-list (entries undefined)', res));
 						}
 						if (entries.length < 1) {
