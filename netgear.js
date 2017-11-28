@@ -383,8 +383,8 @@ class NetgearRouter {
 					// Fix use of special characters in the devicename
 					// Netgear output is not conforming to XML standards!
 					const patchedBody = result.body
-						.replace('<DeviceName>', '<DeviceName><![CDATA[')
-						.replace('</DeviceName>', ']]>/DeviceName>');
+						.replace(/<DeviceName>/g, '<DeviceName><![CDATA[')
+						.replace(/<\/DeviceName>/g, ']]></DeviceName>');
 					parseString(patchedBody, async (err, res) => {
 						if (err) {
 							reject(Error(err));
@@ -398,7 +398,7 @@ class NetgearRouter {
 						if (entries === undefined) {
 							this.log('result: ', res);
 							this.log('soapBody: ', soapBody);
-							reject(Error('Error parsing device-list (entries undefined)'));
+							reject(Error('Error parsing device-list (entries undefined)', res));
 						}
 						if (entries.length < 1) {
 							reject(Error('Error parsing device-list'));
@@ -419,17 +419,25 @@ class NetgearRouter {
 								Schedule: entries[i].Schedule[0],							// e.g. 'false'
 								DeviceType: Number(entries[i].DeviceType[0]),	// a number
 								DeviceTypeUserSet: entries[i].DeviceTypeUserSet[0] === 'true',	// e.g. 'false',
+								DeviceTypeName: '',	// unknown, found in orbi response
+								DeviceModel: '', // unknown, found in R7800 and orbi response
+								DeviceModelUserSet: false, // // unknown, found in orbi response
 								Upload: Number(entries[i].Upload[0]),
 								Download: Number(entries[i].Download[0]),
 								QosPriority: Number(entries[i].QosPriority[0]),	// 1, 2, 3, 4
-								DeviceModel: '',
 								Grouping: '0',
 								SchedulePeriod: '0',
+								ConnAPMAC: '', // unknown, found in orbi response
 							};
-							if (entries[i].length >= 18) { // only available for certain routers?:
+							if (Object.keys(entries[i]).length >= 18) { // only available for certain routers?:
 								device.DeviceModel = entries[i].DeviceModel[0]; // '',
 								device.Grouping = Number(entries[i].Grouping[0]); // 0
 								device.SchedulePeriod = Number(entries[i].SchedulePeriod[0]); // 0
+							}
+							if (Object.keys(entries[i]).length >= 21) { // only available for certain routers?:
+								device.DeviceTypeName = entries[i].DeviceTypeName[0]; // '',
+								device.DeviceModelUserSet = entries[i].DeviceModelUserSet[0] === 'true'; // e.g. 'false',
+								device.ConnAPMAC = entries[i].ConnAPMAC[0]; // MAC of connected orbi?
 							}
 							devices.push(device);
 						}
