@@ -87,14 +87,14 @@ module.exports = MyApp;
 // const blockme = async () => {
 // 	try {
 // 		await router.login();
-// 		await router.setBlockDevice('68:A4:0E:04:B1:0F', 'Block');
+// 		await router.setBlockDevice('AA:BB:CC:DD:EE:FF', 'Block');
 // 		// console.log(await router.getAttachedDevices2());
-// 		await router.setBlockDevice('68:A4:0E:04:B1:0F', 'Allow');
-// 		router.setBlockDevice('68:A4:0E:04:B1:0F', 'Block')
+// 		await router.setBlockDevice('AA:BB:CC:DD:EE:FF', 'Allow');
+// 		router.setBlockDevice('AA:BB:CC:DD:EE:FF', 'Block')
 // 			.catch((error) => {
 // 				console.log(error);
 // 			});
-// 		router.setBlockDevice('68:A4:0E:04:B1:0F', 'Allow')
+// 		router.setBlockDevice('AA:BB:CC:DD:EE:FF', 'Allow')
 // 			.catch((error) => {
 // 				console.log(error);
 // 			});
