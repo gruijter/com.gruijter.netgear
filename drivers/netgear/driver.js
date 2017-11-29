@@ -154,7 +154,6 @@ class NetgearDriver extends Homey.Driver {
 				readings.info = await this.routerSession.getInfo();
 				if (this.routerSession.soapVersion === 3) {
 					readings.attachedDevices = await this.routerSession.getAttachedDevices2();
-					// .catch(error => reject(error));
 				} else {
 					readings.attachedDevices = await this.routerSession.getAttachedDevices();
 				}

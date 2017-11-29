@@ -400,8 +400,8 @@ class NetgearRouter {
 							});
 						const entries = soapBody['m:GetAttachDevice2Response'][0]['NewAttachDevice'][0]['Device'];
 						if (entries === undefined) {
-							console.log(soapBody);
 							reject(Error('Error parsing device-list (entries undefined)', res));
+							return;
 						}
 						if (entries.length < 1) {
 							reject(Error('Error parsing device-list'));
