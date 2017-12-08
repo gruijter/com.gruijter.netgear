@@ -15,21 +15,21 @@ const actionConfigurationFinished = 'urn:NETGEAR-ROUTER:service:DeviceConfig:1#C
 const actionSetBlockDevice = 'urn:NETGEAR-ROUTER:service:DeviceConfig:1#SetBlockDeviceByMAC';
 const actionReboot = 'urn:NETGEAR-ROUTER:service:DeviceConfig:1#Reboot';
 
-const defaultSessionId = 'A7D88AE69687E58D9A00';	// crypto.randomBytes(Math.ceil(20/2)).toString('hex').slice(0,20).toUpperCase(); //'A7D88AE69687E58D9A00'; // '10588AE69687E58D9A00'
+const defaultSessionId = 'A7D88AE69687E58D9A00';	// '10588AE69687E58D9A00' // crypto.randomBytes(Math.ceil(20/2)).toString('hex').slice(0,20).toUpperCase();
 
-const regexResponseCode = new RegExp('<ResponseCode>(.*)</ResponseCode>');
-const regexAttachedDevices = new RegExp('<NewAttachDevice>(.*)</NewAttachDevice>');
-const regexNewTodayUpload = new RegExp('<NewTodayUpload>(.*)</NewTodayUpload>');
-const regexNewTodayDownload = new RegExp('<NewTodayDownload>(.*)</NewTodayDownload>');
-const regexNewMonthUpload = new RegExp('<NewMonthUpload>(.*)</NewMonthUpload>');
-const regexNewMonthDownload = new RegExp('<NewMonthDownload>(.*)</NewMonthDownload>');
-const unknownDeviceDecoded = '<unknown>';
+const regexResponseCode = new RegExp(/<ResponseCode>(.*)<\/ResponseCode>/);
+const regexAttachedDevices = new RegExp(/<NewAttachDevice>(.*)<\/NewAttachDevice>/);
+const regexNewTodayUpload = new RegExp(/<NewTodayUpload>(.*)<\/NewTodayUpload>/);
+const regexNewTodayDownload = new RegExp(/<NewTodayDownload>(.*)<\/NewTodayDownload>/);
+const regexNewMonthUpload = new RegExp(/<NewMonthUpload>(.*)<\/NewMonthUpload>/);
+const regexNewMonthDownload = new RegExp(/<NewMonthDownload>(.*)<\/NewMonthDownload>/);
+const unknownDeviceDecoded = 'unknown';
 const unknownDeviceEncoded = '&lt;unknown&gt;';
 
 const defaultHost = 'routerlogin.net';
 const defaultUser = 'admin';
 const defaultPassword = 'password';
-const defaultPort = 5000;	// 80 for orbi and R7800
+// const defaultPort = 5000;	// 80 for orbi and R7800
 
 function soapLogin(sessionId, username, password) {
 	return `<?xml version="1.0" encoding="utf-8" standalone="no"?>
@@ -195,11 +195,12 @@ class NetgearRouter {
 	// Represents a session to a Netgear Router.
 	constructor(password, user, host, port) {
 		this.host = host || defaultHost;
-		this.port = port || defaultPort;
+		this.port = port || this.getSoapPort(this.host)
+			.catch(() => { this.port = 80; });
 		this.username = user || defaultUser;
 		this.password = password || defaultPassword;
 		this.sessionId = defaultSessionId;
-		this.soapVersion = undefined;	// 2 or 3, will be filled with getCurrentSetting()
+		this.soapVersion = undefined;	// 2 or 3, will be filled with getSoapVersion() or getCurrentSetting()
 		this.loggedIn = false;
 		this.configStarted = false;
 		// this.httpAgent = new http.Agent({ keepAlive: true, maxSockets: 1, maxFreeSockets: 1 });
@@ -238,8 +239,45 @@ class NetgearRouter {
 		});
 	}
 
+	getSoapPort(host) {
+		// Resolves promise of soap port without need for credentials. Rejects if error occurred.
+		// console.log('Get soap port');
+		host = host || this.host;
+		return new Promise((resolve, reject) => {
+			const req = http.get(`http://${host}:80/soap/server_sa/`, () => {
+				this.port = 80;
+				return resolve(80);
+			});
+			req.on('error', () => { // try 5000 now
+				const req2 = http.get(`http://${host}:5000/soap/server_sa/`, () => {
+					this.port = 5000;
+					return resolve(5000);
+				});
+				req2.on('error', () => {
+					reject(Error('cannot determine the soap port'));
+				});
+			});
+		});
+	}
+
+	getSoapVersion(host) {
+		// Resolves promise of soap version without need for credentials. Rejects if error occurred.
+		// console.log('Get soap version');
+		host = host || this.host;
+		return new Promise(async (resolve, reject) => {
+			try {
+				const currentSetting = await this.getCurrentSetting(host);
+				const soapVersion = parseInt(currentSetting.SOAPVersion, 10) || 2;
+				this.soapVersion = soapVersion;
+				return resolve(soapVersion);
+			} catch (error) {
+				return reject(error);
+			}
+		});
+	}
+
 	getCurrentSetting(host) {
-		// Get router information without need for credentials
+		// Resolves promise of router information without need for credentials. Rejects if error occurred.
 		// console.log('Get current setting');
 		host = host || this.host;
 		return new Promise((resolve, reject) => {
@@ -266,6 +304,10 @@ class NetgearRouter {
 					this.soapVersion = parseInt(currentSetting.SOAPVersion, 10) || 2;
 					return resolve(currentSetting);
 				});
+			});
+			req.setTimeout(5000, () => {
+				req.abort();
+				return reject(Error('Connection timeout. Wrong ip?'));
 			});
 			req.on('error', (e) => {
 				reject(e);
@@ -295,7 +337,6 @@ class NetgearRouter {
 						}
 						const info = {};
 						Object.keys(entries).forEach((property) => {
-						// for (const property in entries) {
 							if (entries.hasOwnProperty(property) && Array.isArray(entries[property])) {
 								info[property] = entries[property][0];
 							}
@@ -336,7 +377,6 @@ class NetgearRouter {
 					if (entries.length < 1) {
 						return reject(Error('Error parsing device-list (soap v2)'));
 					}
-					// for (const entry in entries) {
 					Object.keys(entries).forEach((entry) => {
 						const info = entries[entry].split(';');
 						if (info.length === 0) {
@@ -391,16 +431,16 @@ class NetgearRouter {
 						.replace(/<\/DeviceTypeName>/g, ']]></DeviceTypeName>');
 					parseString(patchedBody, async (err, res) => {
 						if (err) {
-							reject(Error(err));
+							reject(Error(res.body));
 							return;
 						}
 						const soapBody = await getSoapBody(res)
 							.catch((error) => {
 								reject(error);
 							});
-						const entries = soapBody['m:GetAttachDevice2Response'][0]['NewAttachDevice'][0]['Device'];
+						const entries = soapBody['m:GetAttachDevice2Response'][0].NewAttachDevice[0].Device;
 						if (entries === undefined) {
-							reject(Error('Error parsing device-list (entries undefined)', res));
+							reject(Error(`Error parsing device-list (entries undefined) ${res}`));
 							return;
 						}
 						if (entries.length < 1) {
@@ -474,6 +514,7 @@ class NetgearRouter {
 	}
 
 	reboot() {
+		// Resolves promise of reboot started. Rejects if error occurred.
 		// console.log('router reboot requested');
 		return new Promise(async (resolve, reject) => {
 			await this.configurationStarted()
@@ -483,7 +524,6 @@ class NetgearRouter {
 			const message = soapReboot(this.sessionId);
 			this._makeRequest(actionReboot,	message)
 				.then(async (result) => {
-					// console.log(result.body);
 					await this.configurationFinished()
 						.then(() => {
 							resolve(true); // reboot initiated
@@ -524,10 +564,8 @@ class NetgearRouter {
 		// console.log('finish configuration');
 		return new Promise((resolve, reject) => {
 			if (this.configStarted === false) {	// already finished
-				// console.log('already finished');
 				return resolve(true);
 			}
-			// console.log('finishing now');
 			this.configStarted = false;
 			const message = soapConfigurationFinished(this.sessionId);
 			this._makeRequest(actionConfigurationFinished, message)
@@ -578,7 +616,6 @@ class NetgearRouter {
 			} catch (error) {
 				return reject(error);
 			}
-
 		});
 	}
 
@@ -625,12 +662,12 @@ class NetgearRouter {
 				});
 			});
 			req.on('error', (e) => {
-				// console.log(`problem with request: ${e.message}`);
 				reject(e);
 			});
-			// req.setTimeout(20000, () => {
-			// 	req.abort();
-			// });
+			req.setTimeout(15000, () => {
+				req.abort();
+				return reject(Error('Connection timeout'));
+			});
 			req.write(message);
 			req.end();
 		});

@@ -13,6 +13,7 @@
         "linebreak-style": 0,
         "strict": 0,
         "padded-blocks": 0,
-        "no-underscore-dangle": 0
+        "no-underscore-dangle": 0,
+        "max-len": ["error", { "comments": 250, "code": 150 }]
     }
 }

@@ -4,8 +4,7 @@ const Homey = require('homey');
 const NetgearRouter = require('../../netgear.js');
 const	Logger = require('../../logger.js');
 const dns = require('dns');
-// const util = require('util');
-
+const util = require('util');
 
 class NetgearDriver extends Homey.Driver {
 
@@ -152,7 +151,7 @@ class NetgearDriver extends Homey.Driver {
 				}
 				readings.currentSetting = await this.routerSession.getCurrentSetting();
 				readings.info = await this.routerSession.getInfo();
-				if (this.routerSession.soapVersion === 3) {
+				if (this.routerSession.soapVersion >= 3) {
 					readings.attachedDevices = await this.routerSession.getAttachedDevices2();
 				} else {
 					readings.attachedDevices = await this.routerSession.getAttachedDevices();
@@ -199,50 +198,48 @@ class NetgearDriver extends Homey.Driver {
 	}
 
 	onPair(socket) {
-		socket.on('save', (data, callback) => {
-			const router = new NetgearRouter(data.password, data.username, data.host, Number(data.port));
-			this.log('save button pressed in frontend', router);
-			this.logger.log('save button pressed in frontend');
-
-			// get setting for debug purposes
-			router.getCurrentSetting(data.host)
-				.then((result) => {
-					this.logger.log(JSON.stringify(result));
-				})
-				.catch((error) => {
-					this.logger.log('getCurentSetting error ', error);
-				});
-
-			// try to resolve url and login
-			dns.lookup(data.host, (err, address, family) => {
-				if (!err) {
-					data.host = address || data.host;
+		socket.on('save', async (data, callback) => {
+			try {
+				this.log('save button pressed in frontend');
+				this.logger.log('save button pressed in frontend');
+				const password = data.password;
+				const username = data.username;
+				let host = data.host;
+				let port = Number(data.port);
+				const router = new NetgearRouter(password, username, host, port);
+				// get setting for debug purposes
+				const currentSetting = await router.getCurrentSetting(host);
+				this.log(JSON.stringify(currentSetting));
+				this.logger.log(JSON.stringify(currentSetting));
+				// try to resolve the router url
+				const dnsLookup = util.promisify(dns.lookup);
+				const lookUp = await dnsLookup(host);
+				host = lookUp || host;
+				// try to find the soap Port automatically
+				if (port === 0) {
+					port = await router.getSoapPort(host);
 				}
-				this.log(`using as router address: ${data.host}`);
-				this.logger.log(`using as router address: ${data.host}`);
 				// try to login
-				router.login()
-					.then(() => {
-						router.getInfo()
-							.then((result) => {
-								this.logger.log(JSON.stringify(result));
-								if (result.hasOwnProperty('SerialNumber')) {
-									result.host = data.host;
-									callback(null, JSON.stringify(result));
-								} else { callback(Error('No Netgear Model found')); }
-							})
-							.catch((error) => {
-								this.error('getInfo error ', error);
-								this.logger.log('getInfo error ', error);
-								callback(error);
-							});
-					})
-					.catch((error) => {
-						this.log('login error', error);
-						this.logger.log('login  error ', error);
-						callback(error);
-					});
-			});
+				this.log(`using as soap host/port: ${host}:${port}`);
+				this.logger.log(`using as soap host/port: ${host}:${port}`);
+				await router.login(password, username, host, port);
+				const info = await router.getInfo();
+				this.log(JSON.stringify(info));
+				this.logger.log(JSON.stringify(info));
+				if (info.hasOwnProperty('SerialNumber')) {
+					info.host = host;
+					info.port = port;
+					// info.SerialNumber = 'TEST';
+					callback(null, JSON.stringify(info)); // report success to frontend
+				} else { callback(Error('No Netgear Model found')); }
+			}	catch (error) {
+				this.error('Pair error', error);
+				this.logger.log('Pair error', error.message);
+				if (error.code === 'EHOSTUNREACH') {
+					callback(Error('Incorrect IP address'));
+				}
+				callback(error);
+			}
 
 		});
 	}

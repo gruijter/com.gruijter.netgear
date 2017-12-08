@@ -32,10 +32,14 @@ class NetgearDevice extends Homey.Device {
 			this.setCapabilityValue('internet_connection_status', this.readings.currentSetting.InternetConnectionStatus === 'Up');
 			if (this.readings.currentSetting.InternetConnectionStatus !== lastInternetConnectionStatus) {
 				if (this.readings.currentSetting.InternetConnectionStatus === 'Up') {
+					this.log('the internet connection came up');
+					this.logger.log('the internet connection came up');
 					this.internetConnectedTrigger
 						.trigger(this)
 						.catch(this.error);
 				} else {
+					this.log('the internet connection went down');
+					this.logger.log('the internet connection went down');
 					this.internetDisconnectedTrigger
 						.trigger(this)
 						.catch(this.error);
@@ -209,7 +213,7 @@ class NetgearDevice extends Homey.Device {
 	}
 
 	// this method is called when the user has changed the device's settings in Homey.
-	onSettings(newSettingsObj, oldSettingsObj, changedKeysArr, callback) {
+	onSettings(oldSettingsObj, newSettingsObj, changedKeysArr, callback) {
 		// first stop polling the device, then start init after short delay
 		clearInterval(this.intervalIdDevicePoll);
 		this.log('router device settings changed');
@@ -219,14 +223,15 @@ class NetgearDevice extends Homey.Device {
 		setTimeout(() => {
 			this.onInit();
 		}, 10000);
-		// wait for Homey firmware fix https://github.com/athombv/homey-issues-dp/issues/126
-		// if (newSettingsObj['clear_known_devices']) {
-		// 	this.knownDevices = {};
-		// 	this.setStoreValue('knownDevices', this.knownDevices);
-		// 	return callback( 'Deleting known devices list', null );
-		// }
+		if (newSettingsObj.clear_known_devices) {
+			this.knownDevices = {};
+			this.setStoreValue('knownDevices', this.knownDevices);
+			this.log('known devices were deleted on request of user');
+			this.logger.log('known devices were deleted on request of user');
+			return callback('Deleting known devices list', null);
+		}
 		// do callback to confirm settings change
-		callback(null, true);
+		return callback(null, true);
 	}
 
 

@@ -1,18 +1,6 @@
 <script>
 Homey.setTitle( __('pair.start.title') );
-// Homey.on('error', function( errortype, callback ){
-// 	if (errortype == 'error') {
-// 		Homey.alert(__('pair.start.error'), 'error');
-// 		Homey.done();
-// 	}
-// 	if (errortype == 'nosettings') {
-// 		Homey.alert(__('pair.start.nosettings'), 'error');
-// 		Homey.done();
-// 	}
-// })
-// Homey.on('continue', function( success, callback ){
-// 		Homey.showView('list_devices');
-// })
+
 function testSettings () {
 	// variables
 	var username = document.getElementById( 'username' ).value;
@@ -31,16 +19,16 @@ function testSettings () {
 		Homey.emit( 'save', settings, function( err, result ){
 			if (err) {
 				console.log(err);
-				console.log(result);
 				Homey.alert(err.message, 'error');
 			} else {
 				var info = JSON.parse(result);
-				Homey.alert(__('pair.start.success')+result, 'info');
+				Homey.alert(__('pair.start.success')+ `\r\nModel: ${info.ModelName}\r\nSN: ${info.SerialNumber}`, 'info');
 				settings.model_name = info.ModelName;
 				settings.serial_number = info.SerialNumber;
 				settings.firmware_version = info.Firmwareversion;
 				settings.smart_agent_version = info.SmartAgentversion;
 				settings.host = info.host;
+				settings.port = info.port;
 				var device = {
 					name: info.ModelName,
 					data: { id: info.SerialNumber },
@@ -64,20 +52,6 @@ function testSettings () {
 
     <p data-i18n="pair.start.intro">enter IP address</p>
 
-		<!-- /*<style>
-			.pairSettings {
-				font-size:16px;
-				border:none;
-			}
-			input {
-				font-size:16px;
-			}
-			.button {
-				font-size:16px;
-				border:none;
-			}
-		</style>*/ -->
-
 		<table class="pairSettings">
 			<tr>
 				<td style="width:100px;" data-i18n="pair.start.username">username</td>
@@ -93,7 +67,7 @@ function testSettings () {
 			</tr>
 			<tr>
 				<td style="width:100px;" data-i18n="pair.start.port">port</td>
-				<td><input id="port" type="number" value=5000 placeholder="e.g. 80 or 5000"/></td>
+				<td><input id="port" type="number" value=0 placeholder="e.g. 80 or 5000"/></td>
 			</tr>
 		</table>
 

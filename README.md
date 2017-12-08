@@ -24,7 +24,7 @@ Do:
 ![image][insights-image]
 
 ### Device setup in Homey ###
-Only netgear devices that work in router mode can be added. Your Homey should be connected inside the LAN part of the router, not from outside (WAN). To setup go to "Devices" and add the Netgear router by filling in the admin password. For some router types (like Orbi, R7800 and R9000) the SOAP port has to be set to 80 in stead of 5000. The other fields can be left on default, unless you know what you are doing :). After the router device is added successfully you can change the polling interval which is set to 1 minute as default.
+Only netgear devices that work in router mode can be added. Your Homey should be connected inside the LAN part of the router, not from outside (WAN). To setup go to "Devices" and add the Netgear router by filling in the admin password. The other fields can be left on default, unless you know what you are doing :). After the router device is added successfully you can change the polling interval (set to 1 minute as default). The app will start collecting and remember MAC addresses of all devices that ever connected to the router. If you need to clear this list you can do so by checking the box "delete devicelist" in the device settings.
 
 ### One time setup of the router ###
 For Homey to get all the functionality you need to do some one time settings in the router. Depending on the router type and firmware you might not have some of this functionality. Make sure you are on the latest router firmware.
@@ -58,13 +58,10 @@ If you really like the app you can buy me a beer.
 Version changelog
 
 ```
+v1.3.0	2017.12.09 Fix option to empty the known devices list. Added automatic soap port detection during pairing.
 v1.2.0	2017.11.29 Compatible routerlist greatly expanded. Bugfix up/down speed.
 v1.0.0	2017.11.13 First stable release
 
-to do:
-Stability: Fix Error parsing device-list.
-fix option to empty the known devices list (bugreport: https://github.com/athombv/homey-issues-dp/issues/126 ).
-Auto soap port detection during pairing.
 ```
 [forum]: https://forum.athom.com/discussion/3532
 [pp-donate-link]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VB7VKG5Y28M6N

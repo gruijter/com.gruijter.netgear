@@ -13,5 +13,11 @@
 			"testSettings": "Test de instellingen"
 		}
 	},
-  "whatever": "Whatever"
+	"settings": {
+		"app": {
+			"title": "Debug Log informatie",
+			"logs": "Logs",
+			"getlogs": "Haal de logs op"
+		}
+	}
 }
