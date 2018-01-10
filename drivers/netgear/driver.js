@@ -1,8 +1,8 @@
 'use strict';
 
 const Homey = require('homey');
-const NetgearRouter = require('../../netgear.js');
-const	Logger = require('../../logger.js');
+const NetgearRouter = require('netgear');
+// const	Logger = require('../../logger.js');
 const dns = require('dns');
 const util = require('util');
 
@@ -10,8 +10,6 @@ class NetgearDriver extends Homey.Driver {
 
 	onInit() {
 		this.log('NetgearDriver onInit');
-		// console.log(util.inspect(this.getDevices()));
-		this.logger = new Logger('netgearLog', 200);	// create logger instance
 	}
 
 	// function to keep a list of known attached devices
@@ -23,7 +21,6 @@ class NetgearDriver extends Homey.Driver {
 			for (let i = 0; i < attachedDevices.length; i += 1) {
 				if (!this.knownDevices.hasOwnProperty(attachedDevices[i].MAC)) {	// new device detected!
 					this.log(`new device added: ${attachedDevices[i].MAC} ${attachedDevices[i].Name}`);
-					this.logger.log(`new device added: ${attachedDevices[i].MAC} ${attachedDevices[i].Name}`);
 					persistent = true;
 					this.knownDevices[attachedDevices[i].MAC] = attachedDevices[i];
 					const tokens = {
@@ -36,7 +33,6 @@ class NetgearDriver extends Homey.Driver {
 						// .then(this.log(tokens))
 						.catch((error) => {
 							this.error('trigger error', error);
-							this.logger.log('trigger error', error);
 						});
 				}
 				const lastOnline = this.knownDevices[attachedDevices[i].MAC].online || 0;
@@ -45,8 +41,7 @@ class NetgearDriver extends Homey.Driver {
 				const lastSeen = new Date();
 				this.knownDevices[attachedDevices[i].MAC].lastSeen = lastSeen.toISOString(); // to turn it back into a date: Date.parse(test.lastSeen)
 				if (!this.knownDevices[attachedDevices[i].MAC].online) {
-					this.log(`Device came online: ${attachedDevices[i].MAC} ${attachedDevices[i].Name} ${attachedDevices[i].IP}`);
-					this.logger.log(`Device came online: ${attachedDevices[i].MAC} ${attachedDevices[i].Name} ${attachedDevices[i].IP}`);
+					this.log(`Online: ${attachedDevices[i].MAC} ${attachedDevices[i].Name} ${attachedDevices[i].IP}`);
 					const tokens = {
 						mac: attachedDevices[i].MAC,
 						name: attachedDevices[i].Name,
@@ -57,7 +52,6 @@ class NetgearDriver extends Homey.Driver {
 						// .then(this.log(tokens))
 						.catch((error) => {
 							this.error('trigger error', error);
-							this.logger.log('trigger error', error);
 						});
 				}
 				this.knownDevices[attachedDevices[i].MAC].online = true;
@@ -70,8 +64,7 @@ class NetgearDriver extends Homey.Driver {
 				const device = this.knownDevices[key];
 				if ((new Date() - Date.parse(device.lastSeen)) > offlineDelay) {
 					if (device.online) {
-						this.log(`Device went offline: ${device.MAC} ${device.Name} ${device.IP}`);
-						this.logger.log(`Device went offline: ${device.MAC} ${device.Name}`);
+						this.log(`Offline: ${device.MAC} ${device.Name}`);
 						const tokens = {
 							mac: device.MAC,
 							name: device.Name,
@@ -82,7 +75,6 @@ class NetgearDriver extends Homey.Driver {
 							// .then(this.log(tokens))
 							.catch((error) => {
 								this.error('trigger error', error);
-								this.logger.log('trigger error', error);
 							});
 					}
 					this.knownDevices[key].online = false;
@@ -102,7 +94,6 @@ class NetgearDriver extends Homey.Driver {
 
 		}	catch (error) {
 			this.error('error:', error);
-			this.logger.log('error:', error);
 		}
 	}
 
@@ -126,14 +117,12 @@ class NetgearDriver extends Homey.Driver {
 			this.routerSession.login()
 				.then((result) => {
 					this.log('login succsesfull @ driver');
-					this.logger.log('login succsesfull @ driver');
 					this.setAvailable()
 						.catch(this.error);
 					return resolve(result);
 				})
 				.catch((error) => {
 					this.error('Login error @ driver', error.message);
-					this.logger.log('Login error @ driver', error.message);
 					this.setUnavailable(error.message)
 						.catch(this.error);
 					return reject(error);
@@ -158,10 +147,9 @@ class NetgearDriver extends Homey.Driver {
 				}
 				readings.trafficMeter = await this.routerSession.getTrafficMeter();
 				readings.timestamp = new Date();
-				// console.log(util.inspect(readings));
 				return resolve(readings);
 			} catch (error) {
-				this.error('getRouterData error', error);
+				// this.error('getRouterData error', error);
 				return reject(error);
 			}
 		});
@@ -171,15 +159,13 @@ class NetgearDriver extends Homey.Driver {
 		return new Promise(async (resolve, reject) => {
 			try {
 				this.log(`${action} requested for device ${mac}`);
-				this.logger.log(`${action} requested for device ${mac}`);
 				if (!this.routerSession.loggedIn) {
 					await this.routerSession.login();
 				}
 				await this.routerSession.setBlockDevice(mac, action);
 				resolve(true);
 			}	catch (error) {
-				this.error('blockOrAllow error', error);
-				this.logger.log('blockOrAllow error', error.message);
+				this.error('blockOrAllow error', error.message);
 				resolve(false);
 			}
 		});
@@ -188,12 +174,11 @@ class NetgearDriver extends Homey.Driver {
 	async reboot() { // call with NetgearDevice as this
 		try {
 			this.log('router reboot requested');
-			this.logger.log('router reboot requested');
+			// this.logger.log('router reboot requested');
 			await this.routerSession.login();
 			await this.routerSession.reboot();
 		}	catch (error) {
 			this.error('reboot error', error);
-			this.logger.log('reboot error', error.message);
 		}
 	}
 
@@ -201,7 +186,6 @@ class NetgearDriver extends Homey.Driver {
 		socket.on('save', async (data, callback) => {
 			try {
 				this.log('save button pressed in frontend');
-				this.logger.log('save button pressed in frontend');
 				const password = data.password;
 				const username = data.username;
 				let host = data.host;
@@ -210,7 +194,6 @@ class NetgearDriver extends Homey.Driver {
 				// get setting for debug purposes
 				const currentSetting = await router.getCurrentSetting(host);
 				this.log(JSON.stringify(currentSetting));
-				this.logger.log(JSON.stringify(currentSetting));
 				// try to resolve the router url
 				const dnsLookup = util.promisify(dns.lookup);
 				const lookUp = await dnsLookup(host);
@@ -221,11 +204,9 @@ class NetgearDriver extends Homey.Driver {
 				}
 				// try to login
 				this.log(`using as soap host/port: ${host}:${port}`);
-				this.logger.log(`using as soap host/port: ${host}:${port}`);
 				await router.login(password, username, host, port);
 				const info = await router.getInfo();
-				this.log(JSON.stringify(info));
-				this.logger.log(JSON.stringify(info));
+				// this.log(JSON.stringify(info));
 				if (info.hasOwnProperty('SerialNumber')) {
 					info.host = host;
 					info.port = port;
@@ -233,8 +214,7 @@ class NetgearDriver extends Homey.Driver {
 					callback(null, JSON.stringify(info)); // report success to frontend
 				} else { callback(Error('No Netgear Model found')); }
 			}	catch (error) {
-				this.error('Pair error', error);
-				this.logger.log('Pair error', error.message);
+				this.error('Pair error', error.message);
 				if (error.code === 'EHOSTUNREACH') {
 					callback(Error('Incorrect IP address'));
 				}

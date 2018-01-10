@@ -47,17 +47,12 @@ If you really like the app you can buy me a beer.
 
 [![Paypal donate][pp-donate-image]][pp-donate-link]
 
-<sup>btc: 14VR1QCpqWUWiSLa1sn3Dpzq3Wrp83zFfC</sup>
-
-<sup>eth: 0xEcF4747203Eba214c071fDAa4825cD867B410d70</sup>
-
-<sup>ltc: LfGJu1AdnPFMoBXwHvf2qG9sCV1onyXDvd</sup>
-
 ===============================================================================
 
 Version changelog
 
 ```
+v1.3.1	2018.01.10 Minor fixes. Debug logger updated.
 v1.3.0	2017.12.09 Fix option to empty the known devices list. Added automatic soap port detection during pairing.
 v1.2.0	2017.11.29 Compatible routerlist greatly expanded. Bugfix up/down speed.
 v1.0.0	2017.11.13 First stable release

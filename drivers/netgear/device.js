@@ -1,7 +1,7 @@
 'use strict';
 
 const Homey = require('homey');
-const NetgearRouter = require('../../netgear.js');
+const NetgearRouter = require('netgear');
 // const util = require('util');
 
 class NetgearDevice extends Homey.Device {
@@ -33,13 +33,11 @@ class NetgearDevice extends Homey.Device {
 			if (this.readings.currentSetting.InternetConnectionStatus !== lastInternetConnectionStatus) {
 				if (this.readings.currentSetting.InternetConnectionStatus === 'Up') {
 					this.log('the internet connection came up');
-					this.logger.log('the internet connection came up');
 					this.internetConnectedTrigger
 						.trigger(this)
 						.catch(this.error);
 				} else {
 					this.log('the internet connection went down');
-					this.logger.log('the internet connection went down');
 					this.internetDisconnectedTrigger
 						.trigger(this)
 						.catch(this.error);
@@ -73,13 +71,11 @@ class NetgearDevice extends Homey.Device {
 				})
 					.then(() => {
 						this.log('new router firmware detected: ', this.readings.info.Firmwareversion);
-						this.logger.log('new router firmware detected: ', this.readings.info.Firmwareversion);
 					})
 					.catch(this.error);
 			}
 		} catch (error) {
-			this.error('updateRouterDeviceState error: ', error);
-			this.logger.log('updateRouterDeviceState error: ', error);
+			this.error('updateRouterDeviceState error: ', error.message || error);
 		}
 
 	}
@@ -90,18 +86,18 @@ class NetgearDevice extends Homey.Device {
 
 		// init some values
 		this._driver = this.getDriver();
-		this.logger = this._driver.logger;
+		// this.logger = this._driver.logger;
 		this.readings = {};
 		// create router session
 		const settings = this.getSettings();
 		this.routerSession = new NetgearRouter(settings.password, settings.username, settings.host, settings.port);
 		// get known device from store
 		this.log('retrieving knownDevices from persistent storage');
-		this.logger.log('retrieving knownDevices from persistent storage');
+		// this.logger.log('retrieving knownDevices from persistent storage');
 		this.knownDevices = this.getStoreValue('knownDevices');
 		// store known devices when app unloads
 		Homey.on('unload', () => {
-			this.logger.log('unload called', 'storing knownDevices state');
+			this.log('unload called, storing knownDevices state');
 			this.setStoreValue('knownDevices', this.knownDevices);
 		});
 
@@ -201,7 +197,6 @@ class NetgearDevice extends Homey.Device {
 	// this method is called when the Device is added
 	onAdded() {
 		this.log('router added as device');
-		this.logger.log('router added as device');
 	}
 
 	// this method is called when the Device is deleted
@@ -209,7 +204,6 @@ class NetgearDevice extends Homey.Device {
 		// stop polling
 		clearInterval(this.intervalIdDevicePoll);
 		this.log('router deleted as device');
-		this.logger.log('router deleted as device');
 	}
 
 	// this method is called when the user has changed the device's settings in Homey.
@@ -217,7 +211,6 @@ class NetgearDevice extends Homey.Device {
 		// first stop polling the device, then start init after short delay
 		clearInterval(this.intervalIdDevicePoll);
 		this.log('router device settings changed');
-		this.logger.log('router device settings changed');
 		this.setAvailable()
 			.catch(this.error);
 		setTimeout(() => {
@@ -227,7 +220,6 @@ class NetgearDevice extends Homey.Device {
 			this.knownDevices = {};
 			this.setStoreValue('knownDevices', this.knownDevices);
 			this.log('known devices were deleted on request of user');
-			this.logger.log('known devices were deleted on request of user');
 			return callback('Deleting known devices list', null);
 		}
 		// do callback to confirm settings change
