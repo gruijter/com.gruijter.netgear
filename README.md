@@ -52,6 +52,7 @@ If you really like the app you can buy me a beer.
 Version changelog
 
 ```
+v2.0.1	2018.01.19 Hotfix. XML parser reverted.
 v2.0.0	2018.01.15 Replaced the XML parser to a lightweight version
 v1.3.1	2018.01.10 Minor fixes. Debug logger updated.
 v1.3.0	2017.12.09 Fix option to empty the known devices list. Added automatic soap port detection during pairing.
