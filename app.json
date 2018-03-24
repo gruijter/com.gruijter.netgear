@@ -7,13 +7,15 @@
     "en": "monitor your Netgear router",
     "nl": "verbind je Netgear router"
   },
-  "version": "2.0.1",
+  "version": "2.0.2",
 	"sdk": 2,
   "compatibility": ">= 1.5",
   "author": {
       "name": "Robin Gruijter",
       "email": "gruijter@hotmail.com"
   },
+	"copyright": "Robin de Gruijter (gruijter@hotmail.com)",
+	"license": " GPL-3.0-or-later",
 	"contributing": {
 		"donate": {
 			"paypal": {
@@ -520,6 +522,60 @@
 		          "en": "AA:BB:CC:DD:EE:FF"
 		        }
 			    }
+				]
+			},
+			{
+				"id": "set_guest_wifi",
+				"title": {
+					"en": "Enable or disable guest wifi",
+					"nl": "Gast wifi aan of uit zetten"
+				},
+				"args": [
+					{
+						"name": "device",
+						"type": "device",
+						"filter": "driver_id=netgear"
+					},
+					{
+						"type": "dropdown",
+						"name": "network",
+						"values": [
+							{
+								"id": "2.4",
+								"label": {
+									"en": "2.4GHz",
+									"nl": "2.4GHz"
+								}
+							},
+							{
+								"id": "5",
+								"label": {
+									"en": "5GHz",
+									"nl": "5GHz"
+								}
+							}
+						]
+					},
+					{
+						"type": "dropdown",
+						"name": "on_off",
+						"values": [
+							{
+								"id": "on",
+								"label": {
+									"en": "Enable",
+									"nl": "Aan"
+								}
+							},
+							{
+								"id": "off",
+								"label": {
+									"en": "Disable",
+									"nl": "Uit"
+								}
+							}
+						]
+					}
 				]
 			},
 			{

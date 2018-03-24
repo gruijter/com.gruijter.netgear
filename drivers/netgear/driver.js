@@ -1,3 +1,22 @@
+/*
+Copyright 2017, 2018, Robin de Gruijter (gruijter@hotmail.com)
+
+This file is part of com.gruijter.netgear.
+
+com.gruijter.netgear is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+com.gruijter.netgear is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 'use strict';
 
 const Homey = require('homey');
@@ -166,6 +185,40 @@ class NetgearDriver extends Homey.Driver {
 				resolve(true);
 			}	catch (error) {
 				this.error('blockOrAllow error', error.message);
+				resolve(false);
+			}
+		});
+	}
+
+	setGuestAccessEnabled(action) { // call with NetgearDevice as this
+		return new Promise(async (resolve, reject) => {
+			try {
+				this.log(`2.4GHz guest wifi ${action} requested`);
+				if (!this.routerSession.loggedIn) {
+					await this.routerSession.login();
+				}
+				const onOff = (action === 'on');
+				await this.routerSession.setGuestAccessEnabled(onOff);
+				resolve(true);
+			}	catch (error) {
+				this.error('setGuestAccessEnabled error', error.message);
+				resolve(false);
+			}
+		});
+	}
+
+	set5GGuestAccessEnabled(action) { // call with NetgearDevice as this
+		return new Promise(async (resolve, reject) => {
+			try {
+				this.log(`5GHz guest wifi ${action} requested`);
+				if (!this.routerSession.loggedIn) {
+					await this.routerSession.login();
+				}
+				const onOff = (action === 'on');
+				await this.routerSession.set5GGuestAccessEnabled(onOff);
+				resolve(true);
+			}	catch (error) {
+				this.error('set5GGuestAccessEnabled error', error.message);
 				resolve(false);
 			}
 		});
