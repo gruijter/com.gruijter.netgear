@@ -17,7 +17,8 @@
 		"app": {
 			"title": "Debug Log informatie",
 			"logs": "Logs",
-			"getlogs": "Haal de logs op"
+			"getlogs": "logs ophalen",
+			"deleteLogs": "logs verwijderen"
 		}
 	}
 }

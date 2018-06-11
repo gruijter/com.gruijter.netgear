@@ -14,7 +14,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+along with com.gruijter.netgear.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 'use strict';
@@ -121,12 +121,11 @@ class NetgearDriver extends Homey.Driver {
 		const list = [];
 		Object.keys(this.knownDevices).forEach((key) => {
 			const device = this.knownDevices[key];
-			list.push(
-				{
-					name: device.MAC,
-					description: device.Name,
-				},
-			);
+			if (!device.MAC) { return; }
+			list.push({
+				name: device.MAC,
+				description: device.Name || 'unknown',
+			});
 		});
 		return list;
 	}

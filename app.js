@@ -14,98 +14,46 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+along with com.gruijter.netgear.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 'use strict';
 
 const Homey = require('homey');
-const StdOutFixture = require('fixture-stdout');
-const fs = require('fs');
+const Logger = require('./captureLogs.js');
 // const util = require('util');
 // const NetgearRouter = require('netgear');
 
 class MyApp extends Homey.App {
 
 	onInit() {
-		this.initLogCapture(200, 'netgearLog');
+		this.logger = new Logger('netgearLog', 200);
 		this.log('Netgear App is running!');
 
+		// register some listeners
 		process.on('unhandledRejection', (error) => {
 			this.error('unhandledRejection! ', error);
 		});
-		Homey.on('unload', () => {
-			this.log('app unload called');
-			// save logs to persistant storage
-			this.setLogFile();
+		process.on('uncaughtException', (error) => {
+			this.error('uncaughtException! ', error);
 		});
+		Homey
+			.on('unload', () => {
+				this.log('app unload called');
+				// save logs to persistant storage
+				this.logger.saveLogs();
+			})
+			.on('memwarn', () => {
+				this.log('memwarn!');
+			});
 	}
 
-	// capture all logs for frontend
-	initLogCapture(logLength, logName) {
-		logLength = logLength || 100;
-		logName = logName || 'log';
-		const logFile = `/userdata/${logName}.json`;
-		this.logArray = [];
-		this.getLogFile = () => {
-			fs.readFile(logFile, 'utf8', (err, data) => {
-				if (err) {
-					this.log('error reading logfile: ', err);
-					return [];
-				}
-				try {
-					this.logArray = JSON.parse(data);
-					// console.log(this.logArray);
-				} catch (error) {
-					this.log('error parsing logfile: ', error);
-					return [];
-				}
-				return this.logArray;
-			});
-		};
-		this.setLogFile = () => {
-			fs.writeFile(logFile, JSON.stringify(this.logArray), (err) => {
-				if (err) {
-					this.log('error writing logfile: ', err);
-				} else {
-					this.log('logfile saved');
-				}
-			});
-		};
-		this.unsetLogFile = () => {
-			fs.unlink(logFile, (err) => {
-				if (err) {
-					this.log('error deleting logfile: ', err);
-				}
-			});
-		};
-		// load logFile into memory
-		this.getLogFile();
-		// provide logs function for frontend api
-		this.getLogs = () => {
-			// this.log('getting logs for frontend');
-			return this.logArray;
-		};
-		// Capture all writes to stdout (e.g. this.log)
-		const captureStdout = new StdOutFixture({ stream: process.stdout });
-		captureStdout.capture((string) => {
-			if (this.logArray.length >= this.logLength) {
-				this.logArray.shift();
-			}
-			this.logArray.push(string);
-			// return false;	// prevent the write to the original stream
-		});
-		// captureStdout.release();
-		// Capture all writes to stderr (e.g. this.error)
-		const captureStderr = new StdOutFixture({ stream: process.stderr });
-		captureStderr.capture((string) => {
-			if (this.logArray.length >= this.logLength) {
-				this.logArray.shift();
-			}
-			this.logArray.push(string);
-			// return false;	// prevent the write to the original stream
-		});
-		// captureStderr.release();
+	//  stuff for frontend API
+	deleteLogs() {
+		return this.logger.deleteLogs();
+	}
+	getLogs() {
+		return this.logger.logArray;
 	}
 
 }

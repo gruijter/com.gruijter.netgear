@@ -53,6 +53,7 @@ If you really like the app you can buy me a beer.
 Version changelog
 
 ```
+v2.0.3	2018.06.11 Fix autocomplete for corrupted devicelist. Small fixes.
 v2.0.2	2018.03.24 Action card added for disable/enable guest wifi.
 v2.0.1	2018.01.19 Hotfix. XML parser reverted.
 v2.0.0	2018.01.15 Replaced the XML parser to a lightweight version

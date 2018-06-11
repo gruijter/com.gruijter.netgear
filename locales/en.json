@@ -17,7 +17,8 @@
 		"app": {
 			"title": "Debug Log information",
 			"logs": "Logs",
-			"getlogs": "Get/refresh logs"
+			"getlogs": "get logs",
+			"deleteLogs": "delete logs"
 		}
 	}
 }
