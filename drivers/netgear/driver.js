@@ -246,7 +246,7 @@ class NetgearDriver extends Homey.Driver {
 				if (Object.prototype.hasOwnProperty.call(info, 'SerialNumber')) {
 					info.host = host;
 					info.port = port;
-					info.SerialNumber = 'TEST';
+					// info.SerialNumber = 'TEST';
 					callback(null, JSON.stringify(info)); // report success to frontend
 				} else { callback(Error('No Netgear Model found')); }
 			}	catch (error) {
