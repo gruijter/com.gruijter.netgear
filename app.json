@@ -208,7 +208,11 @@
 								"en": "Delete devicelist (!)",
 								"nl": "Apparaatlijst legen (!)"
 							},
-							"value": false
+							"value": false,
+							"hint": {
+								"en": "When checked, the list of known devices will be emptied on save settings",
+								"nl": "Aangevinkt: de lijst met bekende apparaten zal worden geleegd bij opslaan van de instellingen"
+							}
 						}
 					]
 				},

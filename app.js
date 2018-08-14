@@ -21,8 +21,6 @@ along with com.gruijter.netgear.  If not, see <http://www.gnu.org/licenses/>.
 
 const Homey = require('homey');
 const Logger = require('./captureLogs.js');
-// const util = require('util');
-// const NetgearRouter = require('netgear');
 
 class MyApp extends Homey.App {
 
@@ -46,6 +44,10 @@ class MyApp extends Homey.App {
 			.on('memwarn', () => {
 				this.log('memwarn!');
 			});
+		// do garbage collection every 10 minutes
+		this.intervalIdGc = setInterval(() => {
+			global.gc();
+		}, 1000 * 60 * 10);
 	}
 
 	//  stuff for frontend API
@@ -59,91 +61,3 @@ class MyApp extends Homey.App {
 }
 
 module.exports = MyApp;
-
-// const router = new NetgearRouter([password], [user], [host], [port]);
-//
-// router.login()	// [password], [user], [host], [port]
-// 	.then(() => {
-// 		console.log(util.inspect(router));
-// 	})
-// 	.catch((error) => {
-// 		console.log(error);
-// 	});
-//
-// router.getInfo()
-// 	.then((result) => {
-// 		console.log(result);
-// 	})
-// 	.catch((error) => {
-// 		console.log(error.message);
-// 	});
-
-// router.getAttachedDevices()
-// .then((result) => {
-// 	console.log(result);
-// })
-// .catch((error) => {
-// 	console.log(error);
-// });
-
-// router.getAttachedDevices2()
-// .then((result) => {
-// 	console.log(result);
-// })
-// .catch((error) => {
-// 	console.log(error);
-// });
-
-// router.getTrafficMeter()
-// 	.then((result) => {
-// 		console.log(result);
-// 	})
-// 	.catch((error) => {
-// 		console.log(error);
-// 	});
-
-// router.setGuestAccessEnabled(true)
-// 	.then((result) => {
-// 		console.log(result);
-// 	})
-// 	.catch((error) => {
-// 		console.log(error);
-// 	});
-
-// router.set5GGuestAccessEnabled(false)
-// 	.then((result) => {
-// 		console.log(result);
-// 	})
-// 	.catch((error) => {
-// 		console.log(error);
-// 	});
-
-// const blockme = async () => {
-// 	try {
-// 		await router.login();
-// 		await router.setBlockDevice('AA:BB:CC:DD:EE:FF', 'Block');
-// 		// console.log(await router.getAttachedDevices2());
-// 		await router.setBlockDevice('AA:BB:CC:DD:EE:FF', 'Allow');
-// 		router.setBlockDevice('AA:BB:CC:DD:EE:FF', 'Block')
-// 			.catch((error) => {
-// 				console.log(error);
-// 			});
-// 		router.setBlockDevice('AA:BB:CC:DD:EE:FF', 'Allow')
-// 			.catch((error) => {
-// 				console.log(error);
-// 			});
-// 		// console.log(await router.getAttachedDevices());
-// 	}	catch (error) {
-// 		console.log(error);
-// 	}
-// };
-//
-// blockme();
-
-// router.reboot()
-// 	.then((result) => {
-// 		console.log(result);
-// 	})
-// 	.catch((error) => {
-// 		console.log(error);
-// 	});

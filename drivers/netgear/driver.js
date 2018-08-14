@@ -21,7 +21,6 @@ along with com.gruijter.netgear.  If not, see <http://www.gnu.org/licenses/>.
 
 const Homey = require('homey');
 const NetgearRouter = require('netgear');
-// const	Logger = require('../../logger.js');
 const dns = require('dns');
 const util = require('util');
 
@@ -38,7 +37,7 @@ class NetgearDriver extends Homey.Driver {
 			const attachedDevices = this.readings.attachedDevices;
 			this.knownDevices = this.knownDevices || {};
 			for (let i = 0; i < attachedDevices.length; i += 1) {
-				if (!this.knownDevices.hasOwnProperty(attachedDevices[i].MAC)) {	// new device detected!
+				if (!Object.prototype.hasOwnProperty.call(this.knownDevices, attachedDevices[i].MAC)) {	// new device detected!
 					this.log(`new device added: ${attachedDevices[i].MAC} ${attachedDevices[i].Name}`);
 					persistent = true;
 					this.knownDevices[attachedDevices[i].MAC] = attachedDevices[i];
@@ -75,7 +74,6 @@ class NetgearDriver extends Homey.Driver {
 				}
 				this.knownDevices[attachedDevices[i].MAC].online = true;
 			}
-
 			// Loop through all known devices to see if they got detached
 			const offlineDelay = this.getSettings().offline_after * 1000;	// default 5 minutes
 			let onlineCount = 0;
@@ -105,12 +103,10 @@ class NetgearDriver extends Homey.Driver {
 			});
 			// store online devices count
 			this.onlineDeviceCount = onlineCount;
-
 			// save devicelist to persistent storage
 			if (persistent) {
 				this.setStoreValue('knownDevices', this.knownDevices);
 			}
-
 		}	catch (error) {
 			this.error('error:', error);
 		}
@@ -131,106 +127,95 @@ class NetgearDriver extends Homey.Driver {
 	}
 
 	login()	{	// call with NetgearDevice as this
-		return new Promise((resolve, reject) => {
-			this.routerSession.login()
-				.then((result) => {
-					this.log('login succsesfull @ driver');
-					this.setAvailable()
-						.catch(this.error);
-					return resolve(result);
-				})
-				.catch((error) => {
-					this.error('Login error @ driver', error.message);
-					this.setUnavailable(error.message)
-						.catch(this.error);
-					return reject(error);
-				});
-		});
+		const loggedIn = this.routerSession.login()
+			.then(() => {
+				this.log('login succsesfull @ driver');
+				this.setAvailable()
+					.catch(this.error);
+			})
+			.catch((error) => {
+				this.error('Login error:', error.message);
+				this.setUnavailable(error.message)
+					.catch(this.error);
+			});
+		return Promise.resolve(loggedIn);
 	}
 
-	getRouterData() {		// call with NetgearDevice as this
+	async getRouterData() {		// call with NetgearDevice as this
 		const readings = {};
-		return new Promise(async (resolve, reject) => {
-			try {
-				// get new data from router
-				if (!this.routerSession.loggedIn) {
-					await this._driver.login.call(this);
-				}
-				readings.currentSetting = await this.routerSession.getCurrentSetting();
-				readings.info = await this.routerSession.getInfo();
-				if (this.routerSession.soapVersion >= 3) {
-					readings.attachedDevices = await this.routerSession.getAttachedDevices2();
-				} else {
-					readings.attachedDevices = await this.routerSession.getAttachedDevices();
-				}
-				readings.trafficMeter = await this.routerSession.getTrafficMeter();
-				readings.timestamp = new Date();
-				return resolve(readings);
-			} catch (error) {
-				// this.error('getRouterData error', error);
-				return reject(error);
+		try {
+			// get new data from router
+			if (!this.routerSession.loggedIn) {
+				await this._driver.login.call(this);
 			}
-		});
+			readings.currentSetting = await this.routerSession.getCurrentSetting();
+			readings.info = await this.routerSession.getInfo();
+			if (this.routerSession.soapVersion >= 3) {
+				readings.attachedDevices = await this.routerSession.getAttachedDevices2();
+			} else {
+				readings.attachedDevices = await this.routerSession.getAttachedDevices();
+			}
+			readings.trafficMeter = await this.routerSession.getTrafficMeter();
+			readings.timestamp = new Date();
+			return Promise.resolve(readings);
+		} catch (error) {
+			return Promise.reject(error);
+		}
 	}
 
-	blockOrAllow(mac, action) { // call with NetgearDevice as this
-		return new Promise(async (resolve, reject) => {
-			try {
-				this.log(`${action} requested for device ${mac}`);
-				if (!this.routerSession.loggedIn) {
-					await this.routerSession.login();
-				}
-				await this.routerSession.setBlockDevice(mac, action);
-				resolve(true);
-			}	catch (error) {
-				this.error('blockOrAllow error', error.message);
-				resolve(false);
+	async blockOrAllow(mac, action) { // call with NetgearDevice as this
+		try {
+			this.log(`${action} requested for device ${mac}`);
+			if (!this.routerSession.loggedIn) {
+				await this.routerSession.login();
 			}
-		});
+			await this.routerSession.setBlockDevice(mac, action);
+			Promise.resolve(true);
+		}	catch (error) {
+			this.error('blockOrAllow error', error.message);
+			Promise.resolve(false);
+		}
 	}
 
-	setGuestAccessEnabled(action) { // call with NetgearDevice as this
-		return new Promise(async (resolve, reject) => {
-			try {
-				this.log(`2.4GHz guest wifi ${action} requested`);
-				if (!this.routerSession.loggedIn) {
-					await this.routerSession.login();
-				}
-				const onOff = (action === 'on');
-				await this.routerSession.setGuestAccessEnabled(onOff);
-				resolve(true);
-			}	catch (error) {
-				this.error('setGuestAccessEnabled error', error.message);
-				resolve(false);
+	async setGuestAccessEnabled(action) { // call with NetgearDevice as this
+		try {
+			this.log(`2.4GHz guest wifi ${action} requested`);
+			if (!this.routerSession.loggedIn) {
+				await this.routerSession.login();
 			}
-		});
+			const onOff = (action === 'on');
+			await this.routerSession.setGuestAccessEnabled(onOff);
+			Promise.resolve(true);
+		}	catch (error) {
+			this.error('setGuestAccessEnabled error', error.message);
+			Promise.resolve(false);
+		}
 	}
 
-	set5GGuestAccessEnabled(action) { // call with NetgearDevice as this
-		return new Promise(async (resolve, reject) => {
-			try {
-				this.log(`5GHz guest wifi ${action} requested`);
-				if (!this.routerSession.loggedIn) {
-					await this.routerSession.login();
-				}
-				const onOff = (action === 'on');
-				await this.routerSession.set5GGuestAccessEnabled(onOff);
-				resolve(true);
-			}	catch (error) {
-				this.error('set5GGuestAccessEnabled error', error.message);
-				resolve(false);
+	async set5GGuestAccessEnabled(action) { // call with NetgearDevice as this
+		try {
+			this.log(`5GHz guest wifi ${action} requested`);
+			if (!this.routerSession.loggedIn) {
+				await this.routerSession.login();
 			}
-		});
+			const onOff = (action === 'on');
+			await this.routerSession.set5GGuestAccessEnabled(onOff);
+			Promise.resolve(true);
+		}	catch (error) {
+			this.error('set5GGuestAccessEnabled error', error.message);
+			Promise.resolve(false);
+		}
 	}
 
 	async reboot() { // call with NetgearDevice as this
 		try {
 			this.log('router reboot requested');
-			// this.logger.log('router reboot requested');
 			await this.routerSession.login();
 			await this.routerSession.reboot();
+			Promise.resolve(true);
 		}	catch (error) {
 			this.error('reboot error', error);
+			Promise.reject(error);
 		}
 	}
 
@@ -258,11 +243,10 @@ class NetgearDriver extends Homey.Driver {
 				this.log(`using as soap host/port: ${host}:${port}`);
 				await router.login(password, username, host, port);
 				const info = await router.getInfo();
-				// this.log(JSON.stringify(info));
-				if (info.hasOwnProperty('SerialNumber')) {
+				if (Object.prototype.hasOwnProperty.call(info, 'SerialNumber')) {
 					info.host = host;
 					info.port = port;
-					// info.SerialNumber = 'TEST';
+					info.SerialNumber = 'TEST';
 					callback(null, JSON.stringify(info)); // report success to frontend
 				} else { callback(Error('No Netgear Model found')); }
 			}	catch (error) {
@@ -272,37 +256,9 @@ class NetgearDriver extends Homey.Driver {
 				}
 				callback(error);
 			}
-
 		});
 	}
-
-	// function to add all Netgear attached devices to Homey
-	// onPairListDevices(data, callback) {
-	// 	const router = new NetgearRouter(data.password, data.host, data.username, data.port);
-	// 	router.getAttachedDevices2()
-	// 	.then((result) => {
-	// 		console.log(result);
-	// 		const devicelist = [];
-	// 		while (result.length >= 1) {
-	// 			const device = result.pop();
-	// 			devicelist.push(
-	// 				{
-	// 					name: `${device.MAC}___${device.Name}`,
-	// 					data: {	id: device.MAC },
-	// 				}
-	// 			);
-	// 		}
-	// 		console.log(devicelist);
-	// 		callback(null, devicelist);
-	// 	})
-	// 	.catch((error) => {
-	// 		console.log(error);
-	// 		callback(error, error);
-	// 	});
-	// }
 
 }
 
 module.exports = NetgearDriver;
-
-// console.log(util.inspect(router));

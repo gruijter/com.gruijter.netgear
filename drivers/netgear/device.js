@@ -21,7 +21,6 @@ along with com.gruijter.netgear.  If not, see <http://www.gnu.org/licenses/>.
 
 const Homey = require('homey');
 const NetgearRouter = require('netgear');
-// const util = require('util');
 
 class NetgearDevice extends Homey.Device {
 
@@ -96,7 +95,6 @@ class NetgearDevice extends Homey.Device {
 		} catch (error) {
 			this.error('updateRouterDeviceState error: ', error.message || error);
 		}
-
 	}
 
 	// this method is called when the Device is inited
@@ -120,7 +118,6 @@ class NetgearDevice extends Homey.Device {
 			this.setStoreValue('knownDevices', this.knownDevices);
 		});
 
-
 		// register trigger flow cards
 		this.speedChangedTrigger = new Homey.FlowCardTriggerDevice('uldl_speed_changed')
 			.register();
@@ -138,10 +135,10 @@ class NetgearDevice extends Homey.Device {
 		// register condition flow flowcards
 		const deviceOnline = new Homey.FlowCardCondition('device_online');
 		deviceOnline.register()
-		  .registerRunListener((args, state) => {
-				if (args.hasOwnProperty('NetgearDevice')) {
+			.registerRunListener((args) => {
+				if (Object.prototype.hasOwnProperty.call(args, 'NetgearDevice')) {
 					let deviceOnline2 = false;
-					if (args.NetgearDevice.knownDevices.hasOwnProperty(args.mac.name)) {
+					if (Object.prototype.hasOwnProperty.call(args.NetgearDevice.knownDevices, args.mac.name)) {
 						deviceOnline2 = args.NetgearDevice.knownDevices[args.mac.name].online;	// true or false
 					}
 					return Promise.resolve(deviceOnline2);
@@ -149,7 +146,7 @@ class NetgearDevice extends Homey.Device {
 				return Promise.reject(Error('The netgear device is unknown or not ready'));
 			})
 			.getArgument('mac')
-			.registerAutocompleteListener((query, args) => {
+			.registerAutocompleteListener((query) => {
 				let results = this._driver.makeAutocompleteList.call(this);
 				results = results.filter((result) => {		// filter for query on MAC and Name
 					const macFound = result.name.toLowerCase().indexOf(query.toLowerCase()) > -1;
@@ -168,7 +165,7 @@ class NetgearDevice extends Homey.Device {
 				callback(null, true);
 			})
 			.getArgument('mac')
-			.registerAutocompleteListener((query, args) => {
+			.registerAutocompleteListener((query) => {
 				let results = this._driver.makeAutocompleteList.call(this);
 				results = results.filter((result) => {		// filter for query on MAC and Name
 					const macFound = result.name.toLowerCase().indexOf(query.toLowerCase()) > -1;
@@ -186,7 +183,7 @@ class NetgearDevice extends Homey.Device {
 				callback(null, true);
 			})
 			.getArgument('mac')
-			.registerAutocompleteListener((query, args) => {
+			.registerAutocompleteListener((query) => {
 				let results = this._driver.makeAutocompleteList.call(this);
 				results = results.filter((result) => {		// filter for query on MAC and Name
 					const macFound = result.name.toLowerCase().indexOf(query.toLowerCase()) > -1;
@@ -255,7 +252,6 @@ class NetgearDevice extends Homey.Device {
 		// do callback to confirm settings change
 		return callback(null, true);
 	}
-
 
 }
 
