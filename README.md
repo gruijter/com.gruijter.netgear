@@ -53,7 +53,8 @@ If you really like the app you can buy me a beer.
 Version changelog
 
 ```
-v2.0.4	2018.08.12 reduce memory usage, netgear module optimizations
+v2.0.5	2018.08.19 Fix autoport detection. Netgear module update to 1.4.0
+v2.0.4	2018.08.12 Reduce memory usage. Netgear module optimizations.
 v2.0.3	2018.06.11 Fix autocomplete for corrupted devicelist. Small fixes.
 v2.0.2	2018.03.24 Action card added for disable/enable guest wifi.
 v2.0.1	2018.01.19 Hotfix. XML parser reverted.
