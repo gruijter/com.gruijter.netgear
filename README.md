@@ -53,6 +53,7 @@ If you really like the app you can buy me a beer.
 Version changelog
 
 ```
+v2.0.6	2018.09.29 GuestWifi2 support added.
 v2.0.5	2018.08.19 Fix autoport detection. Netgear module update to 1.4.0
 v2.0.4	2018.08.12 Reduce memory usage. Netgear module optimizations.
 v2.0.3	2018.06.11 Fix autocomplete for corrupted devicelist. Small fixes.
@@ -65,7 +66,7 @@ v1.2.0	2017.11.29 Compatible routerlist greatly expanded. Bugfix up/down speed.
 v1.0.0	2017.11.13 First stable release
 
 ```
-[forum]: https://forum.athom.com/discussion/3532
+[forum]: https://community.athom.com/t/https-apps-athom-com-app-com-gruijter-netgear/2259
 [pp-donate-link]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VB7VKG5Y28M6N
 [pp-donate-image]: https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif
 [mobile-card-image]: https://forum.athom.com/uploads/editor/uy/8gbc8icfg8aj.png

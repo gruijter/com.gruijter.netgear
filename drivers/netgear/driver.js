@@ -192,6 +192,21 @@ class NetgearDriver extends Homey.Driver {
 		}
 	}
 
+	async setGuestAccessEnabled2(action) { // call with NetgearDevice as this
+		try {
+			this.log(`2.4GHz-2 guest wifi ${action} requested`);
+			if (!this.routerSession.loggedIn) {
+				await this.routerSession.login();
+			}
+			const onOff = (action === 'on');
+			await this.routerSession.setGuestAccessEnabled2(onOff);
+			Promise.resolve(true);
+		}	catch (error) {
+			this.error('setGuestAccessEnabled2 error', error.message);
+			Promise.resolve(false);
+		}
+	}
+
 	async set5GGuestAccessEnabled(action) { // call with NetgearDevice as this
 		try {
 			this.log(`5GHz guest wifi ${action} requested`);
@@ -203,6 +218,21 @@ class NetgearDriver extends Homey.Driver {
 			Promise.resolve(true);
 		}	catch (error) {
 			this.error('set5GGuestAccessEnabled error', error.message);
+			Promise.resolve(false);
+		}
+	}
+
+	async set5GGuestAccessEnabled2(action) { // call with NetgearDevice as this
+		try {
+			this.log(`5GHz-2 guest wifi ${action} requested`);
+			if (!this.routerSession.loggedIn) {
+				await this.routerSession.login();
+			}
+			const onOff = (action === 'on');
+			await this.routerSession.set5GGuestAccessEnabled2(onOff);
+			Promise.resolve(true);
+		}	catch (error) {
+			this.error('set5GGuestAccessEnabled2 error', error.message);
 			Promise.resolve(false);
 		}
 	}

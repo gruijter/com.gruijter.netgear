@@ -7,7 +7,7 @@
     "en": "monitor your Netgear router",
     "nl": "verbind je Netgear router"
   },
-  "version": "2.0.5",
+  "version": "2.0.6",
 	"sdk": 2,
   "compatibility": ">= 1.5",
   "author": {
@@ -23,6 +23,10 @@
 			}
 		}
 	},
+	"bugs": {
+	"url": "https://github.com/gruijter/com.gruijter.netgear/issues"
+	},
+	"homeyCommunityTopicId": 2259,
 
   "images": {
     "large": "./assets/images/large.jpg",
@@ -556,6 +560,20 @@
 								"label": {
 									"en": "5GHz",
 									"nl": "5GHz"
+								}
+							},
+							{
+								"id": "2.4-2",
+								"label": {
+									"en": "2.4GHz-2",
+									"nl": "2.4GHz-2"
+								}
+							},
+							{
+								"id": "5-2",
+								"label": {
+									"en": "5GHz-2",
+									"nl": "5GHz-2"
 								}
 							}
 						]
