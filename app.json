@@ -7,7 +7,7 @@
     "en": "monitor your Netgear router",
     "nl": "verbind je Netgear router"
   },
-  "version": "2.0.6",
+  "version": "2.0.7",
 	"sdk": 2,
   "compatibility": ">= 1.5",
   "author": {

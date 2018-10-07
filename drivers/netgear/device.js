@@ -197,13 +197,13 @@ class NetgearDevice extends Homey.Device {
 		setGuestWifi.register()
 			.on('run', async (args, state, callback) => {
 				if (args.network === '5') {
-					await this._driver.set5GGuestAccessEnabled.call(this, args.on_off);
+					await this._driver.set5GGuestWifi.call(this, args.on_off);
 				} else if (args.network === '5-2') {
-					await this._driver.set5GGuestAccessEnabled2.call(this, args.on_off);
+					await this._driver.set5GGuestWifi2.call(this, args.on_off);
 				} else if (args.network === '2.4') {
-					await this._driver.setGuestAccessEnabled.call(this, args.on_off);
+					await this._driver.setGuestwifi.call(this, args.on_off);
 				} else {
-					await this._driver.setGuestAccessEnabled2.call(this, args.on_off);
+					await this._driver.setGuestwifi2.call(this, args.on_off);
 				}
 				callback(null, true);
 			});

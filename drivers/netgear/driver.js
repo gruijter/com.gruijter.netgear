@@ -36,8 +36,13 @@ class NetgearDriver extends Homey.Driver {
 			let persistent = false;
 			const attachedDevices = this.readings.attachedDevices;
 			this.knownDevices = this.knownDevices || {};
+			// console.log(attachedDevices);
 			for (let i = 0; i < attachedDevices.length; i += 1) {
 				if (!Object.prototype.hasOwnProperty.call(this.knownDevices, attachedDevices[i].MAC)) {	// new device detected!
+					if (this.knownDevices[attachedDevices[i].MAC]) {	// for some reason a device is sometimes null
+						delete this.knownDevices[attachedDevices[i].MAC];
+						return;
+					}
 					this.log(`new device added: ${attachedDevices[i].MAC} ${attachedDevices[i].Name}`);
 					persistent = true;
 					this.knownDevices[attachedDevices[i].MAC] = attachedDevices[i];
@@ -52,6 +57,11 @@ class NetgearDriver extends Homey.Driver {
 						.catch((error) => {
 							this.error('trigger error', error);
 						});
+				}
+				if (this.knownDevices[attachedDevices[i].MAC] == null) {
+					this.log('deleting corrupt device', this.knownDevices[attachedDevices[i].MAC]);
+					delete this.knownDevices[attachedDevices[i].MAC];
+					return;
 				}
 				const lastOnline = this.knownDevices[attachedDevices[i].MAC].online || 0;
 				this.knownDevices[attachedDevices[i].MAC] = attachedDevices[i];
@@ -78,6 +88,11 @@ class NetgearDriver extends Homey.Driver {
 			const offlineDelay = this.getSettings().offline_after * 1000;	// default 5 minutes
 			let onlineCount = 0;
 			Object.keys(this.knownDevices).forEach((key) => {
+				if (this.knownDevices[key] == null) {
+					this.log('deleting corrupt device@detachCheck', this.knownDevices[key]);
+					delete this.knownDevices[key];
+					return;
+				}
 				const device = this.knownDevices[key];
 				if ((new Date() - Date.parse(device.lastSeen)) > offlineDelay) {
 					if (device.online) {
@@ -150,11 +165,7 @@ class NetgearDriver extends Homey.Driver {
 			}
 			readings.currentSetting = await this.routerSession.getCurrentSetting();
 			readings.info = await this.routerSession.getInfo();
-			if (this.routerSession.soapVersion >= 3) {
-				readings.attachedDevices = await this.routerSession.getAttachedDevices2();
-			} else {
-				readings.attachedDevices = await this.routerSession.getAttachedDevices();
-			}
+			readings.attachedDevices = await this.routerSession.getAttachedDevices();
 			readings.trafficMeter = await this.routerSession.getTrafficMeter();
 			readings.timestamp = new Date();
 			return Promise.resolve(readings);
@@ -177,62 +188,62 @@ class NetgearDriver extends Homey.Driver {
 		}
 	}
 
-	async setGuestAccessEnabled(action) { // call with NetgearDevice as this
+	async setGuestwifi(action) { // call with NetgearDevice as this
 		try {
-			this.log(`2.4GHz guest wifi ${action} requested`);
+			this.log(`2.4GHz-1 guest wifi ${action} requested`);
 			if (!this.routerSession.loggedIn) {
 				await this.routerSession.login();
 			}
 			const onOff = (action === 'on');
-			await this.routerSession.setGuestAccessEnabled(onOff);
+			await this.routerSession.router.setGuestWifi(onOff);
 			Promise.resolve(true);
 		}	catch (error) {
-			this.error('setGuestAccessEnabled error', error.message);
+			this.error('2.4GHz-1 set guest wifi error', error.message);
 			Promise.resolve(false);
 		}
 	}
 
-	async setGuestAccessEnabled2(action) { // call with NetgearDevice as this
+	async setGuestwifi2(action) { // call with NetgearDevice as this
 		try {
 			this.log(`2.4GHz-2 guest wifi ${action} requested`);
 			if (!this.routerSession.loggedIn) {
 				await this.routerSession.login();
 			}
 			const onOff = (action === 'on');
-			await this.routerSession.setGuestAccessEnabled2(onOff);
+			await this.routerSession.setGuestWifi(onOff);	// there is actually no method yet to do 2.4Ghz-2
 			Promise.resolve(true);
 		}	catch (error) {
-			this.error('setGuestAccessEnabled2 error', error.message);
+			this.error('2.4GHz-2 set guest wifi error error', error.message);
 			Promise.resolve(false);
 		}
 	}
 
-	async set5GGuestAccessEnabled(action) { // call with NetgearDevice as this
+	async set5GGuestWifi(action) { // call with NetgearDevice as this
 		try {
-			this.log(`5GHz guest wifi ${action} requested`);
+			this.log(`5GHz-1 guest wifi ${action} requested`);
 			if (!this.routerSession.loggedIn) {
 				await this.routerSession.login();
 			}
 			const onOff = (action === 'on');
-			await this.routerSession.set5GGuestAccessEnabled(onOff);
+			await this.routerSession.set5GGuestWifi(onOff);
 			Promise.resolve(true);
 		}	catch (error) {
-			this.error('set5GGuestAccessEnabled error', error.message);
+			this.error('5GHz-1 set guest wifi error errorr', error.message);
 			Promise.resolve(false);
 		}
 	}
 
-	async set5GGuestAccessEnabled2(action) { // call with NetgearDevice as this
+	async set5GGuestWifi2(action) { // call with NetgearDevice as this
 		try {
 			this.log(`5GHz-2 guest wifi ${action} requested`);
 			if (!this.routerSession.loggedIn) {
 				await this.routerSession.login();
 			}
 			const onOff = (action === 'on');
-			await this.routerSession.set5GGuestAccessEnabled2(onOff);
+			await this.routerSession.set5GGuestWifi2(onOff);
 			Promise.resolve(true);
 		}	catch (error) {
-			this.error('set5GGuestAccessEnabled2 error', error.message);
+			this.error('5GHz-2 set guest wifi error error', error.message);
 			Promise.resolve(false);
 		}
 	}
@@ -267,7 +278,7 @@ class NetgearDriver extends Homey.Driver {
 				host = lookUp || host;
 				// try to find the soap Port automatically
 				if (port === 0) {
-					port = await router.getSoapPort(host);
+					port = await router._getSoapPort(host);
 				}
 				// try to login
 				this.log(`using as soap host/port: ${host}:${port}`);

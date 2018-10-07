@@ -53,6 +53,7 @@ If you really like the app you can buy me a beer.
 Version changelog
 
 ```
+v2.0.7	2018.10.07 Netgear module updated to 2.0.0. Guestwifi fix. Pairing fix.
 v2.0.6	2018.09.29 GuestWifi2 support added.
 v2.0.5	2018.08.19 Fix autoport detection. Netgear module update to 1.4.0
 v2.0.4	2018.08.12 Reduce memory usage. Netgear module optimizations.
