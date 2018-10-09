@@ -27,11 +27,10 @@ class NetgearDevice extends Homey.Device {
 	async updateRouterDeviceState() {
 		try {
 			// init some values
-			const lastCurrentSetting = this.readings.currentSetting || {};
-			const lastInternetConnectionStatus = lastCurrentSetting.InternetConnectionStatus || 'Up';
-			const lastTrafficMeter = this.readings.trafficMeter || {};
-			let lastTimestamp = this.readings.timestamp || {};
-			if (lastTrafficMeter === {} || lastTimestamp === {}) {
+			const lastInternetConnectionStatus = this.readings.currentSetting.InternetConnectionStatus;
+			const lastTrafficMeter = this.readings.trafficMeter;
+			let lastTimestamp = this.readings.timestamp;
+			if (lastTrafficMeter === {} || lastTimestamp === 0) {
 				lastTrafficMeter.newTodayDownload = 0;
 				lastTrafficMeter.newTodayUpload = 0;
 				lastTimestamp = new Date();
@@ -68,7 +67,6 @@ class NetgearDevice extends Homey.Device {
 				if ((this.getCapabilityValue('download_speed') !== downloadSpeed) || (this.getCapabilityValue('upload_speed') !== uploadSpeed)) {
 					this.setCapabilityValue('download_speed', downloadSpeed);
 					this.setCapabilityValue('upload_speed', uploadSpeed);
-					// trigger the flowcard
 					const tokens = {
 						upload_speed: uploadSpeed,
 						download_speed: downloadSpeed,
@@ -77,6 +75,18 @@ class NetgearDevice extends Homey.Device {
 						.trigger(this, tokens)
 						.catch(this.error);
 				}
+			}
+			// check for new firmware_version
+			const { newFirmware } = this.readings;
+			if (this.readings.newFirmware.newVersion !== '') {
+				const tokens = {
+					current_version: newFirmware.currentVersion,
+					new_version: newFirmware.newVersion,
+					release_note: newFirmware.releaseNote,
+				};
+				this.newRouterFirmwareTrigger
+					.trigger(this, tokens)
+					.catch(this.error);
 			}
 			// update settings info when firmware has changed
 			const settings = this.getSettings();
@@ -88,7 +98,7 @@ class NetgearDevice extends Homey.Device {
 					smart_agent_version: this.readings.info.SmartAgentversion,
 				})
 					.then(() => {
-						this.log('new router firmware detected: ', this.readings.info.Firmwareversion);
+						this.log('new router firmware installed: ', this.readings.info.Firmwareversion);
 					})
 					.catch(this.error);
 			}
@@ -103,8 +113,14 @@ class NetgearDevice extends Homey.Device {
 
 		// init some values
 		this._driver = this.getDriver();
-		// this.logger = this._driver.logger;
-		this.readings = {};
+		this.readings = {
+			currentSetting: { InternetConnectionStatus: 'Up' },
+			info: {},
+			newFirmware: {},
+			trafficMeter: {},
+			attachedDevices: [],
+			timestamp: 0,
+		};
 		// create router session
 		const settings = this.getSettings();
 		this.routerSession = new NetgearRouter(settings.password, settings.username, settings.host, settings.port);
@@ -125,23 +141,27 @@ class NetgearDevice extends Homey.Device {
 			.register();
 		this.internetDisconnectedTrigger = new Homey.FlowCardTriggerDevice('connection_stop')
 			.register();
-		this.newAttachedDevice = new Homey.FlowCardTriggerDevice('new_attached_device')
+		this.newAttachedDeviceTrigger = new Homey.FlowCardTriggerDevice('new_attached_device')
 			.register();
-		this.deviceOnline = new Homey.FlowCardTriggerDevice('device_online')
+		this.deviceOnlineTrigger = new Homey.FlowCardTriggerDevice('device_online')
 			.register();
-		this.deviceOffline = new Homey.FlowCardTriggerDevice('device_offline')
+		this.deviceOfflineTrigger = new Homey.FlowCardTriggerDevice('device_offline')
+			.register();
+		this.speedTestResultTrigger = new Homey.FlowCardTriggerDevice('speed_test_result')
+			.register();
+		this.newRouterFirmwareTrigger = new Homey.FlowCardTriggerDevice('new_router_firmware')
 			.register();
 
 		// register condition flow flowcards
-		const deviceOnline = new Homey.FlowCardCondition('device_online');
-		deviceOnline.register()
+		const deviceOnlineCondition = new Homey.FlowCardCondition('device_online');
+		deviceOnlineCondition.register()
 			.registerRunListener((args) => {
 				if (Object.prototype.hasOwnProperty.call(args, 'NetgearDevice')) {
-					let deviceOnline2 = false;
+					let deviceOnline = false;
 					if (Object.prototype.hasOwnProperty.call(args.NetgearDevice.knownDevices, args.mac.name)) {
-						deviceOnline2 = args.NetgearDevice.knownDevices[args.mac.name].online;	// true or false
+						deviceOnline = args.NetgearDevice.knownDevices[args.mac.name].online;	// true or false
 					}
-					return Promise.resolve(deviceOnline2);
+					return Promise.resolve(deviceOnline);
 				}
 				return Promise.reject(Error('The netgear device is unknown or not ready'));
 			})
@@ -205,6 +225,31 @@ class NetgearDevice extends Homey.Device {
 				} else {
 					await this._driver.setGuestwifi2.call(this, args.on_off);
 				}
+				callback(null, true);
+			});
+
+		const speedTestStart = new Homey.FlowCardAction('speed_test_start');
+		speedTestStart.register()
+			.on('run', async (args, state, callback) => {
+				const speed = await this._driver.speedTest.call(this);
+				callback(null, true);
+				const tokens = {
+					uplink_bandwidth: speed.uplinkBandwidth,
+					downlink_bandwidth: speed.downlinkBandwidth,
+					average_ping: speed.averagePing,
+				};
+				this.speedTestResultTrigger
+					.trigger(this, tokens)
+					.then(this.log(tokens))
+					.catch((error) => {
+						this.error('trigger error', error);
+					});
+			});
+
+		const updateFirmware = new Homey.FlowCardAction('update_firmware');
+		updateFirmware.register()
+			.on('run', (args, state, callback) => {
+				this._driver.updateNewFirmware.call(this);
 				callback(null, true);
 			});
 

@@ -460,6 +460,92 @@
 						"example": "10.0.0.10"
 					}
 			 	]
+			},
+			{
+        "id": "speed_test_result",
+        "title": {
+          "en": "Speed test is ready",
+					"nl": "Snelheidstest is klaar"
+        },
+        "args": [
+					{
+						"name": "netgear",
+						"type": "device",
+						"filter": "driver_id=netgear"
+					}
+        ],
+        "tokens": [
+          {
+            "name": "uplink_bandwidth",
+            "type": "number",
+            "title": {
+              "en": "up",
+							"nl": "up"
+            },
+            "example": 1
+          },
+          {
+            "name": "downlink_bandwidth",
+            "type": "number",
+            "title": {
+              "en": "down",
+							"nl": "down"
+            },
+            "example": 5
+        	},
+					{
+            "name": "average_ping",
+            "type": "number",
+            "title": {
+              "en": "ping",
+							"nl": "ping"
+            },
+            "example": 10
+        	}
+		   	]
+			},
+			{
+				"id": "new_router_firmware",
+				"title": {
+					"en": "New router firmware available",
+					"nl": "Er is nieuwe router firmware"
+				},
+				"args": [
+					{
+						"name": "netgear",
+						"type": "device",
+						"filter": "driver_id=netgear"
+					}
+				],
+				"tokens": [
+					{
+						"name": "current_version",
+						"type": "string",
+						"title": {
+							"en": "current",
+							"nl": "huidig"
+						},
+						"example": "1.0.9.34"
+					},
+					{
+						"name": "new_version",
+						"type": "string",
+						"title": {
+							"en": "new",
+							"nl": "nieuw"
+						},
+						"example": "1.0.9.42_10.2.44"
+					},
+					{
+						"name": "release_note",
+						"type": "string",
+						"title": {
+							"en": "info",
+							"nl": "info"
+						},
+						"example": "security fixes"
+					}
+				]
 			}
 		],
 		"conditions": [
@@ -597,6 +683,34 @@
 								}
 							}
 						]
+					}
+				]
+			},
+			{
+				"id": "speed_test_start",
+				"title": {
+					"en": "Start internet speed test",
+					"nl": "Doe internet snelheidstest"
+				},
+				"args": [
+					{
+						"name": "device",
+						"type": "device",
+						"filter": "driver_id=netgear"
+					}
+				]
+			},
+			{
+				"id": "update_firmware",
+				"title": {
+					"en": "Update router firmware",
+					"nl": "Update router firmware"
+				},
+				"args": [
+					{
+						"name": "device",
+						"type": "device",
+						"filter": "driver_id=netgear"
 					}
 				]
 			},

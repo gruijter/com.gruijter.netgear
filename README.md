@@ -12,10 +12,14 @@ Act on:
 * device coming online or going offline (presence)
 * change of up/download speed
 * change of internet connection status
+* results of internet speed test
+* new router firmware available
 
 Do:
 * block and allow an attached device by MAC address
 * enable and disable Guest Wifi
+* perform internet speed test
+* perform firmware upgrade
 * reboot the router
 
 ![image][mobile-card-image]
@@ -53,7 +57,7 @@ If you really like the app you can buy me a beer.
 Version changelog
 
 ```
-v2.0.7	2018.10.07 Netgear module updated to 2.0.0. Guestwifi fix. Pairing fix.
+v2.0.7	2018.10.09 Netgear module updated to 2.2.0. Speedtest added. Fw update added. Guestwifi fix. Pairing fix.
 v2.0.6	2018.09.29 GuestWifi2 support added.
 v2.0.5	2018.08.19 Fix autoport detection. Netgear module update to 1.4.0
 v2.0.4	2018.08.12 Reduce memory usage. Netgear module optimizations.
@@ -70,6 +74,6 @@ v1.0.0	2017.11.13 First stable release
 [forum]: https://community.athom.com/t/https-apps-athom-com-app-com-gruijter-netgear/2259
 [pp-donate-link]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VB7VKG5Y28M6N
 [pp-donate-image]: https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif
-[mobile-card-image]: https://forum.athom.com/uploads/editor/uy/8gbc8icfg8aj.png
-[flow-cards-image]: https://forum.athom.com/uploads/editor/bk/d0ckmek9ok0r.png
+[mobile-card-image]: https://discourse-cdn-sjc1.com/business4/uploads/athom/original/2X/f/f202c133b76496a5b7e9f0714a86e38bf139ff31.png
+[flow-cards-image]: https://discourse-cdn-sjc1.com/business4/uploads/athom/original/2X/3/3b7c0f216becb52c0e5cb634601396f290159efb.png
 [insights-image]: https://forum.athom.com/uploads/editor/qj/l7hpjcacn1qf.png

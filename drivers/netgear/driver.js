@@ -51,7 +51,7 @@ class NetgearDriver extends Homey.Driver {
 						name: attachedDevices[i].Name,
 						ip: attachedDevices[i].IP,
 					};
-					this.newAttachedDevice
+					this.newAttachedDeviceTrigger
 						.trigger(this, tokens)
 						// .then(this.log(tokens))
 						.catch((error) => {
@@ -75,7 +75,7 @@ class NetgearDriver extends Homey.Driver {
 						name: attachedDevices[i].Name,
 						ip: attachedDevices[i].IP,
 					};
-					this.deviceOnline
+					this.deviceOnlineTrigger
 						.trigger(this, tokens)
 						// .then(this.log(tokens))
 						.catch((error) => {
@@ -102,7 +102,7 @@ class NetgearDriver extends Homey.Driver {
 							name: device.Name,
 							ip: device.IP,
 						};
-						this.deviceOffline
+						this.deviceOfflineTrigger
 							.trigger(this, tokens)
 							// .then(this.log(tokens))
 							.catch((error) => {
@@ -157,14 +157,23 @@ class NetgearDriver extends Homey.Driver {
 	}
 
 	async getRouterData() {		// call with NetgearDevice as this
-		const readings = {};
+		const readings = {
+			info: this.readings.info,
+			newFirmware: this.readings.newFirmware,
+			timestamp: this.readings.timestamp,
+		};
 		try {
 			// get new data from router
 			if (!this.routerSession.loggedIn) {
 				await this._driver.login.call(this);
 			}
+			// get these once an hour max.
+			if ((Date.now() - readings.timestamp) > (60 * 60 * 1000)) {
+				readings.info = await this.routerSession.getInfo();
+				readings.newFirmware = await this.routerSession.checkNewFirmware();
+			}
+			// get these every poll
 			readings.currentSetting = await this.routerSession.getCurrentSetting();
-			readings.info = await this.routerSession.getInfo();
 			readings.attachedDevices = await this.routerSession.getAttachedDevices();
 			readings.trafficMeter = await this.routerSession.getTrafficMeter();
 			readings.timestamp = new Date();
@@ -181,10 +190,10 @@ class NetgearDriver extends Homey.Driver {
 				await this.routerSession.login();
 			}
 			await this.routerSession.setBlockDevice(mac, action);
-			Promise.resolve(true);
+			return Promise.resolve(true);
 		}	catch (error) {
 			this.error('blockOrAllow error', error.message);
-			Promise.resolve(false);
+			return Promise.resolve(false);
 		}
 	}
 
@@ -196,10 +205,10 @@ class NetgearDriver extends Homey.Driver {
 			}
 			const onOff = (action === 'on');
 			await this.routerSession.router.setGuestWifi(onOff);
-			Promise.resolve(true);
+			return Promise.resolve(true);
 		}	catch (error) {
 			this.error('2.4GHz-1 set guest wifi error', error.message);
-			Promise.resolve(false);
+			return Promise.resolve(false);
 		}
 	}
 
@@ -211,10 +220,10 @@ class NetgearDriver extends Homey.Driver {
 			}
 			const onOff = (action === 'on');
 			await this.routerSession.setGuestWifi(onOff);	// there is actually no method yet to do 2.4Ghz-2
-			Promise.resolve(true);
+			return Promise.resolve(true);
 		}	catch (error) {
 			this.error('2.4GHz-2 set guest wifi error error', error.message);
-			Promise.resolve(false);
+			return Promise.resolve(false);
 		}
 	}
 
@@ -226,10 +235,10 @@ class NetgearDriver extends Homey.Driver {
 			}
 			const onOff = (action === 'on');
 			await this.routerSession.set5GGuestWifi(onOff);
-			Promise.resolve(true);
+			return Promise.resolve(true);
 		}	catch (error) {
 			this.error('5GHz-1 set guest wifi error errorr', error.message);
-			Promise.resolve(false);
+			return Promise.resolve(false);
 		}
 	}
 
@@ -241,10 +250,34 @@ class NetgearDriver extends Homey.Driver {
 			}
 			const onOff = (action === 'on');
 			await this.routerSession.set5GGuestWifi2(onOff);
-			Promise.resolve(true);
+			return Promise.resolve(true);
 		}	catch (error) {
 			this.error('5GHz-2 set guest wifi error error', error.message);
-			Promise.resolve(false);
+			return Promise.resolve(false);
+		}
+	}
+
+	async speedTest() { // call with NetgearDevice as this
+		try {
+			this.log('router speedtest requested');
+			await this.routerSession.login();
+			const speed = await this.routerSession.speedTest();
+			return Promise.resolve(speed);
+		}	catch (error) {
+			this.error('speedTest error', error);
+			return Promise.reject(error);
+		}
+	}
+
+	async updateNewFirmware() { // call with NetgearDevice as this
+		try {
+			this.log('router firmware update requested');
+			await this.routerSession.login();
+			await this.routerSession.updateNewFirmware();
+			return Promise.resolve(true);
+		}	catch (error) {
+			this.error('updateNewFirmware error', error);
+			return Promise.reject(error);
 		}
 	}
 
@@ -253,10 +286,10 @@ class NetgearDriver extends Homey.Driver {
 			this.log('router reboot requested');
 			await this.routerSession.login();
 			await this.routerSession.reboot();
-			Promise.resolve(true);
+			return Promise.resolve(true);
 		}	catch (error) {
 			this.error('reboot error', error);
-			Promise.reject(error);
+			return Promise.reject(error);
 		}
 	}
 
