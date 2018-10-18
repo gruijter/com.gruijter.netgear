@@ -7,7 +7,7 @@
     "en": "monitor your Netgear router",
     "nl": "verbind je Netgear router"
   },
-  "version": "2.0.7",
+  "version": "2.0.8",
 	"sdk": 2,
   "compatibility": ">= 1.5",
   "author": {
@@ -552,8 +552,8 @@
 			{
 				"id": "device_online",
 				"title": {
-					"en": "Device !{{is|isn't}} online",
-					"nl": "Apparaat !{{is|is niet}} online"
+					"en": "Device !{{is|isn't}} online (mac)",
+					"nl": "Apparaat !{{is|is niet}} online (mac)"
 				},
 				"args": [
 					{
@@ -571,6 +571,64 @@
 						"placeholder": {
 							"en": "AA:BB:CC:DD:EE:FF"
 						}
+					}
+				]
+			},
+			{
+				"id": "device_online_ip_range",
+				"title": {
+					"en": "!{{A|No}} device online on IP",
+					"nl": "!{{Een|Geen}} apparaat online op IP"
+				},
+				"args": [
+					{
+						"name": "NetgearDevice",
+						"type": "device",
+						"filter": "driver_id=netgear",
+						"placeholder": {
+							"en": "Which device",
+							"nl": "Welk apparaat"
+						 }
+					},
+					{
+						"type": "number",
+						"name": "ip_from",
+						"min": 1,
+						"max": 255,
+						"step": 1,
+						"placeholder": {
+							"en": "from (1)",
+							"en": "vanaf (1)"
+						}
+					},
+					{
+						"type": "number",
+						"name": "ip_to",
+						"min": 1,
+						"max": 254,
+						"step": 1,
+						"placeholder": {
+							"en": "to (254)",
+							"en": "tot (254)"
+						}
+					}
+				]
+			},
+			{
+				"id": "new_firmware_condition",
+				"title": {
+					"en": "!{{New|No}} firmware update",
+					"nl": "!{{Er is|Geen}} nieuwe firmware"
+				},
+				"args": [
+					{
+						"name": "NetgearDevice",
+						"type": "device",
+						"filter": "driver_id=netgear",
+						"placeholder": {
+							"en": "Which device",
+							"nl": "Welk apparaat"
+						 }
 					}
 				]
 			}

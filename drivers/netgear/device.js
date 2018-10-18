@@ -176,6 +176,37 @@ class NetgearDevice extends Homey.Device {
 				return Promise.resolve(results);
 			});
 
+		const deviceOnlineIpRangeCondition = new Homey.FlowCardCondition('device_online_ip_range');
+		deviceOnlineIpRangeCondition.register()
+			.registerRunListener((args) => {
+				if (Object.prototype.hasOwnProperty.call(args, 'NetgearDevice')) {
+					const OnlineInIpRange = (total, knownDevice) => {
+						if (!knownDevice.online) { return total; }
+						if (!knownDevice.IP) { return total; }
+						const hostOctet = Number(knownDevice.IP.split('.').pop());
+						if (hostOctet >= args.ip_from && hostOctet <= args.ip_to) {
+							return total + 1;
+						}
+						return total;
+					};
+					const devicesOnlineInIpRange = Object.values(args.NetgearDevice.knownDevices).reduce(OnlineInIpRange, 0);
+					return Promise.resolve(devicesOnlineInIpRange > 0);
+				}
+				return Promise.reject(Error('The netgear device is unknown or not ready'));
+			});
+
+		const newFirmwareCondition = new Homey.FlowCardCondition('new_firmware_condition');
+		newFirmwareCondition.register()
+			.registerRunListener((args) => {
+				if (Object.prototype.hasOwnProperty.call(args, 'NetgearDevice')) {
+					if (args.NetgearDevice.readings.newFirmware.newVersion !== '') {
+						return Promise.resolve(true);
+					}
+					return Promise.resolve(false);
+				}
+				return Promise.reject(Error('The netgear device is unknown or not ready'));
+			});
+
 		// register action flow cards
 		const blockDevice = new Homey.FlowCardAction('block_device');
 		blockDevice.register()
