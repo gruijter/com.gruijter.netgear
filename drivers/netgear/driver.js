@@ -150,6 +150,8 @@ class NetgearDriver extends Homey.Driver {
 			})
 			.catch((error) => {
 				this.error('Login error:', error.message);
+				this.log('last repsonse from router:');
+				this.log(this.lastResponse);
 				this.setUnavailable(error.message)
 					.catch(this.error);
 			});
@@ -179,6 +181,8 @@ class NetgearDriver extends Homey.Driver {
 			readings.timestamp = new Date();
 			return Promise.resolve(readings);
 		} catch (error) {
+			this.log('last repsonse from router:');
+			this.log(this.lastResponse);
 			return Promise.reject(error);
 		}
 	}
@@ -265,6 +269,8 @@ class NetgearDriver extends Homey.Driver {
 			return Promise.resolve(speed);
 		}	catch (error) {
 			this.error('speedTest error', error);
+			this.log('last repsonse from router:');
+			this.log(this.lastResponse);
 			return Promise.reject(error);
 		}
 	}
@@ -277,6 +283,8 @@ class NetgearDriver extends Homey.Driver {
 			return Promise.resolve(true);
 		}	catch (error) {
 			this.error('updateNewFirmware error', error);
+			this.log('last repsonse from router:');
+			this.log(this.lastResponse);
 			return Promise.reject(error);
 		}
 	}
@@ -325,6 +333,8 @@ class NetgearDriver extends Homey.Driver {
 				} else { callback(Error('No Netgear Model found')); }
 			}	catch (error) {
 				this.error('Pair error', error.message);
+				this.log('last repsonse from router:');
+				this.log(this.lastResponse);
 				if (error.code === 'EHOSTUNREACH') {
 					callback(Error('Incorrect IP address'));
 				}
