@@ -77,8 +77,8 @@
 					if (!err) {
 						document.getElementById('loglines').innerHTML = "";
 						for (var i=(result.length -1); i >= 0; i--) {
-							document.getElementById('loglines').innerHTML += result[i];
-							// document.getElementById('loglines').innerHTML += "\n"; // "<br />";
+							document.getElementById('loglines').innerHTML += JSON.stringify(result[i]).replace(/\"/g, "").replace(/\\n/g, "");
+							document.getElementById('loglines').innerHTML += "\n"; // "<br />";
 						}
 					};
 				});
@@ -104,8 +104,8 @@
 					} else {
 						document.getElementById('testResult').innerHTML = '';
 						for (let i = 0; i < (result.length); i++) {
-							 document.getElementById('testResult').innerHTML += JSON.stringify(result[i]).replace(/\"/g, "");
-							 document.getElementById('testResult').innerHTML += "\n";
+							document.getElementById('testResult').innerHTML += JSON.stringify(result[i]).replace(/\"/g, "");
+							document.getElementById('testResult').innerHTML += "\n";
 						}
 						$('#copyResult').prop('disabled', false);
 					}
