@@ -21,6 +21,7 @@ along with com.gruijter.netgear.  If not, see <http://www.gnu.org/licenses/>.
 
 const Homey = require('homey');
 const Logger = require('./captureLogs.js');
+const _test = require('netgear/test/_test.js');
 
 class MyApp extends Homey.App {
 
@@ -56,6 +57,11 @@ class MyApp extends Homey.App {
 	}
 	getLogs() {
 		return this.logger.logArray;
+	}
+	runTest(data) {
+		this.log('Router compatibility test started');
+		const output = _test.test(data.password, undefined, data.host);
+		return Promise.resolve(output);
 	}
 
 }

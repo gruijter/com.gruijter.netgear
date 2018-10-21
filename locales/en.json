@@ -14,11 +14,19 @@
 		}
 	},
   "settings": {
-		"app": {
-			"title": "Debug Log information",
-			"logs": "Logs",
-			"getlogs": "get logs",
-			"deleteLogs": "delete logs"
+		"title": "Netgear App",
+		"buttonsLegend": "Tab selection",
+		"loggingsTitle": "Logs",
+		"testTitle": "Router compatibility Test",
+		"loggingLegend": "Logs",
+		"instructionsLegend": "Instructions",
+		"instructions": "If you have troubles with the app, you can perform a compatibility test. The result can be used to improve the app.<br />Enter the password of the router, and optionally the IP address. Then start the test. Wiyh the 'Copy' button you can create an issue",
+		"startTest": "Start Test",
+		"resultLegend": "Result",
+		"copyResult": "Copy",
+		"logs": {
+			"getlogs": "refresh",
+			"deleteLogs": "delete"
 		}
 	}
 }

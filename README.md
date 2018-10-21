@@ -46,6 +46,9 @@ DSL Modem Gateways: DGN2200B DGND3700B D3600 D6000 D6100 D6200 D6000 D6200B D630
 
 Cable Gateway: C7000 C6300 C6250 C3700 C3000 N450
 
+### Compatibility test ###
+If your router isn't working properly with this app, you can perform a compatibility test from the app settings tab. After performing the test you will be directed to the developer page on Github. Here you can create an issue, and paste the test result. Note: you need an account on Github to be able to create an issue.
+
 ### Donate: ###
 If you like the app you can show your appreciation by posting it in the [forum].
 If you really like the app you can buy me a beer.
@@ -57,7 +60,7 @@ If you really like the app you can buy me a beer.
 Version changelog
 
 ```
-v2.0.8	2018.10.19 Netgear module updated to 3.0.2. More router types supported. New xml parser. Condition cards added.
+v2.0.8	2018.10.21 Netgear module updated to 3.0.3. More router types supported. New xml parser. Condition cards added. Router compatibility test added.
 v2.0.7	2018.10.09 Netgear module updated to 2.2.0. Speedtest added. Fw update added. Guestwifi fix. Pairing fix.
 v2.0.6	2018.09.29 GuestWifi2 support added.
 v2.0.5	2018.08.19 Fix autoport detection. Netgear module update to 1.4.0

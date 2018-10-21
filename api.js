@@ -23,4 +23,15 @@ module.exports = [
 			callback(null, result);
 		},
 	},
+	{
+		description: 'perform Test',
+		method: 'POST',
+		path: '/runtest/',
+		requires_authorization: true,
+		role: 'owner',
+		fn: async function fn(args, callback) {
+			const result = await Homey.app.runTest(args.body);
+			callback(null, result);
+		},
+	},
 ];

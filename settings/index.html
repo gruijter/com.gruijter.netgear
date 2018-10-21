@@ -1,58 +1,124 @@
 <!doctype html>
 <html>
-    <head>
-        <!-- The '/homey.js' script must be included in your settings view to work -->
-        <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
-   </head>
-    <body>
+	<head>
+		<!-- The '/homey.js' script must be included in your settings view to work -->
+		<script type="text/javascript" src="/homey.js" data-origin="settings"></script>
+		<script type="text/javascript" src="/manager/webserver/assets/js/jquery.js"></script>
+	</head>
+	<body>
+		<h1 data-i18n="settings.title"> </h1>
 
-        <h1 data-i18n="settings.app.title"></h1>
-        <form id="netgear">
+		<!-- Tab selection buttons -->
+		<fieldset>
+			<legend data-i18n="settings.buttonsLegend"> </legend>
+			<button type="button" id="panel-button-1" class="button panel-button" onclick="showPanel(1)" data-i18n="settings.loggingsTitle">Logging</button>
+			<button type="button" id="panel-button-2" class="button panel-button" onclick="showPanel(2)" data-i18n="settings.testTitle">Compatibility Test</button>
+		</fieldset>
 
-        </form>
+		<!-- Logging panel -->
+		<div id="panel-1" class="panel">
+			<fieldset>
+				<legend data-i18n="settings.loggingLegend"> </legend>
+				<button type="button" class="right" id="button_getlog" onclick="showLogs()" data-i18n="settings.logs.getlogs">Get Logs</button>
+				<button type="button" class="right" id="button_deletelog" onclick="deleteLogs()" data-i18n="settings.logs.deleteLogs">Delete Logs</button>
+				<textarea id="loglines" style="width:98%; height:98%" rows=30></textarea>
+				<!-- <div id="loglines"></div> -->
+			</fieldset>
+		</div>
 
-        <div>
-        	<button type="button" class="right" id="button_getlog" onclick="showLogs()" data-i18n="settings.app.getlogs">Get Logs</button>
-					<button type="button" class="right" id="button_deletelog" onclick="deleteLogs()" data-i18n="settings.app.deleteLogs">Delete Logs</button>
-        </div>
+		<!-- compatibilityTest panel -->
+		<div id="panel-2" class="panel">
+			<fieldset>
+				<legend data-i18n="settings.instructionsLegend"> </legend>
+				<p data-i18n="settings.instructions"> </p>
+				<div class="field row">
+						<label for="password" data-i18n="pair.start.password"> </label>
+						<input id="password" type="password" value="" />
+						<br />
+						<label for="host" data-i18n="pair.start.host"> </label>
+						<input id="host" type="text" value="routerlogin.net" />
+				</div>
+				<button type="button" class="right" id="runTest" onclick="runTest()" data-i18n="settings.startTest">Start test</button>
+				<button type="button" class="right" id="copyResult" onclick="copyResult()" data-i18n="settings.copyResult">Copy to clipboard</button>
+			</fieldset>
+			<fieldset>
+				<legend data-i18n="settings.resultLegend"> </legend>
+				<textarea id="testResult" style="width:98%; height:98%" rows=15></textarea>
+			</fieldset>
+		</div>
 
-        <p data-i18n="settings.app.logs"></p>
-        <div id="loglines"></div>
+		<script type="text/javascript">
 
-        <script type="text/javascript">
-
-        var currentValues = {};
-        var HomeyAPI = null;
-
-        function onHomeyReady(Homey){
-           HomeyAPI = Homey;
-           Homey.ready();
-					 showLogs();
-        }
-
-        function showLogs() {
-           HomeyAPI.api('GET', 'getlogs/', function(err, result) {
-              if (!err) {
-                 document.getElementById('loglines').innerHTML = '';
-                 for (var i=(result.length -1); i >= 0; i--) {
-                    document.getElementById('loglines').innerHTML += result[i];
-                    document.getElementById('loglines').innerHTML += "<br />";
-                 }
-              };
-           });
-        }
-
-				function deleteLogs() {
-					HomeyAPI.api('GET', 'deletelogs/', (err) => {
-						if (err) {
-							HomeyAPI.alert(err.message, 'error'); // [, String icon], Function callback )
-						} else { HomeyAPI.alert('Logs deleted!', 'info'); }
-					});
+			function showPanel(panel) {
+				$('.panel').hide();
+				$('#panel-button-1').prop('disabled', false);
+				$('#panel-button-2').prop('disabled', false);
+				$('#panel-button-' + panel).prop('disabled', true);
+				$('#panel-' + panel).show();
+				if (panel === 1) {
 					showLogs();
 				}
+				if (panel === 2) {
+					$('#copyResult').prop('disabled', true);
+				}
+			}
 
+			var currentValues = {};
+			var HomeyAPI = null;
 
-        </script>
+			function onHomeyReady(Homey){
+				HomeyAPI = Homey;
+				showPanel(1);
+				Homey.ready();
+			}
 
-    </body>
+			function showLogs() {
+				HomeyAPI.api('GET', 'getlogs/', function(err, result) {
+					if (!err) {
+						document.getElementById('loglines').innerHTML = "";
+						for (var i=(result.length -1); i >= 0; i--) {
+							document.getElementById('loglines').innerHTML += result[i];
+							// document.getElementById('loglines').innerHTML += "\n"; // "<br />";
+						}
+					};
+				});
+			}
+
+			function deleteLogs() {
+				HomeyAPI.api('GET', 'deletelogs/', (err) => {
+					if (err) {
+						HomeyAPI.alert(err.message, 'error'); // [, String icon], Function callback )
+					} else { HomeyAPI.alert('Logs deleted!', 'info'); }
+				});
+				showLogs();
+			}
+
+			function runTest() {
+				$('#copyResult').prop('disabled', true);
+				const password = document.getElementById('password').value;
+				const host = document.getElementById('host').value;
+				document.getElementById('testResult').innerHTML = "Testing now. Hang on........";
+				HomeyAPI.api('POST', 'runtest/', { password, host }, (err, result) => {
+					if (err) {
+						HomeyAPI.alert(err.message, 'error'); // [, String icon], Function callback )
+					} else {
+						document.getElementById('testResult').innerHTML = '';
+						for (let i = 0; i < (result.length); i++) {
+							 document.getElementById('testResult').innerHTML += JSON.stringify(result[i]).replace(/\"/g, "");
+							 document.getElementById('testResult').innerHTML += "\n";
+						}
+						$('#copyResult').prop('disabled', false);
+					}
+				});
+			}
+
+			function copyResult() {
+				const copyText = document.querySelector("#testResult");
+				copyText.select();
+				document.execCommand("copy");
+				HomeyAPI.openURL('https://github.com/gruijter/com.gruijter.netgear/issues/new');
+			}
+
+		</script>
+	</body>
 </html>
