@@ -20,7 +20,7 @@
 		"testTitle": "Router compatibiliteit test",
 		"loggingLegend": "Logs",
 		"instructionsLegend": "Instructies",
-		"instructions": "Als je problemen hebt met de app, kun je hier een compatibiliteits test uitvoeren. Het resultaat van de test kan worden gebruikt om de app te verbeteren.<br />Voer het wachtwoord in van je router, en optioneel het IP adres. Start vervolgens de test. Met de knop 'Copy' kun je een issue aanmaken",
+		"instructions": "Als je problemen hebt met de app, kun je hier een compatibiliteits test uitvoeren. Het resultaat van de test kan worden gebruikt om de app te verbeteren.<br />Voer het wachtwoord in van je router. Het IP adres en de soap poort worden automatisch ingevuld. Start vervolgens de test. Met de knop 'Copy' kun je een issue aanmaken, en het resultaat daar plakken.",
 		"startTest": "Start Test",
 		"resultLegend": "Resultaat",
 		"copyResult": "Copy",

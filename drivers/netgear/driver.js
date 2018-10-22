@@ -310,16 +310,13 @@ class NetgearDriver extends Homey.Driver {
 				let host = data.host;
 				let port = Number(data.port);
 				const router = new NetgearRouter(password, username, host, port);
-				// get setting for debug purposes
-				const currentSetting = await router.getCurrentSetting(host);
-				this.log(JSON.stringify(currentSetting));
-				// try to resolve the router url
-				const dnsLookup = util.promisify(dns.lookup);
-				const lookUp = await dnsLookup(host);
-				host = lookUp || host;
 				// try to find the soap Port automatically
+				const discover = await router.discover();
 				if (port === 0) {
-					port = await router._getSoapPort(host);
+					port = discover.soapPort;
+				}
+				if (host === 'routerlogin.net') {
+					host = discover.hostIp;
 				}
 				// try to login
 				this.log(`using as soap host/port: ${host}:${port}`);
@@ -334,7 +331,7 @@ class NetgearDriver extends Homey.Driver {
 			}	catch (error) {
 				this.error('Pair error', error.message);
 				this.log('last repsonse from router:');
-				this.log(this.lastResponse);
+				this.log(JSON.stringify(this.lastResponse));
 				if (error.code === 'EHOSTUNREACH') {
 					callback(Error('Incorrect IP address'));
 				}

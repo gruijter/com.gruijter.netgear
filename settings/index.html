@@ -37,6 +37,9 @@
 						<br />
 						<label for="host" data-i18n="pair.start.host"> </label>
 						<input id="host" type="text" value="routerlogin.net" />
+						<br />
+						<label for="soapPort" data-i18n="pair.start.port"> </label>
+						<input id="soapPort" type="number" value="80" />
 				</div>
 				<button type="button" class="right" id="runTest" onclick="runTest()" data-i18n="settings.startTest">Start test</button>
 				<button type="button" class="right" id="copyResult" onclick="copyResult()" data-i18n="settings.copyResult">Copy to clipboard</button>
@@ -56,10 +59,13 @@
 				$('#panel-button-' + panel).prop('disabled', true);
 				$('#panel-' + panel).show();
 				if (panel === 1) {
+					$('#loglines').prop('disabled', true);
 					showLogs();
 				}
 				if (panel === 2) {
 					$('#copyResult').prop('disabled', true);
+					$('#testResult').prop('disabled', true);
+					discover();
 				}
 			}
 
@@ -93,30 +99,47 @@
 				showLogs();
 			}
 
+			function discover() {
+				$('#host').prop('disabled', true);
+				$('#soapPort').prop('disabled', true);
+				HomeyAPI.api('GET', 'discover/', (err, result) => {
+					$('#host').prop('disabled', false);
+					$('#soapPort').prop('disabled', false);
+					if (err) {
+						return HomeyAPI.alert(err.message, 'error'); // [, String icon], Function callback )
+					}
+					document.getElementById('host').value = result.hostIp;
+					document.getElementById('soapPort').value = result.soapPort;
+				});
+			}
+
 			function runTest() {
 				$('#copyResult').prop('disabled', true);
+				$('#runTest').prop('disabled', true);
 				const password = document.getElementById('password').value;
 				const host = document.getElementById('host').value;
 				document.getElementById('testResult').innerHTML = "Testing now. Hang on........";
 				HomeyAPI.api('POST', 'runtest/', { password, host }, (err, result) => {
 					if (err) {
-						HomeyAPI.alert(err.message, 'error'); // [, String icon], Function callback )
-					} else {
-						document.getElementById('testResult').innerHTML = '';
-						for (let i = 0; i < (result.length); i++) {
-							document.getElementById('testResult').innerHTML += JSON.stringify(result[i]).replace(/\"/g, "");
-							document.getElementById('testResult').innerHTML += "\n";
-						}
-						$('#copyResult').prop('disabled', false);
+						return HomeyAPI.alert(err.message, 'error'); // [, String icon], Function callback )
 					}
+					document.getElementById('testResult').innerHTML = '';
+					for (let i = 0; i < (result.length); i++) {
+						document.getElementById('testResult').innerHTML += JSON.stringify(result[i]).replace(/\"/g, "");
+						document.getElementById('testResult').innerHTML += "\n";
+					}
+					$('#copyResult').prop('disabled', false);
+					$('#runTest').prop('disabled', false);
 				});
 			}
 
 			function copyResult() {
+				$('#testResult').prop('disabled', false);
 				const copyText = document.querySelector("#testResult");
 				copyText.select();
 				document.execCommand("copy");
 				HomeyAPI.openURL('https://github.com/gruijter/com.gruijter.netgear/issues/new');
+				$('#testResult').prop('disabled', true);
 			}
 
 		</script>

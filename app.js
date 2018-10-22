@@ -63,6 +63,11 @@ class MyApp extends Homey.App {
 		const output = _test.test(data.password, undefined, data.host);
 		return Promise.resolve(output);
 	}
+	discover() {
+		this.log('Router discovery started');
+		const discover = _test.discover();
+		return Promise.resolve(discover);
+	}
 
 }
 

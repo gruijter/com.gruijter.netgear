@@ -20,7 +20,7 @@
 		"testTitle": "Router compatibility Test",
 		"loggingLegend": "Logs",
 		"instructionsLegend": "Instructions",
-		"instructions": "If you have troubles with the app, you can perform a compatibility test. The result can be used to improve the app.<br />Enter the password of the router, and optionally the IP address. Then start the test. Wiyh the 'Copy' button you can create an issue",
+		"instructions": "If you have troubles with the app, you can perform a compatibility test. The result can be used to improve the app.<br />Enter the password of the router. The IP address and Soap port are filled automatically. Then start the test. With the 'Copy' button you can create an issue, and paste the result there.",
 		"startTest": "Start Test",
 		"resultLegend": "Result",
 		"copyResult": "Copy",

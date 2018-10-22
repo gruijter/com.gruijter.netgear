@@ -34,4 +34,15 @@ module.exports = [
 			callback(null, result);
 		},
 	},
+	{
+		description: 'Auto Discover Router',
+		method: 'GET',
+		path: '/discover/',
+		requires_authorization: true,
+		role: 'owner',
+		fn: async function fn(args, callback) {
+			const result = await Homey.app.discover();
+			callback(null, result);
+		},
+	},
 ];
