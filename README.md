@@ -60,7 +60,7 @@ If you really like the app you can buy me a beer.
 Version changelog
 
 ```
-v2.0.8	2018.10.22 Netgear module updated to 3.0.3. More router types supported. New xml parser. Condition cards added. Router compatibility test added.
+v2.0.8	2018.10.23 Netgear module updated to 3.0.6. More router types supported. New xml parser. Condition cards added. Router compatibility test added.
 v2.0.7	2018.10.09 Netgear module updated to 2.2.0. Speedtest added. Fw update added. Guestwifi fix. Pairing fix.
 v2.0.6	2018.09.29 GuestWifi2 support added.
 v2.0.5	2018.08.19 Fix autoport detection. Netgear module update to 1.4.0

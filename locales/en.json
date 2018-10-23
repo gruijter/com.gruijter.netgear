@@ -1,7 +1,7 @@
 {
 	"pair": {
 		"start": {
-			"intro": "Please fill in the admin password of the Netgear router. Change the other defaults if needed.",
+			"intro": "Please fill in the admin password of the Netgear router. Do not change the defults of other fields!",
 			"title": "Add device",
 			"error": "An error has occurred.",
 			"success": "Success! ",
@@ -17,16 +17,17 @@
 		"title": "Netgear App",
 		"buttonsLegend": "Tab selection",
 		"loggingsTitle": "Logs",
-		"testTitle": "Router compatibility Test",
+		"testTitle": "Router compatibility test",
 		"loggingLegend": "Logs",
-		"instructionsLegend": "Instructions",
-		"instructions": "If you have troubles with the app, you can perform a compatibility test. The result can be used to improve the app.<br />Enter the password of the router. The IP address and Soap port are filled automatically. Then start the test. With the 'Copy' button you can create an issue, and paste the result there.",
+		"instructionsLegend": "Router compatibility test",
+		"instructions": "If you have troubles with the app, you can perform a compatibility test. The result is used to improve the app.<br />Press 'Discover' to automatically find the IP address and SOAP port. Enter the password of the router. Then start the test. With the 'Copy result' button you can create an issue, and paste the result there.",
+		"discover": "Discover router",
 		"startTest": "Start Test",
 		"resultLegend": "Result",
-		"copyResult": "Copy",
+		"copyResult": "Copy result",
 		"logs": {
-			"getlogs": "refresh",
-			"deleteLogs": "delete"
+			"getlogs": "Refresh",
+			"deleteLogs": "Delete"
 		}
 	}
 }

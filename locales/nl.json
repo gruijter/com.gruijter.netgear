@@ -1,7 +1,7 @@
 {
 	"pair": {
 		"start": {
-			"intro": "Vul het admin wachtwoord van de Netgear router in. Indien nodig de andere velden aanpassen.",
+			"intro": "Vul het admin wachtwoord van de Netgear router in. De andere velden niet wijzigen!",
 			"title": "Device toevoegen",
 			"error": "Er is een fout opgetreden.",
 			"success": "Succes! ",
@@ -19,14 +19,15 @@
 		"loggingsTitle": "Logs",
 		"testTitle": "Router compatibiliteit test",
 		"loggingLegend": "Logs",
-		"instructionsLegend": "Instructies",
-		"instructions": "Als je problemen hebt met de app, kun je hier een compatibiliteits test uitvoeren. Het resultaat van de test kan worden gebruikt om de app te verbeteren.<br />Voer het wachtwoord in van je router. Het IP adres en de soap poort worden automatisch ingevuld. Start vervolgens de test. Met de knop 'Copy' kun je een issue aanmaken, en het resultaat daar plakken.",
+		"instructionsLegend": "Router compatibiliteit test",
+		"instructions": "Als je problemen hebt met de app, kun je hier een compatibiliteits test uitvoeren. Het resultaat van de test wordt gebruikt om de app te verbeteren.<br />Druk op 'Zoek router' om automatisch het IP adres en de SOAP poort te vinden. Voer het wachtwoord in van je router. Start vervolgens de test. Met de knop 'Kopiëer resultaat' kun je een issue aanmaken, en het resultaat daar plakken.",
+		"discover": "Zoek router",
 		"startTest": "Start Test",
 		"resultLegend": "Resultaat",
-		"copyResult": "Copy",
+		"copyResult": "Kopiëer resultaat",
 		"logs": {
-			"getlogs": "ververs",
-			"deleteLogs": "verwijderen"
+			"getlogs": "Ververs",
+			"deleteLogs": "Verwijderen"
 		}
 	}
 }

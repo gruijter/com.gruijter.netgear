@@ -32,16 +32,17 @@
 				<legend data-i18n="settings.instructionsLegend"> </legend>
 				<p data-i18n="settings.instructions"> </p>
 				<div class="field row">
-						<label for="password" data-i18n="pair.start.password"> </label>
-						<input id="password" type="password" value="" />
-						<br />
 						<label for="host" data-i18n="pair.start.host"> </label>
-						<input id="host" type="text" value="routerlogin.net" />
+						<input id="host" type="text" value="" />
 						<br />
 						<label for="soapPort" data-i18n="pair.start.port"> </label>
-						<input id="soapPort" type="number" value="80" />
+						<input id="soapPort" type="number" value="" />
+						<br />
+						<label for="password" data-i18n="pair.start.password"> </label>
+						<input id="password" type="password" value="" />
 				</div>
-				<button type="button" class="right" id="runTest" onclick="runTest()" data-i18n="settings.startTest">Start test</button>
+				<button type="button" class="left" id="discover" onclick="discover()" data-i18n="settings.discover">Start test</button>
+				<button type="button" class="left" id="runTest" onclick="runTest()" data-i18n="settings.startTest">Start test</button>
 				<button type="button" class="right" id="copyResult" onclick="copyResult()" data-i18n="settings.copyResult">Copy to clipboard</button>
 			</fieldset>
 			<fieldset>
@@ -65,7 +66,6 @@
 				if (panel === 2) {
 					$('#copyResult').prop('disabled', true);
 					$('#testResult').prop('disabled', true);
-					discover();
 				}
 			}
 
@@ -116,6 +116,7 @@
 			function runTest() {
 				$('#copyResult').prop('disabled', true);
 				$('#runTest').prop('disabled', true);
+				$('#discover').prop('disabled', true);
 				const password = document.getElementById('password').value;
 				const host = document.getElementById('host').value;
 				document.getElementById('testResult').innerHTML = "Testing now. Hang on........";
@@ -130,6 +131,7 @@
 					}
 					$('#copyResult').prop('disabled', false);
 					$('#runTest').prop('disabled', false);
+					$('#discover').prop('disabled', false);
 				});
 			}
 
