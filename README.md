@@ -84,4 +84,4 @@ v1.0.0	2017.11.13 First stable release
 [mobile-card-image]: https://discourse-cdn-sjc1.com/business4/uploads/athom/original/2X/f/f202c133b76496a5b7e9f0714a86e38bf139ff31.png
 [flow-cards-image]: https://discourse-cdn-sjc1.com/business4/uploads/athom/original/2X/6/602d209a4804d55ddcb1ac6f2ee925b2ca2e25dd.jpeg
 [insights-image]: https://forum.athom.com/uploads/editor/qj/l7hpjcacn1qf.png
-[compatibility-test-image]: https://discourse-cdn-sjc1.com/business4/uploads/athom/original/2X/6/68486f6ed7c8ec0acbdf4f5a9b360892b074f030.jpeg
+[compatibility-test-image]: https://discourse-cdn-sjc1.com/business4/uploads/athom/optimized/2X/6/68486f6ed7c8ec0acbdf4f5a9b360892b074f030_1_514x500.jpeg
