@@ -1,11 +1,11 @@
 {
 	"pair": {
 		"start": {
-			"intro": "Vul het admin wachtwoord van de Netgear router in. De andere velden niet wijzigen!",
+			"intro": "Vul het admin wachtwoord van de Netgear router in. De andere velden niet invullen, tenzij je weet wat je doet!",
 			"title": "Device toevoegen",
 			"error": "Er is een fout opgetreden.",
 			"success": "Succes! ",
-			"required": "Alle velden moeten zijn ingevuld!",
+			"required": "Wachtwoord moet zijn ingevuld!",
 			"username": "Gebruikersnaam",
 			"password": "Wachtwoord",
 			"host": "IP adres",

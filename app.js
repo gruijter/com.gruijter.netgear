@@ -60,7 +60,7 @@ class MyApp extends Homey.App {
 	}
 	runTest(data) {
 		this.log('Router compatibility test started');
-		const output = _test.test(data.password, undefined, data.host);
+		const output = _test.test(data.password, undefined, data.host, data.port);
 		return Promise.resolve(output);
 	}
 	discover() {

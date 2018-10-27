@@ -313,10 +313,10 @@ class NetgearDriver extends Homey.Driver {
 				// try to find the soap Port automatically
 				const discover = await router.discover();
 				if (port === 0) {
-					port = discover.soapPort;
+					port = discover.port;
 				}
-				if (host === 'routerlogin.net') {
-					host = discover.hostIp;
+				if (host === 'routerlogin.net' || host === '') {
+					host = discover.host;
 				}
 				// try to login
 				this.log(`using as soap host/port: ${host}:${port}`);
@@ -332,9 +332,6 @@ class NetgearDriver extends Homey.Driver {
 				this.error('Pair error', error.message);
 				this.log('last repsonse from router:');
 				this.log(JSON.stringify(this.lastResponse));
-				if (error.code === 'EHOSTUNREACH') {
-					callback(Error('Incorrect IP address'));
-				}
 				callback(error);
 			}
 		});

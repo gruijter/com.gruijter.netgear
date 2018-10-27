@@ -1,80 +1,78 @@
-<script>
-Homey.setTitle( __('pair.start.title') );
-
-function testSettings () {
-	// variables
-	var username = document.getElementById( 'username' ).value;
-	var password = document.getElementById( 'password' ).value;
-	var host = document.getElementById( 'host' ).value;
-	var port = document.getElementById( 'port' ).value;
-
-	if (username != '' && password != '' && host != '' && port != '') {
-		var settings = {
-			username: username,
-			password: password,
-			host: host,
-			port: Number(port)
-		};
-		// Continue to back-end, pass along data
-		Homey.emit( 'save', settings, function( err, result ){
-			if (err) {
-				console.log(err);
-				Homey.alert(err.message, 'error');
-			} else {
-				var info = JSON.parse(result);
-				Homey.alert(__('pair.start.success')+ `\r\nModel: ${info.ModelName}\r\nSN: ${info.SerialNumber}`, 'info');
-				settings.model_name = info.ModelName;
-				settings.serial_number = info.SerialNumber;
-				settings.firmware_version = info.Firmwareversion;
-				settings.smart_agent_version = info.SmartAgentversion;
-				settings.host = info.host;
-				settings.port = info.port;
-				var device = {
-					name: info.ModelName,
-					data: { id: info.SerialNumber },
-					settings: settings
-				};
-				Homey.addDevice(device, function( err, result ){
-		    	if( err ) {	Homey.alert(err, 'error'); return }
-					setTimeout(function () {
-						Homey.done();
-					}, 5000);
-
-				});
-			}
-		});
-	} else {
-		Homey.alert(__('pair.start.required'), 'error');
-		// Homey.done();
-	}
-}
-</script>
-
-    <p data-i18n="pair.start.intro">enter IP address</p>
-
+<!doctype html>
+<html>
+	<body>
+		<p data-i18n="pair.start.intro">enter IP address</p>
 		<table class="pairSettings">
-			<tr>
+			<!-- <tr>
 				<td style="width:100px;" data-i18n="pair.start.username">username</td>
 				<td><input id="username" type="text" value="admin" placeholder="e.g. admin"/></td>
-			</tr>
+			</tr> -->
 			<tr>
 				<td style="width:100px;" data-i18n="pair.start.password">password</td>
 				<td><input id="password" type="password" value="" placeholder=""/></td>
 			</tr>
 			<tr>
 				<td style="width:100px;" data-i18n="pair.start.host">host</td>
-				<td><input id="host" type="text" value="routerlogin.net" placeholder="e.g. 192.168.1.1"/></td>
+				<td><input id="host" type="text" value="" /></td>
 			</tr>
 			<tr>
 				<td style="width:100px;" data-i18n="pair.start.port">port</td>
-				<td><input id="port" type="number" value=0 placeholder="e.g. 80 or 5000"/></td>
+				<td><input id="port" type="number" value=0 /></td>
 			</tr>
 		</table>
+		<br />
+		<button class="button" data-i18n="pair.start.testSettings" onclick="testSettings()">Save</button>
 
-		<p>
-		&nbsp;
-	  </p>
+		<script>
+			Homey.setTitle( __('pair.start.title') );
 
-<fieldset>
-    <button class="button" data-i18n="pair.start.testSettings" onclick="testSettings()">Save</button>
-</fieldset>
+			function testSettings () {
+				// variables
+				var username = 'admin'; // document.getElementById( 'username' ).value;
+				var password = document.getElementById( 'password' ).value;
+				var host = document.getElementById( 'host' ).value;
+				var port = document.getElementById( 'port' ).value;
+
+				if (password != '') {
+					var settings = {
+						username: username,
+						password: password,
+						host: host,
+						port: Number(port) || 0,
+					};
+					// Continue to back-end, pass along data
+					Homey.emit( 'save', settings, function( err, result ){
+						if (err) {
+							console.log(err);
+							Homey.alert(err.message, 'error');
+						} else {
+							var info = JSON.parse(result);
+							Homey.alert(__('pair.start.success')+ `\r\nModel: ${info.ModelName}\r\nSN: ${info.SerialNumber}`, 'info');
+							settings.model_name = info.ModelName;
+							settings.serial_number = info.SerialNumber;
+							settings.firmware_version = info.Firmwareversion;
+							settings.smart_agent_version = info.SmartAgentversion;
+							settings.host = info.host;
+							settings.port = info.port;
+							var device = {
+								name: info.ModelName,
+								data: { id: info.SerialNumber },
+								settings: settings
+							};
+							Homey.addDevice(device, function( err, result ){
+					    	if( err ) {	Homey.alert(err, 'error'); return }
+								setTimeout(function () {
+									Homey.done();
+								}, 5000);
+
+							});
+						}
+					});
+				} else {
+					Homey.alert(__('pair.start.required'), 'error');
+					// Homey.done();
+				}
+			}
+		</script>
+	</body>
+</html>

@@ -31,22 +31,22 @@
 			<fieldset>
 				<legend data-i18n="settings.instructionsLegend"> </legend>
 				<p data-i18n="settings.instructions"> </p>
-				<div class="field row">
+				<!-- <div class="field row"> -->
 						<label for="host" data-i18n="pair.start.host"> </label>
 						<input id="host" type="text" value="" />
+						<button type="button" class="right" id="discover" onclick="discover()" data-i18n="settings.discover">Start test</button>
 						<br />
 						<label for="soapPort" data-i18n="pair.start.port"> </label>
 						<input id="soapPort" type="number" value="" />
 						<br />
 						<label for="password" data-i18n="pair.start.password"> </label>
 						<input id="password" type="password" value="" />
-				</div>
-				<button type="button" class="left" id="discover" onclick="discover()" data-i18n="settings.discover">Start test</button>
-				<button type="button" class="left" id="runTest" onclick="runTest()" data-i18n="settings.startTest">Start test</button>
-				<button type="button" class="right" id="copyResult" onclick="copyResult()" data-i18n="settings.copyResult">Copy to clipboard</button>
+						<button type="button" class="right" id="runTest" onclick="runTest()" data-i18n="settings.startTest">Start test</button>
+				<!-- </div> -->
 			</fieldset>
 			<fieldset>
 				<legend data-i18n="settings.resultLegend"> </legend>
+				<button type="button" class="right" id="copyResult" onclick="copyResult()" data-i18n="settings.copyResult">Copy to clipboard</button>
 				<textarea id="testResult" style="width:98%; height:98%" rows=15></textarea>
 			</fieldset>
 		</div>
@@ -64,8 +64,15 @@
 					showLogs();
 				}
 				if (panel === 2) {
+					$('#host').prop('disabled', true);
+					$('#soapPort').prop('disabled', true);
+					$('#discover').prop('disabled', false);
 					$('#copyResult').prop('disabled', true);
 					$('#testResult').prop('disabled', true);
+					$('#runTest').prop('disabled',true);
+					$('#password').keyup(() => {
+							$('#runTest').prop('disabled', this.value == "" ? true : false);
+					});
 				}
 			}
 
@@ -102,14 +109,22 @@
 			function discover() {
 				$('#host').prop('disabled', true);
 				$('#soapPort').prop('disabled', true);
+				$('#discover').prop('disabled', true);
+				document.getElementById('testResult').innerHTML = "Trying to discover the router now. Hang on........";
 				HomeyAPI.api('GET', 'discover/', (err, result) => {
 					$('#host').prop('disabled', false);
 					$('#soapPort').prop('disabled', false);
+					$('#discover').prop('disabled', false);
+					document.getElementById('testResult').innerHTML = JSON.stringify(result).replace(/\"/g, "");
 					if (err) {
-						return HomeyAPI.alert(err.message, 'error'); // [, String icon], Function callback )
+						$('#host').prop('disabled', false);
+						$('#soapPort').prop('disabled', false);
+						$('#discover').prop('disabled', false);
+						document.getElementById('testResult').innerHTML = '';
+						return HomeyAPI.alert(JSON.stringify(err), 'error'); // [, String icon], Function callback )
 					}
-					document.getElementById('host').value = result.hostIp;
-					document.getElementById('soapPort').value = result.soapPort;
+					document.getElementById('host').value = result.host;
+					document.getElementById('soapPort').value = result.port;
 				});
 			}
 
@@ -119,9 +134,13 @@
 				$('#discover').prop('disabled', true);
 				const password = document.getElementById('password').value;
 				const host = document.getElementById('host').value;
+				const port = document.getElementById('soapPort').value;
 				document.getElementById('testResult').innerHTML = "Testing now. Hang on........";
-				HomeyAPI.api('POST', 'runtest/', { password, host }, (err, result) => {
+				HomeyAPI.api('POST', 'runtest/', { password, host, port }, (err, result) => {
 					if (err) {
+						$('#copyResult').prop('disabled', false);
+						$('#runTest').prop('disabled', false);
+						$('#discover').prop('disabled', false);
 						return HomeyAPI.alert(err.message, 'error'); // [, String icon], Function callback )
 					}
 					document.getElementById('testResult').innerHTML = '';

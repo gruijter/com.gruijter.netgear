@@ -1,11 +1,11 @@
 {
 	"pair": {
 		"start": {
-			"intro": "Please fill in the admin password of the Netgear router. Do not change the defults of other fields!",
+			"intro": "Please fill in the admin password of the Netgear router. Do not fill in the other fields, unless you know what you are doing!",
 			"title": "Add device",
 			"error": "An error has occurred.",
 			"success": "Success! ",
-			"required": "All fields are required",
+			"required": "Password is required",
 			"username": "Username",
 			"password": "Password",
 			"host": "IP address",
