@@ -21,8 +21,6 @@ along with com.gruijter.netgear.  If not, see <http://www.gnu.org/licenses/>.
 
 const Homey = require('homey');
 const NetgearRouter = require('netgear');
-const dns = require('dns');
-const util = require('util');
 
 class NetgearDriver extends Homey.Driver {
 
@@ -150,8 +148,8 @@ class NetgearDriver extends Homey.Driver {
 			})
 			.catch((error) => {
 				this.error('Login error:', error.message);
-				this.log('last repsonse from router:');
-				this.log(this.lastResponse);
+				// this.log('last repsonse from router:');
+				// this.log(this.lastResponse);
 				this.setUnavailable(error.message)
 					.catch(this.error);
 			});

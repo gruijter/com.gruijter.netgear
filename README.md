@@ -37,8 +37,7 @@ For Homey to get all the functionality you need to do some one time settings in 
 - To be able to block or allow a device, enable access control: routerlogin.net > advanced > security > access control.
 
 ### Supported routers ###
-In general: If you can use the genie app to manage the router then my app will likely do something. The app has been confirmed to work with WNR2000v5, WNDR4500v2, R6250, R7000, R7800, R8000 and Orbi.
-You can check your router version by browsing to http://routerlogin.net/currentsetting.htm . According to the NETGEAR Genie app description, the following routers might work:
+In general: If you can use the genie app to manage the router then my app will likely do something. You can check your router version by browsing to http://routerlogin.net/currentsetting.htm . According to the NETGEAR Genie app description, the following routers are supported:
 
 Wi-Fi Routers: Orbi AC1450 Centria (WNDR4700, WND4720) JNR1010 JNR3210 JR6150 JWNR2010 R6050 R6100 R6200 R6220 R6250 R6300 R6400 R6700 R6900 R7000 R7500 R7500 R7800 R7900 R8000 R8300 R8500 R9000 WNDR3400v2 WNDR3700v3 WNDR3800 WNDR4000 WNDR4300 WNDR4500 WNDRMAC WNR1000v2 WNR1500 WNR2020 WNR2020v2 WNR2000v3 WNR2200 WNR2500 WNR3500Lv2 WNR612v2 WNR614
 
@@ -59,29 +58,13 @@ If you really like the app you can buy me a beer.
 
 ===============================================================================
 
-Version changelog
+Version changelog: [changelog.txt]
 
-```
-v2.0.9	2018.10.27 Netgear module updated to 3.0.8. Added auto discover. Improved pairing.
-v2.0.8	2018.10.23 Netgear module updated to 3.0.6. More router types supported. New xml parser. Condition cards added. Router compatibility test added.
-v2.0.7	2018.10.09 Netgear module updated to 2.2.0. Speedtest added. Fw update added. Guestwifi fix. Pairing fix.
-v2.0.6	2018.09.29 GuestWifi2 support added.
-v2.0.5	2018.08.19 Fix autoport detection. Netgear module update to 1.4.0
-v2.0.4	2018.08.12 Reduce memory usage. Netgear module optimizations.
-v2.0.3	2018.06.11 Fix autocomplete for corrupted devicelist. Small fixes.
-v2.0.2	2018.03.24 Action card added for disable/enable guest wifi.
-v2.0.1	2018.01.19 Hotfix. XML parser reverted.
-v2.0.0	2018.01.15 Replaced the XML parser to a lightweight version
-v1.3.1	2018.01.10 Minor fixes. Debug logger updated.
-v1.3.0	2017.12.09 Fix option to empty the known devices list. Added automatic soap port detection during pairing.
-v1.2.0	2017.11.29 Compatible routerlist greatly expanded. Bugfix up/down speed.
-v1.0.0	2017.11.13 First stable release
-
-```
-[forum]: https://community.athom.com/t/https-apps-athom-com-app-com-gruijter-netgear/2259
+[forum]: https://community.athom.com/t/2259
 [pp-donate-link]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VB7VKG5Y28M6N
 [pp-donate-image]: https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif
 [mobile-card-image]: https://discourse-cdn-sjc1.com/business4/uploads/athom/original/2X/f/f202c133b76496a5b7e9f0714a86e38bf139ff31.png
 [flow-cards-image]: https://discourse-cdn-sjc1.com/business4/uploads/athom/original/2X/6/602d209a4804d55ddcb1ac6f2ee925b2ca2e25dd.jpeg
 [insights-image]: https://forum.athom.com/uploads/editor/qj/l7hpjcacn1qf.png
 [compatibility-test-image]: https://discourse-cdn-sjc1.com/business4/uploads/athom/optimized/2X/6/68486f6ed7c8ec0acbdf4f5a9b360892b074f030_1_514x500.jpeg
+[changelog.txt]: https://github.com/gruijter/com.gruijter.netgear/blob/master/changelog.txt

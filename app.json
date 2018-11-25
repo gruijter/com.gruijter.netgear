@@ -7,7 +7,7 @@
     "en": "monitor your Netgear router",
     "nl": "verbind je Netgear router"
   },
-  "version": "2.0.9",
+  "version": "2.1.0",
 	"sdk": 2,
   "compatibility": ">= 1.5",
   "author": {
@@ -177,15 +177,41 @@
               "value": "password"
             },
 						{
-              "id": "polling_interval",
-              "type": "number",
-              "label": {
-                "en": "Polling interval (seconds)",
-                "nl": "Polling interval (seconden)"
-              },
-              "attr": { "min": 20 },
-              "value": 60
-            }
+							"id": "polling_interval",
+							"type": "number",
+							"label": {
+								"en": "Polling interval (seconds)",
+								"nl": "Polling interval (seconden)"
+							},
+							"attr": { "min": 20 },
+							"value": 60
+						},
+						{
+							"id": "internet_connection_check",
+							"type": "dropdown",
+							"value": "netgear",
+							"label": {
+									"en": "Internet check"
+							},
+							"values": [
+									{
+											"id": "netgear",
+											"label": {
+													"en": "Netgear"
+											}
+									},
+									{
+											"id": "homey",
+											"label": {
+													"en": "Homey"
+											}
+									}
+							],
+							"hint": {
+								"en": "Which device should check if the internet is connected",
+								"nl": "Welk apparaat controleert of internet verbonden is"
+							}
+						}
 					]
 				},
 				{

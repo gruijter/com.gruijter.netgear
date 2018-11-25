@@ -21,13 +21,16 @@ along with com.gruijter.netgear.  If not, see <http://www.gnu.org/licenses/>.
 
 const Homey = require('homey');
 const NetgearRouter = require('netgear');
+const util = require('util');
+const dns = require('dns');
+
+const dnsLookupPromise = util.promisify(dns.lookup);
 
 class NetgearDevice extends Homey.Device {
 
 	async updateRouterDeviceState() {
 		try {
 			// init some values
-			const lastInternetConnectionStatus = this.readings.currentSetting.InternetConnectionStatus;
 			const lastTrafficMeter = this.readings.trafficMeter;
 			let lastTimestamp = this.readings.timestamp;
 			if (lastTrafficMeter === {} || lastTimestamp === 0) {
@@ -39,16 +42,23 @@ class NetgearDevice extends Homey.Device {
 			this.readings = await this._driver.getRouterData.call(this);
 			this._driver.updateDeviceList.call(this);
 			// calculate speed
-			const downloadSpeed = Math.round((100 * 1000 * 8 *
-				(lastTrafficMeter.newTodayDownload - this.readings.trafficMeter.newTodayDownload)) /
-				(lastTimestamp - this.readings.timestamp)) / 100;
-			const uploadSpeed = Math.round((100 * 1000 * 8 *
-				(lastTrafficMeter.newTodayUpload - this.readings.trafficMeter.newTodayUpload)) /
-				(lastTimestamp - this.readings.timestamp)) / 100;
+			const downloadSpeed = Math.round((100 * 1000 * 8
+				* (lastTrafficMeter.newTodayDownload - this.readings.trafficMeter.newTodayDownload))
+				/ (lastTimestamp - this.readings.timestamp)) / 100;
+			const uploadSpeed = Math.round((100 * 1000 * 8
+				* (lastTrafficMeter.newTodayUpload - this.readings.trafficMeter.newTodayUpload))
+				/ (lastTimestamp - this.readings.timestamp)) / 100;
 			// update capability values and flowcards
-			this.setCapabilityValue('internet_connection_status', this.readings.currentSetting.InternetConnectionStatus === 'Up');
-			if (this.readings.currentSetting.InternetConnectionStatus !== lastInternetConnectionStatus) {
-				if (this.readings.currentSetting.InternetConnectionStatus === 'Up') {
+			let internetConnectionStatus = true;
+			if (this.getSettings().internet_connection_check === 'homey') {
+				internetConnectionStatus = await dnsLookupPromise('www.google.com')
+					.then(() => true)
+					.catch(() => false);
+			} else {
+				internetConnectionStatus = this.readings.currentSetting.InternetConnectionStatus === 'Up';
+			}
+			if (internetConnectionStatus !== this.getCapabilityValue('internet_connection_status')) {
+				if (internetConnectionStatus) {
 					this.log('the internet connection came up');
 					this.internetConnectedTrigger
 						.trigger(this)
@@ -60,6 +70,7 @@ class NetgearDevice extends Homey.Device {
 						.catch(this.error);
 				}
 			}
+			this.setCapabilityValue('internet_connection_status', internetConnectionStatus);
 			if (this.getCapabilityValue('attached_devices') !== this.onlineDeviceCount) {
 				this.setCapabilityValue('attached_devices', this.onlineDeviceCount);
 			}

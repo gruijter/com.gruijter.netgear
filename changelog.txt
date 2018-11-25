@@ -1,0 +1,17 @@
+Version changelog
+
+v2.1.0	2018.11.25 Netgear module updated to 3.2.2. Added option to let Homey check internet connection state.
+v2.0.9	2018.10.27 Netgear module updated to 3.0.8. Added auto discover. Improved pairing.
+v2.0.8	2018.10.23 Netgear module updated to 3.0.6. More router types supported. New xml parser. Condition cards added. Router compatibility test added.
+v2.0.7	2018.10.09 Netgear module updated to 2.2.0. Speedtest added. Fw update added. Guestwifi fix. Pairing fix.
+v2.0.6	2018.09.29 GuestWifi2 support added.
+v2.0.5	2018.08.19 Fix autoport detection. Netgear module update to 1.4.0
+v2.0.4	2018.08.12 Reduce memory usage. Netgear module optimizations.
+v2.0.3	2018.06.11 Fix autocomplete for corrupted devicelist. Small fixes.
+v2.0.2	2018.03.24 Action card added for disable/enable guest wifi.
+v2.0.1	2018.01.19 Hotfix. XML parser reverted.
+v2.0.0	2018.01.15 Replaced the XML parser to a lightweight version
+v1.3.1	2018.01.10 Minor fixes. Debug logger updated.
+v1.3.0	2017.12.09 Fix option to empty the known devices list. Added automatic soap port detection during pairing.
+v1.2.0	2017.11.29 Compatible routerlist greatly expanded. Bugfix up/down speed.
+v1.0.0	2017.11.13 First stable release
