@@ -188,9 +188,8 @@ class NetgearDriver extends Homey.Driver {
 
 	async wol(mac, password) { // call with NetgearDevice as this
 		try {
-			const MAC = mac.toUpperCase();
-			this.log(`WOL requested for device ${MAC} ${this.knownDevices[MAC].Name}`);
-			await this.routerSession.wol(MAC, password);
+			this.log(`WOL requested for device ${mac} ${this.routerSession.knownDevices[mac].Name}`);
+			await this.routerSession.wol(mac, password);
 			return Promise.resolve(true);
 		}	catch (error) {
 			this.error('WOL error', error.message);
