@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 /*
 Copyright 2017, 2018, Robin de Gruijter (gruijter@hotmail.com)
 
@@ -182,6 +183,17 @@ class NetgearDriver extends Homey.Driver {
 			this.log('last repsonse from router:');
 			this.log(this.lastResponse);
 			return Promise.reject(error);
+		}
+	}
+
+	async wol(mac, password) { // call with NetgearDevice as this
+		try {
+			this.log(`WOL requested for device ${mac} ${this.knownDevices[mac].Name}`);
+			await this.routerSession.wol(mac, password);
+			return Promise.resolve(true);
+		}	catch (error) {
+			this.error('WOL error', error.message);
+			return Promise.resolve(false);
 		}
 	}
 

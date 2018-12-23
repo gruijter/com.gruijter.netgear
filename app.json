@@ -7,7 +7,7 @@
     "en": "monitor your Netgear router",
     "nl": "verbind je Netgear router"
   },
-  "version": "2.1.0",
+  "version": "2.2.0",
 	"sdk": 2,
   "compatibility": ">= 1.5",
   "author": {
@@ -660,6 +660,35 @@
 			}
 		],
     "actions": [
+			{
+				"id": "wol",
+				"title": {
+					"en": "WakeOnLan",
+					"nl": "WakeOnLan"
+				},
+				"args": [
+					{
+						"name": "device",
+						"type": "device",
+						"filter": "driver_id=netgear"
+					},
+			    {
+		        "type": "autocomplete",
+		        "name": "mac",
+		        "placeholder": {
+		          "en": "AA:BB:CC:DD:EE:FF"
+		        }
+					},
+          {
+            "name": "password",
+            "type": "text",
+            "placeholder": {
+              "en": "password"
+						 },
+						 "value": "00:00:00:00:00:00"
+          }
+				]
+			},
 			{
 				"id": "block_device",
 				"title": {

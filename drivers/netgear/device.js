@@ -223,7 +223,23 @@ class NetgearDevice extends Homey.Device {
 		blockDevice.register()
 			.on('run', async (args, state, callback) => {
 				await this._driver.blockOrAllow.call(this, args.mac.name, 'Block');
-				// this.log(args.mac.name);
+				callback(null, true);
+			})
+			.getArgument('mac')
+			.registerAutocompleteListener((query) => {
+				let results = this._driver.makeAutocompleteList.call(this);
+				results = results.filter((result) => {		// filter for query on MAC and Name
+					const macFound = result.name.toLowerCase().indexOf(query.toLowerCase()) > -1;
+					const nameFound = result.description.toLowerCase().indexOf(query.toLowerCase()) > -1;
+					return macFound || nameFound;
+				});
+				return Promise.resolve(results);
+			});
+
+		const wol = new Homey.FlowCardAction('wol');
+		wol.register()
+			.on('run', async (args, state, callback) => {
+				await this._driver.wol.call(this, args.mac.name, args.password);
 				callback(null, true);
 			})
 			.getArgument('mac')
