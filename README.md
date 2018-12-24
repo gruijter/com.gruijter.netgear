@@ -16,6 +16,7 @@ Act on:
 * new router firmware available
 
 Do:
+* send WakeOnLan (WOL) to a MAC address
 * block and allow an attached device by MAC address
 * enable and disable Guest Wifi
 * perform internet speed test

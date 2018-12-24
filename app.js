@@ -20,8 +20,8 @@ along with com.gruijter.netgear.  If not, see <http://www.gnu.org/licenses/>.
 'use strict';
 
 const Homey = require('homey');
-const Logger = require('./captureLogs.js');
 const _test = require('netgear/test/_test.js');
+const Logger = require('./captureLogs.js');
 
 class MyApp extends Homey.App {
 
@@ -55,14 +55,17 @@ class MyApp extends Homey.App {
 	deleteLogs() {
 		return this.logger.deleteLogs();
 	}
+
 	getLogs() {
 		return this.logger.logArray;
 	}
+
 	runTest(data) {
 		this.log('Router compatibility test started');
 		const output = _test.test(data.password, undefined, data.host, data.port);
 		return Promise.resolve(output);
 	}
+
 	discover() {
 		this.log('Router discovery started');
 		const discover = _test.discover();
