@@ -137,12 +137,19 @@ class NetgearDevice extends Homey.Device {
 		this.routerSession = new NetgearRouter(settings.password, settings.username, settings.host, settings.port);
 		// get known device from store
 		this.log('retrieving knownDevices from persistent storage');
-		// this.logger.log('retrieving knownDevices from persistent storage');
-		this.knownDevices = this.getStoreValue('knownDevices');
+		const knownDevicesString = await this.getStoreValue('knownDevicesString');
+		if (knownDevicesString) {
+			this.knownDevices = JSON.parse(knownDevicesString);
+		} else {
+			this.log('migrating from old storage');
+			this.knownDevices = await this.getStoreValue('knownDevices');
+			this.unsetStoreValue('knownDevices');
+		}
 		// store known devices when app unloads
-		Homey.on('unload', () => {
+		Homey.on('unload', async () => {
 			this.log('unload called, storing knownDevices state');
-			this.setStoreValue('knownDevices', this.knownDevices);
+			const devicesString = JSON.stringify(this.knownDevices).replace('&lt', '').replace('&gt', '').replace(';', '');
+			await this.setStoreValue('knownDevicesString', devicesString);
 		});
 
 		// register trigger flow cards
@@ -319,10 +326,10 @@ class NetgearDevice extends Homey.Device {
 			});
 
 		// start polling router for info
-		this.intervalIdDevicePoll = setInterval(() => {
+		this.intervalIdDevicePoll = setInterval(async () => {
 			try {
 				// get new routerdata and update the state
-				this.updateRouterDeviceState();
+				await this.updateRouterDeviceState();
 			} catch (error) { this.log('intervalIdDevicePoll error', error); }
 		}, 1000 * settings.polling_interval);
 
@@ -341,7 +348,7 @@ class NetgearDevice extends Homey.Device {
 	}
 
 	// this method is called when the user has changed the device's settings in Homey.
-	onSettings(oldSettingsObj, newSettingsObj, changedKeysArr, callback) {
+	async onSettings(oldSettingsObj, newSettingsObj, changedKeysArr, callback) {
 		// first stop polling the device, then start init after short delay
 		clearInterval(this.intervalIdDevicePoll);
 		this.log('router device settings changed');
@@ -352,7 +359,7 @@ class NetgearDevice extends Homey.Device {
 		}, 10000);
 		if (newSettingsObj.clear_known_devices) {
 			this.knownDevices = {};
-			this.setStoreValue('knownDevices', this.knownDevices);
+			await this.setStoreValue('knownDevicesString', JSON.stringify(this.knownDevices));
 			this.log('known devices were deleted on request of user');
 			return callback('Deleting known devices list', null);
 		}

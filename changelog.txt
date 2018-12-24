@@ -1,6 +1,6 @@
 Version changelog
 
-v2.2.0	2018.12.23 Netgear package 3.3.0. Added action card to send a WakeOnLan to a device. Login method changed.
+v2.2.0	2018.12.23 Netgear package 3.3.0. Added action card to send a WakeOnLan to a device. Fixed knownDevice storage.
 v2.1.0	2018.11.25 Netgear package 3.2.2. Added option to let Homey check internet connection state.
 v2.0.9	2018.10.27 Netgear package 3.0.8. Added auto discover. Improved pairing.
 v2.0.8	2018.10.23 Netgear package 3.0.6. More router types supported. New xml parser. Condition cards added. Router compatibility test added.

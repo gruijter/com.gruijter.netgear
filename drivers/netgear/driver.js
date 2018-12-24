@@ -32,7 +32,7 @@ class NetgearDriver extends Homey.Driver {
 	// function to keep a list of known attached devices
 	async updateDeviceList() {		// call with NetgearDevice as this
 		try {
-			let persistent = false;
+			let persistent = true;
 			const attachedDevices = this.readings.attachedDevices;
 			this.knownDevices = this.knownDevices || {};
 			// console.log(attachedDevices);
@@ -119,7 +119,8 @@ class NetgearDriver extends Homey.Driver {
 			this.onlineDeviceCount = onlineCount;
 			// save devicelist to persistent storage
 			if (persistent) {
-				this.setStoreValue('knownDevices', this.knownDevices);
+				const knownDevicesString = JSON.stringify(this.knownDevices).replace('&lt', '').replace('&gt', '').replace(';', '');
+				await this.setStoreValue('knownDevicesString', knownDevicesString);
 			}
 		}	catch (error) {
 			this.error('error:', error);
@@ -188,7 +189,7 @@ class NetgearDriver extends Homey.Driver {
 
 	async wol(mac, password) { // call with NetgearDevice as this
 		try {
-			this.log(`WOL requested for device ${mac} ${this.routerSession.knownDevices[mac].Name}`);
+			this.log(`WOL requested for device ${mac} ${this.knownDevices[mac].Name}`);
 			await this.routerSession.wol(mac, password);
 			return Promise.resolve(true);
 		}	catch (error) {
