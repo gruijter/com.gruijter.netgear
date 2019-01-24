@@ -7,7 +7,7 @@
     "en": "monitor your Netgear router",
     "nl": "verbind je Netgear router"
   },
-  "version": "2.2.0",
+  "version": "2.3.0",
 	"sdk": 2,
   "compatibility": ">= 1.5",
   "author": {
@@ -43,7 +43,9 @@
 							"nl": "Internet verbonden"
 					},
 					"getable": true,
-					"setable": false
+					"setable": false,
+					"insights": true,
+					"icon": "./drivers/netgear/assets/internet_connection_status.svg"
 			},
 			"download_speed": {
 					"type": "number",
@@ -55,7 +57,9 @@
 					"setable": false,
 					"units": {
 							"en": "Mbit/s"
-					}
+					},
+					"insights": true,
+					"icon": "./drivers/netgear/assets/download_speed.svg"
 			},
 			"upload_speed": {
 					"type": "number",
@@ -67,7 +71,9 @@
 					"setable": false,
 					"units": {
 							"en": "Mbit/s"
-					}
+					},
+					"insights": true,
+					"icon": "./drivers/netgear/assets/upload_speed.svg"
 			},
 			"attached_devices": {
 					"type": "number",
@@ -76,7 +82,9 @@
 							"nl": "Verbonden apparaten"
 					},
 					"getable": true,
-					"setable": false
+					"setable": false,
+					"insights": true,
+					"icon": "./drivers/netgear/assets/attached_devices.svg"
 			}
 	},
 
