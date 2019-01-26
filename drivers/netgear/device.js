@@ -103,7 +103,7 @@ class NetgearDevice extends Homey.Device {
 			const settings = this.getSettings();
 			if (this.readings.info.Firmwareversion !== settings.firmware_version) {
 				this.setSettings({
-					model_name: this.readings.info.ModelName,
+					model_name: this.readings.info.ModelName || this.readings.info.DeviceName || 'Netgear',
 					serial_number: this.readings.info.SerialNumber,
 					firmware_version: this.readings.info.Firmwareversion,
 					smart_agent_version: this.readings.info.SmartAgentversion,

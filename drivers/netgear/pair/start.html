@@ -23,6 +23,9 @@
 		<br />
 		<button class="button" data-i18n="pair.start.testSettings" onclick="testSettings()">Save</button>
 
+		<!-- Homey mock for debugging settings page in desktop -->
+		<!-- <script src='https://cdn.staticaly.com/gh/robertklep/homey-mocks/v0.0.4/homey-pairing-mock.js'></script> -->
+
 		<script>
 			Homey.setTitle( __('pair.start.title') );
 
@@ -47,16 +50,16 @@
 							Homey.alert(err.message, 'error');
 						} else {
 							var info = JSON.parse(result);
-							Homey.alert(__('pair.start.success')+ `\r\nModel: ${info.ModelName}\r\nSN: ${info.SerialNumber}`, 'info');
-							settings.model_name = info.ModelName;
+							settings.model_name = info.ModelName || info.DeviceName || 'Netgear';
 							settings.serial_number = info.SerialNumber;
 							settings.firmware_version = info.Firmwareversion;
 							settings.smart_agent_version = info.SmartAgentversion;
 							settings.host = info.host;
 							settings.port = info.port;
+							Homey.alert(__('pair.start.success')+ `\r\nModel: ${settings.model_name}\r\nSN: ${settings.serial_number}`, 'info');
 							var device = {
-								name: info.ModelName,
-								data: { id: info.SerialNumber },
+								name: settings.model_name,
+								data: { id: settings.serial_number },
 								settings: settings
 							};
 							Homey.addDevice(device, function( err, result ){
@@ -64,7 +67,6 @@
 								setTimeout(function () {
 									Homey.done();
 								}, 5000);
-
 							});
 						}
 					});
