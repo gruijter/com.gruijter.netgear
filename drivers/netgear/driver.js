@@ -1,6 +1,6 @@
 /* eslint-disable prefer-destructuring */
 /*
-Copyright 2017, 2018, Robin de Gruijter (gruijter@hotmail.com)
+Copyright 2017 - 2019, Robin de Gruijter (gruijter@hotmail.com)
 
 This file is part of com.gruijter.netgear.
 
@@ -151,7 +151,7 @@ class NetgearDriver extends Homey.Driver {
 			.catch((error) => {
 				this.error('Login error:', error.message);
 				// this.log('last repsonse from router:');
-				// this.log(this.lastResponse);
+				// this.log(this.routerSession.lastResponse);
 				this.setUnavailable(error.message)
 					.catch(this.error);
 			});
@@ -182,7 +182,7 @@ class NetgearDriver extends Homey.Driver {
 			return Promise.resolve(readings);
 		} catch (error) {
 			this.log('last repsonse from router:');
-			this.log(this.lastResponse);
+			this.log(this.routerSession.lastResponse);
 			return Promise.reject(error);
 		}
 	}
@@ -281,7 +281,7 @@ class NetgearDriver extends Homey.Driver {
 		}	catch (error) {
 			this.error('speedTest error', error);
 			this.log('last repsonse from router:');
-			this.log(this.lastResponse);
+			this.log(this.routerSession.lastResponse);
 			return Promise.reject(error);
 		}
 	}
@@ -295,7 +295,7 @@ class NetgearDriver extends Homey.Driver {
 		}	catch (error) {
 			this.error('updateNewFirmware error', error);
 			this.log('last repsonse from router:');
-			this.log(this.lastResponse);
+			this.log(this.routerSession.lastResponse);
 			return Promise.reject(error);
 		}
 	}
@@ -342,7 +342,7 @@ class NetgearDriver extends Homey.Driver {
 			}	catch (error) {
 				this.error('Pair error', error.message);
 				this.log('last repsonse from router:');
-				this.log(JSON.stringify(this.lastResponse));
+				this.log(this.routerSession.lastResponse);
 				callback(error);
 			}
 		});

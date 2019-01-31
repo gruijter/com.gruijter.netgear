@@ -1,5 +1,5 @@
 /*
-Copyright 2017, 2018, Robin de Gruijter (gruijter@hotmail.com)
+Copyright 2017 - 2019, Robin de Gruijter (gruijter@hotmail.com)
 
 This file is part of com.gruijter.netgear.
 
