@@ -171,8 +171,10 @@ class NetgearDriver extends Homey.Driver {
 			}
 			// get these once an hour max.
 			if ((Date.now() - readings.timestamp) > (60 * 60 * 1000)) {
-				readings.info = await this.routerSession.getInfo();
-				readings.newFirmware = await this.routerSession.checkNewFirmware();
+				readings.info = await this.routerSession.getInfo()
+					.catch(() => this.log('error getting router info'));
+				readings.newFirmware = await this.routerSession.checkNewFirmware()
+					.catch(() => this.log('error getting new Firmware info'));
 			}
 			// get these every poll
 			readings.currentSetting = await this.routerSession.getCurrentSetting();

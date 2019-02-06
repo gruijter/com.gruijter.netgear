@@ -1,5 +1,6 @@
 Version changelog
 
+v2.3.3  2019.02.06 Netgear package 3.3.5. Fixes timeout / socket hangup for certain router types.
 v2.3.2  2019.01.31 Netgear package 3.3.4. Extended debug info.
 v2.3.1	2019.01.26 Netgear package 3.3.3. Fix pairing for devices without ModelName.
 v2.3.0 	2019.01.24 Netgear package 3.3.2. Fixes timeout / socket hangup for certain router types. Homey V2 icons and Insights.

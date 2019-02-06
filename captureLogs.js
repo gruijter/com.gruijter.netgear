@@ -56,6 +56,7 @@ class captureLogs {
 			return this.logArray;
 		});
 	}
+
 	saveLogs() {
 		fs.writeFile(this.logFile, JSON.stringify(this.logArray), (err) => {
 			if (err) {
@@ -65,6 +66,7 @@ class captureLogs {
 			}
 		});
 	}
+
 	deleteLogs() {
 		// this.log('deleting logs from frontend');
 		fs.unlink(this.logFile, (err) => {
@@ -91,6 +93,7 @@ class captureLogs {
 		});
 		// captureStdout.release();
 	}
+
 	captureStdErr() {
 		// Capture all writes to stderr (e.g. this.error)
 		this.captureStderr = new StdOutFixture({ stream: process.stderr });
@@ -104,9 +107,11 @@ class captureLogs {
 		});
 		// captureStderr.release();
 	}
+
 	releaseStdOut() {
 		this.captureStdout.release();
 	}
+
 	releaseStdErr() {
 		this.captureStderr.release();
 	}
