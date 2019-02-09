@@ -1,33 +1,49 @@
 {
 	"pair": {
 		"start": {
-			"intro": "Vul het admin wachtwoord van de Netgear router in. De andere velden niet invullen, tenzij je weet wat je doet!",
-			"title": "Device toevoegen",
+			"title": "Netgear router toevoegen",
+			"intro": "Druk op `Zoek router` om automatisch het IP adres en de SOAP poort in te vullen. Vul daarna het admin wachtwoord in van de Netgear router en druk op `Opslaan`.",
+			"discover": "Zoek router",
 			"error": "Er is een fout opgetreden.",
 			"success": "Succes! ",
-			"required": "Wachtwoord moet zijn ingevuld!",
+			"required": "Wachtwoord moet worden ingevuld",
 			"username": "Gebruikersnaam",
 			"password": "Wachtwoord",
 			"host": "IP adres",
 			"port": "SOAP Poort",
-			"testSettings": "Test de instellingen"
+			"save": "Opslaan"
 		}
 	},
 	"settings": {
-		"title": "Netgear App",
-		"buttonsLegend": "Tab selectie",
-		"loggingsTitle": "Logs",
-		"testTitle": "Router compatibiliteit test",
-		"loggingLegend": "Logs",
-		"instructionsLegend": "Router compatibiliteit test",
-		"instructions": "Als je problemen hebt met de app, kun je hier een compatibiliteits test uitvoeren. Het resultaat van de test wordt gebruikt om de app te verbeteren.<br />Druk op 'Zoek router' om automatisch het IP adres en de SOAP poort te vinden. Voer het wachtwoord in van je router. Start vervolgens de test. Met de knop 'Kopiëer resultaat' kun je een issue aanmaken, en het resultaat daar plakken.",
-		"discover": "Zoek router",
-		"startTest": "Start Test",
-		"resultLegend": "Resultaat",
-		"copyResult": "Kopiëer resultaat",
-		"logs": {
-			"getlogs": "Ververs",
-			"deleteLogs": "Verwijderen"
+		"title": "Koppel met Netgear routers",
+
+		"tab1": {
+			"title": "Instructies",
+			"addDeviceTitle": "Voeg een router toe",
+			"addDeviceInstructions": "Je Homey moet verbonden zijn in het LAN deel van je router. Voeg een router toe via de Homey tab `Apparaten` en vul het admin wachtwoord in.",
+			"supportedRoutersTitle": "Ondersteunde routers",
+			"supportedRouters": "Als je met de genie app je router kan bedienen, dan wekrt de Homey app waarschijnlijk. Afhankeljik van het router model zijn sommige functionaliteiten misschien niet beschikbaar. Je kan een compatibiliteitstest uitvoeren in de Test tab.",
+			"oneTimeSetupTitle": "Eenmalige instellingen in de Netgear router",
+			"oneTimeSetup": "Om via Homey alle functionaliteiten te geven moet je eenmalig een aantal instellingen in de router wijzigen. Afhankeljik van het router model zijn sommige functionaliteiten misschien niet beschikbaar. Zorg dat de laatste firmware is geinstalleerd. <br />Voor up/download snelheid, zet de `traffic statistics` aan: routerlogin.net > advanced setup > traffic meter. <br />Om devices te blokkeren/vrij te geven, zet `access control` aan: routerlogin.net > advanced > security > access control."
+		},
+		"tab2": {
+			"title": "Debug Logs",
+			"logs": "Logs",
+			"deletelogs": "Verwijder logs",
+			"deleteWarning": "Verwijder alle logs?",
+			"deleted": "Logs verwijderd!"
+		},
+		"tab3": {
+			"title": "Test",
+			"instructionsLegend": "Router compatibiliteit test",
+			"instructions": "Als je problemen hebt met de app, kun je hier een compatibiliteits test uitvoeren. Het resultaat van de test wordt gebruikt om de app te verbeteren. Druk op 'Zoek router' om automatisch het IP adres en de SOAP poort te vinden. Voer het wachtwoord in van je router. Start vervolgens de test. Met de knop 'Kopiëer resultaat' kun je een issue aanmaken, en het resultaat daar plakken.",
+			"discover": "Zoek router",
+			"host": "IP adres",
+			"port": "SOAP Poort",
+			"password": "Wachtwoord",
+			"startTest": "Start test",
+			"result": "Resulaat",
+			"copyResult": "Kopiëer resultaat"
 		}
 	}
 }

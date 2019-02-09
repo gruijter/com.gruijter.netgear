@@ -2,167 +2,82 @@
 <html>
 	<head>
 		<!-- The '/homey.js' script must be included in your settings view to work -->
+		<link rel="stylesheet" type="text/css" href="styles.css" />
 		<script type="text/javascript" src="/homey.js" data-origin="settings"></script>
 		<script type="text/javascript" src="/manager/webserver/assets/js/jquery.js"></script>
+		<script type="text/javascript" src="settings.js" data-origin="settings"></script>
 	</head>
 	<body>
-		<h1 data-i18n="settings.title"> </h1>
+		<div id="app">
+			<p data-i18n="settings.title" class="benefit">Integrate Netgear routers</p>
+			<div class="rTable tabs">
+				<div class="rTableRow">
+					<div id="tabb1" class="tab tab-inactive" onclick="showTab(1)" data-i18n="settings.tab1.title">Instructions</div>
+					<div id="tabb2" class="tab tab-inactive" onclick="showTab(2)" data-i18n="settings.tab2.title">Log</div>
+					<div id="tabb3" class="tab tab-inactive" onclick="showTab(3)" data-i18n="settings.tab3.title">Compatibility Test</div>
+				</div>
+			</div>
 
-		<!-- Tab selection buttons -->
-		<fieldset>
-			<legend data-i18n="settings.buttonsLegend"> </legend>
-			<button type="button" id="panel-button-1" class="button panel-button" onclick="showPanel(1)" data-i18n="settings.loggingsTitle">Logging</button>
-			<button type="button" id="panel-button-2" class="button panel-button" onclick="showPanel(2)" data-i18n="settings.testTitle">Compatibility Test</button>
-		</fieldset>
+			<div class="tab-content">
+				<div style="height:8px" class="panel"></div>
+				<!-- Instructions panel -->
+				<div id="tab1" class="panel">
+					<fieldset class="listContainer">
+						<legend data-i18n="settings.tab1.addDeviceTitle">Add device</legend>
+						<p data-i18n="settings.tab1.addDeviceInstructions" class="instructions">Instructions</p>
+					</fieldset>
+					<fieldset class="listContainer">
+						<legend data-i18n="settings.tab1.supportedRoutersTitle">Supported routers</legend>
+						<p data-i18n="settings.tab1.supportedRouters" class="instructions">Instructions</p>
+					</fieldset>
+					<fieldset class="listContainer">
+						<legend data-i18n="settings.tab1.oneTimeSetupTitle">One Time setup</legend>
+						<p data-i18n="settings.tab1.oneTimeSetup" class="instructions">Instructions</p>
+					</fieldset>
+				</div>
+				<!-- Logging panel -->
+				<div id="tab2" class="panel">
+					<div class="setting">
+						<label class="settings-item-description" data-i18n="settings.tab2.deletelogs">host</label>
+						<button id="deleteButton" class="btn" onclick="deleteLogs()" data-i18n="settings.tab2.deletelogs">Delete</button>
+						<div id="loglines" class="instructions"></div>
+					</div>
+				</div>
+				<!-- compatibilityTest panel -->
+				<div id="tab3" class="panel">
+					<div class="setting">
+						<fieldset class="listContainer">
+							<legend data-i18n="settings.tab3.instructionsLegend">Router compatibility test</legend>
+							<p data-i18n="settings.tab3.instructions" class="instructions">Instructions</p>
+						</fieldset>
 
-		<!-- Logging panel -->
-		<div id="panel-1" class="panel">
-			<fieldset>
-				<legend data-i18n="settings.loggingLegend"> </legend>
-				<button type="button" class="right" id="button_getlog" onclick="showLogs()" data-i18n="settings.logs.getlogs">Get Logs</button>
-				<button type="button" class="right" id="button_deletelog" onclick="deleteLogs()" data-i18n="settings.logs.deleteLogs">Delete Logs</button>
-				<textarea id="loglines" style="width:98%; height:98%" rows=30></textarea>
-				<!-- <div id="loglines"></div> -->
-			</fieldset>
+						<label class="settings-item-description" data-i18n="settings.tab3.discover">host</label>
+						<button id="discover" class="btn" onclick="discover()" data-i18n="settings.tab3.discover">Discover</button>
+
+						<label class="settings-item-description" data-i18n="settings.tab3.host">host</label>
+						<div class="settings-itemgroup">
+							<input id="host" type="text" value="">
+						</div>
+						<label class="settings-item-description" data-i18n="settings.tab3.port">port</label>
+						<div class="settings-itemgroup">
+							<input id="soapPort" type="number" value="">
+						</div>
+						<label class="settings-item-description" data-i18n="settings.tab3.password">password</label>
+						<div class="settings-itemgroup">
+							<input id="password" type="password" value="">
+						</div>
+
+						<label class="settings-item-description" data-i18n="settings.tab3.startTest">Start test</label>
+						<button id="runTest" class="btn" onclick="runTest()" data-i18n="settings.tab3.startTest">Start Test</button>
+
+						<label class="settings-item-description" data-i18n="settings.tab3.copyResult">Copy to clipboard</label>
+						<button id="copyResult" class="btn" onclick="copyResult()" data-i18n="settings.tab3.copyResult">Copy to clipboard</button>
+						
+						<label class="settings-item-description" data-i18n="settings.tab3.result">Result</label>
+						<textarea id="testResult" style="width:98%; height:98%" rows=15></textarea>
+					</div>
+				</div>
+			</div>
 		</div>
-
-		<!-- compatibilityTest panel -->
-		<div id="panel-2" class="panel">
-			<fieldset>
-				<legend data-i18n="settings.instructionsLegend"> </legend>
-				<p data-i18n="settings.instructions"> </p>
-				<!-- <div class="field row"> -->
-						<label for="host" data-i18n="pair.start.host"> </label>
-						<input id="host" type="text" value="" />
-						<button type="button" class="right" id="discover" onclick="discover()" data-i18n="settings.discover">Start test</button>
-						<br />
-						<label for="soapPort" data-i18n="pair.start.port"> </label>
-						<input id="soapPort" type="number" value="" />
-						<br />
-						<label for="password" data-i18n="pair.start.password"> </label>
-						<input id="password" type="password" value="" />
-						<button type="button" class="right" id="runTest" onclick="runTest()" data-i18n="settings.startTest">Start test</button>
-				<!-- </div> -->
-			</fieldset>
-			<fieldset>
-				<legend data-i18n="settings.resultLegend"> </legend>
-				<button type="button" class="right" id="copyResult" onclick="copyResult()" data-i18n="settings.copyResult">Copy to clipboard</button>
-				<textarea id="testResult" style="width:98%; height:98%" rows=15></textarea>
-			</fieldset>
-		</div>
-
-		<script type="text/javascript">
-
-			function showPanel(panel) {
-				$('.panel').hide();
-				$('#panel-button-1').prop('disabled', false);
-				$('#panel-button-2').prop('disabled', false);
-				$('#panel-button-' + panel).prop('disabled', true);
-				$('#panel-' + panel).show();
-				if (panel === 1) {
-					$('#loglines').prop('disabled', true);
-					showLogs();
-				}
-				if (panel === 2) {
-					$('#host').prop('disabled', true);
-					$('#soapPort').prop('disabled', true);
-					$('#discover').prop('disabled', false);
-					$('#copyResult').prop('disabled', true);
-					$('#testResult').prop('disabled', true);
-					$('#runTest').prop('disabled',true);
-					$('#password').keyup(() => {
-							$('#runTest').prop('disabled', this.value == "" ? true : false);
-					});
-				}
-			}
-
-			var currentValues = {};
-			var HomeyAPI = null;
-
-			function onHomeyReady(Homey){
-				HomeyAPI = Homey;
-				showPanel(1);
-				Homey.ready();
-			}
-
-			function showLogs() {
-				HomeyAPI.api('GET', 'getlogs/', function(err, result) {
-					if (!err) {
-						document.getElementById('loglines').innerHTML = "";
-						for (var i=(result.length -1); i >= 0; i--) {
-							document.getElementById('loglines').innerHTML += JSON.stringify(result[i]).replace(/\"/g, "").replace(/\\n/g, "");
-							document.getElementById('loglines').innerHTML += "\n"; // "<br />";
-						}
-					};
-				});
-			}
-
-			function deleteLogs() {
-				HomeyAPI.api('GET', 'deletelogs/', (err) => {
-					if (err) {
-						HomeyAPI.alert(err.message, 'error'); // [, String icon], Function callback )
-					} else { HomeyAPI.alert('Logs deleted!', 'info'); }
-				});
-				showLogs();
-			}
-
-			function discover() {
-				$('#host').prop('disabled', true);
-				$('#soapPort').prop('disabled', true);
-				$('#discover').prop('disabled', true);
-				document.getElementById('testResult').innerHTML = "Trying to discover the router now. Hang on........";
-				HomeyAPI.api('GET', 'discover/', (err, result) => {
-					$('#host').prop('disabled', false);
-					$('#soapPort').prop('disabled', false);
-					$('#discover').prop('disabled', false);
-					document.getElementById('testResult').innerHTML = JSON.stringify(result).replace(/\"/g, "");
-					if (err) {
-						$('#host').prop('disabled', false);
-						$('#soapPort').prop('disabled', false);
-						$('#discover').prop('disabled', false);
-						document.getElementById('testResult').innerHTML = '';
-						return HomeyAPI.alert(JSON.stringify(err), 'error'); // [, String icon], Function callback )
-					}
-					document.getElementById('host').value = result.host;
-					document.getElementById('soapPort').value = result.port;
-				});
-			}
-
-			function runTest() {
-				$('#copyResult').prop('disabled', true);
-				$('#runTest').prop('disabled', true);
-				$('#discover').prop('disabled', true);
-				const password = document.getElementById('password').value;
-				const host = document.getElementById('host').value;
-				const port = document.getElementById('soapPort').value;
-				document.getElementById('testResult').innerHTML = "Testing now. Hang on........";
-				HomeyAPI.api('POST', 'runtest/', { password, host, port }, (err, result) => {
-					if (err) {
-						$('#copyResult').prop('disabled', false);
-						$('#runTest').prop('disabled', false);
-						$('#discover').prop('disabled', false);
-						return HomeyAPI.alert(err.message, 'error'); // [, String icon], Function callback )
-					}
-					document.getElementById('testResult').innerHTML = '';
-					for (let i = 0; i < (result.length); i++) {
-						document.getElementById('testResult').innerHTML += JSON.stringify(result[i]).replace(/\"/g, "");
-						document.getElementById('testResult').innerHTML += "\n";
-					}
-					$('#copyResult').prop('disabled', false);
-					$('#runTest').prop('disabled', false);
-					$('#discover').prop('disabled', false);
-				});
-			}
-
-			function copyResult() {
-				$('#testResult').prop('disabled', false);
-				const copyText = document.querySelector("#testResult");
-				copyText.select();
-				document.execCommand("copy");
-				HomeyAPI.openURL('https://github.com/gruijter/com.gruijter.netgear/issues/new');
-				$('#testResult').prop('disabled', true);
-			}
-
-		</script>
 	</body>
 </html>

@@ -174,7 +174,10 @@ class NetgearDriver extends Homey.Driver {
 				readings.info = await this.routerSession.getInfo()
 					.catch(() => this.log('error getting router info'));
 				readings.newFirmware = await this.routerSession.checkNewFirmware()
-					.catch(() => this.log('error getting new Firmware info'));
+					.catch(() => {
+						this.log('error getting new Firmware info');
+						return {};
+					});
 			}
 			// get these every poll
 			readings.currentSetting = await this.routerSession.getCurrentSetting();
@@ -315,6 +318,19 @@ class NetgearDriver extends Homey.Driver {
 	}
 
 	onPair(socket) {
+		const router = new NetgearRouter();
+		socket.on('discover', async (data, callback) => {
+			try {
+				this.log('discover button pressed in frontend');
+				// try to find the soap Port automatically
+				const discover = await router.discover();
+				this.log(discover);
+				callback(null, JSON.stringify(discover)); // report success to frontend
+			}	catch (error) {
+				this.log(error);
+				callback(error);
+			}
+		});
 		socket.on('save', async (data, callback) => {
 			try {
 				this.log('save button pressed in frontend');
@@ -322,13 +338,15 @@ class NetgearDriver extends Homey.Driver {
 				const username = data.username;
 				let host = data.host;
 				let port = Number(data.port);
-				const router = new NetgearRouter(password, username, host, port);
 				// try to find the soap Port automatically
-				const discover = await router.discover();
-				if (port === 0) {
+				let discover = {};
+				if (!host || host === 'routerlogin.net' || host === '' || !port) {
+					discover = await router.discover();
+				}
+				if (!port) {
 					port = discover.port;
 				}
-				if (host === 'routerlogin.net' || host === '') {
+				if (!host || host === 'routerlogin.net' || host === '') {
 					host = discover.host;
 				}
 				// try to login
@@ -343,8 +361,6 @@ class NetgearDriver extends Homey.Driver {
 				} else { callback(Error('No Netgear Model found')); }
 			}	catch (error) {
 				this.error('Pair error', error.message);
-				this.log('last repsonse from router:');
-				this.log(this.routerSession.lastResponse);
 				callback(error);
 			}
 		});

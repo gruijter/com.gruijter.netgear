@@ -1,80 +1,35 @@
 <!doctype html>
 <html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="styles.css" />
+		<script type="text/javascript" src="/manager/webserver/assets/js/jquery.js"></script>
+		<script type="text/javascript" src="settings.js" data-origin="settings"></script>
+	</head>
 	<body>
-		<p data-i18n="pair.start.intro">enter IP address</p>
-		<table class="pairSettings">
-			<!-- <tr>
-				<td style="width:100px;" data-i18n="pair.start.username">username</td>
-				<td><input id="username" type="text" value="admin" placeholder="e.g. admin"/></td>
-			</tr> -->
-			<tr>
-				<td style="width:100px;" data-i18n="pair.start.password">password</td>
-				<td><input id="password" type="password" value="" placeholder=""/></td>
-			</tr>
-			<tr>
-				<td style="width:100px;" data-i18n="pair.start.host">host</td>
-				<td><input id="host" type="text" value="" /></td>
-			</tr>
-			<tr>
-				<td style="width:100px;" data-i18n="pair.start.port">port</td>
-				<td><input id="port" type="number" value=0 /></td>
-			</tr>
-		</table>
-		<br />
-		<button class="button" data-i18n="pair.start.testSettings" onclick="testSettings()">Save</button>
+		<div class="setting">
+				<fieldset class="listContainer">
+					<legend data-i18n="pair.start.title">Start pairing</legend>
+					<p data-i18n="pair.start.intro" class="instructions">Instructions</p>
+				</fieldset>
 
-		<!-- Homey mock for debugging settings page in desktop -->
-		<!-- <script src='https://cdn.staticaly.com/gh/robertklep/homey-mocks/v0.0.4/homey-pairing-mock.js'></script> -->
+				<label class="settings-item-description" data-i18n="pair.start.discover">host</label>
+				<button id="discover" class="btn" onclick="discover()" data-i18n="pair.start.discover">Discover</button>
 
-		<script>
-			Homey.setTitle( __('pair.start.title') );
+				<label class="settings-item-description" data-i18n="pair.start.host">host</label>
+				<div class="settings-itemgroup">
+					<input id="host" type="text" value="">
+				</div>
+				<label class="settings-item-description" data-i18n="pair.start.port">port</label>
+				<div class="settings-itemgroup">
+					<input id="soapPort" type="number" value="">
+				</div>
+				<label class="settings-item-description" data-i18n="pair.start.password">password</label>
+				<div class="settings-itemgroup">
+					<input id="password" type="password" value="">
+				</div>
 
-			function testSettings () {
-				// variables
-				var username = 'admin'; // document.getElementById( 'username' ).value;
-				var password = document.getElementById( 'password' ).value;
-				var host = document.getElementById( 'host' ).value;
-				var port = document.getElementById( 'port' ).value;
-
-				if (password != '') {
-					var settings = {
-						username: username,
-						password: password,
-						host: host,
-						port: Number(port) || 0,
-					};
-					// Continue to back-end, pass along data
-					Homey.emit( 'save', settings, function( err, result ){
-						if (err) {
-							console.log(err);
-							Homey.alert(err.message, 'error');
-						} else {
-							var info = JSON.parse(result);
-							settings.model_name = info.ModelName || info.DeviceName || 'Netgear';
-							settings.serial_number = info.SerialNumber;
-							settings.firmware_version = info.Firmwareversion;
-							settings.smart_agent_version = info.SmartAgentversion;
-							settings.host = info.host;
-							settings.port = info.port;
-							Homey.alert(__('pair.start.success')+ `\r\nModel: ${settings.model_name}\r\nSN: ${settings.serial_number}`, 'info');
-							var device = {
-								name: settings.model_name,
-								data: { id: settings.serial_number },
-								settings: settings
-							};
-							Homey.addDevice(device, function( err, result ){
-					    	if( err ) {	Homey.alert(err, 'error'); return }
-								setTimeout(function () {
-									Homey.done();
-								}, 5000);
-							});
-						}
-					});
-				} else {
-					Homey.alert(__('pair.start.required'), 'error');
-					// Homey.done();
-				}
-			}
-		</script>
+				<label class="settings-item-description" data-i18n="pair.start.save">Save</label>
+				<button id="pair.start.save" class="btn" onclick="save()" data-i18n="pair.start.save">Save</button>
+			</div>
 	</body>
 </html>

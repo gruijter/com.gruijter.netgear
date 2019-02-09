@@ -1,8 +1,9 @@
 {
 	"pair": {
 		"start": {
-			"intro": "Please fill in the admin password of the Netgear router. Do not fill in the other fields, unless you know what you are doing!",
-			"title": "Add device",
+			"title": "Add Netgear router",
+			"intro": "Press `Discover router` to automatically fill in the IP address and the SOAP port. Then fill in the admin password of the Netgear router and press `Save`.",
+			"discover": "Discover router",
 			"error": "An error has occurred.",
 			"success": "Success! ",
 			"required": "Password is required",
@@ -10,24 +11,39 @@
 			"password": "Password",
 			"host": "IP address",
 			"port": "SOAP Port",
-			"testSettings": "Test settings"
+			"save": "Save"
 		}
 	},
-  "settings": {
-		"title": "Netgear App",
-		"buttonsLegend": "Tab selection",
-		"loggingsTitle": "Logs",
-		"testTitle": "Router compatibility test",
-		"loggingLegend": "Logs",
-		"instructionsLegend": "Router compatibility test",
-		"instructions": "If you have troubles with the app, you can perform a compatibility test. The result is used to improve the app.<br />Press 'Discover' to automatically find the IP address and SOAP port. Enter the password of the router. Then start the test. With the 'Copy result' button you can create an issue, and paste the result there.",
-		"discover": "Discover router",
-		"startTest": "Start Test",
-		"resultLegend": "Result",
-		"copyResult": "Copy result",
-		"logs": {
-			"getlogs": "Refresh",
-			"deleteLogs": "Delete"
+	"settings": {
+		"title": "Integrate Netgear Routers",
+
+		"tab1": {
+			"title": "Instructions",
+			"addDeviceTitle": "Add a new router",
+			"addDeviceInstructions": "Your Homey should be connected inside the LAN part of the router, not from outside (WAN). Add a router via the Homey tab `Devices` and fill in the admin password.",
+			"supportedRoutersTitle": "Supported Routers",
+			"supportedRouters": "If you can use the genie app to manage the router then this app will likely do something. Depending on your router type some functionality might not be available. You can run a compatibility test in the Test tab.",
+			"oneTimeSetupTitle": "One time settings in the Netgear router",
+			"oneTimeSetup": "For Homey to get all the functionality you need to do some one time settings in the router. Depending on the router type and firmware you might not have some of this functionality. Make sure you are on the latest router firmware. <br />For up/download speed, enable the traffic statistics: routerlogin.net > advanced setup > traffic meter. <br />To be able to block or allow a device, enable access control: routerlogin.net > advanced > security > access control."
+		},
+		"tab2": {
+			"title": "Debug Logs",
+			"logs": "Logs",
+			"deletelogs": "Delete logs",
+			"deleteWarning": "Delete all logs?",
+			"deleted": "Logs deleted!"
+		},
+		"tab3": {
+			"title": "Test",
+			"instructionsLegend": "Router compatibility test",
+			"instructions": "If you have problems with the app, you can perform a compatibility test. The result is used to improve the app. Press 'Discover' to automatically find the IP address and SOAP port. Enter the password of the router. Then start the test. With the 'Copy result' button you can create an issue, and paste the result there. Note: you need a github account to post an issue.",
+			"discover": "Discover router",
+			"host": "IP address",
+			"port": "SOAP Port",
+			"password": "Password",
+			"startTest": "Start test",
+			"result": "Result",
+			"copyResult": "Copy result"
 		}
 	}
 }

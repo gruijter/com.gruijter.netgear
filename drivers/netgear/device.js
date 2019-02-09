@@ -89,7 +89,7 @@ class NetgearDevice extends Homey.Device {
 			}
 			// check for new firmware_version
 			const { newFirmware } = this.readings;
-			if (this.readings.newFirmware.newVersion !== '') {
+			if (this.readings.newFirmware.newVersion && this.readings.newFirmware.newVersion !== '') {
 				const tokens = {
 					current_version: newFirmware.currentVersion,
 					new_version: newFirmware.newVersion,
