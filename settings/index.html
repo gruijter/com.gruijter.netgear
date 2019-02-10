@@ -15,6 +15,7 @@
 					<div id="tabb1" class="tab tab-inactive" onclick="showTab(1)" data-i18n="settings.tab1.title">Instructions</div>
 					<div id="tabb2" class="tab tab-inactive" onclick="showTab(2)" data-i18n="settings.tab2.title">Log</div>
 					<div id="tabb3" class="tab tab-inactive" onclick="showTab(3)" data-i18n="settings.tab3.title">Compatibility Test</div>
+					<div id="tabb4" class="tab tab-inactive" onclick="showTab(4)" data-i18n="settings.tab4.title">Show known devices</div>
 				</div>
 			</div>
 
@@ -34,11 +35,15 @@
 						<legend data-i18n="settings.tab1.oneTimeSetupTitle">One Time setup</legend>
 						<p data-i18n="settings.tab1.oneTimeSetup" class="instructions">Instructions</p>
 					</fieldset>
+					<fieldset class="listContainer">
+						<legend data-i18n="settings.tab1.presenceTitle">Presence</legend>
+						<p data-i18n="settings.tab1.presenceInstructions" class="instructions">Instructions</p>
+					</fieldset>
 				</div>
 				<!-- Logging panel -->
 				<div id="tab2" class="panel">
 					<div class="setting">
-						<label class="settings-item-description" data-i18n="settings.tab2.deletelogs">host</label>
+						<label class="settings-item-description" data-i18n="settings.tab2.deletelogs">Delete</label>
 						<button id="deleteButton" class="btn" onclick="deleteLogs()" data-i18n="settings.tab2.deletelogs">Delete</button>
 						<div id="loglines" class="instructions"></div>
 					</div>
@@ -51,7 +56,7 @@
 							<p data-i18n="settings.tab3.instructions" class="instructions">Instructions</p>
 						</fieldset>
 
-						<label class="settings-item-description" data-i18n="settings.tab3.discover">host</label>
+						<label class="settings-item-description" data-i18n="settings.tab3.discover">Discover</label>
 						<button id="discover" class="btn" onclick="discover()" data-i18n="settings.tab3.discover">Discover</button>
 
 						<label class="settings-item-description" data-i18n="settings.tab3.host">host</label>
@@ -75,6 +80,21 @@
 						
 						<label class="settings-item-description" data-i18n="settings.tab3.result">Result</label>
 						<textarea id="testResult" style="width:98%; height:98%" rows=15></textarea>
+					</div>
+				</div>
+				<!-- Attached devicelist panel -->
+				<div id="tab4" class="panel">
+					<div class="setting">
+						<fieldset class="listContainer">
+							<legend data-i18n="settings.tab4.instructionsLegend">List all devices</legend>
+							<p data-i18n="settings.tab4.instructions" class="instructions">Instructions</p>
+						</fieldset>
+
+						<label class="settings-item-description" data-i18n="settings.tab4.copyList">Copy to clipboard</label>
+						<button id="copyList" class="btn" onclick="copyList()" data-i18n="settings.tab4.copyList">Copy to clipboard</button>
+						
+						<label class="settings-item-description" data-i18n="settings.tab4.resultList">Result list</label>
+						<textarea id="resultList" style="width:98%; height:98%" rows=15></textarea>
 					</div>
 				</div>
 			</div>

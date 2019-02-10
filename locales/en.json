@@ -24,10 +24,12 @@
 			"supportedRoutersTitle": "Supported Routers",
 			"supportedRouters": "If you can use the genie app to manage the router then this app will likely do something. Depending on your router type some functionality might not be available. You can run a compatibility test in the Test tab.",
 			"oneTimeSetupTitle": "One time settings in the Netgear router",
-			"oneTimeSetup": "For Homey to get all the functionality you need to do some one time settings in the router. Depending on the router type and firmware you might not have some of this functionality. Make sure you are on the latest router firmware. <br />For up/download speed, enable the traffic statistics: routerlogin.net > advanced setup > traffic meter. <br />To be able to block or allow a device, enable access control: routerlogin.net > advanced > security > access control."
+			"oneTimeSetup": "For Homey to get all the functionality you need to do some one time settings in the router. Depending on the router type and firmware you might not have some of this functionality. Make sure you are on the latest router firmware. <br />For up/download speed, enable the traffic statistics: routerlogin.net > advanced setup > traffic meter. <br />To be able to block or allow a device, enable access control: routerlogin.net > advanced > security > access control.",
+			"presenceTitle": "Presence detection",
+			"presenceInstructions": "You can use trigger cards in flows whenever a device (e.g. a smartphone) gets connected or disconnected from your router network. When a device gets connected it can take up to a minute before the flow is triggered. When a device gets disconnected it takes 5 minutes before the flow is triggered. These timings can be changed in the router device settings, but be aware that setting these times too short will result in many false messages."
 		},
 		"tab2": {
-			"title": "Debug Logs",
+			"title": "Logs",
 			"logs": "Logs",
 			"deletelogs": "Delete logs",
 			"deleteWarning": "Delete all logs?",
@@ -44,6 +46,14 @@
 			"startTest": "Start test",
 			"result": "Result",
 			"copyResult": "Copy result"
+		},
+		"tab4": {
+			"title": "Devices",
+			"instructionsLegend": "List all known devices",
+			"instructions": "The app will start collecting and remember MAC addresses of all devices that ever connected to the router. If you need to clear this list you can do so by checking the box `delete devicelist` in the device settings.",
+			"getList": "Get the list",
+			"resultList": "Device list",
+			"copyList": "Copy list"
 		}
 	}
 }

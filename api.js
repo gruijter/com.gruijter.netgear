@@ -45,4 +45,15 @@ module.exports = [
 			callback(null, result);
 		},
 	},
+	{
+		description: 'Get known devices',
+		method: 'GET',
+		path: '/getkd/',
+		requires_authorization: true,
+		role: 'owner',
+		fn: async function fn(args, callback) {
+			const result = await Homey.app.getKnownDevices();
+			callback(null, result);
+		},
+	},
 ];

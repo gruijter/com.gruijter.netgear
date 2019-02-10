@@ -49,6 +49,11 @@ class MyApp extends Homey.App {
 		this.intervalIdGc = setInterval(() => {
 			global.gc();
 		}, 1000 * 60 * 10);
+
+		// testing 123
+		setTimeout(() => {
+			this.getKnownDevices();
+		}, 1000 * 60 * 1);
 	}
 
 	//  stuff for frontend API
@@ -72,6 +77,14 @@ class MyApp extends Homey.App {
 		return Promise.resolve(discover);
 	}
 
+	async getKnownDevices() {
+		this.log('Retrieving known devices list');
+		const driver = Homey.ManagerDrivers.getDriver('netgear');
+		const routers = driver.getDevices();
+		// const kdArray = [];
+		// routers.forEach((router) => { kdArray[router.getName()] = router.knownDevices; });
+		return Promise.resolve(routers[0].knownDevices);
+	}
 }
 
 module.exports = MyApp;

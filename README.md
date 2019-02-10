@@ -30,7 +30,7 @@ Do:
 ![image][insights-image]
 
 ### Device setup in Homey ###
-Only netgear devices that work in router mode have been tested. Your Homey should be connected inside the LAN part of the router, not from outside (WAN). To setup go to "Devices" and add the Netgear router by filling in the admin password. The other fields can be left on default, unless you know what you are doing :). After the router device is added successfully you can change the polling interval (set to 1 minute as default). The app will start collecting and remember MAC addresses of all devices that ever connected to the router. If you need to clear this list you can do so by checking the box "delete devicelist" in the device settings.
+Only netgear devices that work in router mode have been tested. Your Homey should be connected inside the LAN part of the router, not from outside (WAN). To setup go to "Devices" and add the Netgear router by filling in the admin password. After the router device is added successfully you can change the polling interval (set to 1 minute as default). The app will start collecting and remember MAC addresses of all devices that ever connected to the router. If you need to clear this list you can do so by checking the box "delete devicelist" in the device settings.
 
 ### One time setup of the router ###
 For Homey to get all the functionality you need to do some one time settings in the router. Depending on the router type and firmware you might not have some of this functionality. Make sure you are on the latest router firmware.

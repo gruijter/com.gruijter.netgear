@@ -8,6 +8,16 @@ function displayTestResult(lines) {
 	$('#testResult').html(lines);
 }
 
+function getList() {
+	Homey.api('GET', 'getkd/', (err, result) => {
+		if (err) {
+			return Homey.alert(err.message, 'error'); // [, String icon], Function callback )
+		}
+		$('#resultList').html(JSON.stringify(result).replace(/"/g, ''));
+		return true;
+	});
+}
+
 function updateLogs() {
 	try {
 		Homey.api('GET', 'getlogs/', null, (err, result) => {
@@ -42,19 +52,21 @@ function deleteLogs() {
 }
 
 function showTab(tab) {
+	if (tab === 2) { updateLogs(); }
+	if (tab === 4) { getList(); }
 	$('#copyResult').prop('disabled', true);
 	$('#testResult').prop('disabled', true);
 	$('#runTest').prop('disabled', $('#password').val() === '' ? true : false);
 	$('#password').keyup(() => {
 		$('#runTest').prop('disabled', this.value === '' ? true : false);
 	});
+	$('#resultList').prop('disabled', true);
 	$('.tab').removeClass('tab-active');
 	$('.tab').addClass('tab-inactive');
 	$(`#tabb${tab}`).removeClass('tab-inactive');
 	$(`#tabb${tab}`).addClass('active');
 	$('.panel').hide();
 	$(`#tab${tab}`).show();
-	updateLogs();
 }
 
 function discover() {
@@ -114,6 +126,14 @@ function copyResult() {
 	document.execCommand('copy');
 	Homey.openURL('https://github.com/gruijter/com.gruijter.netgear/issues/new');
 	$('#testResult').prop('disabled', true);
+}
+
+function copyList() {
+	$('#resultList').prop('disabled', false);
+	const copyText = document.querySelector('#resultList');
+	copyText.select();
+	document.execCommand('copy');
+	$('#resultList').prop('disabled', true);
 }
 
 function onHomeyReady(homeyReady) {
