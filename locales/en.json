@@ -48,7 +48,7 @@
 			"copyResult": "Copy result"
 		},
 		"tab4": {
-			"title": "Devices",
+			"title": "List",
 			"instructionsLegend": "List all known devices",
 			"instructions": "The app will start collecting and remember MAC addresses of all devices that ever connected to the router. If you need to clear this list you can do so by checking the box `delete devicelist` in the device settings.",
 			"getList": "Get the list",

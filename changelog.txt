@@ -1,5 +1,6 @@
 Version changelog
 
+v2.3.5  2019.03.08 German translation. Instructions update.
 v2.3.4  2019.02.09 Fix firmware update trigger card. Optimized settings for Homey V2 mobile.
 v2.3.3  2019.02.06 Netgear package 3.3.5. Fixes timeout / socket hangup for certain router types.
 v2.3.2  2019.01.31 Netgear package 3.3.4. Extended debug info.

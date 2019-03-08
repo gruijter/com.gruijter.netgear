@@ -49,7 +49,7 @@
 			"copyResult": "Kopiëer resultaat"
 		},
 		"tab4": {
-			"title": "Apparaten",
+			"title": "Lijst",
 			"instructionsLegend": "Lijst met bekende apparaten",
 			"instructions": "De app zal een lijst verzamelen met alle MAC adressen van alle apparaten die ooit met de router zijn verbonden. Als je deze lijst wilt wissen, dan kan dat via de router device instellingen met de optie `Apparaatlijst legen`.",
 			"getList": "Haal lijst op",

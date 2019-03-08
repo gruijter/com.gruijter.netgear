@@ -1,0 +1,59 @@
+{
+	"pair": {
+		"start": {
+			"title": "Netgear router hinzufügen",
+			"intro": "Drücke `Finde Router` um automatisch die IP-Adresse und den SOAP-Port einzufügen. Danach gebe das Passwort des Netgear-Routers ein und drüche `Speichern`.",
+			"discover": "Finde Router",
+			"error": "Es ist ein Fehler aufgetreten.",
+			"success": "Erfolgreich! ",
+			"required": "Passwort benötigt",
+			"username": "Benutzer",
+			"password": "Passwort",
+			"host": "IP-Adresse",
+			"port": "SOAP-Port",
+			"save": "Speichern"
+		}
+	},
+	"settings": {
+		"title": "Netgear Router integrieren",
+
+		"tab1": {
+			"title": "Anweisungen",
+			"addDeviceTitle": "Neuen Router hinzufügen",
+			"addDeviceInstructions": "Dein Homey sollte im internen LAN deines Routers verbunden sein, nicht von außerhalb (WAN). Füge einen Router über den Homey-Reiter `Geräte` hinzu und gib das Admin-Passwort ein.",
+			"supportedRoutersTitle": "Unterstützte Router",
+			"supportedRouters": "Wenn du die genie app nutzen kannst, um deinen Router zu bedienen, dann wird diese App etwas machen. Abhängig von deinem Router-Typ sind möglicherweise manche Funktionen nicht verfügbar. Du kannst einen Kompatibilitätstest im Test-Reiter starten.",
+			"oneTimeSetupTitle": "Einmalige Einstellungen im Netgear-Router",
+			"oneTimeSetup": "Um Homey alle Funktionen zu ermöglichen, ist es nötig einige einmalige Einstellungen im Router zu vorzunehmen. Abhängig vom Router-Typ und der Firmware hast du möglicherweise einige dieser Einstellungen nicht. Stelle sicher, dass du die aktuelle Router-Firmware verwendest. <br />Für Up/Download-Geschwindigkeit, aktiviere Traffic Statistics: routerlogin.net > Erweitertes Setup > Traffic Meter. <br />Um es zu ermöglichen, den Zugriff zuzulassen oder zu sperren, aktiviere Zugangskontrolle: routerlogin.net > Erweitert > Sicherheit > Zugriffskontrolle.",
+			"presenceTitle": "Presence detection",
+			"presenceInstructions": "Du kannst Auslöserkarten in den Flows verwenden wann immer sich ein Gerät (z.B. a Smartphone) mit deinem Router-Netzwerk verbindet oder trennt. Wenn sich ein Gerät verbindet, kann es ein paar Minuten dauern, bis der Flow ausgelöst wird. Wenn sich ein Gerät trennt, dauert es 5 Minuten bis der Flow ausgelöst wird. Diese Zeiten können in den Router-Einstellungen geändert werden, allerdings ist zu beachten, dass zu kurze Zeiten zu vielen falschen Meldungen führt."
+		},
+		"tab2": {
+			"title": "Protokolle",
+			"logs": "Protokolle",
+			"deletelogs": "Protokolle löschen",
+			"deleteWarning": "Alle Protokolle löschen?",
+			"deleted": "Protokolle gelöscht!"
+		},
+		"tab3": {
+			"title": "Test",
+			"instructionsLegend": "Router-Kompatibilitätstest",
+			"instructions": "Wenn du Probleme mit der App hast, kannst du einen Kompatibilitätstest durchführen. Das Ergebnis wird dazu verwendet, die App zu verbessern. Drücke `Finde Router` um automatisch die IP-Adresse und den SOAP-Port einzufügen. Gebe das Passwort des Routers ein und starte dann den Test. Mit dem Button 'Ergebnis kopieren' kannst du ein Issue erstellen und dann das Ergebnis dort einfügen. Hinweis: Du benötigst einen Github-Account um ein Issue zu erstellen.",
+			"discover": "Finde Router",
+			"host": "IP-Addresse",
+			"port": "SOAP-Port",
+			"password": "Passwort",
+			"startTest": "Starte Test",
+			"result": "Ergebnis",
+			"copyResult": "Ergebnis kopieren"
+		},
+		"tab4": {
+			"title": "Liste",
+			"instructionsLegend": "Liste aller bekannten Geräte",
+			"instructions": "Die App beginnt damit, alle MAC-Addressen der Geräte zu sammeln und zu speichern, die sich irgendwann mit dem Router verbinden. Wenn du die Liste löschen musst, kannst du das machen, indem du die Check-Box `Lösche Geräte` in den Geräteeinstellungen aktivierst.",
+			"getList": "Beziehe die Liste",
+			"resultList": "Geräteliste",
+			"copyList": "Kopiere die Liste"
+		}
+	}
+}
