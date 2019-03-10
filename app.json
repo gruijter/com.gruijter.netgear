@@ -15,7 +15,14 @@
   "author": {
       "name": "Robin Gruijter",
       "email": "gruijter@hotmail.com"
-  },
+	},
+	"contributors": {
+		"translators": [
+				{
+						"name": "Marco 'Friedi' David"
+				}
+		]
+},
 	"copyright": "Robin de Gruijter (gruijter@hotmail.com)",
 	"license": " GPL-3.0-or-later",
 	"contributing": {
