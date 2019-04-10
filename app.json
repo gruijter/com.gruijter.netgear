@@ -9,7 +9,7 @@
     "nl": "verbind je Netgear router",
     "de": "Überwache deinen Netgear-Router"
   },
-  "version": "2.3.5",
+  "version": "2.4.0",
 	"sdk": 2,
   "compatibility": ">= 1.5",
   "author": {
