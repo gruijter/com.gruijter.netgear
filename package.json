@@ -1,0 +1,25 @@
+{
+  "name": "com.gruijter.netgear",
+  "version": "2.5.0",
+  "description": "Homey app for Netgear routers",
+  "main": "api.js",
+  "dependencies": {
+    "netgear": "^3.5.0",
+    "fixture-stdout": "^0.2.1",
+    "xml-js": "^1.6.11"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gruijter/com.gruijter.netgear.git"
+  },
+  "author": "gruijter@hotmail.com",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/gruijter/com.gruijter.netgear/issues"
+  },
+  "homepage": "https://github.com/gruijter/com.gruijter.netgear#readme"
+}

@@ -1,5 +1,6 @@
 Version changelog
 
+v2.5.0  2019.04.10 Netgear package 3.5.0. Auto traffic meter and access control activation. Firmwarecheck fix. Rate limiting.
 v2.4.0  2019.04.10 Netgear package 3.4.0. Multiple fixes.
 v2.3.5  2019.03.08 German translation. Instructions update.
 v2.3.4  2019.02.09 Fix firmware update trigger card. Optimized settings for Homey V2 mobile.

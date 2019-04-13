@@ -1,15 +1,16 @@
 {
   "id": "com.gruijter.netgear",
   "name": {
-      "en": "Netgear Router",
+			"en": "Netgear Router",
+			"nl": "Netgear Router",
       "de": "Netgear-Router"
   },
   "description": {
-    "en": "monitor your Netgear router",
-    "nl": "verbind je Netgear router",
+    "en": "Monitor your Netgear router",
+    "nl": "Verbind je Netgear router",
     "de": "Überwache deinen Netgear-Router"
   },
-  "version": "2.4.0",
+  "version": "2.5.0",
 	"sdk": 2,
   "compatibility": ">= 1.5",
   "author": {
@@ -17,12 +18,9 @@
       "email": "gruijter@hotmail.com"
 	},
 	"contributors": {
-		"translators": [
-				{
-						"name": "Marco 'Friedi' David"
-				}
-		]
-},
+		"developers": [{"name": "Robin de Gruijter","email": "gruijter@hotmail.com"}],
+		"translators": [{"name": "🇬🇧 Robin"},{"name": "🇳🇱 Robin"},{"name": "🇩🇪 Friedi"}]
+	},
 	"copyright": "Robin de Gruijter (gruijter@hotmail.com)",
 	"license": " GPL-3.0-or-later",
 	"contributing": {
@@ -42,7 +40,12 @@
     "small": "./assets/images/small.jpg"
   },
 
-  "category": [ "tools", "internet" ],
+	"category": [ "tools", "internet", "localization" ],
+	"tags": {
+    "en": [ "Netgear", "router", "wifi", "presence", "nighthawk", "orbi" ],
+    "de": [ "Netgear", "router", "wifi", "anwesenheid", "nighthawk", "orbi" ], 
+    "nl": [ "Netgear", "router", "wifi", "aanwezigheid", "nighthawk", "orbi" ]
+  },
 
 	"capabilities": {
 			"internet_connection_status": {

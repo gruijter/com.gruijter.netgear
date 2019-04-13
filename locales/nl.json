@@ -22,9 +22,9 @@
 			"addDeviceTitle": "Voeg een router toe",
 			"addDeviceInstructions": "Je Homey moet verbonden zijn in het LAN deel van je router. Voeg een router toe via de Homey tab `Apparaten` en vul het admin wachtwoord in.",
 			"supportedRoutersTitle": "Ondersteunde routers",
-			"supportedRouters": "Als je met de genie app je router kan bedienen, dan wekrt de Homey app waarschijnlijk. Afhankeljik van het router model zijn sommige functionaliteiten misschien niet beschikbaar. Je kan een compatibiliteitstest uitvoeren in de Test tab.",
+			"supportedRouters": "Als je met de Nighthawk of Genie app je router kan bedienen, dan werkt de Homey app waarschijnlijk. Afhankelijk van het router model zijn sommige functionaliteiten misschien niet beschikbaar. Je kan een compatibiliteitstest uitvoeren in de Test tab.",
 			"oneTimeSetupTitle": "Eenmalige instellingen in de Netgear router",
-			"oneTimeSetup": "Om via Homey alle functionaliteiten te geven moet je eenmalig een aantal instellingen in de router wijzigen. Afhankeljik van het router model zijn sommige functionaliteiten misschien niet beschikbaar. Zorg dat de laatste firmware is geinstalleerd. <br />Voor up/download snelheid, zet de `traffic statistics` aan: routerlogin.net > advanced setup > traffic meter. <br />Om devices te blokkeren/vrij te geven, zet `access control` aan: routerlogin.net > advanced > security > access control.",
+			"oneTimeSetup": "Om via Homey alle functionaliteiten te geven zal Homey automatisch een aantal instellingen in de router wijzigen. Afhankelijk van het router model zijn sommige functionaliteiten misschien niet beschikbaar. Zorg dat de laatste firmware is geinstalleerd. Voor up/download snelheid, zet Homey de `traffic statistics` aan. Om devices te blokkeren/vrij te geven, zet Homey de `access control` aan.",
 			"presenceTitle": "Aanwezigheids detectie",
 			"presenceInstructions": "Als een netwerk apparaat (zoals een smartphone) een verbinding maakt of verbreekt met de router, kan een flow worden gestart. Bij het maken van een verbinding kan het tot een minuut duren voordat de flow start. Bij het verbreken van een verbinding zal het 5 minuten duren voordat de flow start. Deze tijden kunnen worden aangepast in de router apparaat instellingen. Let op: het instellen van te korte tijden zal resulteren in onjuiste meldingen."
 		

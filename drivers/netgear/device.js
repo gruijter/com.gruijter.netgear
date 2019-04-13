@@ -31,6 +31,7 @@ class NetgearDevice extends Homey.Device {
 	async updateRouterDeviceState() {
 		try {
 			// init some values
+			this._driver.busy = true;
 			const lastTrafficMeter = this.readings.trafficMeter;
 			let lastTimestamp = this.readings.timestamp;
 			if (lastTrafficMeter === {} || lastTimestamp === 0) {
@@ -113,7 +114,9 @@ class NetgearDevice extends Homey.Device {
 					})
 					.catch(this.error);
 			}
+			this.busy = false;
 		} catch (error) {
+			this.busy = false;
 			this.error('updateRouterDeviceState error: ', error.message || error);
 		}
 	}
@@ -132,6 +135,7 @@ class NetgearDevice extends Homey.Device {
 			attachedDevices: [],
 			timestamp: 0,
 		};
+		this.busy = false;
 		// create router session
 		const settings = this.getSettings();
 		this.routerSession = new NetgearRouter(settings.password, settings.username, settings.host, settings.port);
@@ -145,6 +149,11 @@ class NetgearDevice extends Homey.Device {
 			this.knownDevices = await this.getStoreValue('knownDevices');
 			this.unsetStoreValue('knownDevices');
 		}
+		// activate traffic meter and access control
+		await this._driver.enableTrafficMeter.call(this, true)
+			.catch(() => this.log('Traffic meter could not be enabled'));
+		await this._driver.setBlockDeviceEnable.call(this, true)
+			.catch(() => this.log('Device Access Control could not be enabled'));
 		// store known devices when app unloads
 		Homey.on('unload', async () => {
 			this.log('unload called, storing knownDevices state');
@@ -328,6 +337,10 @@ class NetgearDevice extends Homey.Device {
 		// start polling router for info
 		this.intervalIdDevicePoll = setInterval(async () => {
 			try {
+				if (this.busy) {
+					this.log('Still busy. Skipping a poll');
+					return;
+				}
 				// get new routerdata and update the state
 				await this.updateRouterDeviceState();
 			} catch (error) { this.log('intervalIdDevicePoll error', error); }

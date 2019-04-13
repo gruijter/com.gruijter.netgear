@@ -187,7 +187,7 @@ class NetgearDriver extends Homey.Driver {
 			return Promise.resolve(readings);
 		} catch (error) {
 			this.log('last repsonse from router:');
-			this.log(this.routerSession.lastResponse);
+			this.log(JSON.stringify(this.routerSession.lastResponse));
 			return Promise.reject(error);
 		}
 	}
@@ -313,6 +313,32 @@ class NetgearDriver extends Homey.Driver {
 			return Promise.resolve(true);
 		}	catch (error) {
 			this.error('reboot error', error);
+			return Promise.reject(error);
+		}
+	}
+
+	async enableTrafficMeter(action) { // call with NetgearDevice as this
+		try {
+			const enableDisable = (action && 'enable') || 'disable';
+			this.log(`Traffic meter ${enableDisable} requested`);
+			await this.routerSession.login();
+			await this.routerSession.enableTrafficMeter(action);
+			return Promise.resolve(true);
+		}	catch (error) {
+			// this.error('enableTrafficMeter error', error);
+			return Promise.reject(error);
+		}
+	}
+
+	async setBlockDeviceEnable(action) { // call with NetgearDevice as this
+		try {
+			const enableDisable = (action && 'enable') || 'disable';
+			this.log(`Access control ${enableDisable} requested`);
+			await this.routerSession.login();
+			await this.routerSession.setBlockDeviceEnable(action);
+			return Promise.resolve(true);
+		}	catch (error) {
+			// this.error('setBlockDeviceEnable error', error);
 			return Promise.reject(error);
 		}
 	}

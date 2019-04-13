@@ -22,9 +22,9 @@
 			"addDeviceTitle": "Add a new router",
 			"addDeviceInstructions": "Your Homey should be connected inside the LAN part of the router, not from outside (WAN). Add a router via the Homey tab `Devices` and fill in the admin password.",
 			"supportedRoutersTitle": "Supported Routers",
-			"supportedRouters": "If you can use the genie app to manage the router then this app will likely do something. Depending on your router type some functionality might not be available. You can run a compatibility test in the Test tab.",
+			"supportedRouters": "If you can use the Nighthawk or Genie app to manage the router then this app will likely work. Depending on your router type some functionality might not be available. You can run a compatibility test in the Test tab.",
 			"oneTimeSetupTitle": "One time settings in the Netgear router",
-			"oneTimeSetup": "For Homey to get all the functionality you need to do some one time settings in the router. Depending on the router type and firmware you might not have some of this functionality. Make sure you are on the latest router firmware. <br />For up/download speed, enable the traffic statistics: routerlogin.net > advanced setup > traffic meter. <br />To be able to block or allow a device, enable access control: routerlogin.net > advanced > security > access control.",
+			"oneTimeSetup": "For Homey to get all the functionality it will do some one time settings in the router. Depending on the router type and firmware you might not have some of this functionality. Make sure you are on the latest router firmware. For up/download speed, the traffic statistics are enabled. To be able to block or allow a device, access control is enabled.",
 			"presenceTitle": "Presence detection",
 			"presenceInstructions": "You can use trigger cards in flows whenever a device (e.g. a smartphone) gets connected or disconnected from your router network. When a device gets connected it can take up to a minute before the flow is triggered. When a device gets disconnected it takes 5 minutes before the flow is triggered. These timings can be changed in the router device settings, but be aware that setting these times too short will result in many false messages."
 		},
