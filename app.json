@@ -10,7 +10,7 @@
     "nl": "Verbind je Netgear router",
     "de": "Überwache deinen Netgear-Router"
   },
-  "version": "2.5.0",
+  "version": "2.5.1",
 	"sdk": 2,
   "compatibility": ">= 1.5",
   "author": {
@@ -775,6 +775,29 @@
 				]
 			},
 			{
+				"id": "block_device_text",
+				"title": {
+					"en": "Block a device with tag",
+					"nl": "Apparaat blokkeren met tag",
+					"de": "Ein Gerät blockieren mit tag"
+				},
+				"args": [
+					{
+						"name": "device",
+						"type": "device",
+						"filter": "driver_id=netgear"
+					},
+					{
+						"name": "mac",
+						"type": "text",
+						"placeholder": {
+							"en": "AA:BB:CC:DD:EE:FF",
+							"de": "AA:BB:CC:DD:EE:FF"
+						}
+					}
+				]
+			},
+			{
 				"id": "block_device",
 				"title": {
 					"en": "Block a device",
@@ -798,6 +821,29 @@
 				]
 			},
 			{
+				"id": "allow_device_text",
+				"title": {
+					"en": "Allow a device with tag",
+					"nl": "Apparaat vrijgeven met tag",
+					"de": "Ein Gerät zulassen mit tag"
+				},
+				"args": [
+					{
+						"name": "device",
+						"type": "device",
+						"filter": "driver_id=netgear"
+					},
+					{
+						"name": "mac",
+						"type": "text",
+						"placeholder": {
+							"en": "AA:BB:CC:DD:EE:FF",
+							"de": "AA:BB:CC:DD:EE:FF"
+						}
+					}
+				]
+			},
+			{
 				"id": "allow_device",
 				"title": {
 					"en": "Allow a device",
@@ -810,14 +856,14 @@
 						"type": "device",
 						"filter": "driver_id=netgear"
 					},
-			    {
-		        "type": "autocomplete",
-		        "name": "mac",
-		        "placeholder": {
-		          "en": "AA:BB:CC:DD:EE:FF",
-		          "de": "AA:BB:CC:DD:EE:FF"
-		        }
-			    }
+					{
+						"type": "autocomplete",
+						"name": "mac",
+						"placeholder": {
+							"en": "AA:BB:CC:DD:EE:FF",
+							"de": "AA:BB:CC:DD:EE:FF"
+						}
+					}
 				]
 			},
 			{

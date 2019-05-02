@@ -252,10 +252,17 @@ class NetgearDevice extends Homey.Device {
 				return Promise.resolve(results);
 			});
 
-		const wol = new Homey.FlowCardAction('wol');
-		wol.register()
+		const blockDeviceText = new Homey.FlowCardAction('block_device_text');
+		blockDeviceText.register()
 			.on('run', async (args, state, callback) => {
-				await this._driver.wol.call(this, args.mac.name, args.password);
+				await this._driver.blockOrAllow.call(this, args.mac.replace(' ', ''), 'Block');
+				callback(null, true);
+			});
+
+		const allowDevice = new Homey.FlowCardAction('allow_device');
+		allowDevice.register()
+			.on('run', async (args, state, callback) => {
+				await this._driver.blockOrAllow.call(this, args.mac.name, 'Allow');
 				callback(null, true);
 			})
 			.getArgument('mac')
@@ -269,11 +276,17 @@ class NetgearDevice extends Homey.Device {
 				return Promise.resolve(results);
 			});
 
-		const allowDevice = new Homey.FlowCardAction('allow_device');
-		allowDevice.register()
+		const allowDeviceText = new Homey.FlowCardAction('allow_device_text');
+		allowDeviceText.register()
 			.on('run', async (args, state, callback) => {
-				await this._driver.blockOrAllow.call(this, args.mac.name, 'Allow');
-				// this.log(args.mac.name);
+				await this._driver.blockOrAllow.call(this, args.mac.replace(' ', ''), 'Allow');
+				callback(null, true);
+			});
+
+		const wol = new Homey.FlowCardAction('wol');
+		wol.register()
+			.on('run', async (args, state, callback) => {
+				await this._driver.wol.call(this, args.mac.name, args.password);
 				callback(null, true);
 			})
 			.getArgument('mac')

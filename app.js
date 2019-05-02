@@ -49,11 +49,6 @@ class MyApp extends Homey.App {
 		this.intervalIdGc = setInterval(() => {
 			global.gc();
 		}, 1000 * 60 * 10);
-
-		// // testing 123
-		// setTimeout(() => {
-		// 	this.getKnownDevices();
-		// }, 1000 * 60 * 1);
 	}
 
 	//  stuff for frontend API

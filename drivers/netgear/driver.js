@@ -169,6 +169,10 @@ class NetgearDriver extends Homey.Driver {
 			if (!this.routerSession.loggedIn) {
 				await this._driver.login.call(this);
 			}
+			// get these every poll
+			readings.currentSetting = await this.routerSession.getCurrentSetting();
+			readings.attachedDevices = await this.routerSession.getAttachedDevices();
+			readings.trafficMeter = await this.routerSession.getTrafficMeter();
 			// get these once an hour max.
 			if ((Date.now() - readings.timestamp) > (60 * 60 * 1000)) {
 				readings.info = await this.routerSession.getInfo()
@@ -179,10 +183,6 @@ class NetgearDriver extends Homey.Driver {
 						return {};
 					});
 			}
-			// get these every poll
-			readings.currentSetting = await this.routerSession.getCurrentSetting();
-			readings.attachedDevices = await this.routerSession.getAttachedDevices();
-			readings.trafficMeter = await this.routerSession.getTrafficMeter();
 			readings.timestamp = new Date();
 			return Promise.resolve(readings);
 		} catch (error) {
@@ -205,7 +205,7 @@ class NetgearDriver extends Homey.Driver {
 
 	async blockOrAllow(mac, action) { // call with NetgearDevice as this
 		try {
-			this.log(`${action} requested for device ${mac}`);
+			this.log(`${action} requested for device "${mac}"`);
 			if (!this.routerSession.loggedIn) {
 				await this.routerSession.login();
 			}
