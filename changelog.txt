@@ -1,5 +1,6 @@
 Version changelog
 
+v2.5.3  2019.05.28 Netgear package 3.6.0. Fix for InternetConnected status.
 v2.5.2  2019.05.28 Netgear package 3.5.1. Fix for new SOAP Body in R6020.
 v2.5.1  2019.05.02 Added Block/Allow device from flow with tag
 v2.5.0  2019.04.10 Netgear package 3.5.0. Auto traffic meter and access control activation. Firmwarecheck fix. Rate limiting.

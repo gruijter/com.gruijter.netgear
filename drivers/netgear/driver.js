@@ -172,7 +172,16 @@ class NetgearDriver extends Homey.Driver {
 			// get these every poll
 			readings.currentSetting = await this.routerSession.getCurrentSetting();
 			readings.attachedDevices = await this.routerSession.getAttachedDevices();
-			readings.trafficMeter = await this.routerSession.getTrafficMeter();
+			readings.trafficMeter = await this.routerSession.getTrafficMeter()
+				.catch(() => {
+					this.log('error getting traffic meter info');
+					return {
+						newTodayUpload: 0,
+						newTodayDownload: 0,
+						newMonthUpload: 0,
+						newMonthDownload: 0,
+					};
+				});
 			// get these once an hour max.
 			if ((Date.now() - readings.timestamp) > (60 * 60 * 1000)) {
 				readings.info = await this.routerSession.getInfo()
