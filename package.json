@@ -1,11 +1,11 @@
 {
   "name": "com.gruijter.netgear",
-  "version": "2.5.1",
+  "version": "2.5.2",
   "description": "Homey app for Netgear routers",
   "main": "api.js",
   "dependencies": {
-    "netgear": "^3.5.0",
     "fixture-stdout": "^0.2.1",
+    "netgear": "^3.5.1",
     "xml-js": "^1.6.11"
   },
   "devDependencies": {},
