@@ -56,7 +56,8 @@ class NetgearDevice extends Homey.Device {
 					.then(() => true)
 					.catch(() => false);
 			} else {
-				internetConnectionStatus = this.readings.currentSetting.InternetConnectionStatus.toLowerCase() === 'up';
+				const connectStatus = this.readings.currentSetting.InternetConnectionStatus || '';
+				internetConnectionStatus = connectStatus.toLowerCase() === 'up';
 			}
 			if (internetConnectionStatus !== this.getCapabilityValue('internet_connection_status')) {
 				if (internetConnectionStatus) {
