@@ -386,7 +386,14 @@ class NetgearDriver extends Homey.Driver {
 				}
 				// try to login
 				this.log(`using as soap host/port: ${host}:${port}`);
-				await router.login(password, username, host, port);
+				const options = {
+					password,
+					username,
+					host,
+					port,
+					tls: port === 443,
+				};
+				await router.login(options);
 				const info = await router.getInfo();
 				if (Object.prototype.hasOwnProperty.call(info, 'SerialNumber')) {
 					info.host = host;

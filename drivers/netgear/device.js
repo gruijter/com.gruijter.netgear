@@ -139,7 +139,14 @@ class NetgearDevice extends Homey.Device {
 		this.busy = false;
 		// create router session
 		const settings = this.getSettings();
-		this.routerSession = new NetgearRouter(settings.password, settings.username, settings.host, settings.port);
+		const options = {
+			password: settings.password,
+			username: settings.username,
+			host: settings.host,
+			port: settings.port,
+			tls: settings.port === 443,
+		};
+		this.routerSession = new NetgearRouter(options);
 		// get known device from store
 		this.log('retrieving knownDevices from persistent storage');
 		const knownDevicesString = await this.getStoreValue('knownDevicesString');
