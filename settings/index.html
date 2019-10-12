@@ -9,7 +9,6 @@
 	</head>
 	<body>
 		<div id="app">
-			<p data-i18n="settings.title" class="benefit">Integrate Netgear routers</p>
 			<div class="rTable tabs">
 				<div class="rTableRow">
 					<div id="tabb1" class="tab tab-inactive" onclick="showTab(1)" data-i18n="settings.tab1.title">Instructions</div>
@@ -28,22 +27,17 @@
 						<p data-i18n="settings.tab1.addDeviceInstructions" class="instructions">Instructions</p>
 					</fieldset>
 					<fieldset class="listContainer">
-						<legend data-i18n="settings.tab1.supportedRoutersTitle">Supported routers</legend>
-						<p data-i18n="settings.tab1.supportedRouters" class="instructions">Instructions</p>
-					</fieldset>
-					<fieldset class="listContainer">
-						<legend data-i18n="settings.tab1.oneTimeSetupTitle">One Time setup</legend>
-						<p data-i18n="settings.tab1.oneTimeSetup" class="instructions">Instructions</p>
-					</fieldset>
-					<fieldset class="listContainer">
 						<legend data-i18n="settings.tab1.presenceTitle">Presence</legend>
 						<p data-i18n="settings.tab1.presenceInstructions" class="instructions">Instructions</p>
+					</fieldset>
+					<fieldset class="listContainer">
+						<legend data-i18n="settings.tab1.energyTitle">Energy</legend>
+						<p data-i18n="settings.tab1.energyInstructions" class="instructions">Instructions</p>
 					</fieldset>
 				</div>
 				<!-- Logging panel -->
 				<div id="tab2" class="panel">
 					<div class="setting">
-						<label class="settings-item-description" data-i18n="settings.tab2.deletelogs">Delete</label>
 						<button id="deleteButton" class="btn" onclick="deleteLogs()" data-i18n="settings.tab2.deletelogs">Delete</button>
 						<div id="loglines" class="instructions"></div>
 					</div>

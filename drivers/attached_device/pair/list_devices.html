@@ -1,0 +1,143 @@
+<div class=hy-tmpl-select_devices id=$HY_TMPL_ID><style type=text/css>.hy-tmpl-select_devices-device{-webkit-tap-highlight-color:transparent;display:flex;flex-direction:row;align-items:center;height:2em;margin-bottom:.5em;background:#eee;padding:.5em 1em;border-radius:5px}.hy-tmpl-select_devices-device-name{order:1;flex-grow:1;line-height:2em;padding-right:1em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.hy-tmpl-select_devices-device-input{order:2;flex-shrink:0}.hy-tmpl-select_devices-device-icon{flex-shrink:0;width:2em;height:2em;margin-right:.5em;margin-left:-.5em;background-color:#000}</style><script type=text/javascript>(() => {
+    var $tmpl = document.getElementById('$HY_TMPL_ID');
+    var $devices = $tmpl.querySelector('.hy-tmpl-select_devices-devices');
+    var currentView = Homey.getCurrentView();
+    var selectedDevices = {};
+    var selectedDevicesArrCache;
+    var singular = false;
+    var devices = [];
+
+    // legacy, to not break apps <v2.0.0
+    window.found_devices = {};
+    window.selected_devices = [];
+
+    Homey.setTitle( Homey.__('$tmpl.list_devices.title') );
+    Homey.showLoadingOverlay(Homey.__('$tmpl.list_devices.loading'));
+    Homey.getOptions((err, options) => {
+      if( err ) return Homey.error(err);
+
+      if( options.singular ) {
+        singular = true;
+      }
+
+      if( options.title ) {
+        Homey.setTitle( Homey.__(options.title) );
+      }
+    });
+
+    Homey.on('list_devices', data => {
+      Homey.hideLoadingOverlay();
+      onDevices(data);
+    });
+
+    Homey.emit('list_devices', null, ( err, devices ) => {
+      Homey.hideLoadingOverlay();
+      if( err ) {
+        $devices.textContent = err.message || err.toString();
+        return Homey.setNavigationClose();
+      }
+      if( devices.length ) return onDevices(devices);
+
+      Homey.setTitle(Homey.__('$tmpl.list_devices.nonew'));
+      $devices.textContent = Homey.__('$tmpl.list_devices.nonew');
+      return Homey.setNavigationClose();
+    });
+
+    function onDevices( data ) {
+      var newDevices = [].concat(data);
+
+      newDevices
+        .filter(isUnique)
+        .forEach(device => {
+          var index = devices.push(device) - 1;
+          renderDevice(device, index);
+        });
+
+    }
+
+    function isUnique(newDevice) {
+      return !devices.find(device => {
+        return JSON.stringify(device.data) === JSON.stringify(newDevice.data);
+      });
+    }
+
+    function renderDevice(device, index) {
+      var id = Math.random().toString();
+
+      var $device = document.createElement('label');
+      $device.htmlFor = id;
+      $device.classList.add('hy-tmpl-select_devices-device');
+      $device.classList.add('hy-nostyle');
+      $devices.appendChild($device);
+
+      var $label = document.createElement('div');
+      $label.classList.add('hy-tmpl-select_devices-device-name');
+      $label.textContent = device.name;
+      $device.appendChild($label);
+
+      var $icon = document.createElement('div');
+      $icon.classList.add('hy-tmpl-select_devices-device-icon');
+      $icon.classList.add('icon');
+      $device.appendChild($icon);
+
+      if(device.iconObj) {
+        $icon.style.webkitMaskImage = 'url(' + device.iconObj.url + ')';
+        delete device.iconObj;
+      }
+
+      var $input = document.createElement('input');
+      $input.id = id;
+      $input.type = singular ? 'radio' : 'checkbox';
+      $input.name = 'device';
+      $input.classList.add('hy-input-checkbox');
+      $input.classList.add('hy-tmpl-select_devices-device-input');
+      $input.addEventListener('change', e => {
+        onSelect(!!$input.checked);
+      });
+      $device.appendChild($input);
+
+      if( !singular || ( singular && devices.length === 1) ) {
+        $input.checked = 'checked';
+        onSelect(true);
+      } else {
+        onSelect(false);
+      }
+
+      function onSelect( selected ) {
+        if( singular && selected ) {
+          for( var key in selectedDevices ) {
+            selectedDevices[key] = false;
+          }
+        }
+        selectedDevices[index] = selected;
+        onSelectionChange();
+      }
+
+      // legacy
+      window.found_devices[JSON.stringify(device.data)] = device;
+    }
+
+    function onSelectionChange() {
+      var selectedDevicesArr = devices.filter((device, i) => {
+        return selectedDevices[i];
+      });
+      if( JSON.stringify(selectedDevicesArr) === JSON.stringify(selectedDevicesArrCache) ) return;
+      selectedDevicesArrCache = selectedDevicesArr;
+
+      Homey.emit(currentView + '_selection', selectedDevicesArr);
+
+      // var nextView = Homey.getNextViewByTemplate('add_devices');
+      var nextView = Homey._viewsById[currentView].navigation.next;
+      if( nextView ) {
+        Homey.setViewStoreValue(nextView, 'devices', selectedDevicesArr, err => {
+          if( err ) return console.error(err);
+        })
+      }
+
+      // legacy
+      window.selected_devices = selectedDevicesArr.map(function (device) {
+        return JSON.stringify(device.data);
+      });
+
+    }
+  })();</script><div class=hy-tmpl-select_devices-devices></div></div>

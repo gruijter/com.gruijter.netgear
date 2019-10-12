@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="styles.css" />
+		<script type="text/javascript" src="/manager/webserver/assets/js/jquery.js"></script>
+		<script type="text/javascript" src="select_options.js"></script>
+	</head>
+	<body>
+		<div class="setting">
+
+			<label class="settings-item-description" data-i18n="pair.select_options.name">name</label>
+			<div class="settings-itemgroup">
+				<input id="name" type="text" value="">
+			</div>
+
+			<label class="settings-item-description" data-i18n="pair.select_options.icon">Select icon</label>
+			<div class="settings-itemgroup">
+				<select id="iconSelection" >
+					<option value="default" selected>default</option>
+				</select>
+			</div>
+
+			<img id="icon" width="50px" src="../assets/default.svg" />
+
+			<label class="settings-item-description" data-i18n="pair.select_options.capabilities">Capabilities</label>
+
+			<div class="settings-itemgroup">
+					<div class="settings-item-text">
+							<span data-i18n="pair.select_options.use_link_info">Report Wifi link info</span>
+					</div>
+					<div class="settings-item-last">
+							<label class="form-switch">
+									<input type="checkbox" id="use_link_info" checked="true"/>
+									<i></i>
+							</label>
+					</div>
+			</div>
+			<div class="settings-itemgroup">
+				<div class="settings-item-text">
+						<span data-i18n="pair.select_options.use_bandwidth_info">Report Up/Down bandwidth</span>
+				</div>
+				<div class="settings-item-last">
+						<label class="form-switch">
+								<input type="checkbox" id="use_bandwidth_info" checked="true"/>
+								<i></i>
+						</label>
+				</div>
+			</div>
+			<div class="settings-itemgroup">
+				<div class="settings-item-text">
+						<span data-i18n="pair.select_options.report_power">Report Energy</span>
+				</div>
+				<div class="settings-item-last">
+						<label class="form-switch">
+								<input type="checkbox" id="report_power" checked="true"/>
+								<i></i>
+						</label>
+				</div>
+			</div>
+
+			<!-- <label class="settings-item-description" data-i18n="pair.select_options.save">Save</label> -->
+			<br>
+			<button id="pair.select_options.save" class="btn" onclick="save()" data-i18n="pair.select_options.save">Save</button>
+
+		</div>
+	</body>
+</html>

@@ -12,22 +12,26 @@
 			"host": "IP adres",
 			"port": "SOAP Poort",
 			"save": "Opslaan"
+		},
+		"select_options": {
+			"title": "apparaat opties",
+			"intro": "",
+			"capabilities": "capabilities",
+			"use_link_info": "Wifi link",
+			"use_bandwidth_info": "Bandbreedte",
+			"report_power": "Energie verbruik",
+			"save": "Opslaan"
 		}
 	},
 	"settings": {
-		"title": "Koppel met Netgear routers",
-
 		"tab1": {
 			"title": "Instructies",
 			"addDeviceTitle": "Voeg een router toe",
-			"addDeviceInstructions": "Je Homey moet verbonden zijn in het LAN deel van je router. Voeg een router toe via de Homey tab `Apparaten` en vul het admin wachtwoord in.",
-			"supportedRoutersTitle": "Ondersteunde routers",
-			"supportedRouters": "Als je met de Nighthawk of Genie app je router kan bedienen, dan werkt de Homey app waarschijnlijk. Afhankelijk van het router model zijn sommige functionaliteiten misschien niet beschikbaar. Je kan een compatibiliteitstest uitvoeren in de Test tab.",
-			"oneTimeSetupTitle": "Eenmalige instellingen in de Netgear router",
-			"oneTimeSetup": "Om via Homey alle functionaliteiten te geven zal Homey automatisch een aantal instellingen in de router wijzigen. Afhankelijk van het router model zijn sommige functionaliteiten misschien niet beschikbaar. Zorg dat de laatste firmware is geinstalleerd. Voor up/download snelheid, zet Homey de `traffic statistics` aan. Om devices te blokkeren/vrij te geven, zet Homey de `access control` aan.",
+			"addDeviceInstructions": "Voeg een router toe via de Homey tab `Apparaten` en vul het admin wachtwoord in. Afhankelijk van het router model zijn sommige functionaliteiten misschien niet beschikbaar. Je kan een compatibiliteitstest uitvoeren in de Test tab.",
 			"presenceTitle": "Aanwezigheids detectie",
-			"presenceInstructions": "Als een netwerk apparaat (zoals een smartphone) een verbinding maakt of verbreekt met de router, kan een flow worden gestart. Bij het maken van een verbinding kan het tot een minuut duren voordat de flow start. Bij het verbreken van een verbinding zal het 5 minuten duren voordat de flow start. Deze tijden kunnen worden aangepast in de router apparaat instellingen. Let op: het instellen van te korte tijden zal resulteren in onjuiste meldingen."
-		
+			"presenceInstructions": "Nadat de router aan Homey is toegevoegd kun je mobiele apparaten toevoegen waarvan je de aanwezigheid wilt weten. Ze worden als aan- of afwezig gerapporteerd op basis van de WiFi verbinding met je Netgear netwerk. De 'offline na' tijd kan worden geoptimaliseerd via de apparaat instellingen. Als je onjuiste afwezig meldingen krijgt moet de tijd worden verhoogd. Voor snellere detectie kun je proberen de tijd te verkorten. Je kunt ook proberen de 'polling interval'van de router te verlagen. Deze staat standaard op 1 minuut, maar als je hem te kort maakt kan de router vastlopen",
+			"energyTitle": "Energie monitoring",
+			"energyInstructions": "Nadat de router aan Homey is toegevoegd kun je netwerk apparaten toevoegen waarvan je het stroomverbruik wilt weten, zoals je T.V. Voer het gemiddelde / geschatte vermogen in bij AAN en UIT stand. Als je nu je T.V. aanzet zie je het geschatte energie verbruik in de Energie tab van Homey"	
 		},
 		"tab2": {
 			"title": "Logs",

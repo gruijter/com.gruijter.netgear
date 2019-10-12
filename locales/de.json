@@ -12,21 +12,26 @@
 			"host": "IP-Adresse",
 			"port": "SOAP-Port",
 			"save": "Speichern"
+		},
+		"select_options": {
+			"title": "Gerät optionen",
+			"intro": "",
+			"capabilities": "Gerät Fähigkeiten",
+			"use_link_info": "WiFi-Verbindung",
+			"use_bandwidth_info": "Bandbreite",
+			"report_power": "Energieverbrauch",
+			"save": "Speichern"
 		}
 	},
 	"settings": {
-		"title": "Netgear Router integrieren",
-
 		"tab1": {
 			"title": "Anweisungen",
 			"addDeviceTitle": "Neuen Router hinzufügen",
-			"addDeviceInstructions": "Dein Homey sollte im internen LAN deines Routers verbunden sein, nicht von außerhalb (WAN). Füge einen Router über den Homey-Reiter `Geräte` hinzu und gib das Admin-Passwort ein.",
-			"supportedRoutersTitle": "Unterstützte Router",
-			"supportedRouters": "Wenn du die Nighthawk oder Genie app nutzen kannst, um deinen Router zu bedienen, dann wird diese App functionieren. Abhängig von deinem Router-Typ sind möglicherweise manche Funktionen nicht verfügbar. Du kannst einen Kompatibilitätstest im Test-Reiter starten.",
-			"oneTimeSetupTitle": "Einmalige Einstellungen im Netgear-Router",
-			"oneTimeSetup": "Um Homey alle Funktionen zu ermöglichen, ist es nötig einige einmalige Einstellungen im Router zu vorzunehmen. Abhängig vom Router-Typ und der Firmware hast du möglicherweise einige dieser Einstellungen nicht. Stelle sicher, dass du die aktuelle Router-Firmware verwendest. Für Up/Download-Geschwindigkeit, wird Homey die Traffic Statistics aktivieren. Um es zu ermöglichen, den Zugriff zuzulassen oder zu sperren, wird Homey die ZugangZugriffskontrolle aktivieren.",
+			"addDeviceInstructions": "Füge einen Router über den Homey-Reiter `Geräte` hinzu und gib das Admin-Passwort ein.  Abhängig von deinem Router-Typ sind möglicherweise manche Funktionen nicht verfügbar. Du kannst einen Kompatibilitätstest im Test-Reiter starten.",
 			"presenceTitle": "Presence detection",
-			"presenceInstructions": "Du kannst Auslöserkarten in den Flows verwenden wann immer sich ein Gerät (z.B. a Smartphone) mit deinem Router-Netzwerk verbindet oder trennt. Wenn sich ein Gerät verbindet, kann es ein paar Minuten dauern, bis der Flow ausgelöst wird. Wenn sich ein Gerät trennt, dauert es 5 Minuten bis der Flow ausgelöst wird. Diese Zeiten können in den Router-Einstellungen geändert werden, allerdings ist zu beachten, dass zu kurze Zeiten zu vielen falschen Meldungen führt."
+			"presenceInstructions": "After adding your router to Homey, you can start adding mobile devices that you want to track for presence. They will be reported as connected or disconnected based on the WiFi connection to your Netgear network. You can finetune the 'offline after delay' in the device settings. If you get false disconnected messages, you should increase this delay. If you want faster detection, you can try decreasing this delay. You can also try reducing the polling interval of the router. The default polling interval is 1 minute, but if you make it too short your router can choke.",
+			"energyTitle": "Energy monitoring",
+			"energyInstructions": "After adding your router to Homey, you can add additional devices that you want to monitor for power, e.g. your T.V. or printer. Enter the estimated / average power usage of the device when it is OFF or ON. Now when you turn on your T.V. you will see that the estimated power is included in Homey Energy tab"
 		},
 		"tab2": {
 			"title": "Protokolle",

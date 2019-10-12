@@ -23,108 +23,12 @@ along with com.gruijter.netgear.  If not, see <http://www.gnu.org/licenses/>.
 const Homey = require('homey');
 const NetgearRouter = require('netgear');
 
+const deviceModes = ['Router', 'Access Point', 'Bridge', '3: Unknown', '4: Unknown'];
+
 class NetgearDriver extends Homey.Driver {
 
 	onInit() {
 		this.log('NetgearDriver onInit');
-	}
-
-	// function to keep a list of known attached devices
-	async updateDeviceList() {		// call with NetgearDevice as this
-		try {
-			let persistent = true;
-			const attachedDevices = this.readings.attachedDevices;
-			this.knownDevices = this.knownDevices || {};
-			// console.log(attachedDevices);
-			for (let i = 0; i < attachedDevices.length; i += 1) {
-				if (!Object.prototype.hasOwnProperty.call(this.knownDevices, attachedDevices[i].MAC)) {	// new device detected!
-					if (this.knownDevices[attachedDevices[i].MAC]) {	// for some reason a device is sometimes null
-						delete this.knownDevices[attachedDevices[i].MAC];
-						return;
-					}
-					this.log(`new device added: ${attachedDevices[i].MAC} ${attachedDevices[i].Name}`);
-					persistent = true;
-					this.knownDevices[attachedDevices[i].MAC] = attachedDevices[i];
-					const tokens = {
-						mac: attachedDevices[i].MAC,
-						name: attachedDevices[i].Name,
-						ip: attachedDevices[i].IP,
-					};
-					this.newAttachedDeviceTrigger
-						.trigger(this, tokens)
-						// .then(this.log(tokens))
-						.catch((error) => {
-							this.error('trigger error', error);
-						});
-				}
-				if (this.knownDevices[attachedDevices[i].MAC] == null) {
-					this.log('deleting corrupt device', this.knownDevices[attachedDevices[i].MAC]);
-					delete this.knownDevices[attachedDevices[i].MAC];
-					return;
-				}
-				const lastOnline = this.knownDevices[attachedDevices[i].MAC].online || 0;
-				this.knownDevices[attachedDevices[i].MAC] = attachedDevices[i];
-				this.knownDevices[attachedDevices[i].MAC].online = lastOnline;
-				const lastSeen = new Date();
-				this.knownDevices[attachedDevices[i].MAC].lastSeen = lastSeen.toISOString(); // to turn it back into a date: Date.parse(test.lastSeen)
-				if (!this.knownDevices[attachedDevices[i].MAC].online) {
-					this.log(`Online: ${attachedDevices[i].MAC} ${attachedDevices[i].Name} ${attachedDevices[i].IP}`);
-					const tokens = {
-						mac: attachedDevices[i].MAC,
-						name: attachedDevices[i].Name,
-						ip: attachedDevices[i].IP,
-					};
-					this.deviceOnlineTrigger
-						.trigger(this, tokens)
-						// .then(this.log(tokens))
-						.catch((error) => {
-							this.error('trigger error', error);
-						});
-				}
-				this.knownDevices[attachedDevices[i].MAC].online = true;
-			}
-			// Loop through all known devices to see if they got detached
-			const offlineDelay = this.getSettings().offline_after * 1000;	// default 5 minutes
-			let onlineCount = 0;
-			Object.keys(this.knownDevices).forEach((key) => {
-				if (this.knownDevices[key] == null) {
-					this.log('deleting corrupt device@detachCheck', this.knownDevices[key]);
-					delete this.knownDevices[key];
-					return;
-				}
-				const device = this.knownDevices[key];
-				if ((new Date() - Date.parse(device.lastSeen)) > offlineDelay) {
-					if (device.online) {
-						this.log(`Offline: ${device.MAC} ${device.Name}`);
-						const tokens = {
-							mac: device.MAC,
-							name: device.Name,
-							ip: device.IP,
-						};
-						this.deviceOfflineTrigger
-							.trigger(this, tokens)
-							// .then(this.log(tokens))
-							.catch((error) => {
-								this.error('trigger error', error);
-							});
-					}
-					this.knownDevices[key].online = false;
-				}
-				// calculate online devices count
-				if (this.knownDevices[key].online) {
-					onlineCount += 1;
-				}
-			});
-			// store online devices count
-			this.onlineDeviceCount = onlineCount;
-			// save devicelist to persistent storage
-			if (persistent) {
-				const knownDevicesString = JSON.stringify(this.knownDevices).replace('&lt', '').replace('&gt', '').replace(';', '');
-				await this.setStoreValue('knownDevicesString', knownDevicesString);
-			}
-		}	catch (error) {
-			this.error('error:', error);
-		}
 	}
 
 	// function to return the list of known attached devices for autocomplete flowcards
@@ -141,62 +45,77 @@ class NetgearDriver extends Homey.Driver {
 		return list;
 	}
 
-	login()	{	// call with NetgearDevice as this
-		const loggedIn = this.routerSession.login()
-			.then(() => {
-				this.log('login succsesfull @ driver');
-				this.setAvailable()
-					.catch(this.error);
-			})
-			.catch((error) => {
-				this.error('Login error:', error.message);
-				// this.log('last repsonse from router:');
-				// this.log(this.routerSession.lastResponse);
-				this.setUnavailable(error.message)
-					.catch(this.error);
-			});
-		return Promise.resolve(loggedIn);
+	async login()	{	// call with NetgearDevice as this
+		try {
+			if (!this.routerSession.loggedIn) {
+				this.log('Logging in');
+			}
+			await this.routerSession.login();
+			this.setAvailable()
+				.catch(this.error);
+			// this.log('Login successful');
+			return Promise.resolve(true);
+		}	catch (error) {
+			this.setUnavailable(error.message)
+				.catch(this.error);
+			return Promise.reject(error);
+		}
 	}
 
-	async getRouterData() {		// call with NetgearDevice as this
-		const readings = {
-			info: this.readings.info,
-			newFirmware: this.readings.newFirmware,
-			timestamp: this.readings.timestamp,
-		};
+	// function to retrieve router data every poll
+	async getRouterData() {	// call with NetgearDevice as this
+		const { readings } = this;
 		try {
-			// get new data from router
-			if (!this.routerSession.loggedIn) {
-				await this._driver.login.call(this);
-			}
-			// get these every poll
+			await this._driver.login.call(this);
 			readings.currentSetting = await this.routerSession.getCurrentSetting();
 			readings.attachedDevices = await this.routerSession.getAttachedDevices();
 			readings.trafficMeter = await this.routerSession.getTrafficMeter()
 				.catch(() => {
 					this.log('error getting traffic meter info');
-					return {
-						newTodayUpload: 0,
-						newTodayDownload: 0,
-						newMonthUpload: 0,
-						newMonthDownload: 0,
-					};
+					return undefined;
 				});
-			// get these once an hour max.
-			if ((Date.now() - readings.timestamp) > (60 * 60 * 1000)) {
-				readings.info = await this.routerSession.getInfo()
-					.catch(() => this.log('error getting router info'));
-				readings.newFirmware = await this.routerSession.checkNewFirmware()
-					.catch(() => {
-						this.log('error getting new Firmware info');
-						return {};
-					});
-			}
-			readings.timestamp = new Date();
+			readings.pollTime = new Date();
+			if (readings.trafficMeter) readings.trafficMeter.pollTime = readings.pollTime;
 			return Promise.resolve(readings);
 		} catch (error) {
-			this.log('last repsonse from router:');
-			this.log(JSON.stringify(this.routerSession.lastResponse));
+			return Promise.reject(error);
+		}
+	}
+
+	// function to retrieve extra router data once an hour
+	async getExtraRouterData() {	// call with NetgearDevice as this
+		try {
+			if (!this.routerSession.loggedIn) {
+				await this.routerSession.login();
+			}
+			const extraReadings = {};
+			extraReadings.info = await this.routerSession.getInfo()
+				.catch(() => this.log('error getting router info'));
+			extraReadings.newFirmware = await this.routerSession.checkNewFirmware()
+				.catch(() => {
+					this.log('error getting new Firmware info');
+					return {};
+				});
+			extraReadings.extraPollTime = new Date();
+			return Promise.resolve(extraReadings);
+		} catch (error) {
+			return Promise.reject(error);
+		}
+	}
+
+	// function to retrieve router logs every poll
+	async getLogs() {	// call with NetgearDevice as this
+		try {
+			// if (!this.routerSession.loggedIn) {
+			// 	await this.routerSession.login();
+			// }
+			const logs = await this.routerSession.getLogs(true)
+				.catch(() => {
+					this.log('error getting Logs from router');
+					return undefined;
+				});
+			return Promise.resolve(logs);
+		} catch (error) {
 			return Promise.reject(error);
 		}
 	}
@@ -204,11 +123,14 @@ class NetgearDriver extends Homey.Driver {
 	async wol(mac, password) { // call with NetgearDevice as this
 		try {
 			this.log(`WOL requested for device ${mac} ${this.knownDevices[mac].Name}`);
+			if (!this.routerSession.loggedIn) {
+				await this.routerSession.login();
+			}
 			await this.routerSession.wol(mac, password);
 			return Promise.resolve(true);
 		}	catch (error) {
-			this.error('WOL error', error.message);
-			return Promise.resolve(false);
+			// this.error('WOL error', error.message);
+			return Promise.reject(error);
 		}
 	}
 
@@ -221,8 +143,8 @@ class NetgearDriver extends Homey.Driver {
 			await this.routerSession.setBlockDevice(mac, action);
 			return Promise.resolve(true);
 		}	catch (error) {
-			this.error('blockOrAllow error', error.message);
-			return Promise.resolve(false);
+			// this.error('blockOrAllow error', error.message);
+			return Promise.reject(error);
 		}
 	}
 
@@ -236,8 +158,8 @@ class NetgearDriver extends Homey.Driver {
 			await this.routerSession.router.setGuestWifi(onOff);
 			return Promise.resolve(true);
 		}	catch (error) {
-			this.error('2.4GHz-1 set guest wifi error', error.message);
-			return Promise.resolve(false);
+			// this.error('2.4GHz-1 set guest wifi error', error.message);
+			return Promise.reject(error);
 		}
 	}
 
@@ -251,8 +173,8 @@ class NetgearDriver extends Homey.Driver {
 			await this.routerSession.setGuestWifi(onOff);	// there is actually no method yet to do 2.4Ghz-2
 			return Promise.resolve(true);
 		}	catch (error) {
-			this.error('2.4GHz-2 set guest wifi error error', error.message);
-			return Promise.resolve(false);
+			// this.error('2.4GHz-2 set guest wifi error error', error.message);
+			return Promise.reject(error);
 		}
 	}
 
@@ -266,8 +188,8 @@ class NetgearDriver extends Homey.Driver {
 			await this.routerSession.set5GGuestWifi(onOff);
 			return Promise.resolve(true);
 		}	catch (error) {
-			this.error('5GHz-1 set guest wifi error errorr', error.message);
-			return Promise.resolve(false);
+			// this.error('5GHz-1 set guest wifi error errorr', error.message);
+			return Promise.reject(error);
 		}
 	}
 
@@ -281,21 +203,23 @@ class NetgearDriver extends Homey.Driver {
 			await this.routerSession.set5GGuestWifi2(onOff);
 			return Promise.resolve(true);
 		}	catch (error) {
-			this.error('5GHz-2 set guest wifi error error', error.message);
-			return Promise.resolve(false);
+			// this.error('5GHz-2 set guest wifi error error', error.message);
+			return Promise.reject(error);
 		}
 	}
 
 	async speedTest() { // call with NetgearDevice as this
 		try {
 			this.log('router speedtest requested');
-			await this.routerSession.login();
+			if (!this.routerSession.loggedIn) {
+				await this.routerSession.login();
+			}
 			const speed = await this.routerSession.speedTest();
 			return Promise.resolve(speed);
 		}	catch (error) {
-			this.error('speedTest error', error);
-			this.log('last repsonse from router:');
-			this.log(this.routerSession.lastResponse);
+			// this.error('speedTest error', error);
+			// this.log('last repsonse from router:');
+			// this.log(this.routerSession.lastResponse);
 			return Promise.reject(error);
 		}
 	}
@@ -303,13 +227,15 @@ class NetgearDriver extends Homey.Driver {
 	async updateNewFirmware() { // call with NetgearDevice as this
 		try {
 			this.log('router firmware update requested');
-			await this.routerSession.login();
+			if (!this.routerSession.loggedIn) {
+				await this.routerSession.login();
+			}
 			await this.routerSession.updateNewFirmware();
 			return Promise.resolve(true);
 		}	catch (error) {
-			this.error('updateNewFirmware error', error);
-			this.log('last repsonse from router:');
-			this.log(this.routerSession.lastResponse);
+			// this.error('updateNewFirmware error', error);
+			// this.log('last repsonse from router:');
+			// this.log(this.routerSession.lastResponse);
 			return Promise.reject(error);
 		}
 	}
@@ -317,11 +243,13 @@ class NetgearDriver extends Homey.Driver {
 	async reboot() { // call with NetgearDevice as this
 		try {
 			this.log('router reboot requested');
-			await this.routerSession.login();
+			if (!this.routerSession.loggedIn) {
+				await this.routerSession.login();
+			}
 			await this.routerSession.reboot();
 			return Promise.resolve(true);
 		}	catch (error) {
-			this.error('reboot error', error);
+			// this.error('reboot error', error);
 			return Promise.reject(error);
 		}
 	}
@@ -330,7 +258,9 @@ class NetgearDriver extends Homey.Driver {
 		try {
 			const enableDisable = (action && 'enable') || 'disable';
 			this.log(`Traffic meter ${enableDisable} requested`);
-			await this.routerSession.login();
+			if (!this.routerSession.loggedIn) {
+				await this.routerSession.login();
+			}
 			await this.routerSession.enableTrafficMeter(action);
 			return Promise.resolve(true);
 		}	catch (error) {
@@ -343,7 +273,9 @@ class NetgearDriver extends Homey.Driver {
 		try {
 			const enableDisable = (action && 'enable') || 'disable';
 			this.log(`Access control ${enableDisable} requested`);
-			await this.routerSession.login();
+			if (!this.routerSession.loggedIn) {
+				await this.routerSession.login();
+			}
 			await this.routerSession.setBlockDeviceEnable(action);
 			return Promise.resolve(true);
 		}	catch (error) {
@@ -357,7 +289,6 @@ class NetgearDriver extends Homey.Driver {
 		socket.on('discover', async (data, callback) => {
 			try {
 				this.log('discover button pressed in frontend');
-				// try to find the soap Port automatically
 				const discover = await router.discover();
 				this.log(discover);
 				callback(null, JSON.stringify(discover)); // report success to frontend
@@ -372,20 +303,14 @@ class NetgearDriver extends Homey.Driver {
 				const password = data.password;
 				const username = data.username;
 				let host = data.host;
-				let port = Number(data.port);
-				// try to find the soap Port automatically
+				let port = data.port;
 				let discover = {};
-				if (!host || host === 'routerlogin.net' || host === '' || !port) {
+				if (!port || !host || host === '') {
 					discover = await router.discover();
-				}
-				if (!port) {
-					port = discover.port;
-				}
-				if (!host || host === 'routerlogin.net' || host === '') {
-					host = discover.host;
+					port = port || discover.port;
+					host = host || discover.host;
 				}
 				// try to login
-				this.log(`using as soap host/port: ${host}:${port}`);
 				const options = {
 					password,
 					username,
@@ -395,14 +320,45 @@ class NetgearDriver extends Homey.Driver {
 				};
 				await router.login(options);
 				const info = await router.getInfo();
-				if (Object.prototype.hasOwnProperty.call(info, 'SerialNumber')) {
-					info.host = host;
-					info.port = port;
-					// info.SerialNumber = 'TEST';
-					callback(null, JSON.stringify(info)); // report success to frontend
-				} else { callback(Error('No Netgear Model found')); }
+				if (!Object.prototype.hasOwnProperty.call(info, 'SerialNumber')) throw Error('No SerialNumber found');
+				const device = {
+					name: info.ModelName || info.DeviceName || 'Netgear',
+					data: { id: info.SerialNumber },
+					settings: {
+						username: router.username,
+						password: router.password,
+						host: router.host,
+						port: router.port,
+						model_name: info.ModelName || info.DeviceName || 'Netgear',
+						serial_number: info.SerialNumber,
+						firmware_version: info.Firmwareversion,
+						device_mode: deviceModes[Number(info.DeviceMode)],
+						polling_interval: 60,
+						internet_connection_check: 'netgear',
+						offline_after: 300,
+					},
+					class: 'sensor',
+					capabilities: ['alarm_generic', 'attached_devices', 'download_speed', 'upload_speed'],
+					energy: {
+						approximation: {
+							usageConstant: 8,
+						},
+					},
+					// "capabilitiesOptions": {
+					// 	"onoff": {
+					// 		"uiComponent": null,
+					// 		"uiQuickAction": false,
+					// 		"getable": true,
+					// 		"setable": false,
+					// 		"preventInsights": true,
+					// 		"insights": false
+					// 	}
+					// },
+
+				};
+				callback(null, device); // report success to frontend
 			}	catch (error) {
-				this.error('Pair error', error.message);
+				this.error('Pair error:', error.message);
 				callback(error);
 			}
 		});

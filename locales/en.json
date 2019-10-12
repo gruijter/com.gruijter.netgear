@@ -12,21 +12,26 @@
 			"host": "IP address",
 			"port": "SOAP Port",
 			"save": "Save"
+		},
+		"select_options": {
+			"title": "device options",
+			"intro": "",
+			"capabilities": "Include capabilities",
+			"use_link_info": "Wifi link",
+			"use_bandwidth_info": "Bandwidth",
+			"report_power": "Energy use",
+			"save": "Save"
 		}
 	},
 	"settings": {
-		"title": "Integrate Netgear Routers",
-
 		"tab1": {
 			"title": "Instructions",
 			"addDeviceTitle": "Add a new router",
-			"addDeviceInstructions": "Your Homey should be connected inside the LAN part of the router, not from outside (WAN). Add a router via the Homey tab `Devices` and fill in the admin password.",
-			"supportedRoutersTitle": "Supported Routers",
-			"supportedRouters": "If you can use the Nighthawk or Genie app to manage the router then this app will likely work. Depending on your router type some functionality might not be available. You can run a compatibility test in the Test tab.",
-			"oneTimeSetupTitle": "One time settings in the Netgear router",
-			"oneTimeSetup": "For Homey to get all the functionality it will do some one time settings in the router. Depending on the router type and firmware you might not have some of this functionality. Make sure you are on the latest router firmware. For up/download speed, the traffic statistics are enabled. To be able to block or allow a device, access control is enabled.",
+			"addDeviceInstructions": "Add a router via the Homey tab `Devices` and fill in the admin password. Depending on your router type some functionality might not be available. You can run a compatibility test in the Test tab.",
 			"presenceTitle": "Presence detection",
-			"presenceInstructions": "You can use trigger cards in flows whenever a device (e.g. a smartphone) gets connected or disconnected from your router network. When a device gets connected it can take up to a minute before the flow is triggered. When a device gets disconnected it takes 5 minutes before the flow is triggered. These timings can be changed in the router device settings, but be aware that setting these times too short will result in many false messages."
+			"presenceInstructions": "After adding your router to Homey, you can start adding mobile devices that you want to track for presence. They will be reported as connected or disconnected based on the WiFi connection to your Netgear network. You can finetune the 'offline after delay' in the device settings. If you get false disconnected messages, you should increase this delay. If you want faster detection, you can try decreasing this delay. You can also try reducing the polling interval of the router. The default polling interval is 1 minute, but if you make it too short your router can choke.",
+			"energyTitle": "Energy monitoring",
+			"energyInstructions": "After adding your router to Homey, you can add additional devices that you want to monitor for power, e.g. your T.V. or printer. Enter the estimated / average power usage of the device when it is OFF or ON. Now when you turn on your T.V. you will see that the estimated power is included in Homey Energy tab"
 		},
 		"tab2": {
 			"title": "Logs",

@@ -24,7 +24,8 @@ function updateLogs() {
 			if (!err) {
 				let lines = '';
 				for (let i = (result.length - 1); i >= 0; i -= 1) {
-					lines += `${result[i]}<br />`;
+					const logLine = result[i].replace('[log] [ManagerDrivers]', '');
+					lines += `${logLine}<br />`;
 				}
 				displayLogs(lines);
 			} else {

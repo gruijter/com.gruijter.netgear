@@ -5,7 +5,8 @@
   "main": "api.js",
   "dependencies": {
     "fixture-stdout": "^0.2.1",
-    "netgear": "^3.7.1",
+    "getipintel": "^1.0.2",
+    "netgear": "^3.9.2",
     "xml-js": "^1.6.11"
   },
   "devDependencies": {},

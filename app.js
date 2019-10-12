@@ -22,6 +22,7 @@ along with com.gruijter.netgear.  If not, see <http://www.gnu.org/licenses/>.
 const Homey = require('homey');
 const _test = require('netgear/test/_test.js');
 const Logger = require('./captureLogs.js');
+// require('inspector').open(9229, '0.0.0.0', false);
 
 class MyApp extends Homey.App {
 
@@ -86,6 +87,7 @@ class MyApp extends Homey.App {
 		// routers.forEach((router) => { kdArray[router.getName()] = router.knownDevices; });
 		return Promise.resolve(routers[0].knownDevices);
 	}
+
 }
 
 module.exports = MyApp;
