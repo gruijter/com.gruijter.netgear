@@ -67,7 +67,7 @@ class NetgearDriver extends Homey.Driver {
 		const { readings } = this;
 		try {
 			await this._driver.login.call(this);
-			readings.currentSetting = await this.routerSession.getCurrentSetting();
+			readings.getEthernetLinkStatus = await this.routerSession.getEthernetLinkStatus();
 			readings.systemInfo = await this.routerSession.getSystemInfo();
 			readings.attachedDevices = await this.routerSession.getAttachedDevices();
 			readings.trafficMeter = await this.routerSession.getTrafficMeter()

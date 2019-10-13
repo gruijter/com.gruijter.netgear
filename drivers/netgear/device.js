@@ -81,7 +81,7 @@ class NetgearDevice extends Homey.Device {
 					.then(() => true)
 					.catch(() => false);
 			} else {
-				const connectStatus = this.readings.currentSetting.InternetConnectionStatus || '';
+				const connectStatus = this.readings.getEthernetLinkStatus || '';
 				internetConnectionStatus = connectStatus.toLowerCase() === 'up';
 			}
 			if (internetConnectionStatus !== !this.getCapabilityValue('alarm_generic')) {
@@ -305,7 +305,7 @@ class NetgearDevice extends Homey.Device {
 			this._driver = this.getDriver();
 			await this._driver.ready(() => null);
 			this.readings = {
-				currentSetting: { InternetConnectionStatus: 'Up' },
+				getEthernetLinkStatus: 'Up',
 				info: {},
 				newFirmware: {},
 				trafficMeter: undefined,
