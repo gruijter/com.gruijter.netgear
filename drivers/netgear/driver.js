@@ -68,6 +68,7 @@ class NetgearDriver extends Homey.Driver {
 		try {
 			await this._driver.login.call(this);
 			readings.currentSetting = await this.routerSession.getCurrentSetting();
+			readings.systemInfo = await this.routerSession.getSystemInfo();
 			readings.attachedDevices = await this.routerSession.getAttachedDevices();
 			readings.trafficMeter = await this.routerSession.getTrafficMeter()
 				.catch(() => {
@@ -104,12 +105,12 @@ class NetgearDriver extends Homey.Driver {
 	}
 
 	// function to retrieve router logs every poll
-	async getLogs() {	// call with NetgearDevice as this
+	async getSystemLogs() {	// call with NetgearDevice as this
 		try {
 			// if (!this.routerSession.loggedIn) {
 			// 	await this.routerSession.login();
 			// }
-			const logs = await this.routerSession.getLogs(true)
+			const logs = await this.routerSession.getSystemLogs(true)
 				.catch(() => {
 					this.log('error getting Logs from router');
 					return undefined;
@@ -338,7 +339,7 @@ class NetgearDriver extends Homey.Driver {
 						offline_after: 300,
 					},
 					class: 'sensor',
-					capabilities: ['alarm_generic', 'attached_devices', 'download_speed', 'upload_speed'],
+					capabilities: ['alarm_generic', 'attached_devices', 'download_speed', 'upload_speed', 'cpu_utilization', 'mem_utilization'],
 					energy: {
 						approximation: {
 							usageConstant: 8,

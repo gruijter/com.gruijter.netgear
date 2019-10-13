@@ -104,6 +104,18 @@
 				]
 			}
 		},
+		"attached_devices": {
+			"type": "number",
+			"title": {
+				"en": "Attached devices",
+				"nl": "Verbonden apparaten",
+				"de": "Verbundene Geräte"
+			},
+			"getable": true,
+			"setable": false,
+			"insights": true,
+			"icon": "./assets/attached_devices.svg"
+		},
 		"download_speed": {
 			"type": "number",
 			"title": {
@@ -138,17 +150,35 @@
 			"insights": true,
 			"icon": "./assets/upload_speed.svg"
 		},
-		"attached_devices": {
+		"cpu_utilization": {
 			"type": "number",
 			"title": {
-				"en": "Attached devices",
-				"nl": "Verbonden apparaten",
-				"de": "Verbundene Geräte"
+				"en": "CPU utilization",
+				"nl": "CPU belasting"
 			},
 			"getable": true,
 			"setable": false,
+			"units": {
+				"en": "%"
+			},
+			"decimals": 0,
 			"insights": true,
-			"icon": "./assets/attached_devices.svg"
+			"icon": "./assets/cpu_utilization.svg"
+		},
+		"mem_utilization": {
+			"type": "number",
+			"title": {
+				"en": "Memory utilization",
+				"nl": "Geheugen belasting"
+			},
+			"getable": true,
+			"setable": false,
+			"units": {
+				"en": "%"
+			},
+			"decimals": 0,
+			"insights": true,
+			"icon": "./assets/mem_utilization.svg"
 		},
 
 		"onoff": {
@@ -227,6 +257,10 @@
 			"uiComponent": "sensor",
 			"getable": true,
 			"setable": false,
+			"units": {
+				"en": "Attacks/hr"
+			},
+			"decimals": 0,
 			"insights": true,
 			"title": {
 				"en": "Attacks/hr",
@@ -272,7 +306,7 @@
 			"small": "drivers/netgear/assets/images/small.jpg"
 		},
 		"class": "sensor",
-		"capabilities": [ "alarm_generic", "attached_devices", "download_speed", "upload_speed" ],
+		"capabilities": [ "alarm_generic", "attached_devices", "download_speed", "upload_speed", "cpu_utilization", "mem_utilization"],
 		"energy": {
 			"approximation": {
 				"usageConstant": 8

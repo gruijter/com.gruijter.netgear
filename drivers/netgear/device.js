@@ -92,6 +92,8 @@ class NetgearDevice extends Homey.Device {
 				}
 			}
 			this.setCapability('alarm_generic', !internetConnectionStatus);
+			this.setCapability('cpu_utilization', this.readings.systemInfo.NewCPUUtilization);
+			this.setCapability('mem_utilization', this.readings.systemInfo.NewMemoryUtilization);
 
 			if (downloadSpeed >= 0 && uploadSpeed >= 0) {	// disregard midnight measurements
 				if ((this.getCapabilityValue('download_speed') !== downloadSpeed) || (this.getCapabilityValue('upload_speed') !== uploadSpeed)) {
@@ -137,7 +139,7 @@ class NetgearDevice extends Homey.Device {
 			/*
 			// get router logs EXPERIMENTAL
 			// console.log(this.hasLogAnalyzer);
-			const logs = await this._driver.getLogs.call(this);
+			const logs = await this._driver.getSystemLogs.call(this);
 			if (logs) {
 				// this.logs = logs;
 				Homey.emit('logUpdate', JSON.stringify(logs));	// send to log_analyzer driver
@@ -277,7 +279,8 @@ class NetgearDevice extends Homey.Device {
 			this.log('device init: ', this.getName(), 'id:', this.getData().id);
 			// migrate from Homey fw < 3
 			// console.log(`${this.getName()} ${this.getClass()} ${this.getCapabilities()}`);
-			if ((this.getClass() !== 'sensor') || this.hasCapability('internet_connection_status') || !this.hasCapability('alarm_generic')) {
+			if ((this.getClass() !== 'sensor') || this.hasCapability('internet_connection_status') || !this.hasCapability('alarm_generic')
+				|| !this.hasCapability('cpu_utilization') || !this.hasCapability('mem_utilization')) {
 				this.log('Migrating device to Homey V3.');
 				await this.removeCapability('internet_connection_status');
 				await this.removeCapability('download_speed');
@@ -289,6 +292,8 @@ class NetgearDevice extends Homey.Device {
 				await this.addCapability('attached_devices');
 				await this.addCapability('download_speed');
 				await this.addCapability('upload_speed');
+				await this.addCapability('cpu_utilization');
+				await this.addCapability('mem_utilization');
 				this.log('Migration to V3 ready. CHECK YOUR FLOWS! (sorry)');
 				const options = { excerpt: 'THE NETGEAR ROUTER APP WAS MIGRATED TO HOMEY V3. CHECK YOUR FLOWS! (sorry)' };
 				const notification = new Homey.Notification(options);
