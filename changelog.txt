@@ -1,5 +1,6 @@
 Version changelog
 
+v3.0.1  2019.10.15 Netgear package 3.9.7. Pairing process improvements. Added Netgear Router Watchdog (driver restart after repeated login failure).
 v3.0.0  2019.10.13 Netgear package 3.9.5. Compatibility Homey V3+. Flow breaking changes! Attached Device Driver added. Energy monitoring added. Internet state is now an alarm. Router memory and CPU utilization added. Code refactored.
 v2.5.6  2019.06.11 Netgear package 3.7.1 Fix getAttachedDevices for certain routers. Test info extended.
 v2.5.5  2019.06.07 Netgear package 3.7.0. TLS/SSL support added. Homey test info added.

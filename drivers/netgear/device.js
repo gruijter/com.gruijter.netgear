@@ -136,7 +136,7 @@ class NetgearDevice extends Homey.Device {
 				});
 			}
 
-			/*
+
 			// get router logs EXPERIMENTAL
 			// console.log(this.hasLogAnalyzer);
 			const logs = await this._driver.getSystemLogs.call(this);
@@ -144,12 +144,13 @@ class NetgearDevice extends Homey.Device {
 				// this.logs = logs;
 				Homey.emit('logUpdate', JSON.stringify(logs));	// send to log_analyzer driver
 			}
-			*/
+
 
 			this.busy = false;
+			return Promise.resolve(this.busy);
 		} catch (error) {
 			this.busy = false;
-			this.error('updateRouterDeviceState error: ', error.message || error);
+			return Promise.reject(error);
 		}
 	}
 
@@ -314,6 +315,7 @@ class NetgearDevice extends Homey.Device {
 				extraPollTime: 0,
 			};
 			this.busy = false;
+			this.watchDogCounter = 4;
 			this.hasLogAnalyzer = await hasLogAnalyzer();
 			this.logs = [];
 			// create router session
@@ -351,18 +353,30 @@ class NetgearDevice extends Homey.Device {
 			// register all flow cards
 			this.registerFlowCards();
 			// start polling router for info
-			await this.updateRouterDeviceState();
 			this.intervalIdDevicePoll = setInterval(async () => {
 				try {
+					if (this.watchDogCounter <= 0) {
+						// restart the app here
+						this.log('watchdog triggered, restarting Homey device now');
+						clearInterval(this.intervalIdDevicePoll);
+						setTimeout(() => {
+							this.onInit();
+						}, 60000);
+						return;
+					}
 					if (this.busy) {
 						this.log('Still busy. Skipping a poll');
 						return;
 					}
 					// get new routerdata and update the state
 					await this.updateRouterDeviceState();
-				} catch (error) { this.log('intervalIdDevicePoll error', error); }
+					this.watchDogCounter = 4;
+				} catch (error) {
+					this.watchDogCounter -= 1;
+					this.error('DevicePoll', error.message || error);
+				}
 			}, 1000 * settings.polling_interval);
-
+			await this.updateRouterDeviceState();
 		} catch (error) {
 			this.error(error);
 		}

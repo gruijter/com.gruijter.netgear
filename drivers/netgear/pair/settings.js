@@ -1,13 +1,17 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
+
 function discover() {
+	Homey.showLoadingOverlay();
 	Homey.emit('discover', {}, (error, result) => {
 		if (error) {
+			Homey.hideLoadingOverlay();
 			Homey.alert(error.message, 'error');
 		} else {
+			Homey.hideLoadingOverlay();
 			const info = JSON.parse(result);
 			$('#host').val(info.host);
-			$('#soapPort').val(info.port);
+			$('#soapPort').val(Number(info.port));
 		}
 	});
 }
@@ -43,8 +47,14 @@ function save() {
 	} catch (error) { return Homey.alert(error, 'error'); }
 }
 
-function onHomeyReady(homeyReady) {
-	Homey = homeyReady;
-	Homey.setTitle(__('pair.start.title'));
-	Homey.ready();
-}
+// function onHomeyReady(homeyReady) {
+// 	Homey = homeyReady;
+// 	Homey.setTitle(__('pair.start.title'));
+// 	discover();
+// 	Homey.ready();
+// }
+
+$(document).ready(() => {
+	// console.log('doc is ready');
+	discover();
+});

@@ -2,7 +2,7 @@
 	"pair": {
 		"start": {
 			"title": "Add Netgear router",
-			"intro": "Press `Discover router` to automatically fill in the IP address and the SOAP port. Then fill in the admin password of the Netgear router and press `Save`.",
+			"intro": "Check or enter the IP address and the SOAP port. Then fill in the admin password of the Netgear router and press `Save`.",
 			"discover": "Discover router",
 			"error": "An error has occurred.",
 			"success": "Success! ",

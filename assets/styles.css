@@ -85,11 +85,20 @@ input[type=text] {
     background: white !important;
 }
 
+input[type=number] {
+    border: none !important;
+    width: 100% !important;
+    padding: 10px !important;
+    font-size: small !important;
+    vertical-align: middle !important;
+    background: white !important;
+}
+
 input[type=password] {
     border: none !important;
     width: 100% !important;
     padding: 10px !important;
-    font-size: large !important;
+    font-size: small !important;
     vertical-align: middle !important;
     background: white !important;
 }

@@ -107,9 +107,9 @@ class NetgearDriver extends Homey.Driver {
 	// function to retrieve router logs every poll
 	async getSystemLogs() {	// call with NetgearDevice as this
 		try {
-			// if (!this.routerSession.loggedIn) {
-			// 	await this.routerSession.login();
-			// }
+			if (!this.routerSession.loggedIn) {
+				await this.routerSession.login();
+			}
 			const logs = await this.routerSession.getSystemLogs(true)
 				.catch(() => {
 					this.log('error getting Logs from router');

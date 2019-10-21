@@ -85,7 +85,7 @@ class LogAnalyzerDriver extends Homey.Driver {
 							// use_bandwidth_info: true,	// up/down speed
 							// report_power: true,	// linked to onoff capability
 						},
-						capabilities: ['attack_rate', 'last_attack', 'last_log'],
+						capabilities: ['alarm_cyber', 'attack_rate', 'last_attack', 'last_log'],
 					};
 					devices.push(device);
 				});

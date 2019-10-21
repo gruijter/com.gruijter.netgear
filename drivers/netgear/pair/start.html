@@ -1,9 +1,13 @@
 <!doctype html>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="styles.css" />
 		<script type="text/javascript" src="/manager/webserver/assets/js/jquery.js"></script>
 		<script type="text/javascript" src="settings.js" data-origin="settings"></script>
+		<link rel="stylesheet" type="text/css" href="../../../assets/styles.css" />
+		<style>
+			/* place on top of Homey navigation window */
+			#hy-views { position: static; }
+		</style>
 	</head>
 	<body>
 		<div class="setting">
@@ -12,8 +16,8 @@
 					<p data-i18n="pair.start.intro" class="instructions">Instructions</p>
 				</fieldset>
 
-				<label class="settings-item-description" data-i18n="pair.start.discover">host</label>
-				<button id="discover" class="btn" onclick="discover()" data-i18n="pair.start.discover">Discover</button>
+				<!-- <label class="settings-item-description" data-i18n="pair.start.discover">host</label>
+				<button id="discover" class="btn" onclick="discover()" data-i18n="pair.start.discover">Discover</button> -->
 
 				<label class="settings-item-description" data-i18n="pair.start.host">host</label>
 				<div class="settings-itemgroup">

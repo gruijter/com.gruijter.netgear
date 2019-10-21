@@ -13,7 +13,7 @@ function getList() {
 		if (err) {
 			return Homey.alert(err.message, 'error'); // [, String icon], Function callback )
 		}
-		$('#resultList').html(JSON.stringify(result).replace(/"/g, ''));
+		$('#resultList').html(JSON.stringify(result)); // .replace(/"/g, ''));
 		return true;
 	});
 }

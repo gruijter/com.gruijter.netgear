@@ -2,7 +2,7 @@
 	"pair": {
 		"start": {
 			"title": "Netgear router hinzufügen",
-			"intro": "Drücke `Finde Router` um automatisch die IP-Adresse und den SOAP-Port einzufügen. Danach gebe das Passwort des Netgear-Routers ein und drüche `Speichern`.",
+			"intro": "Controliere die IP-Adresse und den SOAP-Port. Danach gebe das Passwort des Netgear-Routers ein und drüche `Speichern`.",
 			"discover": "Finde Router",
 			"error": "Es ist ein Fehler aufgetreten.",
 			"success": "Erfolgreich! ",

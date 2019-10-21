@@ -10,7 +10,7 @@
 		"nl": "Verbind je Netgear router",
 		"de": "Überwache deinen Netgear-Router"
 	},
-	"version": "3.0.0",
+	"version": "3.0.1",
 	"sdk": 2,
 	"compatibility": ">= 3.0",
 	"author": {
@@ -252,6 +252,28 @@
 			"icon": "./assets/signal_strength.svg"
 		},
 
+		"alarm_cyber": {
+			"type": "boolean",
+			"uiComponent": "sensor",
+			"getable": true,
+			"setable": false,
+			"insights": true,
+			"title": {
+				"en": "Cyber alarm",
+				"nl": "Cyber alarm"
+			},
+			"desc": {
+				"en": "Cyber atack",
+				"nl": "Cyber aanval"
+			},
+			"insightsTitleTrue": {
+				"en": "Cyber attack detected",
+				"nl": "Cyber attack gedetecteerd"
+			},
+			"insightsTitleFalse": {
+				"en": ""
+			}
+		},
 		"attack_rate": {
 			"type": "number",
 			"uiComponent": "sensor",
@@ -631,7 +653,7 @@
 				"small": "drivers/log_analyzer/assets/images/small.jpg"
 			},
 			"class": "sensor",
-			"capabilities": [ "attack_rate", "last_attack", "last_log" ],
+			"capabilities": [ "alarm_cyber", "attack_rate", "last_attack", "last_log" ],
 			"pair": [
 				{
 					"id": "list_devices",
@@ -643,6 +665,31 @@
 				{
 					"id": "add_devices",
 					"template": "add_devices"
+				}
+			],
+			"settings": [
+				{
+					"type": "group",
+					"label": {
+						"en": "Detection settings",
+						"nl": "Detectie instellingen"
+					},
+					"children": [
+						{
+							"id": "bad_ip_threshold",
+							"type": "number",
+							"label": {
+								"en": "Bad IP threshold",
+								"nl": "Slecht IP drempel"
+							},
+							"hint": {
+								"en": "A higher threshold will lead to less Bad IP detections. A lower threshold can lead to more false positives. Default is 95",
+								"nl": "Een hogere waarde leidt tot minder detectiesvan slechte IP adressen. Een lagere waarde kan leiden tot onterechte alarmen. Standaard waarde is 95."
+							  },
+							"attr": { "min": 0, "max": 100 },
+							"value": 95
+						}
+					]
 				}
 			]
 		}
@@ -1023,6 +1070,76 @@
 							"de": "info"
 						},
 						"example": "security fixes"
+					}
+				]
+			},
+			{
+				"id": "attack",
+				"title": {
+					"en": "Cyber attack detected",
+					"nl": "Cyber aanval gedetecteerd"
+				},
+				"args": [
+					{
+						"name": "log_analyzer",
+						"type": "device",
+						"filter": "driver_id=log_analyzer"
+					}
+				],
+				"tokens": [
+					{
+						"name": "log",
+						"type": "string",
+						"title": {
+							"en": "log",
+							"nl": "log"
+						},
+						"example": "[LAN access from remote] from 171.67.70.80:41512 to 192.168.1.7:443, Tuesday, October 15, 2019 08:37:29"
+					},
+					{
+						"name": "event",
+						"type": "string",
+						"title": {
+							"en": "event",
+							"nl": "event"
+						},
+						"example": "LAN access from remote"
+					},
+					{
+						"name": "info",
+						"type": "string",
+						"title": {
+							"en": "info",
+							"nl": "info"
+						},
+						"example": "from 171.67.70.80:41512 to 192.168.1.7:443"
+					},
+					{
+						"name": "bad_ip",
+						"type": "string",
+						"title": {
+							"en": "bad_IP",
+							"nl": "slecht_IP"
+						},
+						"example": "171.67.70.80"
+					},
+					{
+						"name": "ip_country",
+						"type": "string",
+						"title": {
+							"en": "IP_country",
+							"nl": "IP_land"
+						},
+						"example": "RU"
+					},
+					{
+						"name": "ip_score",
+						"type": "number",
+						"title": {
+							"en": "IP_score",
+							"nl": "IP_score"
+						},
+						"example": 99.325001239777
 					}
 				]
 			}

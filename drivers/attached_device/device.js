@@ -69,6 +69,13 @@ class attachedNetgearDevice extends Homey.Device {
 				case 'report_power':
 					if (newSettingsObj.report_power) {
 						await this.addCapability('onoff');
+						const energy = {
+							approximation: {
+								usageOn: 3,
+								usageOff: 0,
+							},
+						};
+						await this.setEnergy(energy);
 					} else {
 						await this.removeCapability('onoff');
 					}
