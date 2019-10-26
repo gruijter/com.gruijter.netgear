@@ -69,7 +69,10 @@ class NetgearDriver extends Homey.Driver {
 			await this._driver.login.call(this);
 			readings.getEthernetLinkStatus = await this.routerSession.getEthernetLinkStatus();
 			readings.systemInfo = await this.routerSession.getSystemInfo();
-			readings.attachedDevices = await this.routerSession.getAttachedDevices();
+			const method = this.getSettings().attached_devices_method;
+			if (!method || method === '0') readings.attachedDevices = await this.routerSession.getAttachedDevices();
+			if (method === '1') readings.attachedDevices = await this.routerSession._getAttachedDevices();
+			if (method === '2') readings.attachedDevices = await this.routerSession._getAttachedDevices2();
 			readings.trafficMeter = await this.routerSession.getTrafficMeter()
 				.catch(() => {
 					this.log('error getting traffic meter info');
@@ -289,7 +292,7 @@ class NetgearDriver extends Homey.Driver {
 		const router = new NetgearRouter();
 		socket.on('discover', async (data, callback) => {
 			try {
-				this.log('discover button pressed in frontend');
+				this.log('discovery started from frontend');
 				const discover = await router.discover();
 				this.log(discover);
 				callback(null, JSON.stringify(discover)); // report success to frontend

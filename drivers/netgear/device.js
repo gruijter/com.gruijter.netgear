@@ -28,20 +28,6 @@ const dnsLookupPromise = util.promisify(dns.lookup);
 
 const deviceModes = ['Router', 'Access Point', 'Bridge', '3: Unknown', '4: Unknown'];
 
-const hasLogAnalyzer = async () => {
-	try {
-		const logAnalyzerDriver = Homey.ManagerDrivers.getDriver('log_analyzer');
-		await logAnalyzerDriver.ready(() => null);
-		const analyzer = await logAnalyzerDriver.getDevices();
-		if (!analyzer || !analyzer[0]) {
-			return Promise.resolve(false);
-		}
-		return Promise.resolve(true);
-	} catch (error) {
-		return Promise.reject(error);
-	}
-};
-
 class NetgearDevice extends Homey.Device {
 
 	async updateRouterDeviceState() {
@@ -136,15 +122,13 @@ class NetgearDevice extends Homey.Device {
 				});
 			}
 
-
 			// get router logs EXPERIMENTAL
-			// console.log(this.hasLogAnalyzer);
-			const logs = await this._driver.getSystemLogs.call(this);
+			let logs;
+			if (this.hasLogAnalyzer) { logs = await this._driver.getSystemLogs.call(this); }
 			if (logs) {
 				// this.logs = logs;
-				Homey.emit('logUpdate', JSON.stringify(logs));	// send to log_analyzer driver
+				Homey.emit(`log_${this.getData().id}`, JSON.stringify({ router: this.getData().id, logs }));	// send to log_analyzer driver
 			}
-
 
 			this.busy = false;
 			return Promise.resolve(this.busy);
@@ -263,9 +247,9 @@ class NetgearDevice extends Homey.Device {
 			this.onlineDeviceCount = onlineCount;
 			this.setCapability('attached_devices', onlineCount);
 			// send to attached_device driver
-			const knownDevicesString = JSON.stringify(knownDevices).replace('&lt', '').replace('&gt', '').replace(';', '');
-			Homey.emit('listUpdate', knownDevicesString);	// send to attached_device driver
+			Homey.emit('listUpdate', JSON.stringify({ routerID: this.getData().id, knownDevices }));	// send to attached_device driver
 			// save devicelist to persistent storage
+			const knownDevicesString = JSON.stringify(knownDevices).replace('&lt', '').replace('&gt', '').replace(';', '');
 			await this.setStoreValue('knownDevicesString', knownDevicesString);
 			return Promise.resolve(knownDevices);
 		}	catch (error) {
@@ -277,7 +261,7 @@ class NetgearDevice extends Homey.Device {
 	// this method is called when the Device is inited
 	async onInit() {
 		try {
-			this.log('device init: ', this.getName(), 'id:', this.getData().id);
+			this.log(`device init: ${this.getName()} id: ${this.getData().id}`);
 			// migrate from Homey fw < 3
 			// console.log(`${this.getName()} ${this.getClass()} ${this.getCapabilities()}`);
 			if ((this.getClass() !== 'sensor') || this.hasCapability('internet_connection_status') || !this.hasCapability('alarm_generic')
@@ -316,7 +300,7 @@ class NetgearDevice extends Homey.Device {
 			};
 			this.busy = false;
 			this.watchDogCounter = 4;
-			this.hasLogAnalyzer = await hasLogAnalyzer();
+			this.hasLogAnalyzer = false;
 			this.logs = [];
 			// create router session
 			const settings = this.getSettings();

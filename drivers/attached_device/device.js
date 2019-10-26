@@ -27,6 +27,7 @@ class attachedNetgearDevice extends Homey.Device {
 	async onInit() {
 		this.log(`device init ${this.getName()}`);
 		this.settings = await this.getSettings();
+		// add router available check here?
 		this.registerFlowCards();
 	}
 
@@ -69,13 +70,6 @@ class attachedNetgearDevice extends Homey.Device {
 				case 'report_power':
 					if (newSettingsObj.report_power) {
 						await this.addCapability('onoff');
-						const energy = {
-							approximation: {
-								usageOn: 3,
-								usageOff: 0,
-							},
-						};
-						await this.setEnergy(energy);
 					} else {
 						await this.removeCapability('onoff');
 					}
@@ -166,9 +160,9 @@ class attachedNetgearDevice extends Homey.Device {
 			if (connected) {
 				SSID = info.SSID ? info.SSID : info.ConnectionType;
 				linkSpeed = info.Linkspeed ? info.Linkspeed : 100;
-				signalStrength = info.SignalStrength;
-				download = info.Download;
-				upload = info.Upload;
+				signalStrength = info.SignalStrength ? info.SignalStrength : signalStrength;
+				download = info.Download ? info.Download : download;
+				upload = info.Upload ? info.Upload : upload;
 			}
 			const metrics = {
 				onoff: connected,

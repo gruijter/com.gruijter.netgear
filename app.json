@@ -319,9 +319,9 @@
 		{
 		"id": "netgear",
 		"name": {
-			"en": "Router",
-			"nl": "Router",
-			"de": "Router"
+			"en": " Router",
+			"nl": " Router",
+			"de": " Router"
 		},
 		"images": {
 			"large": "drivers/netgear/assets/images/large.jpg",
@@ -336,7 +336,7 @@
 		},
 		"pair": [
 			{
-				"id": "start"
+				"id": "manual"
 			}
 		],
 		"settings": [
@@ -459,6 +459,43 @@
 							"value": 300
 						},
 						{
+							"id": "attached_devices_method",
+							"type": "dropdown",
+							"value": "0",
+							"label": {
+								"en": "Attached devices method",
+								"nl": "Aangesloten apparaten methode"
+							},
+							"values": [
+								{
+									"id": "0",
+									"label": {
+										"en": "Auto"
+									}
+								},
+								{
+									"id": "1",
+									"label": {
+										"en": "Old",
+										"nl": "Oud",
+										"de": "Alt"
+									}
+								},
+								{
+									"id": "2",
+									"label": {
+										"en": "New",
+										"nl": "Nieuw",
+										"de": "Neu"
+									}
+								}
+							],
+							"hint": {
+								"en": "Which method to use to get the attached devices list from the router",
+								"nl": "Welke methode gebruiken om de aangesloten apparaten lijst uit de router op te halen"
+							}
+						},
+						{
 							"id": "clear_known_devices",
 							"type": "checkbox",
 							"label": {
@@ -547,6 +584,15 @@
 			},
 			"pair": [
 				{
+					"id": "select_router",
+					"navigation": {
+						"next": "list_devices"
+					},
+					"options": {
+						"singular": true
+					}
+				},
+				{
 					"id": "list_devices",
 					"navigation": {
 						"next": "select_options"
@@ -574,6 +620,28 @@
 							"label": {
 								"en": "MAC"
 							},
+							"value": "unknown"
+						},
+						{
+							"id": "router_model",
+							"type": "label",
+							"label": {
+								"en": "Source router model",
+								"nl": "Bron router type"
+							},
+							"value": "unknown"
+						},
+						{
+							"id": "router_id",
+							"type": "label",
+							"label": {
+								"en": "Source router ID",
+								"nl": "Bron router ID"
+							},
+							"hint": {
+								"en": "This is the serial number of the router that provides the on/offline status",
+								"nl": "Dit is het serienummer van de router die de on/offline status verzorgt"
+							  },
 							"value": "unknown"
 						}
 					]
@@ -668,6 +736,33 @@
 				}
 			],
 			"settings": [
+				{
+					"type": "group",
+					"label": {
+						"en": "Coupled Router",
+						"nl": "Gekoppelde Router"
+					},
+					"children": [
+						{
+							"id": "router_model",
+							"type": "label",
+							"label": {
+								"en": "Router model",
+								"nl": "Router type"
+							},
+							"value": "unknown"
+						},
+						{
+							"id": "router_id",
+							"type": "label",
+							"label": {
+								"en": "Router ID",
+								"nl": "Router ID"
+							},
+							"value": "unknown"
+						}
+					]
+				},
 				{
 					"type": "group",
 					"label": {
@@ -1255,17 +1350,23 @@
 					{
 					"type": "autocomplete",
 					"name": "mac",
+					"title": {
+						"en": "Which device (mac address)",
+						"nl": "Welk apparaat (mac address)"
+					},
 					"placeholder": {
-						"en": "AA:BB:CC:DD:EE:FF",
-						"de": "AA:BB:CC:DD:EE:FF"
+						"en": "AA:BB:CC:DD:EE:FF"
 						}
 					},
 					{
 					"name": "password",
 					"type": "text",
+					"title": {
+						"en": "Password or use 00:00:00:00:00:00",
+						"nl": "Password of gebruik 00:00:00:00:00:00"
+					},
 					"placeholder": {
-						"en": "password",
-						"de": "Passwort"
+						"en": "00:00:00:00:00:00"
 						},
 					"value": "00:00:00:00:00:00"
 					}

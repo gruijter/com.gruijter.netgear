@@ -7,18 +7,12 @@
     var singular = false;
     var devices = [];
 
-    let router = {};
-    Homey.getViewStoreValue('router', (err, array) => {
-					if (err) throw err;
-          console.log(array);
-          router = array[0];
-				});
-
     // legacy, to not break apps <v2.0.0
     window.found_devices = {};
     window.selected_devices = [];
 
-    Homey.setTitle( Homey.__('$tmpl.list_devices.title') );
+    // Homey.setTitle( Homey.__('$tmpl.list_devices.title') );
+    Homey.setTitle('Select router');
     Homey.showLoadingOverlay(Homey.__('$tmpl.list_devices.loading'));
     Homey.getOptions((err, options) => {
       if( err ) return Homey.error(err);
@@ -32,17 +26,30 @@
       }
     });
 
-    Homey.on('list_devices', data => {
+    Homey.on('select_router', data => {
       Homey.hideLoadingOverlay();
       onDevices(data);
     });
 
-    Homey.emit('list_devices', router, ( err, devices ) => {
+    Homey.emit('list_routers', null, ( err, devices ) => {
       Homey.hideLoadingOverlay();
       if( err ) {
         $devices.textContent = err.message || err.toString();
         return Homey.setNavigationClose();
       }
+      // show nextview if only 1 router
+      console.log(devices);
+      if (devices.length === 1) {
+        var nextView = Homey._viewsById[currentView].navigation.next;
+        if( nextView ) {
+          Homey.setViewStoreValue(nextView, 'router', devices, err => {
+            if( err ) return console.error(err);
+          })
+        }
+        // Homey.setViewStoreValue('list_devices', 'router', devices[0]);
+        return Homey.nextView();
+      }
+
       if( devices.length ) return onDevices(devices);
 
       Homey.setTitle(Homey.__('$tmpl.list_devices.nonew'));
@@ -136,7 +143,7 @@
       // var nextView = Homey.getNextViewByTemplate('add_devices');
       var nextView = Homey._viewsById[currentView].navigation.next;
       if( nextView ) {
-        Homey.setViewStoreValue(nextView, 'devices', selectedDevicesArr, err => {
+        Homey.setViewStoreValue(nextView, 'router', selectedDevicesArr, err => {
           if( err ) return console.error(err);
         })
       }

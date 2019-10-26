@@ -28,12 +28,40 @@ const GetIPIntel = require('getipintel');
 const regexIP = /\b(?:\d{1,3}\.){3}\d{1,3}\b/;
 const regexMAC = /(([A-Fa-f0-9]{2}[:]){5}[A-Fa-f0-9]{2}[,]?)+/g;
 
+const setHasLogAnalyzer = async (id) => {
+	try {
+		const routerDriver = await Homey.ManagerDrivers.getDriver('netgear');
+		await routerDriver.ready(() => null);
+		const routers = await routerDriver.getDevices();
+
+		const router = routers.filter((rtr) => id.includes(rtr.getData().id));
+		if (!router || !router[0]) {
+			return Promise.reject(Error('The Netgear Router device is missing in Homey....'));
+		}
+		router[0].hasLogAnalyzer = true;
+		return Promise.resolve(true);
+	} catch (error) {
+		return Promise.reject(error);
+	}
+};
+
 class LogAnalyzerDevice extends Homey.Device {
 
 	// this method is called when the Device is inited
 	async onInit() {
-		this.log(`device init ${this.getName()}`);
 		this.settings = await this.getSettings();
+		const { id } = this.getData();
+		this.log(`device init: ${this.getName()} id: ${id}`);
+		Homey
+			.on(`log_${id.split('_')[1]}`, (info) => {
+				const { logs } = JSON.parse(info);
+				// console.log(logs[0]);
+				this.updateInfo(logs)
+					.catch(this.log);
+				// console.log(util.inspect(knownDevices, true, 4, true));
+			});
+		setHasLogAnalyzer(id)
+			.catch(this.error);
 		// this.lastLog = {};
 		this.ipIntel = new GetIPIntel({ contact: Homey.env.CONTACT });
 		this.detections = [];

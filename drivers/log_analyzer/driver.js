@@ -22,42 +22,35 @@ along with com.gruijter.netgear.  If not, see <http://www.gnu.org/licenses/>.
 const Homey = require('homey');
 // const util = require('util');
 
+
+
 class LogAnalyzerDriver extends Homey.Driver {
 
-	async onInit() {
+	onInit() {
 		this.log('LogAnalyzerDriver onInit');
-		Homey
-			.on('logUpdate', (info) => {
-				const logs = JSON.parse(info);
-				// console.log(logs[0]);
-				this.updateLogDevice(logs)
-					.catch(this.log);
-				// console.log(util.inspect(knownDevices, true, 4, true));
-				// this.updateDevices(knownDevices);
-			});
+		// Homey
+		// 	.on('logUpdate', (info) => {
+		// 		const logs = JSON.parse(info);
+		// 		// console.log(logs[0]);
+		// 		this.updateLogDevice(logs)
+		// 			.catch(this.log);
+		// 		// console.log(util.inspect(knownDevices, true, 4, true));
+		// 		// this.updateDevices(knownDevices);
+		// 	});
 	}
 
-	async updateLogDevice(logs) {	// HOW TO FILTER THE RIGHT LOG FROM WHAT NETGEAR ROUTER?
-		try {
-			const analyzer = await this.getDevices();
-			if (!analyzer || !analyzer[0]) {
-				// throw Error('No log analyzer found');
-				return Promise.resolve(false);
-			}
-			analyzer[0].updateInfo(logs);
-			return Promise.resolve(true);
-		} catch (error) {
-			return Promise.reject(error);
-		}
-	}
-
-	// updateDevices(knownDevices) {
-	// 	Object.keys(knownDevices).forEach((key) => {
-	// 		const device = this.getDevice({ id: key });
-	// 		if (device instanceof Homey.Device) {
-	// 			device.updateInfo(knownDevices[key]);
+	// async updateLogDevice(logs) {	// HOW TO FILTER THE RIGHT LOG FROM WHAT NETGEAR ROUTER?
+	// 	try {
+	// 		const analyzer = await this.getDevices();
+	// 		if (!analyzer || !analyzer[0]) {
+	// 			// throw Error('No log analyzer found');
+	// 			return Promise.resolve(false);
 	// 		}
-	// 	});
+	// 		analyzer[0].updateInfo(logs);
+	// 		return Promise.resolve(true);
+	// 	} catch (error) {
+	// 		return Promise.reject(error);
+	// 	}
 	// }
 
 	onPair(socket) {
@@ -73,12 +66,14 @@ class LogAnalyzerDriver extends Homey.Driver {
 				Object.keys(routers).forEach((router) => {
 					// const icon = iconTable[knownDevices[attachedDevice].DeviceType] || 'default';
 					const device = {
-						name: `Log - ${routers[router].getName()}`,
+						name: `${routers[router].getName()} Cyber Detector`,
 						// icon: `../assets/${icon}.svg`,	// change the icon?
 						data: {
-							id: `log_${routers[router].getData().id}`,
+							id: `cd_${routers[router].getData().id}`,
 						},
 						settings: {
+							router_model: routers[router].getSettings().model_name,
+							router_id: routers[router].getData().id,
 							// mac: knownDevices[attachedDevice].MAC,
 							// offline_after: 180,	// seconds
 							// use_link_info: true,	// wifi link speed and signal strength
