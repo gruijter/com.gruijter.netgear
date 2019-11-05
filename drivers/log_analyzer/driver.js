@@ -22,8 +22,6 @@ along with com.gruijter.netgear.  If not, see <http://www.gnu.org/licenses/>.
 const Homey = require('homey');
 // const util = require('util');
 
-
-
 class LogAnalyzerDriver extends Homey.Driver {
 
 	onInit() {

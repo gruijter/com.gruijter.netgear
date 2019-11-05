@@ -2,11 +2,11 @@
 	"pair": {
 		"start": {
 			"title": "Netgear router toevoegen",
-			"intro": "Controleer het IP adres en de SOAP poort. Vul daarna het admin wachtwoord in van de Netgear router en druk op `Opslaan`.",
+			"intro": "Controleer het IP adres en de SOAP poort. Vul daarna het admin wachtwoord in van de Netgear router en druk op `Volgende`.",
 			"discover": "Zoek router",
 			"error": "Er is een fout opgetreden.",
 			"success": "Succes! ",
-			"required": "Wachtwoord moet worden ingevuld",
+			"required": "IP adres, poort en wachtwoord moeten worden ingevuld",
 			"username": "Gebruikersnaam",
 			"password": "Wachtwoord",
 			"host": "IP adres",
@@ -21,6 +21,17 @@
 			"use_bandwidth_info": "Bandbreedte",
 			"report_power": "Energie verbruik",
 			"save": "Opslaan"
+		},
+		"select_options_router": {
+			"title": "Kies de apparaat opties",
+			"intro": "De status van verbonden apparaten wordt altijd opgehaald (aanwezigheid). Kies welke aanvullende informatie uit de router opgehaald moet worden, maar sommige routers worden dan instabiel door firmware bugs",
+			"name": "Naam",
+			"capabilities": "Rapportage opties",
+			"use_traffic_info": "Rapporteer Up/Down verkeer",
+			"use_system_info": "Rapporteer CPU/MEM belasting",
+			"use_firmware_check": "Controleer op nieuwe firmware",
+			"save": "Opslaan",
+			"ready": "Voor optimale stabiliteit, PTP je router nu! (uit-30s-aan)"
 		}
 	},
 	"settings": {

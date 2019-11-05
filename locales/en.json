@@ -2,11 +2,11 @@
 	"pair": {
 		"start": {
 			"title": "Add Netgear router",
-			"intro": "Check or enter the IP address and the SOAP port. Then fill in the admin password of the Netgear router and press `Save`.",
+			"intro": "Check or enter the IP address and the SOAP port. Then fill in the admin password of the Netgear router and press `Next`.",
 			"discover": "Discover router",
 			"error": "An error has occurred.",
 			"success": "Success! ",
-			"required": "Password is required",
+			"required": "IP address, port and password are required",
 			"username": "Username",
 			"password": "Password",
 			"host": "IP address",
@@ -21,6 +21,17 @@
 			"use_bandwidth_info": "Bandwidth",
 			"report_power": "Energy use",
 			"save": "Save"
+		},
+		"select_options_router": {
+			"title": "Select device options",
+			"intro": "Connection state of attached devices will always be retrieved (presence). Select which additional information you want to retrieve from the router, but some routers can become unstable due to firmware bugs",
+			"name": "Name",
+			"capabilities": "Report options",
+			"use_traffic_info": "Report Up/Down traffic",
+			"use_system_info": "Report CPU/MEM load",
+			"use_firmware_check": "New firmware check",
+			"save": "Save",
+			"ready": "For optimal stability, PTP your router now! (off-30s-on)"
 		}
 	},
 	"settings": {

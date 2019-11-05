@@ -62,68 +62,6 @@ class NetgearDriver extends Homey.Driver {
 		}
 	}
 
-	// function to retrieve router data every poll
-	async getRouterData() {	// call with NetgearDevice as this
-		const { readings } = this;
-		try {
-			await this._driver.login.call(this);
-			readings.getEthernetLinkStatus = await this.routerSession.getEthernetLinkStatus();
-			readings.systemInfo = await this.routerSession.getSystemInfo();
-			const method = this.getSettings().attached_devices_method;
-			if (!method || method === '0') readings.attachedDevices = await this.routerSession.getAttachedDevices();
-			if (method === '1') readings.attachedDevices = await this.routerSession._getAttachedDevices();
-			if (method === '2') readings.attachedDevices = await this.routerSession._getAttachedDevices2();
-			readings.trafficMeter = await this.routerSession.getTrafficMeter()
-				.catch(() => {
-					this.log('error getting traffic meter info');
-					return undefined;
-				});
-			readings.pollTime = new Date();
-			if (readings.trafficMeter) readings.trafficMeter.pollTime = readings.pollTime;
-			return Promise.resolve(readings);
-		} catch (error) {
-			return Promise.reject(error);
-		}
-	}
-
-	// function to retrieve extra router data once an hour
-	async getExtraRouterData() {	// call with NetgearDevice as this
-		try {
-			if (!this.routerSession.loggedIn) {
-				await this.routerSession.login();
-			}
-			const extraReadings = {};
-			extraReadings.info = await this.routerSession.getInfo()
-				.catch(() => this.log('error getting router info'));
-			extraReadings.newFirmware = await this.routerSession.checkNewFirmware()
-				.catch(() => {
-					this.log('error getting new Firmware info');
-					return {};
-				});
-			extraReadings.extraPollTime = new Date();
-			return Promise.resolve(extraReadings);
-		} catch (error) {
-			return Promise.reject(error);
-		}
-	}
-
-	// function to retrieve router logs every poll
-	async getSystemLogs() {	// call with NetgearDevice as this
-		try {
-			if (!this.routerSession.loggedIn) {
-				await this.routerSession.login();
-			}
-			const logs = await this.routerSession.getSystemLogs(true)
-				.catch(() => {
-					this.log('error getting Logs from router');
-					return undefined;
-				});
-			return Promise.resolve(logs);
-		} catch (error) {
-			return Promise.reject(error);
-		}
-	}
-
 	async wol(mac, password) { // call with NetgearDevice as this
 		try {
 			this.log(`WOL requested for device ${mac} ${this.knownDevices[mac].Name}`);
@@ -301,9 +239,9 @@ class NetgearDriver extends Homey.Driver {
 				callback(error);
 			}
 		});
-		socket.on('save', async (data, callback) => {
+		socket.on('check', async (data, callback) => {
 			try {
-				this.log('save button pressed in frontend');
+				this.log('Checking router settings from frontend');
 				const password = data.password;
 				const username = data.username;
 				let host = data.host;
@@ -337,9 +275,14 @@ class NetgearDriver extends Homey.Driver {
 						serial_number: info.SerialNumber,
 						firmware_version: info.Firmwareversion,
 						device_mode: deviceModes[Number(info.DeviceMode)],
+						internet_connection_check: 'homey',	// 'netgear'
+						use_traffic_info: false,	// up/down speed
+						use_system_info: false, // cpu/mem load
+						use_firmware_check: false,
 						polling_interval: 60,
-						internet_connection_check: 'netgear',
-						offline_after: 300,
+						offline_after: 500,
+						attached_devices_method: '0', // auto
+						clear_known_devices: false,
 					},
 					class: 'sensor',
 					capabilities: ['alarm_generic', 'attached_devices', 'download_speed', 'upload_speed', 'cpu_utilization', 'mem_utilization'],
@@ -348,17 +291,6 @@ class NetgearDriver extends Homey.Driver {
 							usageConstant: 8,
 						},
 					},
-					// "capabilitiesOptions": {
-					// 	"onoff": {
-					// 		"uiComponent": null,
-					// 		"uiQuickAction": false,
-					// 		"getable": true,
-					// 		"setable": false,
-					// 		"preventInsights": true,
-					// 		"insights": false
-					// 	}
-					// },
-
 				};
 				callback(null, device); // report success to frontend
 			}	catch (error) {

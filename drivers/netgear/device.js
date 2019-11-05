@@ -30,57 +30,26 @@ const deviceModes = ['Router', 'Access Point', 'Bridge', '3: Unknown', '4: Unkno
 
 class NetgearDevice extends Homey.Device {
 
-	async updateRouterDeviceState() {
+	async updateSpeed() {
 		try {
-			this.busy = true;
-			// store parameters from last readings
-			const settings = this.getSettings();
+			if (!this.settings.use_traffic_info) return Promise.resolve(false);
 			const lastTrafficMeter = this.readings.trafficMeter;
-			const lastPollTime = this.readings.pollTime;
-			const lastExtraPollTime = this.readings.extraPollTime;
-
-			// get new readings from router and update the knownDevices list
-			const newReadings = await this._driver.getRouterData.call(this);
-			// get exta readings once an hour
-			if ((Date.now() - lastExtraPollTime) > (60 * 60 * 1000)) {
-				const newExtraReadings = await this._driver.getExtraRouterData.call(this);
-				Object.assign(newReadings, newExtraReadings);
-			}
-			this.readings = newReadings;
-			// update attached devices state and update the knownDeviceList
-			await this.updateKnownDeviceList();
+			this.readings.trafficMeter = await this.routerSession.getTrafficMeter()
+				.catch(() => {
+					this.log('error getting traffic meter info');
+					return undefined;
+				});
+			if (!this.readings.trafficMeter) return Promise.resolve(false);
+			this.readings.trafficMeter.pollTime = new Date();
+			if (!lastTrafficMeter) return Promise.resolve(false); // there are no previous readings for trafficmeter
 			// calculate speed
-			let downloadSpeed = 0;
-			let uploadSpeed = 0;
-			if (this.readings.trafficMeter && lastTrafficMeter && lastPollTime) { // new readings and previous readings contain traffic
-				downloadSpeed = Math.round((100 * 1000 * 8
-					* (this.readings.trafficMeter.newTodayDownload - lastTrafficMeter.newTodayDownload))
-					/ (this.readings.pollTime - lastTrafficMeter.pollTime)) / 100;
-				uploadSpeed = Math.round((100 * 1000 * 8
-					* (this.readings.trafficMeter.newTodayUpload - lastTrafficMeter.newTodayUpload))
-					/ (this.readings.pollTime - lastTrafficMeter.pollTime)) / 100;
-			}
-			// update capability values and flowcards
-			let internetConnectionStatus = true;
-			if (settings.internet_connection_check === 'homey') {
-				internetConnectionStatus = await dnsLookupPromise('www.google.com')
-					.then(() => true)
-					.catch(() => false);
-			} else {
-				const connectStatus = this.readings.getEthernetLinkStatus || '';
-				internetConnectionStatus = connectStatus.toLowerCase() === 'up';
-			}
-			if (internetConnectionStatus !== !this.getCapabilityValue('alarm_generic')) {
-				if (internetConnectionStatus) {
-					this.log('the internet connection came up');
-				} else {
-					this.log('the internet connection went down');
-				}
-			}
-			this.setCapability('alarm_generic', !internetConnectionStatus);
-			this.setCapability('cpu_utilization', this.readings.systemInfo.NewCPUUtilization);
-			this.setCapability('mem_utilization', this.readings.systemInfo.NewMemoryUtilization);
-
+			const downloadSpeed = Math.round((100 * 1000 * 8
+				* (this.readings.trafficMeter.newTodayDownload - lastTrafficMeter.newTodayDownload))
+				/ (this.readings.trafficMeter.pollTime - lastTrafficMeter.pollTime)) / 100;
+			const uploadSpeed = Math.round((100 * 1000 * 8
+				* (this.readings.trafficMeter.newTodayUpload - lastTrafficMeter.newTodayUpload))
+				/ (this.readings.trafficMeter.pollTime - lastTrafficMeter.pollTime)) / 100;
+			// set capabilitie values and trigger flow card
 			if (downloadSpeed >= 0 && uploadSpeed >= 0) {	// disregard midnight measurements
 				if ((this.getCapabilityValue('download_speed') !== downloadSpeed) || (this.getCapabilityValue('upload_speed') !== uploadSpeed)) {
 					this.setCapability('download_speed', downloadSpeed);
@@ -94,7 +63,45 @@ class NetgearDevice extends Homey.Device {
 						.catch(this.error);
 				}
 			}
-			// check for new firmware_version
+			return Promise.resolve(true);
+		} catch (error) {
+			return Promise.reject(error);
+		}
+	}
+
+	async updateSystemInfo() {
+		try {
+			if (!this.settings.use_system_info) return Promise.resolve(false);
+			this.readings.systemInfo = await this.routerSession.getSystemInfo()
+				.catch(() => {
+					this.log('error getting system info');
+					return undefined;
+				});
+			if (!this.readings.systemInfo) return Promise.resolve(false);
+			// set capabilitie values
+			this.setCapability('cpu_utilization', this.readings.systemInfo.NewCPUUtilization);
+			this.setCapability('mem_utilization', this.readings.systemInfo.NewMemoryUtilization);
+			return Promise.resolve(true);
+		} catch (error) {
+			return Promise.reject(error);
+		}
+	}
+
+	async updateFirmwareInfo() {
+		try {
+			if (!this.settings.use_firmware_check) return Promise.resolve(false);
+			this.readings.info = await this.routerSession.getInfo()
+				.catch(() => {
+					this.log('error getting router info');
+					return undefined;
+				});
+			this.readings.newFirmware = await this.routerSession.checkNewFirmware()
+				.catch(() => {
+					this.log('error getting new Firmware info');
+					return undefined;
+				});
+			this.extraPollTime = new Date();
+			// check for new firmware_version and trigger flow
 			const { newFirmware } = this.readings;
 			if (this.readings.newFirmware.newVersion && this.readings.newFirmware.newVersion !== '') {
 				const tokens = {
@@ -108,10 +115,10 @@ class NetgearDevice extends Homey.Device {
 			}
 			// update settings info
 			if (this.readings.info) {
-				if (this.readings.info.Firmwareversion !== settings.firmware_version) {
+				if (this.readings.info.Firmwareversion !== this.settings.firmware_version) {
 					this.log('New router firmware installed: ', this.readings.info.Firmwareversion);
 				}
-				if (deviceModes[Number(this.readings.info.DeviceMode)] !== settings.device_mode) {
+				if (deviceModes[Number(this.readings.info.DeviceMode)] !== this.settings.device_mode) {
 					this.log('New device mode selected: ', deviceModes[Number(this.readings.info.DeviceMode)]);
 				}
 				this.setSettings({
@@ -121,19 +128,57 @@ class NetgearDevice extends Homey.Device {
 					device_mode: deviceModes[Number(this.readings.info.DeviceMode)],
 				});
 			}
+			return Promise.resolve(true);
+		} catch (error) {
+			return Promise.reject(error);
+		}
+	}
 
-			// get router logs EXPERIMENTAL
-			let logs;
-			if (this.hasLogAnalyzer) { logs = await this._driver.getSystemLogs.call(this); }
+	async updateInternetConnectionState() {
+		try {
+			let internetConnectionStatus = true;
+			if (this.settings.internet_connection_check === 'netgear') {
+				this.readings.getEthernetLinkStatus = await this.routerSession.getEthernetLinkStatus()
+					.catch(() => {
+						this.log('error getting new Internet connection status');
+						return undefined;
+					});
+				if (!this.readings.getEthernetLinkStatus) return Promise.resolve(false);
+				internetConnectionStatus = this.readings.getEthernetLinkStatus.toLowerCase() === 'up';
+			} else {
+				internetConnectionStatus = await dnsLookupPromise('www.google.com')
+					.then(() => true)
+					.catch(() => false);
+			}
+			// update capability values and flowcards
+			if (internetConnectionStatus !== !this.getCapabilityValue('alarm_generic')) {
+				if (internetConnectionStatus) {
+					this.log('the internet connection came up');
+				} else {
+					this.log('the internet connection went down');
+				}
+			}
+			this.setCapability('alarm_generic', !internetConnectionStatus);
+			return Promise.resolve(true);
+		} catch (error) {
+			return Promise.reject(error);
+		}
+	}
+
+	async updateLogs() {
+		try {
+			if (!this.hasLogAnalyzer) return Promise.resolve(false);
+			const logs = await this.routerSession.getSystemLogs(true)
+				.catch(() => {
+					this.log('error getting Logs from router');
+					return undefined;
+				});
 			if (logs) {
 				// this.logs = logs;
 				Homey.emit(`log_${this.getData().id}`, JSON.stringify({ router: this.getData().id, logs }));	// send to log_analyzer driver
 			}
-
-			this.busy = false;
-			return Promise.resolve(this.busy);
+			return Promise.resolve(true);
 		} catch (error) {
-			this.busy = false;
 			return Promise.reject(error);
 		}
 	}
@@ -141,6 +186,12 @@ class NetgearDevice extends Homey.Device {
 	// function to keep a list of known attached devices, and update the device state
 	async updateKnownDeviceList() {
 		try {
+			const method = this.settings.attached_devices_method;
+			if (!method || method === '0') this.readings.attachedDevices = await this.routerSession.getAttachedDevices();
+			if (method === '1') this.readings.attachedDevices = await this.routerSession._getAttachedDevices();
+			if (method === '2') this.readings.attachedDevices = await this.routerSession._getAttachedDevices2();
+			this.readings.pollTime = new Date();
+
 			// console.log(this.readings);
 			const { readings } = this;
 			const { knownDevices } = this;
@@ -251,9 +302,30 @@ class NetgearDevice extends Homey.Device {
 			// save devicelist to persistent storage
 			const knownDevicesString = JSON.stringify(knownDevices).replace('&lt', '').replace('&gt', '').replace(';', '');
 			await this.setStoreValue('knownDevicesString', knownDevicesString);
-			return Promise.resolve(knownDevices);
+			return Promise.resolve(true);
 		}	catch (error) {
 			// this.error('error:', error);
+			return Promise.reject(error);
+		}
+	}
+
+	async updateRouterDeviceState() {
+		try {
+			this.busy = true;
+			await this._driver.login.call(this);
+			await this.updateKnownDeviceList();	// attached devices state
+			await this.updateInternetConnectionState();	// disconnect alarm
+			await this.updateSpeed();	// up/down internet bandwidth
+			await this.updateSystemInfo();	// mem/cpu load
+			await this.updateLogs();	// system logs EXPERIMENTAL
+			// update exta info once an hour
+			if ((Date.now() - this.readings.extraPollTime) > (60 * 60 * 1000)) {
+				await this.updateFirmwareInfo();	// firmware and router mode
+			}
+			this.busy = false;
+			return Promise.resolve(this.busy);
+		} catch (error) {
+			this.busy = false;
 			return Promise.reject(error);
 		}
 	}
@@ -264,8 +336,7 @@ class NetgearDevice extends Homey.Device {
 			this.log(`device init: ${this.getName()} id: ${this.getData().id}`);
 			// migrate from Homey fw < 3
 			// console.log(`${this.getName()} ${this.getClass()} ${this.getCapabilities()}`);
-			if ((this.getClass() !== 'sensor') || this.hasCapability('internet_connection_status') || !this.hasCapability('alarm_generic')
-				|| !this.hasCapability('cpu_utilization') || !this.hasCapability('mem_utilization')) {
+			if ((this.getClass() !== 'sensor')) {
 				this.log('Migrating device to Homey V3.');
 				await this.removeCapability('internet_connection_status');
 				await this.removeCapability('download_speed');
@@ -277,8 +348,8 @@ class NetgearDevice extends Homey.Device {
 				await this.addCapability('attached_devices');
 				await this.addCapability('download_speed');
 				await this.addCapability('upload_speed');
-				await this.addCapability('cpu_utilization');
-				await this.addCapability('mem_utilization');
+				// await this.addCapability('cpu_utilization');
+				// await this.addCapability('mem_utilization');
 				this.log('Migration to V3 ready. CHECK YOUR FLOWS! (sorry)');
 				const options = { excerpt: 'THE NETGEAR ROUTER APP WAS MIGRATED TO HOMEY V3. CHECK YOUR FLOWS! (sorry)' };
 				const notification = new Homey.Notification(options);
@@ -303,13 +374,13 @@ class NetgearDevice extends Homey.Device {
 			this.hasLogAnalyzer = false;
 			this.logs = [];
 			// create router session
-			const settings = this.getSettings();
+			this.settings = this.getSettings();
 			const options = {
-				password: settings.password,
-				username: settings.username,
-				host: settings.host,
-				port: settings.port,
-				tls: settings.port === 443,
+				password: this.settings.password,
+				username: this.settings.username,
+				host: this.settings.host,
+				port: this.settings.port,
+				tls: this.settings.port === 443,
 			};
 			this.routerSession = new NetgearRouter(options);
 			// get known device from store
@@ -324,8 +395,10 @@ class NetgearDevice extends Homey.Device {
 				}
 			});
 			// activate traffic meter and access control
-			await this._driver.enableTrafficMeter.call(this, true)
-				.catch(() => this.log('Traffic meter could not be enabled'));
+			if (this.settings.use_traffic_info) {
+				await this._driver.enableTrafficMeter.call(this, true)
+					.catch(() => this.log('Traffic meter could not be enabled'));
+			}
 			await this._driver.setBlockDeviceEnable.call(this, true)
 				.catch(() => this.log('Device Access Control could not be enabled'));
 			// store known devices when app unloads
@@ -359,7 +432,7 @@ class NetgearDevice extends Homey.Device {
 					this.watchDogCounter -= 1;
 					this.error('DevicePoll', error.message || error);
 				}
-			}, 1000 * settings.polling_interval);
+			}, 1000 * this.settings.polling_interval);
 			await this.updateRouterDeviceState();
 		} catch (error) {
 			this.error(error);
@@ -385,6 +458,7 @@ class NetgearDevice extends Homey.Device {
 		// first stop polling the device, then start init after short delay
 		clearInterval(this.intervalIdDevicePoll);
 		this.log('router device settings changed');
+		// this.log(newSettingsObj);
 		this.setAvailable()
 			.catch(this.error);
 		setTimeout(() => {
@@ -396,6 +470,20 @@ class NetgearDevice extends Homey.Device {
 			this.log('known devices were deleted on request of user');
 			return Promise.resolve('Deleting known devices list');
 			// return callback('Deleting known devices list', null);
+		}
+		if (newSettingsObj.use_traffic_info) {
+			await this.addCapability('download_speed');
+			await this.addCapability('upload_speed');
+		} else {
+			await this.removeCapability('download_speed');
+			await this.removeCapability('upload_speed');
+		}
+		if (newSettingsObj.use_system_info) {
+			await this.addCapability('cpu_utilization');
+			await this.addCapability('mem_utilization');
+		} else {
+			await this.removeCapability('cpu_utilization');
+			await this.removeCapability('mem_utilization');
 		}
 		// do callback to confirm settings change
 		return Promise.resolve(true);

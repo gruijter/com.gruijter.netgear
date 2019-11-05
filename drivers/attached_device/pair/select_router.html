@@ -12,7 +12,7 @@
     window.selected_devices = [];
 
     // Homey.setTitle( Homey.__('$tmpl.list_devices.title') );
-    Homey.setTitle('Select router');
+    Homey.setTitle('Select source router');
     Homey.showLoadingOverlay(Homey.__('$tmpl.list_devices.loading'));
     Homey.getOptions((err, options) => {
       if( err ) return Homey.error(err);
@@ -26,7 +26,7 @@
       }
     });
 
-    Homey.on('select_router', data => {
+    Homey.on('list_routers', data => {
       Homey.hideLoadingOverlay();
       onDevices(data);
     });
@@ -93,6 +93,8 @@
       $icon.classList.add('hy-tmpl-select_devices-device-icon');
       $icon.classList.add('icon');
       $device.appendChild($icon);
+
+      $icon.style.webkitMaskImage = 'url(' + device.icon + ')';
 
       if(device.iconObj) {
         $icon.style.webkitMaskImage = 'url(' + device.iconObj.url + ')';

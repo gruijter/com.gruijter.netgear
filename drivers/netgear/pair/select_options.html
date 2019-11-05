@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+	<head>
+		<script type="text/javascript" src="/manager/webserver/assets/js/jquery.js"></script>
+		<script type="text/javascript" src="select_options.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../../assets/styles.css" />
+		<style>
+			/* place on top of Homey navigation window */
+			#hy-views { position: static; }
+		</style>
+	</head>
+	<body>
+		<div class="setting">
+			<fieldset class="listContainer">
+				<legend data-i18n="pair.select_options_router.title">Select options</legend>
+				<p data-i18n="pair.select_options_router.intro" class="instructions">Instructions</p>
+			</fieldset>
+
+			<label class="settings-item-description" data-i18n="pair.select_options_router.name">name</label>
+			<div class="settings-itemgroup">
+				<input id="name" type="text" value="">
+			</div>
+
+			<label class="settings-item-description" data-i18n="pair.select_options_router.capabilities">Capabilities</label>
+
+			<div class="settings-itemgroup">
+					<div class="settings-item-text">
+							<span data-i18n="pair.select_options_router.use_traffic_info">Report Up/Down traffic</span>
+					</div>
+					<div class="settings-item-last">
+							<label class="form-switch">
+									<input type="checkbox" id="use_traffic_info"/>
+									<i></i>
+							</label>
+					</div>
+			</div>
+			<div class="settings-itemgroup">
+				<div class="settings-item-text">
+						<span data-i18n="pair.select_options_router.use_system_info">Report CPU/MEM load</span>
+				</div>
+				<div class="settings-item-last">
+						<label class="form-switch">
+								<input type="checkbox" id="use_system_info"/>
+								<i></i>
+						</label>
+				</div>
+			</div>
+			<div class="settings-itemgroup">
+				<div class="settings-item-text">
+						<span data-i18n="pair.select_options_router.use_firmware_check">New firmware check</span>
+				</div>
+				<div class="settings-item-last">
+						<label class="form-switch">
+								<input type="checkbox" id="use_firmware_check"/>
+								<i></i>
+						</label>
+				</div>
+			</div>
+
+			<!-- <label class="settings-item-description" data-i18n="pair.select_options_router.save">Save</label> -->
+			<br>
+			<button id="pair.select_options_router.save" class="btn" onclick="save()" data-i18n="pair.select_options_router.save">Save</button>
+
+		</div>
+	</body>
+</html>

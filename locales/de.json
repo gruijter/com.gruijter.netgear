@@ -6,7 +6,7 @@
 			"discover": "Finde Router",
 			"error": "Es ist ein Fehler aufgetreten.",
 			"success": "Erfolgreich! ",
-			"required": "Passwort benötigt",
+			"required": "IP-Adresse, Port und Passwort benötigt",
 			"username": "Benutzer",
 			"password": "Passwort",
 			"host": "IP-Adresse",

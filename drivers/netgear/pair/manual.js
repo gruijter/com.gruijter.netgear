@@ -16,6 +16,32 @@ function discover() {
 	});
 }
 
+$(document).ready(() => {
+	// console.log('doc is ready');
+	discover();
+	$('#hy-nav-next').click(() => {
+		const username = 'admin'; // document.getElementById( 'username' ).value;
+		const password = $('#password').val();
+		const host = $('#host').val();
+		const port = $('#soapPort').val();
+		if (!host || host.length < 8 || !port || password === '') {
+			Homey.alert(__('pair.start.required'), 'error');
+			Homey.done();
+			return;
+		}
+		const settings = {
+			username,
+			password,
+			host,
+			port: Number(port) || 0,
+		};
+		Homey.setViewStoreValue('select_options', 'settings', settings, (err) => {
+			if (err) return console.error(err);
+		});
+
+	});
+});
+
 function save() {
 	try {
 		const username = 'admin'; // document.getElementById( 'username' ).value;
@@ -46,15 +72,3 @@ function save() {
 		return null;
 	} catch (error) { return Homey.alert(error, 'error'); }
 }
-
-// function onHomeyReady(homeyReady) {
-// 	Homey = homeyReady;
-// 	Homey.setTitle(__('pair.start.title'));
-// 	discover();
-// 	Homey.ready();
-// }
-
-$(document).ready(() => {
-	// console.log('doc is ready');
-	discover();
-});

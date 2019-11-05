@@ -112,14 +112,14 @@ class AttachedDeviceDriver extends Homey.Driver {
 				const routers = await netgearDriver.getDevices();
 				if (!routers || !routers[0]) { throw Error('Cannot find a router device in Homey. The router needs to be added first!'); }
 				routers.forEach((router) => {
-					const item = {
+					const device = {
 						name: `${router.getName()} ${router.getData().id}`,
-						icon: '../assets/router.svg',
+						icon: '../../../assets/icon.svg',
 						data: {
 							id: router.getData().id,
 						},
 					};
-					routerList.push(item);
+					routerList.push(device);
 				});
 				return callback(null, routerList);
 			} catch (error) {
