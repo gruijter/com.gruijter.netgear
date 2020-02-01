@@ -50,7 +50,8 @@ class NetgearDriver extends Homey.Driver {
 			if (!this.routerSession.loggedIn) {
 				this.log('Logging in');
 			}
-			await this.routerSession.login();
+			const method = Number(this.settings.login_method);
+			await this.routerSession.login({ method });
 			this.setAvailable()
 				.catch(this.error);
 			// this.log('Login successful');

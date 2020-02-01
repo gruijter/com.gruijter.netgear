@@ -72,11 +72,7 @@ class LogAnalyzerDriver extends Homey.Driver {
 						settings: {
 							router_model: routers[router].getSettings().model_name,
 							router_id: routers[router].getData().id,
-							// mac: knownDevices[attachedDevice].MAC,
-							// offline_after: 180,	// seconds
-							// use_link_info: true,	// wifi link speed and signal strength
-							// use_bandwidth_info: true,	// up/down speed
-							// report_power: true,	// linked to onoff capability
+							contact: 'your@email.address',
 						},
 						capabilities: ['alarm_cyber', 'attack_rate', 'last_attack', 'last_log'],
 					};

@@ -1,5 +1,7 @@
 Version changelog
 
+v3.0.5  2020.02.01 Netgear package 3.9.9. Fixed fw update on R7000. Fix parsing of <unknown> devices. Fix delete Devicelist. Selectable login method added.
+v3.0.4  2019.12.01 Stable app store release.
 v3.0.3  2019.11.05 Introduced selectable router capabilities for better compatibility with buggy router firmware.
 v3.0.2  2019.10.26 Router setting to force old GetAttachedDevicesMethod. Select router during AttachedDevice pair. Temporarily disabled getRouterLogs.
 v3.0.1  2019.10.21 Netgear package 3.9.7. Pairing process improvements. Added Netgear Router Watchdog (driver restart after repeated login failure).

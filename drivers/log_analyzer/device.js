@@ -21,9 +21,9 @@ along with com.gruijter.netgear.  If not, see <http://www.gnu.org/licenses/>.
 
 const Homey = require('homey');
 const GetIPIntel = require('getipintel');
-// const util = require('util');
+const util = require('util');
 
-// const setTimeoutPromise = util.promisify(setTimeout);
+const setTimeoutPromise = util.promisify(setTimeout);
 
 const regexIP = /\b(?:\d{1,3}\.){3}\d{1,3}\b/;
 const regexMAC = /(([A-Fa-f0-9]{2}[:]){5}[A-Fa-f0-9]{2}[,]?)+/g;
@@ -63,7 +63,8 @@ class LogAnalyzerDevice extends Homey.Device {
 		setHasLogAnalyzer(id)
 			.catch(this.error);
 		// this.lastLog = {};
-		this.ipIntel = new GetIPIntel({ contact: Homey.env.CONTACT });
+		const contact = (Homey.env && Homey.env.CONTACT) ? Homey.env.CONTACT : this.settings.contact;
+		this.ipIntel = new GetIPIntel({ contact });
 		this.detections = [];
 		this.registerFlowCards();
 	}
@@ -82,7 +83,8 @@ class LogAnalyzerDevice extends Homey.Device {
 	async onSettings(oldSettingsObj, newSettingsObj, changedKeysArr) {
 		this.log(`${this.getData().id} ${this.getName()} device settings changed`);
 		this.log(newSettingsObj);
-		this.settings = newSettingsObj;
+		// this.settings = newSettingsObj;
+		setTimeoutPromise(2000, null).then(() => this.onInit());
 		return Promise.resolve(true);
 	}
 

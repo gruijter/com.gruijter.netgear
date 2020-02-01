@@ -186,10 +186,8 @@ class NetgearDevice extends Homey.Device {
 	// function to keep a list of known attached devices, and update the device state
 	async updateKnownDeviceList() {
 		try {
-			const method = this.settings.attached_devices_method;
-			if (!method || method === '0') this.readings.attachedDevices = await this.routerSession.getAttachedDevices();
-			if (method === '1') this.readings.attachedDevices = await this.routerSession._getAttachedDevices();
-			if (method === '2') this.readings.attachedDevices = await this.routerSession._getAttachedDevices2();
+			const method = Number(this.settings.attached_devices_method);
+			this.readings.attachedDevices = await this.routerSession.getAttachedDevices(method);
 			this.readings.pollTime = new Date();
 
 			// console.log(this.readings);
@@ -468,7 +466,7 @@ class NetgearDevice extends Homey.Device {
 			this.knownDevices = {};
 			await this.setStoreValue('knownDevicesString', JSON.stringify(this.knownDevices));
 			this.log('known devices were deleted on request of user');
-			return Promise.resolve('Deleting known devices list');
+			return Promise.reject(Error('Deleting known devices list'));
 			// return callback('Deleting known devices list', null);
 		}
 		if (newSettingsObj.use_traffic_info) {

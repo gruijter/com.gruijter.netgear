@@ -10,7 +10,7 @@
 		"nl": "Verbind je Netgear router",
 		"de": "Überwache deinen Netgear-Router"
 	},
-	"version": "3.0.3",
+	"version": "3.0.5",
 	"sdk": 2,
 	"compatibility": ">= 3.0",
 	"author": {
@@ -31,16 +31,19 @@
 		}
 	},
 	"bugs": {
-	"url": "https://github.com/gruijter/com.gruijter.netgear/issues"
+		"url": "https://github.com/gruijter/com.gruijter.netgear/issues"
 	},
 	"homeyCommunityTopicId": 2259,
+	"source": "https://github.com/gruijter/com.gruijter.netgear",
+	"homepage": "https://github.com/gruijter/com.gruijter.netgear/blob/master/README.md",
+	"support": "https://community.athom.com/t/2259",
 
 	"images": {
 		"large": "./assets/images/large.jpg",
 		"small": "./assets/images/small.jpg"
 	},
 
-	"category": [ "tools", "internet", "localization", "energy" ],
+	"category": [ "localization", "energy", "tools", "internet" ],
 	"tags": {
 		"en": [ "Netgear", "router", "wifi", "presence", "nighthawk", "orbi" ],
 		"de": [ "Netgear", "router", "wifi", "anwesenheid", "nighthawk", "orbi" ],
@@ -443,6 +446,45 @@
 								"de": "Passwort"
 							},
 							"value": "password"
+						},
+						{
+							"id": "login_method",
+							"type": "dropdown",
+							"value": "0",
+							"label": {
+								"en": "Login method",
+								"nl": "Login methode"
+							},
+							"values": [
+								{
+									"id": "0",
+									"label": {
+										"en": "Auto",
+										"nl": "Auto",
+										"de": "Auto"
+									}
+								},
+								{
+									"id": "1",
+									"label": {
+										"en": "Old",
+										"nl": "Oud",
+										"de": "Alt"
+									}
+								},
+								{
+									"id": "2",
+									"label": {
+										"en": "New",
+										"nl": "Nieuw",
+										"de": "Neu"
+									}
+								}
+							],
+							"hint": {
+								"en": "Leave on Auto unless you experience issues",
+								"nl": "Laat op Auto tenzij je problemen hebt"
+							}
 						}
 					]
 				},
@@ -597,9 +639,9 @@
 							},
 							"value": false,
 							"hint": {
-								"en": "When checked, the list of known devices will be emptied on save settings",
-								"nl": "Aangevinkt: de lijst met bekende apparaten zal worden geleegd bij opslaan van de instellingen",
-								"de": "Wenn aktiviert, wird die Liste der bekannten Geräte gelöscht, sobald die Einstellungen gespeichert werden"
+								"en": "When checked, the list of known devices will be emptied. New settings will not be saved!",
+								"nl": "Aangevinkt: de lijst met bekende apparaten zal worden geleegd. Nieuwe instellingen worden niet opgeslagen!",
+								"de": "Wenn aktiviert, wird die Liste der bekannten Geräte gelöscht.Neue Einstellungen werden nicht gespeichert!"
 							}
 						}
 					]
@@ -816,6 +858,19 @@
 						"nl": "Detectie instellingen"
 					},
 					"children": [
+						{
+							"id": "contact",
+							"type": "text",
+							"label": {
+								"en": "Your email address",
+								"nl": "Je email adres"
+							},
+							"hint": {
+								"en": "See https://getipintel.net/privacy/",
+								"nl": "Zie https://getipintel.net/privacy/"
+							},
+							"value": ""
+						},
 						{
 							"id": "bad_ip_threshold",
 							"type": "number",
