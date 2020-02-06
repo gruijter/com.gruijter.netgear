@@ -6,7 +6,7 @@
   "dependencies": {
     "fixture-stdout": "^0.2.1",
     "getipintel": "^1.0.4",
-    "netgear": "^4.0.2",
+    "netgear": "^4.0.3",
     "xml-js": "^1.6.11"
   },
   "devDependencies": {
