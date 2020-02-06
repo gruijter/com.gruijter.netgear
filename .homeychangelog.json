@@ -1,11 +1,14 @@
 {
-	"3.0.5": {
-		"en": "Netgear package 3.9.9. Fixed fw update on R7000. Fix parsing of <unknown> devices. Fix delete Devicelist. Selectable login method added."
-	},
-	"3.0.4": {
-		"en": "Presence Detection and Energy support - stable release"
-	},
-	"3.0.3": {
-		"en": "Energy and Presence detection - Stable release"
-	}
+  "3.0.5": {
+    "en": "Netgear package 3.9.9. Fixed fw update on R7000. Fix parsing of <unknown> devices. Fix delete Devicelist. Selectable login method added."
+  },
+  "3.0.4": {
+    "en": "Presence Detection and Energy support - stable release"
+  },
+  "3.0.3": {
+    "en": "Energy and Presence detection - Stable release"
+  },
+  "3.0.6": {
+    "en": "Netgear package 4.0.0. Added more validity checks for attached devices. Compatibility test timeout partial fix."
+  }
 }
