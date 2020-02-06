@@ -1,5 +1,6 @@
 Version changelog
 
+v3.0.6  2020.02.06 Netgear package 4.0.0. Added more validity checks for attached devices. Compatibility test timeout partial fix.
 v3.0.5  2020.02.01 Netgear package 3.9.9. Fixed fw update on R7000. Fix parsing of <unknown> devices. Fix delete Devicelist. Selectable login method added.
 v3.0.4  2019.12.01 Stable app store release.
 v3.0.3  2019.11.05 Introduced selectable router capabilities for better compatibility with buggy router firmware.

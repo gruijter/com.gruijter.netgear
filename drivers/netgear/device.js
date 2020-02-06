@@ -207,7 +207,7 @@ class NetgearDevice extends Homey.Device {
 			// detect online and new attached devices
 			attachedDevices.forEach((attachedDevice) => {
 				// filter corrupt stuff
-				if (knownDevices[attachedDevice.MAC] === null) {	// knownDevice is null
+				if (!knownDevices[attachedDevice.MAC] || (knownDevices[attachedDevice.MAC].MAC.length !== 17)) {	// knownDevice is corrupt
 					this.log('deleting corrupt device', knownDevices[attachedDevice.MAC]);
 					delete knownDevices[attachedDevice.MAC];
 				}

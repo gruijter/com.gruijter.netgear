@@ -68,6 +68,7 @@ class MyApp extends Homey.App {
 			host: data.host,
 			port: data.port,
 			info: `Homey fw:${Homey.version} app: ${Homey.manifest.version}`,
+			shorttest: true,
 		};
 		const output = _test.test(options);
 		return Promise.resolve(output);
