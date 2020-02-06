@@ -1,0 +1,22 @@
+{
+  "type": "boolean",
+  "uiComponent": "sensor",
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "title": {
+    "en": "Cyber alarm",
+    "nl": "Cyber alarm"
+  },
+  "desc": {
+    "en": "Cyber atack",
+    "nl": "Cyber aanval"
+  },
+  "insightsTitleTrue": {
+    "en": "Cyber attack detected",
+    "nl": "Cyber attack gedetecteerd"
+  },
+  "insightsTitleFalse": {
+    "en": ""
+  }
+}

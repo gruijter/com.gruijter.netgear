@@ -1,0 +1,12 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Link speed",
+    "nl": "Verbindingssnelheid",
+    "de": "Verbindungsgeschwindigkeit"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "icon": "./assets/link_speed.svg"
+}

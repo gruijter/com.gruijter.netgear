@@ -1,0 +1,57 @@
+{
+  "type": "boolean",
+  "uiComponent": "sensor",
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "title": {
+    "en": "Internet disconnected",
+    "nl": "Internet verbroken",
+    "de": "Internet verbrochen"
+  },
+  "desc": {
+    "en": "Internet disconnected alarm",
+    "nl": "Internet verbroken alarm",
+    "de": "Internet verbrochen Alarm"
+  },
+  "insightsTitleTrue": {
+    "en": "Internet disconnected",
+    "nl": "Internet verbroken",
+    "de": "Internet verbrochen"
+  },
+  "insightsTitleFalse": {
+    "en": "Internet connected",
+    "nl": "Internet verbonden",
+    "de": "Internet verbunden"
+  },
+  "$flow": {
+    "triggers": [
+      {
+        "id": "alarm_generic_true",
+        "title": {
+          "en": "Internet disconnected",
+          "nl": "Internet verbroken",
+          "de": "Internet verbrochen"
+        }
+      },
+      {
+        "id": "alarm_generic_false",
+        "title": {
+          "en": "Internet connected",
+          "nl": "Internet verbonden",
+          "de": "Internet verbunden"
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "id": "alarm_generic",
+        "title": {
+          "en": "The internet is !{{disconnected|connected}}",
+          "nl": "Het internet is !{{verbroken|verbonden}}",
+          "de": "Das Internet ist !{{verbrochen|verbunden}}"
+        }
+      }
+    ]
+  }
+}

@@ -1,15 +1,17 @@
 {
   "name": "com.gruijter.netgear",
-  "version": "3.0.7",
+  "version": "3.0.8",
   "description": "Homey app for Netgear routers",
   "main": "api.js",
   "dependencies": {
     "fixture-stdout": "^0.2.1",
     "getipintel": "^1.0.4",
-    "netgear": "^4.0.1",
+    "netgear": "^4.0.2",
     "xml-js": "^1.6.11"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "homey": "^2.1.3"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

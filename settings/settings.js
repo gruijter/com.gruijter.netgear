@@ -5,7 +5,7 @@ function displayLogs(lines) {
 }
 
 function displayTestResult(lines) {
-	$('#testResult').html(lines);
+	$('#testResult').text(lines);
 }
 
 function getList() {
@@ -57,9 +57,9 @@ function showTab(tab) {
 	if (tab === 4) { getList(); }
 	$('#copyResult').prop('disabled', true);
 	$('#testResult').prop('disabled', true);
-	$('#runTest').prop('disabled', $('#password').val() === '' ? true : false);
+	$('#runTest').prop('disabled', $('#password').val() === '');
 	$('#password').keyup(() => {
-		$('#runTest').prop('disabled', this.value === '' ? true : false);
+		$('#runTest').prop('disabled', this.value === '');
 	});
 	$('#resultList').prop('disabled', true);
 	$('.tab').removeClass('tab-active');
@@ -100,7 +100,7 @@ function runTest() {
 	const password = $('#password').val();
 	const host = $('#host').val();
 	const port = $('#soapPort').val();
-	$('#testResult').html('Testing now. Hang on........');
+	$('#testResult').html('Testing now. Hang on for a minute........');
 	Homey.api('POST', 'runtest/', { password, host, port }, (err, result) => {
 		if (err) {
 			$('#copyResult').prop('disabled', false);
@@ -108,14 +108,6 @@ function runTest() {
 			$('#discover').prop('disabled', false);
 			return Homey.alert(err.message, 'error'); // [, String icon], Function callback )
 		}
-		let lines = '';
-		for (let i = 0; i < (result.length); i += 1) {
-			lines += `${JSON.stringify(result[i]).replace(/"/g, '')}\n`;
-		}
-		displayTestResult(lines);
-		$('#copyResult').prop('disabled', false);
-		$('#runTest').prop('disabled', false);
-		$('#discover').prop('disabled', false);
 		return true;
 	});
 }
@@ -137,8 +129,22 @@ function copyList() {
 	$('#resultList').prop('disabled', true);
 }
 
+function addListeners() {
+	Homey.on('test_results', (result) => {
+		let lines = '';
+		for (let i = 0; i < (result.length); i += 1) {
+			lines += `${JSON.stringify(result[i]).replace(/"/g, '')}\n`;
+		}
+		displayTestResult(lines);
+		$('#copyResult').prop('disabled', false);
+		$('#runTest').prop('disabled', false);
+		$('#discover').prop('disabled', false);
+	});
+}
+
 function onHomeyReady(homeyReady) {
 	Homey = homeyReady;
+	addListeners();
 	showTab(1);
 	Homey.ready();
 }

@@ -1,5 +1,5 @@
 /*
-Copyright 2017 - 2019, Robin de Gruijter (gruijter@hotmail.com)
+Copyright 2017 - 2020, Robin de Gruijter (gruijter@hotmail.com)
 
 This file is part of com.gruijter.netgear.
 
@@ -61,17 +61,27 @@ class MyApp extends Homey.App {
 		return this.logger.logArray;
 	}
 
+	async emitTestResults(data) {
+		try {
+			const options = {
+				password: data.password,
+				host: data.host,
+				port: data.port,
+				info: `Homey fw:${Homey.version} app: ${Homey.manifest.version}`,
+				// shorttest: true,
+			};
+			const output = await _test.test(options);
+			Homey.ManagerApi.realtime('test_results', output);
+			this.log('test ready');
+		} catch (error) {
+			Homey.ManagerApi.realtime('test_results', error);
+		}
+	}
+
 	runTest(data) {
 		this.log('Router compatibility test started');
-		const options = {
-			password: data.password,
-			host: data.host,
-			port: data.port,
-			info: `Homey fw:${Homey.version} app: ${Homey.manifest.version}`,
-			shorttest: true,
-		};
-		const output = _test.test(options);
-		return Promise.resolve(output);
+		this.emitTestResults(data);
+		return true;
 	}
 
 	discover() {

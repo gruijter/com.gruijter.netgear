@@ -1,0 +1,339 @@
+{
+  "name": {
+    "en": " Router",
+    "nl": " Router",
+    "de": " Router"
+  },
+  "images": {
+    "large": "drivers/netgear/assets/images/large.jpg",
+    "small": "drivers/netgear/assets/images/small.jpg"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "alarm_generic",
+    "attached_devices",
+    "download_speed",
+    "upload_speed",
+    "cpu_utilization",
+    "mem_utilization"
+  ],
+  "energy": {
+    "approximation": {
+      "usageConstant": 8
+    }
+  },
+  "pair": [
+    {
+      "id": "manual",
+      "navigation": {
+        "next": "select_options"
+      }
+    },
+    {
+      "id": "select_options"
+    }
+  ],
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Router information",
+        "nl": "Router informatie",
+        "de": "Router-Information"
+      },
+      "children": [
+        {
+          "id": "model_name",
+          "type": "label",
+          "label": {
+            "en": "Model",
+            "nl": "Type",
+            "de": "Modell"
+          },
+          "value": "unknown"
+        },
+        {
+          "id": "serial_number",
+          "type": "label",
+          "label": {
+            "en": "Serial number",
+            "nl": "Serienummer",
+            "de": "Seriennummer"
+          },
+          "value": "unknown"
+        },
+        {
+          "id": "firmware_version",
+          "type": "label",
+          "label": {
+            "en": "Firmware version",
+            "nl": "Firmware versie",
+            "de": "Firmware Version"
+          },
+          "value": "unknown"
+        },
+        {
+          "id": "device_mode",
+          "type": "label",
+          "label": {
+            "en": "Device mode",
+            "nl": "Apparaat modus",
+            "de": "Gerät Modus"
+          },
+          "value": "unknown"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Connection settings",
+        "nl": "Verbinding instellingen",
+        "de": "Verbindung-Einstellungen"
+      },
+      "children": [
+        {
+          "id": "host",
+          "type": "text",
+          "label": {
+            "en": "IP address",
+            "nl": "IP adres",
+            "de": "IP-Addresse"
+          },
+          "value": "routerlogin.net"
+        },
+        {
+          "id": "port",
+          "type": "number",
+          "label": {
+            "en": "SOAP port",
+            "nl": "SOAP poort",
+            "de": "SOAP-Port"
+          },
+          "value": 5000
+        },
+        {
+          "id": "username",
+          "type": "text",
+          "label": {
+            "en": "Username",
+            "nl": "Gebruikersnaam",
+            "de": "Benutzername"
+          },
+          "value": "admin"
+        },
+        {
+          "id": "password",
+          "type": "password",
+          "label": {
+            "en": "Password",
+            "nl": "Wachtwoord",
+            "de": "Passwort"
+          },
+          "value": "password"
+        },
+        {
+          "id": "login_method",
+          "type": "dropdown",
+          "value": "0",
+          "label": {
+            "en": "Login method",
+            "nl": "Login methode"
+          },
+          "values": [
+            {
+              "id": "0",
+              "label": {
+                "en": "Auto",
+                "nl": "Auto",
+                "de": "Auto"
+              }
+            },
+            {
+              "id": "1",
+              "label": {
+                "en": "Old",
+                "nl": "Oud",
+                "de": "Alt"
+              }
+            },
+            {
+              "id": "2",
+              "label": {
+                "en": "New",
+                "nl": "Nieuw",
+                "de": "Neu"
+              }
+            }
+          ],
+          "hint": {
+            "en": "Leave on Auto unless you experience issues",
+            "nl": "Laat op Auto tenzij je problemen hebt"
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Report options",
+        "nl": "Rapportage opties"
+      },
+      "children": [
+        {
+          "id": "internet_connection_check",
+          "type": "dropdown",
+          "value": "netgear",
+          "label": {
+            "en": "Internet check",
+            "de": "Internet-Prüfung"
+          },
+          "values": [
+            {
+              "id": "netgear",
+              "label": {
+                "en": "Netgear",
+                "de": "Netgear"
+              }
+            },
+            {
+              "id": "homey",
+              "label": {
+                "en": "Homey",
+                "de": "Homey"
+              }
+            }
+          ],
+          "hint": {
+            "en": "Which device should check if the internet is connected",
+            "nl": "Welk apparaat controleert of internet verbonden is",
+            "de": "Welches Gerät soll prüfen, ob das Internet verbunden ist"
+          }
+        },
+        {
+          "id": "use_traffic_info",
+          "type": "checkbox",
+          "label": {
+            "en": "Report Up/Down traffic",
+            "nl": "Rapporteer Up/Down verkeer"
+          },
+          "value": false
+        },
+        {
+          "id": "use_system_info",
+          "type": "checkbox",
+          "label": {
+            "en": "Report CPU/MEM load",
+            "nl": "Rapporteer CPU/MEM belasting"
+          },
+          "value": false
+        },
+        {
+          "id": "use_firmware_check",
+          "type": "checkbox",
+          "label": {
+            "en": "New firmware check",
+            "nl": "Controleer op nieuwe firmware"
+          },
+          "value": false
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Presence settings",
+        "nl": "Aanwezigheid instellingen",
+        "de": "Anwesenheitseinstellungen"
+      },
+      "children": [
+        {
+          "id": "polling_interval",
+          "type": "number",
+          "label": {
+            "en": "Polling interval (seconds)",
+            "nl": "Polling interval (seconden)",
+            "de": "Polling interval (Sekunden)"
+          },
+          "hint": {
+            "en": "A shorter value will update the presence of devices more often, but could lead to router faults",
+            "nl": "Een kortere waarde zal de aanwezigheids detectie verbeteren, maar kan leiden tot fouten in de router."
+          },
+          "attr": {
+            "min": 15
+          },
+          "value": 60
+        },
+        {
+          "id": "offline_after",
+          "type": "number",
+          "label": {
+            "en": "Offline after (seconds)",
+            "nl": "Offline na (seconden)",
+            "de": "Offline nach (Sekunden)"
+          },
+          "hint": {
+            "en": "This value will be only used for attached devices that are not individually paired to Homey.",
+            "nl": "Deze waarde wordt alleen gebruikt voor apparaten die niet individueel aan Homey zijn toegevoegd."
+          },
+          "attr": {
+            "min": 60
+          },
+          "value": 300
+        },
+        {
+          "id": "attached_devices_method",
+          "type": "dropdown",
+          "value": "0",
+          "label": {
+            "en": "Attached devices method",
+            "nl": "Aangesloten apparaten methode"
+          },
+          "values": [
+            {
+              "id": "0",
+              "label": {
+                "en": "Auto"
+              }
+            },
+            {
+              "id": "1",
+              "label": {
+                "en": "Old",
+                "nl": "Oud",
+                "de": "Alt"
+              }
+            },
+            {
+              "id": "2",
+              "label": {
+                "en": "New",
+                "nl": "Nieuw",
+                "de": "Neu"
+              }
+            }
+          ],
+          "hint": {
+            "en": "Which method to use to get the attached devices list from the router",
+            "nl": "Welke methode gebruiken om de aangesloten apparaten lijst uit de router op te halen"
+          }
+        },
+        {
+          "id": "clear_known_devices",
+          "type": "checkbox",
+          "label": {
+            "en": "Delete devicelist (!)",
+            "nl": "Apparaatlijst legen (!)",
+            "de": "Geräteliste löschen (!)"
+          },
+          "value": false,
+          "hint": {
+            "en": "When checked, the list of known devices will be emptied. New settings will not be saved!",
+            "nl": "Aangevinkt: de lijst met bekende apparaten zal worden geleegd. Nieuwe instellingen worden niet opgeslagen!",
+            "de": "Wenn aktiviert, wird die Liste der bekannten Geräte gelöscht.Neue Einstellungen werden nicht gespeichert!"
+          }
+        }
+      ]
+    }
+  ]
+}

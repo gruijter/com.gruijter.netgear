@@ -1,0 +1,15 @@
+{
+  "type": "number",
+  "title": {
+    "en": "CPU utilization",
+    "nl": "CPU belasting"
+  },
+  "getable": true,
+  "setable": false,
+  "units": {
+    "en": "%"
+  },
+  "decimals": 0,
+  "insights": true,
+  "icon": "./assets/cpu_utilization.svg"
+}

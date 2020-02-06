@@ -1,0 +1,17 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Download speed",
+    "nl": "Download snelheid",
+    "de": "Download-Geschwindigkeit"
+  },
+  "getable": true,
+  "setable": false,
+  "units": {
+    "en": "Mbit/s",
+    "de": "Mbit/s"
+  },
+  "decimals": 2,
+  "insights": true,
+  "icon": "./assets/download_speed.svg"
+}

@@ -1,0 +1,15 @@
+{
+  "type": "boolean",
+  "uiComponent": null,
+  "uiQuickAction": null,
+  "getable": true,
+  "setable": true,
+  "insights": false,
+  "title": {
+    "en": "Turned on",
+    "nl": "Aangezet",
+    "de": "Eingeschaltet",
+    "fr": "Activé",
+    "it": "Attivato"
+  }
+}

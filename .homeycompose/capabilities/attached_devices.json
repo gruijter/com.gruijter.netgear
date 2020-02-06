@@ -1,0 +1,12 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Attached devices",
+    "nl": "Verbonden apparaten",
+    "de": "Verbundene Geräte"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "icon": "./assets/attached_devices.svg"
+}

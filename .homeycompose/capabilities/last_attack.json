@@ -1,0 +1,9 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Last attack"
+  },
+  "getable": true,
+  "setable": false,
+  "icon": "./assets/last_attack.svg"
+}

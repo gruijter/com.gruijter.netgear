@@ -1,4 +1,7 @@
 {
+  "3.0.8": {
+    "en": "Netgear package 4.0.2. Switch to Homey Compose app structure. Migrate 'SSID' to 'ssid' capability. Compatibility test timeout fix."
+  },
   "3.0.7": {
     "en": "Netgear package 4.0.0. Added more validity checks for attached devices. Compatibility test timeout partial fix."
   },

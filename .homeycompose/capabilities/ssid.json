@@ -1,0 +1,9 @@
+{
+  "type": "string",
+  "title": {
+    "en": "SSID"
+  },
+  "getable": true,
+  "setable": false,
+  "icon": "./assets/ssid.svg"
+}

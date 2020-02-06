@@ -1,0 +1,22 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Device connected",
+    "nl": "Apparaat verbonden",
+    "de": "Gerät verbunden"
+  },
+  "insightsTitleTrue": {
+    "en": "Connected",
+    "nl": "Verbonden"
+  },
+  "insightsTitleFalse": {
+    "en": "Disconnected",
+    "nl": "Verbroken"
+  },
+  "uiComponent": "sensor",
+  "uiQuickAction": true,
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "icon": "./assets/device_connected.svg"
+}

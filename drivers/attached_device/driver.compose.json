@@ -1,0 +1,153 @@
+{
+  "name": {
+    "en": "Attached device",
+    "nl": "Verbonden apparaat"
+  },
+  "images": {
+    "large": "drivers/attached_device/assets/images/large.jpg",
+    "small": "drivers/attached_device/assets/images/small.jpg"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "onoff",
+    "device_connected",
+    "ssid",
+    "link_speed",
+    "signal_strength",
+    "download_speed",
+    "upload_speed"
+  ],
+  "energy": {
+    "approximation": {
+      "usageOn": 3,
+      "usageOff": 0
+    }
+  },
+  "pair": [
+    {
+      "id": "select_router",
+      "navigation": {
+        "next": "list_devices"
+      },
+      "options": {
+        "singular": true
+      }
+    },
+    {
+      "id": "list_devices",
+      "navigation": {
+        "next": "select_options"
+      },
+      "options": {
+        "singular": true
+      }
+    },
+    {
+      "id": "select_options"
+    }
+  ],
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Device information",
+        "nl": "Apparaat informatie",
+        "de": "Gerät-Information"
+      },
+      "children": [
+        {
+          "id": "mac",
+          "type": "label",
+          "label": {
+            "en": "MAC"
+          },
+          "value": "unknown"
+        },
+        {
+          "id": "router_model",
+          "type": "label",
+          "label": {
+            "en": "Source router model",
+            "nl": "Bron router type"
+          },
+          "value": "unknown"
+        },
+        {
+          "id": "router_id",
+          "type": "label",
+          "label": {
+            "en": "Source router ID",
+            "nl": "Bron router ID"
+          },
+          "hint": {
+            "en": "This is the serial number of the router that provides the on/offline status",
+            "nl": "Dit is het serienummer van de router die de on/offline status verzorgt"
+          },
+          "value": "unknown"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Presence settings",
+        "nl": "Aanwezigheid instellingen"
+      },
+      "children": [
+        {
+          "id": "offline_after",
+          "type": "number",
+          "label": {
+            "en": "Offline after (seconds)",
+            "nl": "Offline na (seconden)",
+            "de": "Offline nach (Sekunden)"
+          },
+          "hint": {
+            "en": "Reducing this value will result in faster 'offline' status. If the device is on a wired connection, or if you have a very (very!) stable wifi, you can even set this value to 0.",
+            "nl": "Een lagere waarde leidt tot snellere 'offline' status. Als het apparaat bedraad is aangesloten, of als je een zeer (zeer!) stabiele wifi hebt, kan de waarde zelfs op 0 worden gezet."
+          },
+          "attr": {
+            "min": 0
+          },
+          "value": 60
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Device functionality",
+        "nl": "Apparaat functionaliteit"
+      },
+      "children": [
+        {
+          "id": "use_link_info",
+          "type": "checkbox",
+          "label": {
+            "en": "Report Wifi link info",
+            "nl": "Rapporteer Wifi link info"
+          },
+          "value": false
+        },
+        {
+          "id": "use_bandwidth_info",
+          "type": "checkbox",
+          "label": {
+            "en": "Report Up/Down bandwidth",
+            "nl": "Rapporteer Up/Down bandbreedte"
+          },
+          "value": false
+        },
+        {
+          "id": "report_power",
+          "type": "checkbox",
+          "label": {
+            "en": "Report Energy",
+            "nl": "Rapporteer energie"
+          },
+          "value": false
+        }
+      ]
+    }
+  ]
+}

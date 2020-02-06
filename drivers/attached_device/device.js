@@ -26,9 +26,15 @@ class attachedNetgearDevice extends Homey.Device {
 	// this method is called when the Device is inited
 	async onInit() {
 		this.log(`device init ${this.getName()}`);
-		this.settings = await this.getSettings();
-		// add router available check here?
 		this.registerFlowCards();
+		this.settings = await this.getSettings();
+		// migrate SSID capability to 'ssid'
+		if (this.hasCapability('SSID')) {
+			this.log('Migrating capability to `ssid`');
+			await this.addCapability('ssid');
+			await this.removeCapability('SSID');
+		}
+		// add router available check here?
 	}
 
 	// this method is called when the Device is added
@@ -131,7 +137,7 @@ class attachedNetgearDevice extends Homey.Device {
 				name: info.Name,
 				ip: info.IP,
 				device_connected: metrics.device_connected,
-				SSID: metrics.SSID,
+				ssid: metrics.ssid,
 				link_speed: metrics.link_speed,
 				signal_strength: metrics.signal_strength,
 				download_speed: metrics.download_speed,
@@ -152,13 +158,13 @@ class attachedNetgearDevice extends Homey.Device {
 			if ((Date.parse(info.pollTime) - Date.parse(info.lastSeen)) > (this.settings.offline_after * 1000)) {
 				connected = false;
 			}
-			let SSID = 'offline';
+			let ssid = 'offline';
 			let linkSpeed = 0;
 			let signalStrength = 0;
 			let download = 0;
 			let upload = 0;
 			if (connected) {
-				SSID = info.SSID ? info.SSID : info.ConnectionType;
+				ssid = info.SSID ? info.SSID : info.ConnectionType;
 				linkSpeed = info.Linkspeed ? info.Linkspeed : 100;
 				signalStrength = info.SignalStrength ? info.SignalStrength : signalStrength;
 				download = info.Download ? info.Download : download;
@@ -167,7 +173,7 @@ class attachedNetgearDevice extends Homey.Device {
 			const metrics = {
 				onoff: connected,
 				device_connected: connected,
-				SSID,
+				ssid,
 				link_speed: linkSpeed,
 				signal_strength: signalStrength,
 				download_speed: download,

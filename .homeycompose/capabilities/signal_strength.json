@@ -1,0 +1,12 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Signal strength",
+    "nl": "Signaalsterkte",
+    "de": "Signalstärke"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "icon": "./assets/signal_strength.svg"
+}

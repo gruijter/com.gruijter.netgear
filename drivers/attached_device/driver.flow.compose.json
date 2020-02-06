@@ -1,0 +1,182 @@
+{
+  "triggers": [
+    {
+      "id": "device_metrics_changed",
+      "title": {
+        "en": "Device metrics changed",
+        "nl": "Apparaat waarden gewijzigd"
+      },
+      "tokens": [
+        {
+          "name": "mac",
+          "type": "string",
+          "title": {
+            "en": "mac",
+            "nl": "mac",
+            "de": "mac"
+          },
+          "example": "AA:BB:CC:DD:EE:FF"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "title": {
+            "en": "name",
+            "nl": "naam",
+            "de": "Name"
+          },
+          "example": "iPhone"
+        },
+        {
+          "name": "ip",
+          "type": "string",
+          "title": {
+            "en": "ip",
+            "nl": "ip",
+            "de": "ip"
+          },
+          "example": "10.0.0.10"
+        },
+        {
+          "name": "device_connected",
+          "type": "boolean",
+          "title": {
+            "en": "Connected",
+            "nl": "Verbonden",
+            "de": "Verbünden"
+          },
+          "example": true
+        },
+        {
+          "name": "ssid",
+          "type": "string",
+          "title": {
+            "en": "SSID",
+            "nl": "SSID",
+            "de": "SSID"
+          },
+          "example": "wired"
+        },
+        {
+          "name": "link_speed",
+          "type": "number",
+          "title": {
+            "en": "link speed",
+            "nl": "link snelheid"
+          },
+          "example": 35
+        },
+        {
+          "name": "signal_strength",
+          "type": "number",
+          "title": {
+            "en": "signal strength",
+            "nl": "signaal sterkte",
+            "de": "Signal Stärke"
+          },
+          "example": 50
+        },
+        {
+          "name": "upload_speed",
+          "type": "number",
+          "title": {
+            "en": "up",
+            "nl": "up",
+            "de": "Up"
+          },
+          "example": 5
+        },
+        {
+          "name": "download_speed",
+          "type": "number",
+          "title": {
+            "en": "down",
+            "nl": "down",
+            "de": "Down"
+          },
+          "example": 1
+        }
+      ]
+    },
+    {
+      "id": "device_online",
+      "title": {
+        "en": "Device came online",
+        "nl": "Apparaat komt online",
+        "de": "Gerät kam online"
+      },
+      "tokens": [
+        {
+          "name": "mac",
+          "type": "string",
+          "title": {
+            "en": "mac",
+            "nl": "mac",
+            "de": "mac"
+          },
+          "example": "AA:BB:CC:DD:EE:FF"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "title": {
+            "en": "name",
+            "nl": "naam",
+            "de": "Name"
+          },
+          "example": "iPhone"
+        },
+        {
+          "name": "ip",
+          "type": "string",
+          "title": {
+            "en": "ip",
+            "nl": "ip",
+            "de": "ip"
+          },
+          "example": "10.0.0.10"
+        }
+      ]
+    },
+    {
+      "id": "device_offline",
+      "title": {
+        "en": "Device went offline",
+        "nl": "Apparaat raakt offline",
+        "de": "Gerät ging offline"
+      },
+      "tokens": [
+        {
+          "name": "mac",
+          "type": "string",
+          "title": {
+            "en": "mac",
+            "nl": "mac",
+            "de": "mac"
+          },
+          "example": "AA:BB:CC:DD:EE:FF"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "title": {
+            "en": "name",
+            "nl": "naam",
+            "de": "Name"
+          },
+          "example": "iPhone"
+        },
+        {
+          "name": "ip",
+          "type": "string",
+          "title": {
+            "en": "ip",
+            "nl": "ip",
+            "de": "ip"
+          },
+          "example": "10.0.0.10"
+        }
+      ]
+    }
+  ]
+}

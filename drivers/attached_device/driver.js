@@ -160,7 +160,7 @@ class AttachedDeviceDriver extends Homey.Driver {
 							// energy_value_off: 0,
 							// energy_value_constant: 1,
 						},
-						capabilities: ['onoff', 'device_connected', 'SSID', 'link_speed', 'signal_strength', 'download_speed', 'upload_speed'],
+						capabilities: ['onoff', 'device_connected', 'ssid', 'link_speed', 'signal_strength', 'download_speed', 'upload_speed'],
 						// energy: {
 						// 	approximation: {
 						// 		usageOn: 3,
