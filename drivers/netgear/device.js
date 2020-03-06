@@ -528,13 +528,22 @@ class NetgearDevice extends Homey.Device {
 		};
 
 		// register condition flow flowcards
+		const internetConnectedCondition = new Homey.FlowCardCondition('alarm_generic');
+		internetConnectedCondition.register()
+			.registerRunListener((args) => {
+				if (Object.prototype.hasOwnProperty.call(args, 'device')) {
+					return Promise.resolve(!args.device.getCapabilityValue('alarm_generic'));
+				}
+				return Promise.reject(Error('The netgear device is unknown or not ready'));
+			});
+
 		const deviceOnlineCondition = new Homey.FlowCardCondition('device_online');
 		deviceOnlineCondition.register()
 			.registerRunListener((args) => {
-				if (Object.prototype.hasOwnProperty.call(args, 'NetgearDevice')) {
+				if (Object.prototype.hasOwnProperty.call(args, 'device')) {
 					let deviceOnline = false;
-					if (Object.prototype.hasOwnProperty.call(args.NetgearDevice.knownDevices, args.mac.name)) {
-						deviceOnline = args.NetgearDevice.knownDevices[args.mac.name].online;	// true or false
+					if (Object.prototype.hasOwnProperty.call(args.device.knownDevices, args.mac.name)) {
+						deviceOnline = args.device.knownDevices[args.mac.name].online;	// true or false
 					}
 					return Promise.resolve(deviceOnline);
 				}
@@ -546,7 +555,7 @@ class NetgearDevice extends Homey.Device {
 		const deviceOnlineIpRangeCondition = new Homey.FlowCardCondition('device_online_ip_range');
 		deviceOnlineIpRangeCondition.register()
 			.registerRunListener((args) => {
-				if (Object.prototype.hasOwnProperty.call(args, 'NetgearDevice')) {
+				if (Object.prototype.hasOwnProperty.call(args, 'device')) {
 					const OnlineInIpRange = (total, knownDevice) => {
 						if (!knownDevice.online) { return total; }
 						if (!knownDevice.IP) { return total; }
@@ -556,7 +565,7 @@ class NetgearDevice extends Homey.Device {
 						}
 						return total;
 					};
-					const devicesOnlineInIpRange = Object.values(args.NetgearDevice.knownDevices).reduce(OnlineInIpRange, 0);
+					const devicesOnlineInIpRange = Object.values(args.device.knownDevices).reduce(OnlineInIpRange, 0);
 					return Promise.resolve(devicesOnlineInIpRange > 0);
 				}
 				return Promise.reject(Error('The netgear device is unknown or not ready'));
@@ -565,8 +574,8 @@ class NetgearDevice extends Homey.Device {
 		const newFirmwareCondition = new Homey.FlowCardCondition('new_firmware_condition');
 		newFirmwareCondition.register()
 			.registerRunListener((args) => {
-				if (Object.prototype.hasOwnProperty.call(args, 'NetgearDevice')) {
-					if (args.NetgearDevice.readings.newFirmware.newVersion !== '') {
+				if (Object.prototype.hasOwnProperty.call(args, 'device')) {
+					if (args.device.readings.newFirmware.newVersion && args.device.readings.newFirmware.newVersion !== '') {
 						return Promise.resolve(true);
 					}
 					return Promise.resolve(false);

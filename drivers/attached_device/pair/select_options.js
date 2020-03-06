@@ -87,7 +87,7 @@ async function save() {
 	dev.settings.use_link_info = $('#use_link_info').prop('checked');
 	dev.settings.use_bandwidth_info = $('#use_bandwidth_info').prop('checked');
 	dev.settings.report_power = $('#report_power').prop('checked');
-	dev.capabilities = ['device_connected', 'SSID'];
+	dev.capabilities = ['device_connected', 'ssid'];
 	if (dev.settings.use_link_info) {
 		dev.capabilities.push('link_speed', 'signal_strength');
 	}

@@ -178,5 +178,15 @@
         }
       ]
     }
+  ],
+  "conditions": [
+    {
+      "id": "device_is_online",
+      "title": {
+        "en": "Device !{{is|isn't}} online",
+        "nl": "Apparaat !{{is|is niet}} online",
+        "de": "Gerät !{{ist|ist nicht}} online"
+      }
+    }
   ]
 }

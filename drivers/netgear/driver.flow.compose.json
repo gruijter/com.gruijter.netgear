@@ -1,6 +1,22 @@
 {
   "triggers": [
     {
+      "id": "alarm_generic_true",
+      "title": {
+        "en": "Internet disconnected",
+        "nl": "Internet verbroken",
+        "de": "Internet verbrochen"
+      }
+    },
+    {
+      "id": "alarm_generic_false",
+      "title": {
+        "en": "Internet connected",
+        "nl": "Internet verbonden",
+        "de": "Internet verbunden"
+      }
+    },
+    {
       "id": "uldl_speed_changed",
       "title": {
         "en": "The up/down speed changed",
@@ -232,6 +248,14 @@
     }
   ],
   "conditions": [
+    {
+      "id": "alarm_generic",
+      "title": {
+        "en": "Internet !{{is|isn't}} connected",
+        "nl": "Internet !{{is|is niet}} verbonden",
+        "de": "Internet !{{ist|ist nicht}} verbunden"
+      }
+    },
     {
       "id": "device_online",
       "title": {

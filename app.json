@@ -360,6 +360,36 @@
         ]
       },
       {
+        "id": "alarm_generic_true",
+        "title": {
+          "en": "Internet disconnected",
+          "nl": "Internet verbroken",
+          "de": "Internet verbrochen"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=netgear"
+          }
+        ]
+      },
+      {
+        "id": "alarm_generic_false",
+        "title": {
+          "en": "Internet connected",
+          "nl": "Internet verbonden",
+          "de": "Internet verbunden"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=netgear"
+          }
+        ]
+      },
+      {
         "id": "uldl_speed_changed",
         "title": {
           "en": "The up/down speed changed",
@@ -633,6 +663,36 @@
       }
     ],
     "conditions": [
+      {
+        "id": "device_is_online",
+        "title": {
+          "en": "Device !{{is|isn't}} online",
+          "nl": "Apparaat !{{is|is niet}} online",
+          "de": "Gerät !{{ist|ist nicht}} online"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=attached_device"
+          }
+        ]
+      },
+      {
+        "id": "alarm_generic",
+        "title": {
+          "en": "Internet !{{is|isn't}} connected",
+          "nl": "Internet !{{is|is niet}} verbonden",
+          "de": "Internet !{{ist|ist nicht}} verbunden"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=netgear"
+          }
+        ]
+      },
       {
         "id": "device_online",
         "title": {

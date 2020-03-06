@@ -190,6 +190,16 @@ class attachedNetgearDevice extends Homey.Device {
 			.register();
 		this.metricsChangedTrigger = new Homey.FlowCardTriggerDevice('device_metrics_changed')
 			.register();
+
+		const deviceConnectedCondition = new Homey.FlowCardCondition('device_is_online');
+		deviceConnectedCondition.register()
+			.registerRunListener((args) => {
+				if (Object.prototype.hasOwnProperty.call(args, 'device')) {
+					return Promise.resolve(args.device.getCapabilityValue('device_connected'));
+				}
+				return Promise.reject(Error('The netgear device is unknown or not ready'));
+			});
+
 	}
 
 }

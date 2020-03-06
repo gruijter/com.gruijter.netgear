@@ -1,4 +1,7 @@
 {
+  "3.0.9": {
+    "en": "Fix flowcards."
+  },
   "3.0.8": {
     "en": "Netgear package 4.0.3. Fix login during pair. Switch to Homey Compose app structure. Migrate 'SSID' to 'ssid' capability. Compatibility test timeout fix."
   },
