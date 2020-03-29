@@ -187,8 +187,10 @@ class NetgearDevice extends Homey.Device {
 	async updateKnownDeviceList() {
 		try {
 			const method = Number(this.settings.attached_devices_method);
-			this.readings.attachedDevices = await this.routerSession.getAttachedDevices(method);
+			const attDevs = await this.routerSession.getAttachedDevices(method);
+			if (attDevs.length === 0) throw Error('Attached devicelist came back empty');
 			this.readings.pollTime = new Date();
+			this.readings.attachedDevices = attDevs;
 
 			// console.log(this.readings);
 			const { readings } = this;

@@ -16,5 +16,8 @@
   },
   "3.0.3": {
     "en": "Energy and Presence detection - Stable release"
+  },
+  "3.1.0": {
+    "en": "Netgear package 4.0.3. Added empty devicelist check."
   }
 }

@@ -1,5 +1,6 @@
 Version changelog
 
+v3.1.0  2020.03.29 Netgear package 4.0.3. Added empty devicelist check.
 v3.0.9  2020.03.06 Fix flowcards.
 v3.0.8  2020.02.06 Netgear package 4.0.3. Fix login during pair. Switch to Homey Compose app structure. Migrate 'SSID' to 'ssid' capability. Compatibility test timeout fix.
 v3.0.7  2020.02.06 Netgear package 4.0.1. Added more validity checks for attached devices. Compatibility test timeout partial fix.
