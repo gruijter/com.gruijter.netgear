@@ -19,5 +19,8 @@
   },
   "3.1.0": {
     "en": "Netgear package 4.0.3. Added empty devicelist check."
+  },
+  "3.2.0": {
+    "en": "Netgear package 4.1.0. Message queueing and rate limiting. onInit stability improvements."
   }
 }
