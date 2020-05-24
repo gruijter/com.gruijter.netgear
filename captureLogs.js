@@ -22,7 +22,6 @@ along with com.gruijter.netgear.  If not, see <http://www.gnu.org/licenses/>.
 const Homey = require('homey');
 const StdOutFixture = require('fixture-stdout');
 const fs = require('fs');
-// const util = require('util');
 
 class captureLogs {
 	// Log object to keep logs in memory and in persistent storage
@@ -36,54 +35,48 @@ class captureLogs {
 		this.getLogs();
 		this.captureStdOut();
 		this.captureStdErr();
-		// Homey.app.log('capture is ready :)');
 	}
 
 	getLogs() {
-		fs.readFile(this.logFile, 'utf8', (err, data) => {
-			if (err) {
-				Homey.app.error('error reading logfile: ', err.message);
-				return [];
-			}
-			try {
-				this.logArray = JSON.parse(data);
-				// console.log(this.logArray);
-			} catch (error) {
-				Homey.app.error('error parsing logfile: ', error.message);
-				return [];
-			}
-			// Homey.app.log('logs retrieved from module');
+		try {
+			const log = fs.readFileSync(this.logFile, 'utf8');
+			this.logArray = JSON.parse(log);
+			Homey.app.log('logfile retrieved');
 			return this.logArray;
-		});
+		} catch (error) {
+			if (error.message.includes('ENOENT')) return [];
+			Homey.app.error('error parsing logfile: ', error.message);
+			return [];
+		}
 	}
 
 	saveLogs() {
-		fs.writeFile(this.logFile, JSON.stringify(this.logArray), (err) => {
-			if (err) {
-				Homey.app.error('error writing logfile: ', err.message);
-			} else {
-				Homey.app.log('logfile saved');
-			}
-		});
+		try {
+			fs.writeFileSync(this.logFile, JSON.stringify(this.logArray));
+			Homey.app.log('logfile saved');
+			return true;
+		} catch (error) {
+			Homey.app.error('error writing logfile: ', error.message);
+			return false;
+		}
 	}
 
 	deleteLogs() {
-		// this.log('deleting logs from frontend');
-		fs.unlink(this.logFile, (err) => {
-			if (err) {
-				Homey.app.error('error deleting logfile: ', err.message);
-				return err;
-			}
+		try {
+			fs.unlinkSync(this.logFile);
 			this.logArray = [];
 			Homey.app.log('logfile deleted');
 			return true;
-		});
+		} catch (error) {
+			if (error.message.includes('ENOENT')) return false;
+			Homey.app.error('error deleting logfile: ', error.message);
+			return false;
+		}
 	}
 
 	captureStdOut() {
 		// Capture all writes to stdout (e.g. this.log)
 		this.captureStdout = new StdOutFixture({ stream: process.stdout });
-		Homey.app.log('capturing stdout');
 		this.captureStdout.capture((string) => {
 			if (this.logArray.length >= this.logLength) {
 				this.logArray.shift();
@@ -91,13 +84,13 @@ class captureLogs {
 			this.logArray.push(string);
 			// return false;	// prevent the write to the original stream
 		});
+		Homey.app.log('capturing stdout');
 		// captureStdout.release();
 	}
 
 	captureStdErr() {
 		// Capture all writes to stderr (e.g. this.error)
 		this.captureStderr = new StdOutFixture({ stream: process.stderr });
-		Homey.app.log('capturing stderr');
 		this.captureStderr.capture((string) => {
 			if (this.logArray.length >= this.logLength) {
 				this.logArray.shift();
@@ -105,6 +98,7 @@ class captureLogs {
 			this.logArray.push(string);
 			// return false;	// prevent the write to the original stream
 		});
+		Homey.app.log('capturing stderr');
 		// captureStderr.release();
 	}
 

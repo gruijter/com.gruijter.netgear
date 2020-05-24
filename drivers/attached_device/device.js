@@ -25,16 +25,11 @@ class attachedNetgearDevice extends Homey.Device {
 
 	// this method is called when the Device is inited
 	async onInit() {
-		this.log(`device init ${this.getName()}`);
-		this.registerFlowCards();
+		// this.log(`device init: ${this.getName()}`);
 		this.settings = await this.getSettings();
-		// migrate SSID capability to 'ssid'
-		if (this.hasCapability('SSID')) {
-			this.log('Migrating capability to `ssid`');
-			await this.addCapability('ssid');
-			await this.removeCapability('SSID');
-		}
+		await this.registerFlowCards();
 		// add router available check here?
+		this.log(`device ready: ${this.getName()}`);
 	}
 
 	// this method is called when the Device is added
@@ -101,7 +96,7 @@ class attachedNetgearDevice extends Homey.Device {
 			};
 			if (metrics.device_connected) {
 				this.log(`Connected: ${this.getName()} ${info.IP}`);
-				this.deviceOnlineTrigger
+				this.flows.deviceOnlineTrigger
 					.trigger(this, tokens)
 					// .then(this.log(tokens))
 					.catch((error) => {
@@ -109,7 +104,7 @@ class attachedNetgearDevice extends Homey.Device {
 					});
 			} else {
 				this.log(`Disconnected: ${this.getName()}`);
-				this.deviceOfflineTrigger
+				this.flows.deviceOfflineTrigger
 					.trigger(this, tokens)
 					// .then(this.log(tokens))
 					.catch((error) => {
@@ -143,7 +138,7 @@ class attachedNetgearDevice extends Homey.Device {
 				download_speed: metrics.download_speed,
 				upload_speed: metrics.upload_speed,
 			};
-			this.metricsChangedTrigger
+			this.flows.metricsChangedTrigger
 				.trigger(this, tokens)
 				// .then(this.log(tokens))
 				.catch((error) => {
@@ -183,22 +178,37 @@ class attachedNetgearDevice extends Homey.Device {
 		} catch (error) { this.error(error); }
 	}
 
-	registerFlowCards() {
-		this.deviceOnlineTrigger = new Homey.FlowCardTriggerDevice('device_online')
-			.register();
-		this.deviceOfflineTrigger = new Homey.FlowCardTriggerDevice('device_offline')
-			.register();
-		this.metricsChangedTrigger = new Homey.FlowCardTriggerDevice('device_metrics_changed')
-			.register();
+	// register flow cards
+	async registerFlowCards() {
+		try {
+			// unregister cards first
+			if (!this.flows) this.flows = {};
+			const ready = Object.keys(this.flows).map((flow) => Promise.resolve(Homey.ManagerFlow.unregisterCard(this.flows[flow])));
+			await Promise.all(ready);
 
-		const deviceConnectedCondition = new Homey.FlowCardCondition('device_is_online');
-		deviceConnectedCondition.register()
-			.registerRunListener((args) => {
-				if (Object.prototype.hasOwnProperty.call(args, 'device')) {
-					return Promise.resolve(args.device.getCapabilityValue('device_connected'));
-				}
-				return Promise.reject(Error('The netgear device is unknown or not ready'));
-			});
+			// add trigger cards
+			this.flows.deviceOnlineTrigger = new Homey.FlowCardTriggerDevice('device_online')
+				.register();
+			this.flows.deviceOfflineTrigger = new Homey.FlowCardTriggerDevice('device_offline')
+				.register();
+			this.flows.metricsChangedTrigger = new Homey.FlowCardTriggerDevice('device_metrics_changed')
+				.register();
+
+			// add condition cards
+			this.flows.deviceConnectedCondition = new Homey.FlowCardCondition('device_is_online');
+			this.flows.deviceConnectedCondition
+				.register()
+				.registerRunListener((args) => {
+					if (Object.prototype.hasOwnProperty.call(args, 'device')) {
+						return Promise.resolve(args.device.getCapabilityValue('device_connected'));
+					}
+					return Promise.reject(Error('The netgear device is unknown or not ready'));
+				});
+
+			return Promise.resolve(this.flows);
+		} catch (error) {
+			return Promise.resolve(error);
+		}
 
 	}
 

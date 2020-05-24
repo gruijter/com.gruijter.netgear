@@ -1,4 +1,4 @@
-Netgear - Network control, Presence detection, Energy monitoring
+Network control, Presence detection, Energy monitoring
 
 App to make Homey interact with Netgear routers.
 - Monitor and control your wifi network and its connected devices

@@ -58,7 +58,7 @@ class NetgearDevice extends Homey.Device {
 						upload_speed: uploadSpeed,
 						download_speed: downloadSpeed,
 					};
-					this.speedChangedTrigger
+					this.flows.speedChangedTrigger
 						.trigger(this, tokens)
 						.catch(this.error);
 				}
@@ -109,7 +109,7 @@ class NetgearDevice extends Homey.Device {
 					new_version: newFirmware.newVersion,
 					release_note: newFirmware.releaseNote,
 				};
-				this.newRouterFirmwareTrigger
+				this.flows.newRouterFirmwareTrigger
 					.trigger(this, tokens)
 					.catch(this.error);
 			}
@@ -221,7 +221,7 @@ class NetgearDevice extends Homey.Device {
 						name: attachedDevice.Name,
 						ip: attachedDevice.IP,
 					};
-					this.newAttachedDeviceTrigger
+					this.flows.newAttachedDeviceTrigger
 						.trigger(this, tokens)
 						// .then(this.log(tokens))
 						.catch((error) => {
@@ -242,7 +242,7 @@ class NetgearDevice extends Homey.Device {
 						name: attachedDevice.Name,
 						ip: attachedDevice.IP,
 					};
-					this.deviceOnlineTrigger
+					this.flows.deviceOnlineTrigger
 						.trigger(this, tokens)
 						// .then(this.log(tokens))
 						.catch((error) => {
@@ -277,7 +277,7 @@ class NetgearDevice extends Homey.Device {
 							name: device.Name,
 							ip: device.IP,
 						};
-						this.deviceOfflineTrigger
+						this.flows.deviceOfflineTrigger
 							.trigger(this, tokens)
 							// .then(this.log(tokens))
 							.catch((error) => {
@@ -334,28 +334,6 @@ class NetgearDevice extends Homey.Device {
 	async onInit() {
 		try {
 			this.log(`device init: ${this.getName()} id: ${this.getData().id}`);
-			// migrate from Homey fw < 3
-			// console.log(`${this.getName()} ${this.getClass()} ${this.getCapabilities()}`);
-			if ((this.getClass() !== 'sensor')) {
-				this.log('Migrating device to Homey V3.');
-				await this.removeCapability('internet_connection_status');
-				await this.removeCapability('download_speed');
-				await this.removeCapability('upload_speed');
-				await this.removeCapability('attached_devices');
-				// add migrated capabilities
-				await this.setClass('sensor');
-				await this.addCapability('alarm_generic');
-				await this.addCapability('attached_devices');
-				await this.addCapability('download_speed');
-				await this.addCapability('upload_speed');
-				// await this.addCapability('cpu_utilization');
-				// await this.addCapability('mem_utilization');
-				this.log('Migration to V3 ready. CHECK YOUR FLOWS! (sorry)');
-				const options = { excerpt: 'THE NETGEAR ROUTER APP WAS MIGRATED TO HOMEY V3. CHECK YOUR FLOWS! (sorry)' };
-				const notification = new Homey.Notification(options);
-				notification.register()
-					.catch(this.log);
-			}
 
 			// init some values
 			this._driver = this.getDriver();
@@ -373,6 +351,7 @@ class NetgearDevice extends Homey.Device {
 			this.watchDogCounter = 4;
 			this.hasLogAnalyzer = false;
 			this.logs = [];
+
 			// create router session
 			this.settings = this.getSettings();
 			const options = {
@@ -383,6 +362,7 @@ class NetgearDevice extends Homey.Device {
 				tls: this.settings.port === 443,
 			};
 			this.routerSession = new NetgearRouter(options);
+
 			// get known device from store
 			this.log('retrieving knownDevices from persistent storage');
 			const knownDevicesString = await this.getStoreValue('knownDevicesString');
@@ -394,6 +374,7 @@ class NetgearDevice extends Homey.Device {
 					delete this.knownDevices[key];
 				}
 			});
+
 			// activate traffic meter and access control
 			if (this.settings.use_traffic_info) {
 				await this._driver.enableTrafficMeter.call(this, true)
@@ -407,33 +388,16 @@ class NetgearDevice extends Homey.Device {
 				const devicesString = JSON.stringify(this.knownDevices).replace('&lt', '').replace('&gt', '').replace(';', '');
 				await this.setStoreValue('knownDevicesString', devicesString);
 			});
+
 			// register all flow cards
-			this.registerFlowCards();
+			await this.registerFlowCards();
+
 			// start polling router for info
-			this.intervalIdDevicePoll = setInterval(async () => {
-				try {
-					if (this.watchDogCounter <= 0) {
-						// restart the app here
-						this.log('watchdog triggered, restarting Homey device now');
-						clearInterval(this.intervalIdDevicePoll);
-						setTimeout(() => {
-							this.onInit();
-						}, 60000);
-						return;
-					}
-					if (this.busy) {
-						this.log('Still busy. Skipping a poll');
-						return;
-					}
-					// get new routerdata and update the state
-					await this.updateRouterDeviceState();
-					this.watchDogCounter = 4;
-				} catch (error) {
-					this.watchDogCounter -= 1;
-					this.error('DevicePoll', error.message || error);
-				}
-			}, 1000 * this.settings.polling_interval);
+			await this.startPolling();
 			await this.updateRouterDeviceState();
+
+			this.log(`device ready: ${this.getName()} id: ${this.getData().id}`);
+
 		} catch (error) {
 			this.error(error);
 		}
@@ -449,14 +413,14 @@ class NetgearDevice extends Homey.Device {
 	// this method is called when the Device is deleted
 	onDeleted() {
 		// stop polling
-		clearInterval(this.intervalIdDevicePoll);
+		clearInterval(this.interval.devicePoll);
 		this.log('router deleted as device');
 	}
 
 	// this method is called when the user has changed the device's settings in Homey.
 	async onSettings(oldSettingsObj, newSettingsObj) {
 		// first stop polling the device, then start init after short delay
-		clearInterval(this.intervalIdDevicePoll);
+		clearInterval(this.interval.devicePoll);
 		this.log('router device settings changed');
 		// this.log(newSettingsObj);
 		this.setAvailable()
@@ -499,192 +463,257 @@ class NetgearDevice extends Homey.Device {
 		}
 	}
 
-	registerFlowCards() {
-		// register trigger flow cards
-		this.speedChangedTrigger = new Homey.FlowCardTriggerDevice('uldl_speed_changed')
-			.register();
-		this.newAttachedDeviceTrigger = new Homey.FlowCardTriggerDevice('new_attached_device')
-			.register();
-		this.deviceOnlineTrigger = new Homey.FlowCardTriggerDevice('device_online')
-			.register();
-		this.deviceOfflineTrigger = new Homey.FlowCardTriggerDevice('device_offline')
-			.register();
-		this.speedTestResultTrigger = new Homey.FlowCardTriggerDevice('speed_test_result')
-			.register();
-		this.newRouterFirmwareTrigger = new Homey.FlowCardTriggerDevice('new_router_firmware')
-			.register();
+	// register flow cards
+	async registerFlowCards() {
+		try {
+			// unregister cards first
+			if (!this.flows) this.flows = {};
+			const ready = Object.keys(this.flows).map((flow) => Promise.resolve(Homey.ManagerFlow.unregisterCard(this.flows[flow])));
+			await Promise.all(ready);
 
+			// register trigger flow cards
+			this.flows.speedChangedTrigger = new Homey.FlowCardTriggerDevice('uldl_speed_changed')
+				.register();
+			this.flows.newAttachedDeviceTrigger = new Homey.FlowCardTriggerDevice('new_attached_device')
+				.register();
+			this.flows.deviceOnlineTrigger = new Homey.FlowCardTriggerDevice('device_online')
+				.register();
+			this.flows.deviceOfflineTrigger = new Homey.FlowCardTriggerDevice('device_offline')
+				.register();
+			this.flows.speedTestResultTrigger = new Homey.FlowCardTriggerDevice('speed_test_result')
+				.register();
+			this.flows.newRouterFirmwareTrigger = new Homey.FlowCardTriggerDevice('new_router_firmware')
+				.register();
 
-		const autoComplete = (query) => {
-			try {
-				let results = this._driver.makeAutocompleteList.call(this);
-				results = results.filter((result) => {		// filter for query on MAC and Name
-					const macFound = result.name.toLowerCase().indexOf(query.toLowerCase()) > -1;
-					const nameFound = result.description.toLowerCase().indexOf(query.toLowerCase()) > -1;
-					return macFound || nameFound;
-				});
-				return Promise.resolve(results);
-			} catch (error) {
-				return Promise.reject(error);
-			}
-		};
-
-		// register condition flow flowcards
-		const internetConnectedCondition = new Homey.FlowCardCondition('alarm_generic');
-		internetConnectedCondition.register()
-			.registerRunListener((args) => {
-				if (Object.prototype.hasOwnProperty.call(args, 'device')) {
-					return Promise.resolve(!args.device.getCapabilityValue('alarm_generic'));
-				}
-				return Promise.reject(Error('The netgear device is unknown or not ready'));
-			});
-
-		const deviceOnlineCondition = new Homey.FlowCardCondition('device_online');
-		deviceOnlineCondition.register()
-			.registerRunListener((args) => {
-				if (Object.prototype.hasOwnProperty.call(args, 'device')) {
-					let deviceOnline = false;
-					if (Object.prototype.hasOwnProperty.call(args.device.knownDevices, args.mac.name)) {
-						deviceOnline = args.device.knownDevices[args.mac.name].online;	// true or false
-					}
-					return Promise.resolve(deviceOnline);
-				}
-				return Promise.reject(Error('The netgear device is unknown or not ready'));
-			})
-			.getArgument('mac')
-			.registerAutocompleteListener(autoComplete);
-
-		const deviceOnlineIpRangeCondition = new Homey.FlowCardCondition('device_online_ip_range');
-		deviceOnlineIpRangeCondition.register()
-			.registerRunListener((args) => {
-				if (Object.prototype.hasOwnProperty.call(args, 'device')) {
-					const OnlineInIpRange = (total, knownDevice) => {
-						if (!knownDevice.online) { return total; }
-						if (!knownDevice.IP) { return total; }
-						const hostOctet = Number(knownDevice.IP.split('.').pop());
-						if (hostOctet >= args.ip_from && hostOctet <= args.ip_to) {
-							return total + 1;
-						}
-						return total;
-					};
-					const devicesOnlineInIpRange = Object.values(args.device.knownDevices).reduce(OnlineInIpRange, 0);
-					return Promise.resolve(devicesOnlineInIpRange > 0);
-				}
-				return Promise.reject(Error('The netgear device is unknown or not ready'));
-			});
-
-		const newFirmwareCondition = new Homey.FlowCardCondition('new_firmware_condition');
-		newFirmwareCondition.register()
-			.registerRunListener((args) => {
-				if (Object.prototype.hasOwnProperty.call(args, 'device')) {
-					if (args.device.readings.newFirmware.newVersion && args.device.readings.newFirmware.newVersion !== '') {
-						return Promise.resolve(true);
-					}
-					return Promise.resolve(false);
-				}
-				return Promise.reject(Error('The netgear device is unknown or not ready'));
-			});
-
-		// register action flow cards
-		const blockDevice = new Homey.FlowCardAction('block_device');
-		blockDevice.register()
-			.on('run', async (args, state, callback) => {
-				await this._driver.blockOrAllow.call(this, args.mac.name, 'Block')
-					.catch(this.error);
-				callback(null, true);
-			})
-			.getArgument('mac')
-			.registerAutocompleteListener(autoComplete);
-
-		const blockDeviceText = new Homey.FlowCardAction('block_device_text');
-		blockDeviceText.register()
-			.on('run', async (args, state, callback) => {
-				await this._driver.blockOrAllow.call(this, args.mac.replace(' ', ''), 'Block')
-					.catch(this.error);
-				callback(null, true);
-			});
-
-		const allowDevice = new Homey.FlowCardAction('allow_device');
-		allowDevice.register()
-			.on('run', async (args, state, callback) => {
-				await this._driver.blockOrAllow.call(this, args.mac.name, 'Allow')
-					.catch(this.error);
-				callback(null, true);
-			})
-			.getArgument('mac')
-			.registerAutocompleteListener(autoComplete);
-
-		const allowDeviceText = new Homey.FlowCardAction('allow_device_text');
-		allowDeviceText.register()
-			.on('run', async (args, state, callback) => {
-				await this._driver.blockOrAllow.call(this, args.mac.replace(' ', ''), 'Allow')
-					.catch(this.error);
-				callback(null, true);
-			});
-
-		const wol = new Homey.FlowCardAction('wol');
-		wol.register()
-			.on('run', async (args, state, callback) => {
-				await this._driver.wol.call(this, args.mac.name, args.password)
-					.catch(this.error);
-				callback(null, true);
-			})
-			.getArgument('mac')
-			.registerAutocompleteListener(autoComplete);
-
-		const setGuestWifi = new Homey.FlowCardAction('set_guest_wifi');
-		setGuestWifi.register()
-			.on('run', async (args, state, callback) => {
-				if (args.network === '5') {
-					await this._driver.set5GGuestWifi.call(this, args.on_off)
-						.catch(this.error);
-				} else if (args.network === '5-2') {
-					await this._driver.set5GGuestWifi2.call(this, args.on_off)
-						.catch(this.error);
-				} else if (args.network === '2.4') {
-					await this._driver.setGuestwifi.call(this, args.on_off)
-						.catch(this.error);
-				} else {
-					await this._driver.setGuestwifi2.call(this, args.on_off)
-						.catch(this.error);
-				}
-				callback(null, true);
-			});
-
-		const speedTestStart = new Homey.FlowCardAction('speed_test_start');
-		speedTestStart.register()
-			.on('run', async (args, state, callback) => {
-				const speed = await this._driver.speedTest.call(this)
-					.catch(this.error);
-				callback(null, true);
-				const tokens = {
-					uplink_bandwidth: speed.uplinkBandwidth,
-					downlink_bandwidth: speed.downlinkBandwidth,
-					average_ping: speed.averagePing,
-				};
-				this.speedTestResultTrigger
-					.trigger(this, tokens)
-					.then(this.log(tokens))
-					.catch((error) => {
-						this.error('trigger error', error);
+			const autoComplete = (query) => {
+				try {
+					let results = this._driver.makeAutocompleteList.call(this);
+					results = results.filter((result) => {		// filter for query on MAC and Name
+						const macFound = result.name.toLowerCase().indexOf(query.toLowerCase()) > -1;
+						const nameFound = result.description.toLowerCase().indexOf(query.toLowerCase()) > -1;
+						return macFound || nameFound;
 					});
-			});
+					return Promise.resolve(results);
+				} catch (error) {
+					return Promise.reject(error);
+				}
+			};
 
-		const updateFirmware = new Homey.FlowCardAction('update_firmware');
-		updateFirmware.register()
-			.on('run', (args, state, callback) => {
-				this._driver.updateNewFirmware.call(this)
-					.catch(this.error);
-				callback(null, true);
-			});
+			// register condition flow flowcards
+			this.flows.internetConnectedCondition = new Homey.FlowCardCondition('alarm_generic');
+			this.flows.internetConnectedCondition
+				.register()
+				.registerRunListener((args) => {
+					if (Object.prototype.hasOwnProperty.call(args, 'device')) {
+						return Promise.resolve(!args.device.getCapabilityValue('alarm_generic'));
+					}
+					return Promise.reject(Error('The netgear device is unknown or not ready'));
+				});
 
-		const reboot = new Homey.FlowCardAction('reboot');
-		reboot.register()
-			.on('run', (args, state, callback) => {
-				this._driver.reboot.call(this)
-					.catch(this.error);
-				callback(null, true);
-			});
+			this.flows.deviceOnlineCondition = new Homey.FlowCardCondition('device_online');
+			this.flows.deviceOnlineCondition
+				.register()
+				.registerRunListener((args) => {
+					if (Object.prototype.hasOwnProperty.call(args, 'device')) {
+						let deviceOnline = false;
+						if (Object.prototype.hasOwnProperty.call(args.device.knownDevices, args.mac.name)) {
+							deviceOnline = args.device.knownDevices[args.mac.name].online;	// true or false
+						}
+						return Promise.resolve(deviceOnline);
+					}
+					return Promise.reject(Error('The netgear device is unknown or not ready'));
+				})
+				.getArgument('mac')
+				.registerAutocompleteListener(autoComplete);
+
+			this.flows.deviceOnlineIpRangeCondition = new Homey.FlowCardCondition('device_online_ip_range');
+			this.flows.deviceOnlineIpRangeCondition
+				.register()
+				.registerRunListener((args) => {
+					if (Object.prototype.hasOwnProperty.call(args, 'device')) {
+						const OnlineInIpRange = (total, knownDevice) => {
+							if (!knownDevice.online) { return total; }
+							if (!knownDevice.IP) { return total; }
+							const hostOctet = Number(knownDevice.IP.split('.').pop());
+							if (hostOctet >= args.ip_from && hostOctet <= args.ip_to) {
+								return total + 1;
+							}
+							return total;
+						};
+						const devicesOnlineInIpRange = Object.values(args.device.knownDevices).reduce(OnlineInIpRange, 0);
+						return Promise.resolve(devicesOnlineInIpRange > 0);
+					}
+					return Promise.reject(Error('The netgear device is unknown or not ready'));
+				});
+
+			this.flows.newFirmwareCondition = new Homey.FlowCardCondition('new_firmware_condition');
+			this.flows.newFirmwareCondition
+				.register()
+				.registerRunListener((args) => {
+					if (Object.prototype.hasOwnProperty.call(args, 'device')) {
+						if (args.device.readings.newFirmware.newVersion && args.device.readings.newFirmware.newVersion !== '') {
+							return Promise.resolve(true);
+						}
+						return Promise.resolve(false);
+					}
+					return Promise.reject(Error('The netgear device is unknown or not ready'));
+				});
+
+
+			// register action flow cards
+			this.flows.blockDevice = new Homey.FlowCardAction('block_device');
+			this.flows.blockDevice
+				.register()
+				.on('run', async (args, state, callback) => {
+					await this._driver.blockOrAllow.call(this, args.mac.name, 'Block')
+						.catch(this.error);
+					callback(null, true);
+				})
+				.getArgument('mac')
+				.registerAutocompleteListener(autoComplete);
+
+			this.flows.blockDeviceText = new Homey.FlowCardAction('block_device_text');
+			this.flows.blockDeviceText
+				.register()
+				.on('run', async (args, state, callback) => {
+					await this._driver.blockOrAllow.call(this, args.mac.replace(' ', ''), 'Block')
+						.catch(this.error);
+					callback(null, true);
+				});
+
+			this.flows.allowDevice = new Homey.FlowCardAction('allow_device');
+			this.flows.allowDevice
+				.register()
+				.on('run', async (args, state, callback) => {
+					await this._driver.blockOrAllow.call(this, args.mac.name, 'Allow')
+						.catch(this.error);
+					callback(null, true);
+				})
+				.getArgument('mac')
+				.registerAutocompleteListener(autoComplete);
+
+			this.flows.allowDeviceText = new Homey.FlowCardAction('allow_device_text');
+			this.flows.allowDeviceText
+				.register()
+				.on('run', async (args, state, callback) => {
+					await this._driver.blockOrAllow.call(this, args.mac.replace(' ', ''), 'Allow')
+						.catch(this.error);
+					callback(null, true);
+				});
+
+			this.flows.wol = new Homey.FlowCardAction('wol');
+			this.flows.wol
+				.register()
+				.on('run', async (args, state, callback) => {
+					await this._driver.wol.call(this, args.mac.name, args.password)
+						.catch(this.error);
+					callback(null, true);
+				})
+				.getArgument('mac')
+				.registerAutocompleteListener(autoComplete);
+
+			this.flows.setGuestWifi = new Homey.FlowCardAction('set_guest_wifi');
+			this.flows.setGuestWifi
+				.register()
+				.on('run', async (args, state, callback) => {
+					if (args.network === '5') {
+						await this._driver.set5GGuestWifi.call(this, args.on_off)
+							.catch(this.error);
+					} else if (args.network === '5-2') {
+						await this._driver.set5GGuestWifi2.call(this, args.on_off)
+							.catch(this.error);
+					} else if (args.network === '2.4') {
+						await this._driver.setGuestwifi.call(this, args.on_off)
+							.catch(this.error);
+					} else {
+						await this._driver.setGuestwifi2.call(this, args.on_off)
+							.catch(this.error);
+					}
+					callback(null, true);
+				});
+
+			this.flows.speedTestStart = new Homey.FlowCardAction('speed_test_start');
+			this.flows.speedTestStart
+				.register()
+				.on('run', async (args, state, callback) => {
+					const speed = await this._driver.speedTest.call(this)
+						.catch(this.error);
+					callback(null, true);
+					const tokens = {
+						uplink_bandwidth: speed.uplinkBandwidth,
+						downlink_bandwidth: speed.downlinkBandwidth,
+						average_ping: speed.averagePing,
+					};
+					this.flows.speedTestResultTrigger
+						.trigger(this, tokens)
+						.then(this.log(tokens))
+						.catch((error) => {
+							this.error('trigger error', error);
+						});
+				});
+
+			this.flows.updateFirmware = new Homey.FlowCardAction('update_firmware');
+			this.flows.updateFirmware
+				.register()
+				.on('run', (args, state, callback) => {
+					this._driver.updateNewFirmware.call(this)
+						.catch(this.error);
+					callback(null, true);
+				});
+
+			this.flows.reboot = new Homey.FlowCardAction('reboot');
+			this.flows.reboot
+				.register()
+				.on('run', (args, state, callback) => {
+					this._driver.reboot.call(this)
+						.catch(this.error);
+					callback(null, true);
+				});
+
+			return Promise.resolve(this.flows);
+		} catch (error) {
+			return Promise.resolve(error);
+		}
+
+	}
+
+	// register polling stuff
+	async startPolling() {
+		try {
+			// clear intervals first
+			if (!this.interval) this.interval = {};
+			const ready = Object.keys(this.interval).map((interval) => Promise.resolve(clearInterval(this.interval[interval])));
+			await Promise.all(ready);
+
+			// start polling router
+			this.interval.devicePoll = setInterval(async () => {
+				try {
+					if (this.watchDogCounter <= 0) {
+						// restart the app here
+						this.log('watchdog triggered, restarting Homey device now');
+						clearInterval(this.interval.devicePoll);
+						setTimeout(() => {
+							this.onInit();
+						}, 60000);
+						return;
+					}
+					if (this.busy) {
+						this.log('Still busy. Skipping a poll');
+						return;
+					}
+					// get new routerdata and update the state
+					await this.updateRouterDeviceState();
+					this.watchDogCounter = 4;
+				} catch (error) {
+					this.watchDogCounter -= 1;
+					this.error('DevicePoll', error.message || error);
+				}
+			}, 1000 * this.settings.polling_interval);
+
+		} catch (error) {
+			this.error(error);
+		}
+
 	}
 
 }

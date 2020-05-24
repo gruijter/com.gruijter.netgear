@@ -27,7 +27,7 @@ const Logger = require('./captureLogs.js');
 class MyApp extends Homey.App {
 
 	onInit() {
-		this.logger = new Logger('netgearLog', 200);
+		if (!this.logger) this.logger = new Logger('netgearLog', 200);
 		this.log('Netgear App is running!');
 
 		// register some listeners

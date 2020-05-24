@@ -77,15 +77,11 @@ If your router isn't working properly with this app, you can perform a compatibi
 If you like the app you can show your appreciation by posting it in the [forum].
 If you really like the app you can buy me a beer.
 
-[![Paypal donate][pp-donate-image]][pp-donate-link]
-
 ===============================================================================
 
 Version changelog: [changelog.txt]
 
 [forum]: https://community.athom.com/t/2259
-[pp-donate-link]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VB7VKG5Y28M6N
-[pp-donate-image]: https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif
 [mobile-card-image]: https://aws1.discourse-cdn.com/business4/uploads/athom/original/3X/7/4/7421513afb9c12a925b9bd0c3f5ae8f9e88abfc0.png
 [presence-cards-image]: https://aws1.discourse-cdn.com/business4/uploads/athom/original/3X/a/4/a47509de392a0404107bdfddb68d84f7cf3cac67.png
 [flow-cards-image]: https://aws1.discourse-cdn.com/business4/uploads/athom/original/3X/3/6/367e484ec829eef084b3b03ee6bfae49c9d54ca6.png

@@ -20,13 +20,27 @@ function getList() {
 
 function updateLogs() {
 	try {
+		displayLogs('');
+		const showLogs = $('#show_logs').prop('checked');
+		const showErrors = $('#show_errors').prop('checked');
 		Homey.api('GET', 'getlogs/', null, (err, result) => {
 			if (!err) {
 				let lines = '';
-				for (let i = (result.length - 1); i >= 0; i -= 1) {
-					const logLine = result[i].replace('[log] [ManagerDrivers]', '');
-					lines += `${logLine}<br />`;
-				}
+				result
+					.reverse()
+					.forEach((line) => {
+						if (!showLogs) {
+							if (line.includes('[log]')) return;
+						}
+						if (!showErrors) {
+							if (line.includes('[err]')) return;
+						}
+						const logLine = line
+							.replace(' [log] [ManagerDrivers]', '')
+							.replace(' [attached_device]', '');
+						lines += `${logLine}<br />`;
+
+					});
 				displayLogs(lines);
 			} else {
 				displayLogs(err);
@@ -100,7 +114,7 @@ function runTest() {
 	const password = $('#password').val();
 	const host = $('#host').val();
 	const port = $('#soapPort').val();
-	$('#testResult').html('Testing now. Hang on for a minute........');
+	$('#testResult').html('Testing now. Hang on for three minutes........');
 	Homey.api('POST', 'runtest/', { password, host, port }, (err, result) => {
 		if (err) {
 			$('#copyResult').prop('disabled', false);
