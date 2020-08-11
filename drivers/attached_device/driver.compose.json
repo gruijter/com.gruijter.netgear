@@ -25,15 +25,6 @@
   },
   "pair": [
     {
-      "id": "select_router",
-      "navigation": {
-        "next": "list_devices"
-      },
-      "options": {
-        "singular": true
-      }
-    },
-    {
       "id": "list_devices",
       "navigation": {
         "next": "select_options"

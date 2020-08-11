@@ -103,40 +103,14 @@ class AttachedDeviceDriver extends Homey.Driver {
 	}
 
 	onPair(socket) {
-		socket.on('list_routers', async (data, callback) => {
+		socket.on('list_devices', async (data, callback) => {
+			// console.log('list devices');
 			try {
-				this.log('pairing started by user');
-				const routerList = [];
 				const netgearDriver = Homey.ManagerDrivers.getDriver('netgear');
 				await netgearDriver.ready(() => null);
 				const routers = await netgearDriver.getDevices();
-				if (!routers || !routers[0]) { throw Error('Cannot find a router device in Homey. The router needs to be added first!'); }
-				routers.forEach((router) => {
-					const device = {
-						name: `${router.getName()} ${router.getData().id}`,
-						icon: '../../../assets/icon.svg',
-						data: {
-							id: router.getData().id,
-						},
-					};
-					routerList.push(device);
-				});
-				return callback(null, routerList);
-			} catch (error) {
-				this.error(error);
-				return callback(error, null);
-			}
-		});
-
-		socket.on('list_devices', async (data, callback) => {
-			// console.log('list devices');
-			const routerID = data.data.id;
-			try {
-				const netgearDriver = Homey.ManagerDrivers.getDriver('netgear');
-				await netgearDriver.ready(() => null);
-				// const routers = await netgearDriver.getDevices();
-				const router = await netgearDriver.getDevice({ id: routerID });
-				if (!(router && router.knownDevices)) { throw Error('Cannot find router device in Homey. Router needs to be added first!'); }
+				const router = routers ? routers[0] : null;
+				if (!router || !router.knownDevices) { throw Error('Cannot find router device in Homey. Router needs to be added first!'); }
 				const devices = [];
 				const { knownDevices } = router;
 				Object.keys(knownDevices).forEach((attachedDevice) => {
