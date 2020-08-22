@@ -8,11 +8,11 @@
     var devices = [];
 
     let router = {};
-    Homey.getViewStoreValue('router', (err, array) => {
-					if (err) throw err;
-          console.log(array);
-          router = array[0];
-				});
+    // Homey.getViewStoreValue('router', (err, array) => {
+		// 			if (err) throw err;
+    //       console.log(array);
+    //       router = array[0];
+		// 		});
 
     // legacy, to not break apps <v2.0.0
     window.found_devices = {};

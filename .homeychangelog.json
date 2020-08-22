@@ -28,5 +28,8 @@
   },
   "3.2.2": {
     "en": "Fix Homey V5 compatibility. Removed multiple router support for attached devices."
+  },
+  "3.2.3": {
+    "en": "Fix paring Homey V4."
   }
 }

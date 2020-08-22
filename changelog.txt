@@ -1,5 +1,6 @@
 Version changelog
 
+v3.2.3  2020.08.22 Fix paring Homey V4.
 v3.2.2  2020.08.11 Fix Homey V5 compatibility. Removed multiple router support for attached devices.
 v3.2.1  2020.07.16 Netgear package 4.2.0.
 v3.2.0  2020.05.24 Netgear package 4.1.0. Message queueing and rate limiting. onInit stability improvements.
