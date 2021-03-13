@@ -1,5 +1,5 @@
 /*
-Copyright 2017 - 2019, Robin de Gruijter (gruijter@hotmail.com)
+Copyright 2017 - 2021, Robin de Gruijter (gruijter@hotmail.com)
 
 This file is part of com.gruijter.netgear.
 
@@ -26,7 +26,7 @@ const util = require('util');
 const setTimeoutPromise = util.promisify(setTimeout);
 
 const regexIP = /\b(?:\d{1,3}\.){3}\d{1,3}\b/;
-const regexMAC = /(([A-Fa-f0-9]{2}[:]){5}[A-Fa-f0-9]{2}[,]?)+/g;
+// const regexMAC = /(([A-Fa-f0-9]{2}[:]){5}[A-Fa-f0-9]{2}[,]?)+/g;
 
 const setHasLogAnalyzer = async (id) => {
 	try {

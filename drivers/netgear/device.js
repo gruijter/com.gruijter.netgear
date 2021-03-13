@@ -1,5 +1,5 @@
 /*
-Copyright 2017 - 2019, Robin de Gruijter (gruijter@hotmail.com)
+Copyright 2017 - 2021, Robin de Gruijter (gruijter@hotmail.com)
 
 This file is part of com.gruijter.netgear.
 
@@ -558,7 +558,6 @@ class NetgearDevice extends Homey.Device {
 					}
 					return Promise.reject(Error('The netgear device is unknown or not ready'));
 				});
-
 
 			// register action flow cards
 			this.flows.blockDevice = new Homey.FlowCardAction('block_device');
