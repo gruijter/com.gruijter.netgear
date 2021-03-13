@@ -31,5 +31,8 @@
   },
   "3.2.3": {
     "en": "Fix paring Homey V4."
+  },
+  "3.2.4": {
+    "en": "Package update. http(s) timeout fix netgear@4.3.1"
   }
 }
