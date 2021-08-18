@@ -2,7 +2,8 @@
   "type": "number",
   "title": {
     "en": "CPU utilization",
-    "nl": "CPU belasting"
+    "nl": "CPU belasting",
+    "de": "CPU-Auslastung"
   },
   "getable": true,
   "setable": false,
