@@ -2,7 +2,8 @@
   "type": "number",
   "title": {
     "en": "Memory utilization",
-    "nl": "Geheugen belasting"
+    "nl": "Geheugen belasting",
+    "de": "Speicherauslastung"
   },
   "getable": true,
   "setable": false,
