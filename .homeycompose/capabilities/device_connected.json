@@ -7,11 +7,13 @@
   },
   "insightsTitleTrue": {
     "en": "Connected",
-    "nl": "Verbonden"
+    "nl": "Verbonden",
+    "de": "Verbunden"
   },
   "insightsTitleFalse": {
     "en": "Disconnected",
-    "nl": "Verbroken"
+    "nl": "Verbroken",
+    "de": "Getrennt"
   },
   "uiComponent": "sensor",
   "uiQuickAction": true,
