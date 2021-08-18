@@ -7,17 +7,17 @@
   "title": {
     "en": "Internet disconnected",
     "nl": "Internet verbroken",
-    "de": "Internet verbrochen"
+    "de": "Internet unterbrochen"
   },
   "desc": {
     "en": "Internet disconnected alarm",
     "nl": "Internet verbroken alarm",
-    "de": "Internet verbrochen Alarm"
+    "de": "Internet unterbrochen Alarm"
   },
   "insightsTitleTrue": {
     "en": "Internet disconnected",
     "nl": "Internet verbroken",
-    "de": "Internet verbrochen"
+    "de": "Internet unterbrochen"
   },
   "insightsTitleFalse": {
     "en": "Internet connected",
@@ -31,7 +31,7 @@
         "title": {
           "en": "Internet disconnected",
           "nl": "Internet verbroken",
-          "de": "Internet verbrochen"
+          "de": "Internet unterbrochen"
         }
       },
       {
@@ -49,7 +49,7 @@
         "title": {
           "en": "The internet is !{{disconnected|connected}}",
           "nl": "Het internet is !{{verbroken|verbonden}}",
-          "de": "Das Internet ist !{{verbrochen|verbunden}}"
+          "de": "Das Internet ist !{{unterbrochen|verbunden}}"
         }
       }
     ]
