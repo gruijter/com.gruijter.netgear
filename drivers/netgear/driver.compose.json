@@ -78,7 +78,7 @@
           "label": {
             "en": "Device mode",
             "nl": "Apparaat modus",
-            "de": "Gerät Modus"
+            "de": "Gerätemodus"
           },
           "value": "unknown"
         }
@@ -89,7 +89,7 @@
       "label": {
         "en": "Connection settings",
         "nl": "Verbinding instellingen",
-        "de": "Verbindung-Einstellungen"
+        "de": "Verbindungseinstellungen"
       },
       "children": [
         {
@@ -138,7 +138,8 @@
           "value": "0",
           "label": {
             "en": "Login method",
-            "nl": "Login methode"
+            "nl": "Login methode",
+            "de": "Login Methode"
           },
           "values": [
             {
@@ -168,7 +169,8 @@
           ],
           "hint": {
             "en": "Leave on Auto unless you experience issues",
-            "nl": "Laat op Auto tenzij je problemen hebt"
+            "nl": "Laat op Auto tenzij je problemen hebt",
+            "de": "Auf Auto stehen lassen, außer es treten Probleme auf"
           }
         }
       ]
@@ -177,7 +179,8 @@
       "type": "group",
       "label": {
         "en": "Report options",
-        "nl": "Rapportage opties"
+        "nl": "Rapportage opties",
+        "de": "Berichtsoptionen"
       },
       "children": [
         {
@@ -215,7 +218,8 @@
           "type": "checkbox",
           "label": {
             "en": "Report Up/Down traffic",
-            "nl": "Rapporteer Up/Down verkeer"
+            "nl": "Rapporteer Up/Down verkeer",
+            "de": "Up/Down Traffic anzeigen"
           },
           "value": false
         },
@@ -224,7 +228,8 @@
           "type": "checkbox",
           "label": {
             "en": "Report CPU/MEM load",
-            "nl": "Rapporteer CPU/MEM belasting"
+            "nl": "Rapporteer CPU/MEM belasting",
+            "de": "CPU/MEM-Auslastung anzeigen"
           },
           "value": false
         },
@@ -233,7 +238,8 @@
           "type": "checkbox",
           "label": {
             "en": "New firmware check",
-            "nl": "Controleer op nieuwe firmware"
+            "nl": "Controleer op nieuwe firmware",
+            "de": "Prüfung auf neue Firmware"
           },
           "value": false
         }
@@ -253,11 +259,12 @@
           "label": {
             "en": "Polling interval (seconds)",
             "nl": "Polling interval (seconden)",
-            "de": "Polling interval (Sekunden)"
+            "de": "Polling Intervall (Sekunden)"
           },
           "hint": {
             "en": "A shorter value will update the presence of devices more often, but could lead to router faults",
-            "nl": "Een kortere waarde zal de aanwezigheids detectie verbeteren, maar kan leiden tot fouten in de router."
+            "nl": "Een kortere waarde zal de aanwezigheids detectie verbeteren, maar kan leiden tot fouten in de router.",
+            "de": "Ein kleinerer Wert aktualisiert das Vorhandensein von Geräten häufiger, kann jedoch zu Routerfehlern führen"
           },
           "attr": {
             "min": 15
@@ -274,7 +281,8 @@
           },
           "hint": {
             "en": "This value will be only used for attached devices that are not individually paired to Homey.",
-            "nl": "Deze waarde wordt alleen gebruikt voor apparaten die niet individueel aan Homey zijn toegevoegd."
+            "nl": "Deze waarde wordt alleen gebruikt voor apparaten die niet individueel aan Homey zijn toegevoegd.",
+            "de": "Dieser Wert wird nur für verbundene Geräte verwendet, die nicht einzeln mit Homey gekoppelt sind."
           },
           "attr": {
             "min": 60
@@ -287,7 +295,8 @@
           "value": "0",
           "label": {
             "en": "Attached devices method",
-            "nl": "Aangesloten apparaten methode"
+            "nl": "Aangesloten apparaten methode",
+            "de": "Methode der verbundenen Geräte"
           },
           "values": [
             {
@@ -315,7 +324,8 @@
           ],
           "hint": {
             "en": "Which method to use to get the attached devices list from the router",
-            "nl": "Welke methode gebruiken om de aangesloten apparaten lijst uit de router op te halen"
+            "nl": "Welke methode gebruiken om de aangesloten apparaten lijst uit de router op te halen",
+            "de": "Welche Methode zum Abrufen der Liste der verbundenen Geräte vom Router verwendet werden soll"
           }
         },
         {
@@ -330,7 +340,7 @@
           "hint": {
             "en": "When checked, the list of known devices will be emptied. New settings will not be saved!",
             "nl": "Aangevinkt: de lijst met bekende apparaten zal worden geleegd. Nieuwe instellingen worden niet opgeslagen!",
-            "de": "Wenn aktiviert, wird die Liste der bekannten Geräte gelöscht.Neue Einstellungen werden nicht gespeichert!"
+            "de": "Wenn aktiviert, wird die Liste der bekannten Geräte gelöscht. Neue Einstellungen werden nicht gespeichert!"
           }
         }
       ]
