@@ -14,9 +14,9 @@
 			"save": "Speichern"
 		},
 		"select_options": {
-			"title": "Geräte Optionen",
+			"title": "Geräteoptionen",
 			"intro": "",
-			"capabilities": "Gerät Optionen auswählen",
+			"capabilities": "Geräteoptionen auswählen",
 			"use_link_info": "WiFi-Verbindung",
 			"use_bandwidth_info": "Bandbreite",
 			"report_power": "Energieverbrauch",
