@@ -1,7 +1,8 @@
 {
   "name": {
     "en": "Attached device",
-    "nl": "Verbonden apparaat"
+    "nl": "Verbonden apparaat",
+    "de": "Verbundene Geräte"
   },
   "images": {
     "large": "drivers/attached_device/assets/images/large.jpg",
@@ -43,7 +44,7 @@
       "label": {
         "en": "Device information",
         "nl": "Apparaat informatie",
-        "de": "Gerät-Information"
+        "de": "Geräteinformation"
       },
       "children": [
         {
@@ -59,7 +60,8 @@
           "type": "label",
           "label": {
             "en": "Source router model",
-            "nl": "Bron router type"
+            "nl": "Bron router type",
+            "de": "Modell Ausgangsrouter"
           },
           "value": "unknown"
         },
@@ -68,11 +70,13 @@
           "type": "label",
           "label": {
             "en": "Source router ID",
-            "nl": "Bron router ID"
+            "nl": "Bron router ID",
+            "de": "IP des Ausgangsrouters"
           },
           "hint": {
             "en": "This is the serial number of the router that provides the on/offline status",
-            "nl": "Dit is het serienummer van de router die de on/offline status verzorgt"
+            "nl": "Dit is het serienummer van de router die de on/offline status verzorgt",
+            "de": "Dies ist die Seriennummer des Routers, die den On-/Offline-Status angibt."
           },
           "value": "unknown"
         }
@@ -82,7 +86,8 @@
       "type": "group",
       "label": {
         "en": "Presence settings",
-        "nl": "Aanwezigheid instellingen"
+        "nl": "Aanwezigheid instellingen",
+        "de": "Anwesenheitseinstellungen"
       },
       "children": [
         {
@@ -95,7 +100,8 @@
           },
           "hint": {
             "en": "Reducing this value will result in faster 'offline' status. If the device is on a wired connection, or if you have a very (very!) stable wifi, you can even set this value to 0.",
-            "nl": "Een lagere waarde leidt tot snellere 'offline' status. Als het apparaat bedraad is aangesloten, of als je een zeer (zeer!) stabiele wifi hebt, kan de waarde zelfs op 0 worden gezet."
+            "nl": "Een lagere waarde leidt tot snellere 'offline' status. Als het apparaat bedraad is aangesloten, of als je een zeer (zeer!) stabiele wifi hebt, kan de waarde zelfs op 0 worden gezet.",
+            "de": "Eine Verringerung dieses Wertes führt zu einem schnelleren 'Offline'-Status. Wenn das Gerät über eine kabelgebundene Verbindung verfügt, oder wenn Sie ein sehr (sehr!) stabiles WLAN haben, können Sie diesen Wert sogar auf 0 setzen."
           },
           "attr": {
             "min": 0
@@ -108,7 +114,8 @@
       "type": "group",
       "label": {
         "en": "Device functionality",
-        "nl": "Apparaat functionaliteit"
+        "nl": "Apparaat functionaliteit",
+        "de": "Gerätefunktionalität"
       },
       "children": [
         {
@@ -116,7 +123,8 @@
           "type": "checkbox",
           "label": {
             "en": "Report Wifi link info",
-            "nl": "Rapporteer Wifi link info"
+            "nl": "Rapporteer Wifi link info",
+            "de": "Bericht Wifi Link-Info"
           },
           "value": false
         },
@@ -125,7 +133,8 @@
           "type": "checkbox",
           "label": {
             "en": "Report Up/Down bandwidth",
-            "nl": "Rapporteer Up/Down bandbreedte"
+            "nl": "Rapporteer Up/Down bandbreedte",
+            "de": "Bericht Up/Down Bandbreite"
           },
           "value": false
         },
@@ -134,7 +143,8 @@
           "type": "checkbox",
           "label": {
             "en": "Report Energy",
-            "nl": "Rapporteer energie"
+            "nl": "Rapporteer energie",
+            "de": "Bericht Energie"
           },
           "value": false
         }
