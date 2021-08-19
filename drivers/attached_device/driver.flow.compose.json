@@ -4,7 +4,8 @@
       "id": "device_metrics_changed",
       "title": {
         "en": "Device metrics changed",
-        "nl": "Apparaat waarden gewijzigd"
+        "nl": "Apparaat waarden gewijzigd",
+        "de": "Gerätedaten verändert"
       },
       "tokens": [
         {
@@ -13,7 +14,7 @@
           "title": {
             "en": "mac",
             "nl": "mac",
-            "de": "mac"
+            "de": "MAC"
           },
           "example": "AA:BB:CC:DD:EE:FF"
         },
@@ -33,7 +34,7 @@
           "title": {
             "en": "ip",
             "nl": "ip",
-            "de": "ip"
+            "de": "IP"
           },
           "example": "10.0.0.10"
         },
@@ -43,7 +44,7 @@
           "title": {
             "en": "Connected",
             "nl": "Verbonden",
-            "de": "Verbünden"
+            "de": "Verbunden"
           },
           "example": true
         },
@@ -62,7 +63,8 @@
           "type": "number",
           "title": {
             "en": "link speed",
-            "nl": "link snelheid"
+            "nl": "link snelheid",
+            "de": "Verbindungsgeschwindigkeit"
           },
           "example": 35
         },
@@ -72,7 +74,7 @@
           "title": {
             "en": "signal strength",
             "nl": "signaal sterkte",
-            "de": "Signal Stärke"
+            "de": "Signalstärke"
           },
           "example": 50
         },
@@ -112,7 +114,7 @@
           "title": {
             "en": "mac",
             "nl": "mac",
-            "de": "mac"
+            "de": "MAC"
           },
           "example": "AA:BB:CC:DD:EE:FF"
         },
@@ -132,7 +134,7 @@
           "title": {
             "en": "ip",
             "nl": "ip",
-            "de": "ip"
+            "de": "IP"
           },
           "example": "10.0.0.10"
         }
@@ -152,7 +154,7 @@
           "title": {
             "en": "mac",
             "nl": "mac",
-            "de": "mac"
+            "de": "MAC"
           },
           "example": "AA:BB:CC:DD:EE:FF"
         },
@@ -172,7 +174,7 @@
           "title": {
             "en": "ip",
             "nl": "ip",
-            "de": "ip"
+            "de": "IP"
           },
           "example": "10.0.0.10"
         }
