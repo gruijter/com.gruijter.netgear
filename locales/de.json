@@ -1,12 +1,12 @@
 {
 	"pair": {
 		"start": {
-			"title": "Netgear router hinzufügen",
-			"intro": "Controliere die IP-Adresse und den SOAP-Port. Danach gebe das Passwort des Netgear-Routers ein und drüche `Speichern`.",
-			"discover": "Finde Router",
+			"title": "Netgear Router hinzufügen",
+			"intro": "Kontrollieren oder geben Sie die IP-Adresse und den SOAP-Port ein. Geben Sie dann das Passwort des Netgear-Routers ein und drücke `Speichern`.",
+			"discover": "Router suchen",
 			"error": "Es ist ein Fehler aufgetreten.",
 			"success": "Erfolgreich! ",
-			"required": "IP-Adresse, Port und Passwort benötigt",
+			"required": "IP-Adresse, Port und Passwort werden benötigt",
 			"username": "Benutzer",
 			"password": "Passwort",
 			"host": "IP-Adresse",
@@ -14,9 +14,9 @@
 			"save": "Speichern"
 		},
 		"select_options": {
-			"title": "Gerät optionen",
+			"title": "Geräte Optionen",
 			"intro": "",
-			"capabilities": "Gerät Fähigkeiten",
+			"capabilities": "Gerät Optionen auswählen",
 			"use_link_info": "WiFi-Verbindung",
 			"use_bandwidth_info": "Bandbreite",
 			"report_power": "Energieverbrauch",
@@ -27,11 +27,11 @@
 		"tab1": {
 			"title": "Anweisungen",
 			"addDeviceTitle": "Neuen Router hinzufügen",
-			"addDeviceInstructions": "Füge einen Router über den Homey-Reiter `Geräte` hinzu und gib das Admin-Passwort ein.  Abhängig von deinem Router-Typ sind möglicherweise manche Funktionen nicht verfügbar. Du kannst einen Kompatibilitätstest im Test-Reiter starten.",
-			"presenceTitle": "Presence detection",
-			"presenceInstructions": "After adding your router to Homey, you can start adding mobile devices that you want to track for presence. They will be reported as connected or disconnected based on the WiFi connection to your Netgear network. You can finetune the 'offline after delay' in the device settings. If you get false disconnected messages, you should increase this delay. If you want faster detection, you can try decreasing this delay. You can also try reducing the polling interval of the router. The default polling interval is 1 minute, but if you make it too short your router can choke.",
-			"energyTitle": "Energy monitoring",
-			"energyInstructions": "After adding your router to Homey, you can add additional devices that you want to monitor for power, e.g. your T.V. or printer. Enter the estimated / average power usage of the device when it is OFF or ON. Now when you turn on your T.V. you will see that the estimated power is included in Homey Energy tab"
+			"addDeviceInstructions": "Füge einen Router über den Homey-Reiter `Geräte` hinzu und gib das Admin-Passwort ein. Abhängig von deinem Router-Typ sind möglicherweise manche Funktionen nicht verfügbar. Du kannst einen Kompatibilitätstest im Test-Reiter starten.",
+			"presenceTitle": "Anwesenheitserkennung",
+			"presenceInstructions": "Nachdem Sie Ihren Router zu Homey hinzugefügt haben, können Sie mobile Geräte hinzufügen, deren Anwesenheit Sie überwachen möchten. Basierend auf die WLAN-Verbindung zu Ihrem Netgear-Netzwerk, werden diese dann als verbunden oder getrennt gemeldet. Sie können die `Offline-Verzögerung` in den Geräteeinstellungen feinjustieren. Wenn Sie falsche Nachrichten zu Verbindungsabbrüchen erhalten, dann sollten Sie diese Verzögerung erhöhen. Wenn Sie eine schnellere Erkennung wünschen, können Sie versuchen, diese Verzögerung zu verringern. Sie können auch versuchen, das Abfrageintervall des Routers zu verringern. Das Standardabfrageintervall beträgt 1 Minute, aber wenn Sie es zu kurz einstellen, kann Ihr Router überlasten.",
+			"energyTitle": "Energieüberwachung",
+			"energyInstructions": "Nachdem Sie Ihren Router zu Homey hinzugefügt haben, können Sie weitere Geräte hinzufügen, deren Stromverbrauch Sie überwachen möchten, z. B. Ihren Fernseher oder Drucker. Geben Sie den geschätzten/durchschnittlichen Stromverbrauch des Geräts ein, wenn es aus- und eingeschaltet ist. Wenn Sie nun Ihren Fernseher einschalten, werden Sie feststellen, dass der geschätzte Stromverbrauch auf der Registerkarte Energie von Homey angezeigt wird."
 		},
 		"tab2": {
 			"title": "Protokolle",
@@ -55,7 +55,7 @@
 		"tab4": {
 			"title": "Liste",
 			"instructionsLegend": "Liste aller bekannten Geräte",
-			"instructions": "Die App beginnt damit, alle MAC-Addressen der Geräte zu sammeln und zu speichern, die sich irgendwann mit dem Router verbinden. Wenn du die Liste löschen musst, kannst du das machen, indem du die Check-Box `Lösche Geräte` in den Geräteeinstellungen aktivierst.",
+			"instructions": "Die App beginnt damit, alle MAC-Addressen der Geräte zu sammeln und zu speichern, die sich irgendwann mit dem Router verbinden. Wenn du die Liste löschen möchtest, kannst du das machen, indem du die Check-Box `Lösche Geräte` in den Geräteeinstellungen aktivierst.",
 			"getList": "Beziehe die Liste",
 			"resultList": "Geräteliste",
 			"copyList": "Kopiere die Liste"
