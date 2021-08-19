@@ -5,7 +5,7 @@
       "title": {
         "en": "Internet disconnected",
         "nl": "Internet verbroken",
-        "de": "Internet verbrochen"
+        "de": "Internet unterbrochen"
       }
     },
     {
@@ -60,7 +60,7 @@
           "title": {
             "en": "mac",
             "nl": "mac",
-            "de": "mac"
+            "de": "MAC"
           },
           "example": "AA:BB:CC:DD:EE:FF"
         },
@@ -80,7 +80,7 @@
           "title": {
             "en": "ip",
             "nl": "ip",
-            "de": "ip"
+            "de": "IP"
           },
           "example": "10.0.0.10"
         }
@@ -100,7 +100,7 @@
           "title": {
             "en": "mac",
             "nl": "mac",
-            "de": "mac"
+            "de": "MAC"
           },
           "example": "AA:BB:CC:DD:EE:FF"
         },
@@ -120,7 +120,7 @@
           "title": {
             "en": "ip",
             "nl": "ip",
-            "de": "ip"
+            "de": "IP"
           },
           "example": "10.0.0.10"
         }
@@ -140,7 +140,7 @@
           "title": {
             "en": "mac",
             "nl": "mac",
-            "de": "mac"
+            "de": "MAC"
           },
           "example": "AA:BB:CC:DD:EE:FF"
         },
@@ -160,7 +160,7 @@
           "title": {
             "en": "ip",
             "nl": "ip",
-            "de": "ip"
+            "de": "IP"
           },
           "example": "10.0.0.10"
         }
@@ -180,7 +180,7 @@
           "title": {
             "en": "up",
             "nl": "up",
-            "de": "up"
+            "de": "Up"
           },
           "example": 1
         },
@@ -190,7 +190,7 @@
           "title": {
             "en": "down",
             "nl": "down",
-            "de": "down"
+            "de": "Down"
           },
           "example": 5
         },
@@ -200,7 +200,7 @@
           "title": {
             "en": "ping",
             "nl": "ping",
-            "de": "ping"
+            "de": "Ping"
           },
           "example": 10
         }
@@ -240,7 +240,7 @@
           "title": {
             "en": "info",
             "nl": "info",
-            "de": "info"
+            "de": "Info"
           },
           "example": "security fixes"
         }
@@ -261,7 +261,7 @@
       "title": {
         "en": "Device !{{is|isn't}} online (mac)",
         "nl": "Apparaat !{{is|is niet}} online (mac)",
-        "de": "Gerät !{{ist|ist nicht}} online (mac)"
+        "de": "Gerät !{{ist|ist nicht}} online (MAC)"
       },
       "args": [
         {
@@ -331,7 +331,8 @@
           "name": "mac",
           "title": {
             "en": "Which device (mac address)",
-            "nl": "Welk apparaat (mac address)"
+            "nl": "Welk apparaat (mac address)",
+            "de": "Welches Gerät (MAC-Adresse)
           },
           "placeholder": {
             "en": "AA:BB:CC:DD:EE:FF"
@@ -342,7 +343,8 @@
           "type": "text",
           "title": {
             "en": "Password or use 00:00:00:00:00:00",
-            "nl": "Password of gebruik 00:00:00:00:00:00"
+            "nl": "Password of gebruik 00:00:00:00:00:00",
+            "de": "Passwort oder 00:00:00:00:00:00"
           },
           "placeholder": {
             "en": "00:00:00:00:00:00"
@@ -356,7 +358,7 @@
       "title": {
         "en": "Block a device with tag",
         "nl": "Apparaat blokkeren met tag",
-        "de": "Ein Gerät blockieren mit tag"
+        "de": "Ein Gerät mit Tag blockieren"
       },
       "args": [
         {
@@ -392,7 +394,7 @@
       "title": {
         "en": "Allow a device with tag",
         "nl": "Apparaat vrijgeven met tag",
-        "de": "Ein Gerät zulassen mit tag"
+        "de": "Ein Gerät mit Tag zulassen"
       },
       "args": [
         {
@@ -440,7 +442,7 @@
               "label": {
                 "en": "2.4GHz",
                 "nl": "2.4GHz",
-                "de": "2,4GHz"
+                "de": "2,4 GHz"
               }
             },
             {
@@ -448,7 +450,7 @@
               "label": {
                 "en": "5GHz",
                 "nl": "5GHz",
-                "de": "5GHz"
+                "de": "5 GHz"
               }
             },
             {
@@ -456,7 +458,7 @@
               "label": {
                 "en": "2.4GHz-2",
                 "nl": "2.4GHz-2",
-                "de": "2,4GHz-2"
+                "de": "2,4 GHz-2"
               }
             },
             {
@@ -464,7 +466,7 @@
               "label": {
                 "en": "5GHz-2",
                 "nl": "5GHz-2",
-                "de": "5GHz-2"
+                "de": "5 GHz-2"
               }
             }
           ]
