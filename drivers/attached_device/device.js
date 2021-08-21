@@ -187,9 +187,9 @@ class attachedNetgearDevice extends Homey.Device {
 			await Promise.all(ready);
 
 			// add trigger cards
-			this.flows.deviceOnlineTrigger = new Homey.FlowCardTriggerDevice('device_online')
+			this.flows.deviceOnlineTrigger = new Homey.FlowCardTriggerDevice('came_online')
 				.register();
-			this.flows.deviceOfflineTrigger = new Homey.FlowCardTriggerDevice('device_offline')
+			this.flows.deviceOfflineTrigger = new Homey.FlowCardTriggerDevice('went_offline')
 				.register();
 			this.flows.metricsChangedTrigger = new Homey.FlowCardTriggerDevice('device_metrics_changed')
 				.register();

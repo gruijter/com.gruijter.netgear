@@ -101,7 +101,7 @@
       ]
     },
     {
-      "id": "device_online",
+      "id": "came_online",
       "title": {
         "en": "Device came online",
         "nl": "Apparaat komt online",
@@ -141,7 +141,7 @@
       ]
     },
     {
-      "id": "device_offline",
+      "id": "went_offline",
       "title": {
         "en": "Device went offline",
         "nl": "Apparaat raakt offline",

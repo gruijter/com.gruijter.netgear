@@ -510,7 +510,7 @@ class NetgearDevice extends Homey.Device {
 					return Promise.reject(Error('The netgear device is unknown or not ready'));
 				});
 
-			this.flows.deviceOnlineCondition = new Homey.FlowCardCondition('device_online');
+			this.flows.deviceOnlineCondition = new Homey.FlowCardCondition('device_online_condition');
 			this.flows.deviceOnlineCondition
 				.register()
 				.registerRunListener((args) => {

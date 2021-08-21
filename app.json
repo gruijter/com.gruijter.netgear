@@ -11,7 +11,8 @@
     "nl": "Verbind je Netgear router",
     "de": "Überwache deinen Netgear-Router"
   },
-  "version": "3.2.4",
+  "brandColor": "#751939",
+  "version": "3.2.5",
   "sdk": 2,
   "compatibility": ">= 3.0",
   "author": {
@@ -34,6 +35,9 @@
       },
       {
         "name": "🇩🇪 Friedi"
+      },
+      {
+        "name": "🇩🇪 Fantross"
       }
     ]
   },
@@ -95,7 +99,8 @@
         "id": "device_metrics_changed",
         "title": {
           "en": "Device metrics changed",
-          "nl": "Apparaat waarden gewijzigd"
+          "nl": "Apparaat waarden gewijzigd",
+          "de": "Gerätedaten verändert"
         },
         "tokens": [
           {
@@ -104,7 +109,7 @@
             "title": {
               "en": "mac",
               "nl": "mac",
-              "de": "mac"
+              "de": "MAC"
             },
             "example": "AA:BB:CC:DD:EE:FF"
           },
@@ -124,7 +129,7 @@
             "title": {
               "en": "ip",
               "nl": "ip",
-              "de": "ip"
+              "de": "IP"
             },
             "example": "10.0.0.10"
           },
@@ -134,7 +139,7 @@
             "title": {
               "en": "Connected",
               "nl": "Verbonden",
-              "de": "Verbünden"
+              "de": "Verbunden"
             },
             "example": true
           },
@@ -153,7 +158,8 @@
             "type": "number",
             "title": {
               "en": "link speed",
-              "nl": "link snelheid"
+              "nl": "link snelheid",
+              "de": "Verbindungsgeschwindigkeit"
             },
             "example": 35
           },
@@ -163,7 +169,7 @@
             "title": {
               "en": "signal strength",
               "nl": "signaal sterkte",
-              "de": "Signal Stärke"
+              "de": "Signalstärke"
             },
             "example": 50
           },
@@ -197,7 +203,7 @@
         ]
       },
       {
-        "id": "device_online",
+        "id": "came_online",
         "title": {
           "en": "Device came online",
           "nl": "Apparaat komt online",
@@ -210,7 +216,7 @@
             "title": {
               "en": "mac",
               "nl": "mac",
-              "de": "mac"
+              "de": "MAC"
             },
             "example": "AA:BB:CC:DD:EE:FF"
           },
@@ -230,7 +236,7 @@
             "title": {
               "en": "ip",
               "nl": "ip",
-              "de": "ip"
+              "de": "IP"
             },
             "example": "10.0.0.10"
           }
@@ -244,7 +250,7 @@
         ]
       },
       {
-        "id": "device_offline",
+        "id": "went_offline",
         "title": {
           "en": "Device went offline",
           "nl": "Apparaat raakt offline",
@@ -257,7 +263,7 @@
             "title": {
               "en": "mac",
               "nl": "mac",
-              "de": "mac"
+              "de": "MAC"
             },
             "example": "AA:BB:CC:DD:EE:FF"
           },
@@ -277,7 +283,7 @@
             "title": {
               "en": "ip",
               "nl": "ip",
-              "de": "ip"
+              "de": "IP"
             },
             "example": "10.0.0.10"
           }
@@ -365,7 +371,7 @@
         "title": {
           "en": "Internet disconnected",
           "nl": "Internet verbroken",
-          "de": "Internet verbrochen"
+          "de": "Internet unterbrochen"
         },
         "args": [
           {
@@ -441,7 +447,7 @@
             "title": {
               "en": "mac",
               "nl": "mac",
-              "de": "mac"
+              "de": "MAC"
             },
             "example": "AA:BB:CC:DD:EE:FF"
           },
@@ -461,7 +467,7 @@
             "title": {
               "en": "ip",
               "nl": "ip",
-              "de": "ip"
+              "de": "IP"
             },
             "example": "10.0.0.10"
           }
@@ -488,7 +494,7 @@
             "title": {
               "en": "mac",
               "nl": "mac",
-              "de": "mac"
+              "de": "MAC"
             },
             "example": "AA:BB:CC:DD:EE:FF"
           },
@@ -508,7 +514,7 @@
             "title": {
               "en": "ip",
               "nl": "ip",
-              "de": "ip"
+              "de": "IP"
             },
             "example": "10.0.0.10"
           }
@@ -535,7 +541,7 @@
             "title": {
               "en": "mac",
               "nl": "mac",
-              "de": "mac"
+              "de": "MAC"
             },
             "example": "AA:BB:CC:DD:EE:FF"
           },
@@ -555,7 +561,7 @@
             "title": {
               "en": "ip",
               "nl": "ip",
-              "de": "ip"
+              "de": "IP"
             },
             "example": "10.0.0.10"
           }
@@ -582,7 +588,7 @@
             "title": {
               "en": "up",
               "nl": "up",
-              "de": "up"
+              "de": "Up"
             },
             "example": 1
           },
@@ -592,7 +598,7 @@
             "title": {
               "en": "down",
               "nl": "down",
-              "de": "down"
+              "de": "Down"
             },
             "example": 5
           },
@@ -602,7 +608,7 @@
             "title": {
               "en": "ping",
               "nl": "ping",
-              "de": "ping"
+              "de": "Ping"
             },
             "example": 10
           }
@@ -649,7 +655,7 @@
             "title": {
               "en": "info",
               "nl": "info",
-              "de": "info"
+              "de": "Info"
             },
             "example": "security fixes"
           }
@@ -695,11 +701,11 @@
         ]
       },
       {
-        "id": "device_online",
+        "id": "device_online_condition",
         "title": {
           "en": "Device !{{is|isn't}} online (mac)",
           "nl": "Apparaat !{{is|is niet}} online (mac)",
-          "de": "Gerät !{{ist|ist nicht}} online (mac)"
+          "de": "Gerät !{{ist|ist nicht}} online (MAC)"
         },
         "args": [
           {
@@ -791,7 +797,8 @@
             "name": "mac",
             "title": {
               "en": "Which device (mac address)",
-              "nl": "Welk apparaat (mac address)"
+              "nl": "Welk apparaat (mac address)",
+              "de": "Welches Gerät (MAC-Adresse)"
             },
             "placeholder": {
               "en": "AA:BB:CC:DD:EE:FF"
@@ -802,7 +809,8 @@
             "type": "text",
             "title": {
               "en": "Password or use 00:00:00:00:00:00",
-              "nl": "Password of gebruik 00:00:00:00:00:00"
+              "nl": "Password of gebruik 00:00:00:00:00:00",
+              "de": "Passwort oder 00:00:00:00:00:00"
             },
             "placeholder": {
               "en": "00:00:00:00:00:00"
@@ -816,7 +824,7 @@
         "title": {
           "en": "Block a device with tag",
           "nl": "Apparaat blokkeren met tag",
-          "de": "Ein Gerät blockieren mit tag"
+          "de": "Ein Gerät mit Tag blockieren"
         },
         "args": [
           {
@@ -862,7 +870,7 @@
         "title": {
           "en": "Allow a device with tag",
           "nl": "Apparaat vrijgeven met tag",
-          "de": "Ein Gerät zulassen mit tag"
+          "de": "Ein Gerät mit Tag zulassen"
         },
         "args": [
           {
@@ -925,7 +933,7 @@
                 "label": {
                   "en": "2.4GHz",
                   "nl": "2.4GHz",
-                  "de": "2,4GHz"
+                  "de": "2,4 GHz"
                 }
               },
               {
@@ -933,7 +941,7 @@
                 "label": {
                   "en": "5GHz",
                   "nl": "5GHz",
-                  "de": "5GHz"
+                  "de": "5 GHz"
                 }
               },
               {
@@ -941,7 +949,7 @@
                 "label": {
                   "en": "2.4GHz-2",
                   "nl": "2.4GHz-2",
-                  "de": "2,4GHz-2"
+                  "de": "2,4 GHz-2"
                 }
               },
               {
@@ -949,7 +957,7 @@
                 "label": {
                   "en": "5GHz-2",
                   "nl": "5GHz-2",
-                  "de": "5GHz-2"
+                  "de": "5 GHz-2"
                 }
               }
             ]
@@ -1029,7 +1037,8 @@
     {
       "name": {
         "en": "Attached device",
-        "nl": "Verbonden apparaat"
+        "nl": "Verbonden apparaat",
+        "de": "Verbundene Geräte"
       },
       "images": {
         "large": "drivers/attached_device/assets/images/large.jpg",
@@ -1071,7 +1080,7 @@
           "label": {
             "en": "Device information",
             "nl": "Apparaat informatie",
-            "de": "Gerät-Information"
+            "de": "Geräteinformation"
           },
           "children": [
             {
@@ -1087,7 +1096,8 @@
               "type": "label",
               "label": {
                 "en": "Source router model",
-                "nl": "Bron router type"
+                "nl": "Bron router type",
+                "de": "Modell Ausgangsrouter"
               },
               "value": "unknown"
             },
@@ -1096,11 +1106,13 @@
               "type": "label",
               "label": {
                 "en": "Source router ID",
-                "nl": "Bron router ID"
+                "nl": "Bron router ID",
+                "de": "IP des Ausgangsrouters"
               },
               "hint": {
                 "en": "This is the serial number of the router that provides the on/offline status",
-                "nl": "Dit is het serienummer van de router die de on/offline status verzorgt"
+                "nl": "Dit is het serienummer van de router die de on/offline status verzorgt",
+                "de": "Dies ist die Seriennummer des Routers, die den On-/Offline-Status angibt."
               },
               "value": "unknown"
             }
@@ -1110,7 +1122,8 @@
           "type": "group",
           "label": {
             "en": "Presence settings",
-            "nl": "Aanwezigheid instellingen"
+            "nl": "Aanwezigheid instellingen",
+            "de": "Anwesenheitseinstellungen"
           },
           "children": [
             {
@@ -1123,7 +1136,8 @@
               },
               "hint": {
                 "en": "Reducing this value will result in faster 'offline' status. If the device is on a wired connection, or if you have a very (very!) stable wifi, you can even set this value to 0.",
-                "nl": "Een lagere waarde leidt tot snellere 'offline' status. Als het apparaat bedraad is aangesloten, of als je een zeer (zeer!) stabiele wifi hebt, kan de waarde zelfs op 0 worden gezet."
+                "nl": "Een lagere waarde leidt tot snellere 'offline' status. Als het apparaat bedraad is aangesloten, of als je een zeer (zeer!) stabiele wifi hebt, kan de waarde zelfs op 0 worden gezet.",
+                "de": "Eine Verringerung dieses Wertes führt zu einem schnelleren 'Offline'-Status. Wenn das Gerät über eine kabelgebundene Verbindung verfügt, oder wenn Sie ein sehr (sehr!) stabiles WLAN haben, können Sie diesen Wert sogar auf 0 setzen."
               },
               "attr": {
                 "min": 0
@@ -1136,7 +1150,8 @@
           "type": "group",
           "label": {
             "en": "Device functionality",
-            "nl": "Apparaat functionaliteit"
+            "nl": "Apparaat functionaliteit",
+            "de": "Gerätefunktionalität"
           },
           "children": [
             {
@@ -1144,7 +1159,8 @@
               "type": "checkbox",
               "label": {
                 "en": "Report Wifi link info",
-                "nl": "Rapporteer Wifi link info"
+                "nl": "Rapporteer Wifi link info",
+                "de": "Bericht Wifi Link-Info"
               },
               "value": false
             },
@@ -1153,7 +1169,8 @@
               "type": "checkbox",
               "label": {
                 "en": "Report Up/Down bandwidth",
-                "nl": "Rapporteer Up/Down bandbreedte"
+                "nl": "Rapporteer Up/Down bandbreedte",
+                "de": "Bericht Up/Down Bandbreite"
               },
               "value": false
             },
@@ -1162,7 +1179,8 @@
               "type": "checkbox",
               "label": {
                 "en": "Report Energy",
-                "nl": "Rapporteer energie"
+                "nl": "Rapporteer energie",
+                "de": "Bericht Energie"
               },
               "value": false
             }
@@ -1356,7 +1374,7 @@
               "label": {
                 "en": "Device mode",
                 "nl": "Apparaat modus",
-                "de": "Gerät Modus"
+                "de": "Gerätemodus"
               },
               "value": "unknown"
             }
@@ -1367,7 +1385,7 @@
           "label": {
             "en": "Connection settings",
             "nl": "Verbinding instellingen",
-            "de": "Verbindung-Einstellungen"
+            "de": "Verbindungseinstellungen"
           },
           "children": [
             {
@@ -1416,7 +1434,8 @@
               "value": "0",
               "label": {
                 "en": "Login method",
-                "nl": "Login methode"
+                "nl": "Login methode",
+                "de": "Login Methode"
               },
               "values": [
                 {
@@ -1446,7 +1465,8 @@
               ],
               "hint": {
                 "en": "Leave on Auto unless you experience issues",
-                "nl": "Laat op Auto tenzij je problemen hebt"
+                "nl": "Laat op Auto tenzij je problemen hebt",
+                "de": "Auf Auto stehen lassen, außer es treten Probleme auf"
               }
             }
           ]
@@ -1455,7 +1475,8 @@
           "type": "group",
           "label": {
             "en": "Report options",
-            "nl": "Rapportage opties"
+            "nl": "Rapportage opties",
+            "de": "Berichtsoptionen"
           },
           "children": [
             {
@@ -1493,7 +1514,8 @@
               "type": "checkbox",
               "label": {
                 "en": "Report Up/Down traffic",
-                "nl": "Rapporteer Up/Down verkeer"
+                "nl": "Rapporteer Up/Down verkeer",
+                "de": "Up/Down Traffic anzeigen"
               },
               "value": false
             },
@@ -1502,7 +1524,8 @@
               "type": "checkbox",
               "label": {
                 "en": "Report CPU/MEM load",
-                "nl": "Rapporteer CPU/MEM belasting"
+                "nl": "Rapporteer CPU/MEM belasting",
+                "de": "CPU/MEM-Auslastung anzeigen"
               },
               "value": false
             },
@@ -1511,7 +1534,8 @@
               "type": "checkbox",
               "label": {
                 "en": "New firmware check",
-                "nl": "Controleer op nieuwe firmware"
+                "nl": "Controleer op nieuwe firmware",
+                "de": "Prüfung auf neue Firmware"
               },
               "value": false
             }
@@ -1531,11 +1555,12 @@
               "label": {
                 "en": "Polling interval (seconds)",
                 "nl": "Polling interval (seconden)",
-                "de": "Polling interval (Sekunden)"
+                "de": "Polling Intervall (Sekunden)"
               },
               "hint": {
                 "en": "A shorter value will update the presence of devices more often, but could lead to router faults",
-                "nl": "Een kortere waarde zal de aanwezigheids detectie verbeteren, maar kan leiden tot fouten in de router."
+                "nl": "Een kortere waarde zal de aanwezigheids detectie verbeteren, maar kan leiden tot fouten in de router.",
+                "de": "Ein kleinerer Wert aktualisiert das Vorhandensein von Geräten häufiger, kann jedoch zu Routerfehlern führen"
               },
               "attr": {
                 "min": 15
@@ -1552,7 +1577,8 @@
               },
               "hint": {
                 "en": "This value will be only used for attached devices that are not individually paired to Homey.",
-                "nl": "Deze waarde wordt alleen gebruikt voor apparaten die niet individueel aan Homey zijn toegevoegd."
+                "nl": "Deze waarde wordt alleen gebruikt voor apparaten die niet individueel aan Homey zijn toegevoegd.",
+                "de": "Dieser Wert wird nur für verbundene Geräte verwendet, die nicht einzeln mit Homey gekoppelt sind."
               },
               "attr": {
                 "min": 60
@@ -1565,7 +1591,8 @@
               "value": "0",
               "label": {
                 "en": "Attached devices method",
-                "nl": "Aangesloten apparaten methode"
+                "nl": "Aangesloten apparaten methode",
+                "de": "Methode der verbundenen Geräte"
               },
               "values": [
                 {
@@ -1593,7 +1620,8 @@
               ],
               "hint": {
                 "en": "Which method to use to get the attached devices list from the router",
-                "nl": "Welke methode gebruiken om de aangesloten apparaten lijst uit de router op te halen"
+                "nl": "Welke methode gebruiken om de aangesloten apparaten lijst uit de router op te halen",
+                "de": "Welche Methode zum Abrufen der Liste der verbundenen Geräte vom Router verwendet werden soll"
               }
             },
             {
@@ -1608,7 +1636,7 @@
               "hint": {
                 "en": "When checked, the list of known devices will be emptied. New settings will not be saved!",
                 "nl": "Aangevinkt: de lijst met bekende apparaten zal worden geleegd. Nieuwe instellingen worden niet opgeslagen!",
-                "de": "Wenn aktiviert, wird die Liste der bekannten Geräte gelöscht.Neue Einstellungen werden nicht gespeichert!"
+                "de": "Wenn aktiviert, wird die Liste der bekannten Geräte gelöscht. Neue Einstellungen werden nicht gespeichert!"
               }
             }
           ]
@@ -1649,17 +1677,17 @@
       "title": {
         "en": "Internet disconnected",
         "nl": "Internet verbroken",
-        "de": "Internet verbrochen"
+        "de": "Internet unterbrochen"
       },
       "desc": {
         "en": "Internet disconnected alarm",
         "nl": "Internet verbroken alarm",
-        "de": "Internet verbrochen Alarm"
+        "de": "Internet unterbrochen Alarm"
       },
       "insightsTitleTrue": {
         "en": "Internet disconnected",
         "nl": "Internet verbroken",
-        "de": "Internet verbrochen"
+        "de": "Internet unterbrochen"
       },
       "insightsTitleFalse": {
         "en": "Internet connected",
@@ -1704,7 +1732,8 @@
       "type": "number",
       "title": {
         "en": "CPU utilization",
-        "nl": "CPU belasting"
+        "nl": "CPU belasting",
+        "de": "CPU-Auslastung"
       },
       "getable": true,
       "setable": false,
@@ -1724,11 +1753,13 @@
       },
       "insightsTitleTrue": {
         "en": "Connected",
-        "nl": "Verbonden"
+        "nl": "Verbonden",
+        "de": "Verbunden"
       },
       "insightsTitleFalse": {
         "en": "Disconnected",
-        "nl": "Verbroken"
+        "nl": "Verbroken",
+        "de": "Getrennt"
       },
       "uiComponent": "sensor",
       "uiQuickAction": true,
@@ -1788,7 +1819,8 @@
       "type": "number",
       "title": {
         "en": "Memory utilization",
-        "nl": "Geheugen belasting"
+        "nl": "Geheugen belasting",
+        "de": "Speicherauslastung"
       },
       "getable": true,
       "setable": false,
