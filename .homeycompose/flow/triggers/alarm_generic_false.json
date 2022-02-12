@@ -1,0 +1,15 @@
+{
+  "id": "alarm_generic_false",
+  "title": {
+    "en": "Internet connected",
+    "nl": "Internet verbonden",
+    "de": "Internet verbunden"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=netgear"
+    }
+  ]
+}

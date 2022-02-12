@@ -1,0 +1,80 @@
+{
+  "id": "set_guest_wifi",
+  "title": {
+    "en": "Enable or disable guest wifi",
+    "nl": "Gast wifi aan of uit zetten",
+    "de": "Ein- oder ausschalten des Gäste-WIFI"
+  },
+  "titleFormatted": {
+    "en": "Turn [[network]] guest wifi [[on_off]]",
+    "nl": "Zet [[network]] gast wifi [[on_off]]",
+    "de": "Schalten [[network]] Gäste-WIFI [[on_off]]"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=netgear"
+    },
+    {
+      "type": "dropdown",
+      "name": "network",
+      "values": [
+        {
+          "id": "2.4",
+          "label": {
+            "en": "2.4GHz",
+            "nl": "2.4GHz",
+            "de": "2,4 GHz"
+          }
+        },
+        {
+          "id": "5",
+          "label": {
+            "en": "5GHz",
+            "nl": "5GHz",
+            "de": "5 GHz"
+          }
+        },
+        {
+          "id": "2.4-2",
+          "label": {
+            "en": "2.4GHz-2",
+            "nl": "2.4GHz-2",
+            "de": "2,4 GHz-2"
+          }
+        },
+        {
+          "id": "5-2",
+          "label": {
+            "en": "5GHz-2",
+            "nl": "5GHz-2",
+            "de": "5 GHz-2"
+          }
+        }
+      ]
+    },
+    {
+      "type": "dropdown",
+      "name": "on_off",
+      "values": [
+        {
+          "id": "on",
+          "label": {
+            "en": "Enable",
+            "nl": "Aan",
+            "de": "An"
+          }
+        },
+        {
+          "id": "off",
+          "label": {
+            "en": "Disable",
+            "nl": "Uit",
+            "de": "Aus"
+          }
+        }
+      ]
+    }
+  ]
+}

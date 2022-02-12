@@ -1,0 +1,44 @@
+{
+  "id": "device_online_ip_range",
+  "title": {
+    "en": "!{{A|No}} device online on IP",
+    "nl": "!{{Een|Geen}} apparaat online op IP",
+    "de": "!{{Ein|Kein}} Gerät ist online mit dieser IP"
+  },
+  "titleFormatted": {
+    "en": "!{{A|No}} device online on IP [[ip_from]] - [[ip_to]]",
+    "nl": "!{{Een|Geen}} apparaat online op IP [[ip_from]] - [[ip_to]]",
+    "de": "!{{Ein|Kein}} Gerät ist online mit IP [[ip_from]] - [[ip_to]]"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=netgear"
+    },
+    {
+      "type": "number",
+      "name": "ip_from",
+      "min": 1,
+      "max": 255,
+      "step": 1,
+      "placeholder": {
+        "en": "from (1)",
+        "nl": "vanaf (1)",
+        "de": "von (1)"
+      }
+    },
+    {
+      "type": "number",
+      "name": "ip_to",
+      "min": 1,
+      "max": 254,
+      "step": 1,
+      "placeholder": {
+        "en": "to (254)",
+        "nl": "tot (254)",
+        "de": "bis (254)"
+      }
+    }
+  ]
+}

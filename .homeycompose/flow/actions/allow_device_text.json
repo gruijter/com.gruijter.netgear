@@ -1,0 +1,29 @@
+{
+  "id": "allow_device_text",
+  "title": {
+    "en": "Allow a device with tag",
+    "nl": "Apparaat vrijgeven met tag",
+    "de": "Ein Gerät mit Tag zulassen"
+  },
+  "titleFormatted": {
+    "en": "Allow [[mac]] device",
+    "nl": "Apparaat [[mac]] vrijgeven",
+    "de": "Gerät [[mac]] zulassen"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=netgear"
+    },
+    {
+      "name": "mac",
+      "type": "text",
+      "placeholder": {
+        "en": "AA:BB:CC:DD:EE:FF",
+        "de": "AA:BB:CC:DD:EE:FF"
+      }
+    }
+  ]
+}
+

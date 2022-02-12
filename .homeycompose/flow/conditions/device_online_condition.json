@@ -1,0 +1,28 @@
+{
+  "id": "device_online_condition",
+  "title": {
+    "en": "Device !{{is|isn't}} online (mac)",
+    "nl": "Apparaat !{{is|is niet}} online (mac)",
+    "de": "Gerät !{{ist|ist nicht}} online (MAC)"
+  },
+  "titleFormatted": {
+    "en": "[[mac]] !{{is|isn't}} online",
+    "nl": "[[mac]] !{{is|is niet}} online",
+    "de": "[[mac]] !{{ist|ist nicht}} online"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=netgear"
+    },
+    {
+      "type": "autocomplete",
+      "name": "mac",
+      "placeholder": {
+        "en": "AA:BB:CC:DD:EE:FF",
+        "de": "AA:BB:CC:DD:EE:FF"
+      }
+    }
+  ]
+}

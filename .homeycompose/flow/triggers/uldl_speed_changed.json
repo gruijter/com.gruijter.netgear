@@ -1,0 +1,38 @@
+{
+  "id": "uldl_speed_changed",
+  "title": {
+    "en": "The up/down speed changed",
+    "nl": "Up/down snelheid gewijzigd",
+    "de": "Die Up/Down-Geschwindigkeit hat sich geändert"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=netgear"
+    }
+  ],
+  "tokens": [
+    {
+      "name": "upload_speed",
+      "type": "number",
+      "title": {
+        "en": "up",
+        "nl": "up",
+        "de": "Up"
+      },
+      "example": 5
+    },
+    {
+      "name": "download_speed",
+      "type": "number",
+      "title": {
+        "en": "down",
+        "nl": "down",
+        "de": "Down"
+      },
+      "example": 1
+    }
+  ]
+}
+

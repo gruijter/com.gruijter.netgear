@@ -25,6 +25,7 @@ class attachedNetgearDevice extends Homey.Device {
 
 	// this method is called when the Device is inited
 	async onInit() {
+		return;
 		// this.log(`device init: ${this.getName()}`);
 		this.settings = await this.getSettings();
 		await this.registerFlowCards();

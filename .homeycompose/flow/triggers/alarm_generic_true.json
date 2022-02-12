@@ -1,0 +1,15 @@
+{
+  "id": "alarm_generic_true",
+  "title": {
+    "en": "Internet disconnected",
+    "nl": "Internet verbroken",
+    "de": "Internet unterbrochen"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=netgear"
+    }
+  ]
+}

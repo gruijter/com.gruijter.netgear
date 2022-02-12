@@ -1,0 +1,47 @@
+{
+  "id": "new_router_firmware",
+  "title": {
+    "en": "New router firmware available",
+    "nl": "Er is nieuwe router firmware",
+    "de": "Neue Router-Firmware verfügbar"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=netgear"
+    }
+  ],
+  "tokens": [
+    {
+      "name": "current_version",
+      "type": "string",
+      "title": {
+        "en": "current",
+        "nl": "huidig",
+        "de": "aktuell"
+      },
+      "example": "1.0.9.34"
+    },
+    {
+      "name": "new_version",
+      "type": "string",
+      "title": {
+        "en": "new",
+        "nl": "nieuw",
+        "de": "neu"
+      },
+      "example": "1.0.9.42_10.2.44"
+    },
+    {
+      "name": "release_note",
+      "type": "string",
+      "title": {
+        "en": "info",
+        "nl": "info",
+        "de": "Info"
+      },
+      "example": "security fixes"
+    }
+  ]
+}

@@ -82,12 +82,13 @@ const iconTable = {
 class AttachedDeviceDriver extends Homey.Driver {
 
 	async onInit() {
+		return;
 		this.log('AttachedDeviceDriver onInit');
-		Homey
-			.on('listUpdate', (info) => {
-				// console.log(util.inspect(knownDevices, true, 4, true));
-				this.updateDevices(JSON.parse(info));
-			});
+		// Homey
+		// 	.on('listUpdate', (info) => {
+		// 		// console.log(util.inspect(knownDevices, true, 4, true));
+		// 		this.updateDevices(JSON.parse(info));
+		// 	});
 	}
 
 	updateDevices(info) {

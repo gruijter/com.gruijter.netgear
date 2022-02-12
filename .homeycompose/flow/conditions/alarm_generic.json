@@ -1,0 +1,15 @@
+{
+    "id": "alarm_generic",
+    "title": {
+      "en": "Internet !{{is|isn't}} connected",
+      "nl": "Internet !{{is|is niet}} verbonden",
+      "de": "Internet !{{ist|ist nicht}} verbunden"
+    },
+    "args": [
+        {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=netgear"
+        }
+    ]
+  }

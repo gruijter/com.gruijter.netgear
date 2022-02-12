@@ -1,0 +1,47 @@
+{
+  "id": "speed_test_result",
+  "title": {
+    "en": "Speed test is ready",
+    "nl": "Snelheidstest is klaar",
+    "de": "Geschwindigkeitstest ist bereit"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=netgear"
+    }
+  ],
+  "tokens": [
+    {
+      "name": "uplink_bandwidth",
+      "type": "number",
+      "title": {
+        "en": "up",
+        "nl": "up",
+        "de": "Up"
+      },
+      "example": 1
+    },
+    {
+      "name": "downlink_bandwidth",
+      "type": "number",
+      "title": {
+        "en": "down",
+        "nl": "down",
+        "de": "Down"
+      },
+      "example": 5
+    },
+    {
+      "name": "average_ping",
+      "type": "number",
+      "title": {
+        "en": "ping",
+        "nl": "ping",
+        "de": "Ping"
+      },
+      "example": 10
+    }
+  ]
+}

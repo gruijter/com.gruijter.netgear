@@ -36,10 +36,13 @@ function updateLogs() {
 							if (line.includes('[err]')) return;
 						}
 						const logLine = line
-							.replace(' [log] [ManagerDrivers]', '')
+							.replace(' [ManagerDrivers]', '')
+							.replace(/\[Device:(.*?)\]/, '[dev]')
+							.replace(/\[Driver:(.*?)\]/, '[$1]')
+							.replace(' [log] ', '')
+							.replace(' [App] ', '')
 							.replace(' [attached_device]', '');
 						lines += `${logLine}<br />`;
-
 					});
 				displayLogs(lines);
 			} else {

@@ -1,0 +1,47 @@
+{
+  "id": "new_attached_device",
+  "title": {
+    "en": "New connected device",
+    "nl": "Nieuw verbonden apparaat",
+    "de": "Neues verbundenes Gerät"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=netgear"
+    }
+  ],
+  "tokens": [
+    {
+      "name": "mac",
+      "type": "string",
+      "title": {
+        "en": "mac",
+        "nl": "mac",
+        "de": "MAC"
+      },
+      "example": "AA:BB:CC:DD:EE:FF"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "title": {
+        "en": "name",
+        "nl": "naam",
+        "de": "Name"
+      },
+      "example": "iPhone"
+    },
+    {
+      "name": "ip",
+      "type": "string",
+      "title": {
+        "en": "ip",
+        "nl": "ip",
+        "de": "IP"
+      },
+      "example": "10.0.0.10"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "reboot",
+  "title": {
+    "en": "Reboot router",
+    "nl": "Herstart router",
+    "de": "Router neu starten"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=netgear"
+   }
+  ]
+}
