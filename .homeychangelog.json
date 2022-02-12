@@ -37,5 +37,9 @@
   },
   "3.2.5": {
     "en": "Netgear package 4.3.3. Fixed double flowcard naming issue. German translation updated. German and Dutch readme added."
+  },
+  "3.3.0": {
+    "en": "Netgear package 4.4.1. Added discovery of orbilogin.net. Added support for SOAP port 5555."
   }
+
 }

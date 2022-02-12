@@ -259,7 +259,7 @@ class NetgearDriver extends Homey.Driver {
 					username,
 					host,
 					port,
-					tls: port === 443,
+					tls: port === 443 || port === 5555,
 				};
 				await router.login(options);
 				const info = await router.getInfo();
