@@ -1,5 +1,6 @@
 Version changelog
 
+v3.3.0  2022.02.12 Netgear package 4.4.1. Added discovery of orbilogin.net. Added support for SOAP port 5555.
 v3.2.5  2021.08.21 Netgear package 4.3.3. Fixed double flowcard naming issue. German translation updated. German and Dutch readme added.
 v3.2.4  2021.03.13 Package update. http(s) timeout fix netgear@4.3.1
 v3.2.3  2020.08.22 Fix paring Homey V4.

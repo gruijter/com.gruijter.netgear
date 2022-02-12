@@ -1,6 +1,6 @@
 /* eslint-disable prefer-destructuring */
 /*
-Copyright 2017 - 2021, Robin de Gruijter (gruijter@hotmail.com)
+Copyright 2017 - 2022, Robin de Gruijter (gruijter@hotmail.com)
 
 This file is part of com.gruijter.netgear.
 
@@ -259,7 +259,7 @@ class NetgearDriver extends Homey.Driver {
 					username,
 					host,
 					port,
-					tls: port === 443,
+					tls: port === 443 || port === 5555,
 				};
 				await router.login(options);
 				const info = await router.getInfo();

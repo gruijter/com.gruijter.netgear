@@ -1,5 +1,5 @@
 /*
-Copyright 2017 - 2021, Robin de Gruijter (gruijter@hotmail.com)
+Copyright 2017 - 2022, Robin de Gruijter (gruijter@hotmail.com)
 
 This file is part of com.gruijter.netgear.
 
@@ -359,7 +359,7 @@ class NetgearDevice extends Homey.Device {
 				username: this.settings.username,
 				host: this.settings.host,
 				port: this.settings.port,
-				tls: this.settings.port === 443,
+				tls: this.settings.port === 443 || this.settings.port === 5555,
 			};
 			this.routerSession = new NetgearRouter(options);
 

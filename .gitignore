@@ -3,3 +3,7 @@ env.json
 roadmap.txt
 
 node_modules
+
+
+# Added by Homey CLI
+/.homeybuild/

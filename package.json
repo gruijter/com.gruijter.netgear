@@ -6,11 +6,10 @@
   "dependencies": {
     "fixture-stdout": "^0.2.1",
     "getipintel": "^1.0.4",
-    "netgear": "^4.3.3",
+    "netgear": "^4.4.1",
     "smart-request-balancer": "^2.1.1",
     "xml-js": "^1.6.11"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
