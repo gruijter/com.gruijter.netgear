@@ -1,9 +1,0 @@
-{
-  "type": "string",
-  "title": {
-    "en": "Last Log"
-  },
-  "getable": true,
-  "setable": false,
-  "icon": "./assets/last_log.svg"
-}

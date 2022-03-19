@@ -13,10 +13,12 @@
     "onoff",
     "device_connected",
     "ssid",
-    "link_speed",
-    "signal_strength",
-    "download_speed",
-    "upload_speed"
+    "ip_address",
+    "name_in_router",
+    "meter_link_speed",
+    "meter_signal_strength",
+    "meter_download_speed",
+    "meter_upload_speed"
   ],
   "energy": {
     "approximation": {
@@ -136,6 +138,11 @@
             "nl": "Rapporteer Up/Down bandbreedte",
             "de": "Bericht Up/Down Bandbreite"
           },
+          "hint": {
+            "en": "Note that it is very unlikely that bandwidth info is reported by the router.",
+            "nl": "Let op: het is zeer onwaarschijnlijk dat bandbreedte-informatie door de router wordt gerapporteerd.",
+            "de": "Beachten Sie, dass es sehr unwahrscheinlich ist, dass Bandbreiteninformationen vom Router gemeldet werden."
+          },
           "value": false
         },
         {
@@ -146,9 +153,20 @@
             "nl": "Rapporteer energie",
             "de": "Bericht Energie"
           },
+          "hint": {
+            "en": "Report on/off energy values to Homey Energy",
+            "nl": "Rapporteer aan/uit energy waarden naar Homey Energy",
+            "de": "Ein-/Aus-Energiewerte an Homey Energy melden"
+          },
           "value": false
         }
       ]
     }
+  ],
+  "connectivity": [
+    "lan"
+  ],
+  "platforms": [
+    "local"
   ]
 }

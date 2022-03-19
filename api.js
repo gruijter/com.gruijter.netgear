@@ -1,59 +1,27 @@
-const Homey = require('homey');
-
-module.exports = [
-	{
-		description: 'Show loglines',
-		method: 'GET',
-		path: '/getlogs/',
-		requires_authorization: true,
-		role: 'owner',
-		fn: function fn(args, callback) {
-			const result = Homey.app.getLogs();
-			callback(null, result);
-		},
+module.exports = {
+	// retrieve logs
+	async getLogs({ homey }) {
+		const result = await homey.app.getLogs();
+		return result;
 	},
-	{
-		description: 'Delete logs',
-		method: 'GET',
-		path: '/deletelogs/',
-		requires_authorization: true,
-		role: 'owner',
-		fn: function fn(args, callback) {
-			const result = Homey.app.deleteLogs();
-			callback(null, result);
-		},
+	// delete logs
+	async deleteLogs({ homey }) {
+		const result = await homey.app.deleteLogs();
+		return result;
 	},
-	{
-		description: 'perform Test',
-		method: 'POST',
-		path: '/runtest/',
-		requires_authorization: true,
-		role: 'owner',
-		fn: async function fn(args, callback) {
-			const result = await Homey.app.runTest(args.body);
-			callback(null, result);
-		},
+	// discover Router
+	async discover({ homey }) {
+		const result = await homey.app.discover();
+		return result;
 	},
-	{
-		description: 'Auto Discover Router',
-		method: 'GET',
-		path: '/discover/',
-		requires_authorization: true,
-		role: 'owner',
-		fn: async function fn(args, callback) {
-			const result = await Homey.app.discover();
-			callback(null, result);
-		},
+	// Get known devices logs
+	async getkd({ homey }) {
+		const result = await homey.app.getKnownDevices();
+		return result;
 	},
-	{
-		description: 'Get known devices',
-		method: 'GET',
-		path: '/getkd/',
-		requires_authorization: true,
-		role: 'owner',
-		fn: async function fn(args, callback) {
-			const result = await Homey.app.getKnownDevices();
-			callback(null, result);
-		},
+	// run router test
+	async runTest({ homey, query }) {
+		const result = await homey.app.runTest(query);
+		return result;
 	},
-];
+};

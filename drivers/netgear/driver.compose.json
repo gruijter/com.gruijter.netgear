@@ -11,11 +11,11 @@
   "class": "sensor",
   "capabilities": [
     "alarm_generic",
-    "attached_devices",
-    "download_speed",
-    "upload_speed",
-    "cpu_utilization",
-    "mem_utilization"
+    "meter_attached_devices",
+    "meter_download_speed",
+    "meter_upload_speed",
+    "meter_cpu_utilization",
+    "meter_mem_utilization"
   ],
   "energy": {
     "approximation": {
@@ -345,5 +345,11 @@
         }
       ]
     }
+  ],
+  "connectivity": [
+    "lan"
+  ],
+  "platforms": [
+    "local"
   ]
 }

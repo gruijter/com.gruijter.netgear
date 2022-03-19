@@ -1,0 +1,9 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Name in router"
+  },
+  "getable": true,
+  "setable": false,
+  "icon": "./assets/ssid.svg"
+}

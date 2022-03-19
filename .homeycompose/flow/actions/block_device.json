@@ -1,0 +1,27 @@
+{
+  "title": {
+    "en": "Block a device",
+    "nl": "Apparaat blokkeren",
+    "de": "Ein Gerät blockieren"
+  },
+  "titleFormatted": {
+    "en": "Block [[mac]] device",
+    "nl": "Apparaat [[mac]] blokkeren",
+    "de": "Gerät [[mac]] blockieren"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=netgear"
+   },
+    {
+      "type": "autocomplete",
+      "name": "mac",
+      "placeholder": {
+        "en": "AA:BB:CC:DD:EE:FF",
+        "de": "AA:BB:CC:DD:EE:FF"
+      }
+    }
+  ]
+}

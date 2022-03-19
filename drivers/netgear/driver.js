@@ -25,222 +25,31 @@ const NetgearRouter = require('netgear');
 
 const deviceModes = ['Router', 'Access Point', 'Bridge', '3: Unknown', '4: Unknown'];
 
+const capabilities = ['alarm_generic', 'meter_attached_devices', 'meter_download_speed',
+	'meter_upload_speed', 'meter_cpu_utilization', 'meter_mem_utilization'];
+
 class NetgearDriver extends Homey.Driver {
 
 	onInit() {
 		this.log('NetgearDriver onInit');
+		this.capabilities = capabilities;
+		this.deviceModes = deviceModes;
 	}
 
-	// function to return the list of known attached devices for autocomplete flowcards
-	makeAutocompleteList() {	// call with NetgearDevice as this
-		const list = [];
-		Object.keys(this.knownDevices).forEach((key) => {
-			const device = this.knownDevices[key];
-			if (!device.MAC) { return; }
-			list.push({
-				name: device.MAC,
-				description: device.Name || 'unknown',
-			});
-		});
-		return list;
-	}
-
-	async login()	{	// call with NetgearDevice as this
-		try {
-			if (!this.routerSession.loggedIn) {
-				this.log('Logging in');
-			}
-			const method = Number(this.settings.login_method);
-			await this.routerSession.login({ method });
-			this.setAvailable()
-				.catch(this.error);
-			// this.log('Login successful');
-			return Promise.resolve(true);
-		}	catch (error) {
-			this.setUnavailable(error.message)
-				.catch(this.error);
-			return Promise.reject(error);
-		}
-	}
-
-	async wol(mac, password) { // call with NetgearDevice as this
-		try {
-			this.log(`WOL requested for device ${mac} ${this.knownDevices[mac].Name}`);
-			if (!this.routerSession.loggedIn) {
-				await this.routerSession.login();
-			}
-			await this.routerSession.wol(mac, password);
-			return Promise.resolve(true);
-		}	catch (error) {
-			// this.error('WOL error', error.message);
-			return Promise.reject(error);
-		}
-	}
-
-	async blockOrAllow(mac, action) { // call with NetgearDevice as this
-		try {
-			this.log(`${action} requested for device "${mac}"`);
-			if (!this.routerSession.loggedIn) {
-				await this.routerSession.login();
-			}
-			await this.routerSession.setBlockDevice(mac, action);
-			return Promise.resolve(true);
-		}	catch (error) {
-			// this.error('blockOrAllow error', error.message);
-			return Promise.reject(error);
-		}
-	}
-
-	async setGuestwifi(action) { // call with NetgearDevice as this
-		try {
-			this.log(`2.4GHz-1 guest wifi ${action} requested`);
-			if (!this.routerSession.loggedIn) {
-				await this.routerSession.login();
-			}
-			const onOff = (action === 'on');
-			await this.routerSession.router.setGuestWifi(onOff);
-			return Promise.resolve(true);
-		}	catch (error) {
-			// this.error('2.4GHz-1 set guest wifi error', error.message);
-			return Promise.reject(error);
-		}
-	}
-
-	async setGuestwifi2(action) { // call with NetgearDevice as this
-		try {
-			this.log(`2.4GHz-2 guest wifi ${action} requested`);
-			if (!this.routerSession.loggedIn) {
-				await this.routerSession.login();
-			}
-			const onOff = (action === 'on');
-			await this.routerSession.setGuestWifi(onOff);	// there is actually no method yet to do 2.4Ghz-2
-			return Promise.resolve(true);
-		}	catch (error) {
-			// this.error('2.4GHz-2 set guest wifi error error', error.message);
-			return Promise.reject(error);
-		}
-	}
-
-	async set5GGuestWifi(action) { // call with NetgearDevice as this
-		try {
-			this.log(`5GHz-1 guest wifi ${action} requested`);
-			if (!this.routerSession.loggedIn) {
-				await this.routerSession.login();
-			}
-			const onOff = (action === 'on');
-			await this.routerSession.set5GGuestWifi(onOff);
-			return Promise.resolve(true);
-		}	catch (error) {
-			// this.error('5GHz-1 set guest wifi error errorr', error.message);
-			return Promise.reject(error);
-		}
-	}
-
-	async set5GGuestWifi2(action) { // call with NetgearDevice as this
-		try {
-			this.log(`5GHz-2 guest wifi ${action} requested`);
-			if (!this.routerSession.loggedIn) {
-				await this.routerSession.login();
-			}
-			const onOff = (action === 'on');
-			await this.routerSession.set5GGuestWifi2(onOff);
-			return Promise.resolve(true);
-		}	catch (error) {
-			// this.error('5GHz-2 set guest wifi error error', error.message);
-			return Promise.reject(error);
-		}
-	}
-
-	async speedTest() { // call with NetgearDevice as this
-		try {
-			this.log('router speedtest requested');
-			if (!this.routerSession.loggedIn) {
-				await this.routerSession.login();
-			}
-			const speed = await this.routerSession.speedTest();
-			return Promise.resolve(speed);
-		}	catch (error) {
-			// this.error('speedTest error', error);
-			// this.log('last repsonse from router:');
-			// this.log(this.routerSession.lastResponse);
-			return Promise.reject(error);
-		}
-	}
-
-	async updateNewFirmware() { // call with NetgearDevice as this
-		try {
-			this.log('router firmware update requested');
-			if (!this.routerSession.loggedIn) {
-				await this.routerSession.login();
-			}
-			await this.routerSession.updateNewFirmware();
-			return Promise.resolve(true);
-		}	catch (error) {
-			// this.error('updateNewFirmware error', error);
-			// this.log('last repsonse from router:');
-			// this.log(this.routerSession.lastResponse);
-			return Promise.reject(error);
-		}
-	}
-
-	async reboot() { // call with NetgearDevice as this
-		try {
-			this.log('router reboot requested');
-			if (!this.routerSession.loggedIn) {
-				await this.routerSession.login();
-			}
-			await this.routerSession.reboot();
-			return Promise.resolve(true);
-		}	catch (error) {
-			// this.error('reboot error', error);
-			return Promise.reject(error);
-		}
-	}
-
-	async enableTrafficMeter(action) { // call with NetgearDevice as this
-		try {
-			const enableDisable = (action && 'enable') || 'disable';
-			this.log(`Traffic meter ${enableDisable} requested`);
-			if (!this.routerSession.loggedIn) {
-				await this.routerSession.login();
-			}
-			await this.routerSession.enableTrafficMeter(action);
-			return Promise.resolve(true);
-		}	catch (error) {
-			// this.error('enableTrafficMeter error', error);
-			return Promise.reject(error);
-		}
-	}
-
-	async setBlockDeviceEnable(action) { // call with NetgearDevice as this
-		try {
-			const enableDisable = (action && 'enable') || 'disable';
-			this.log(`Access control ${enableDisable} requested`);
-			if (!this.routerSession.loggedIn) {
-				await this.routerSession.login();
-			}
-			await this.routerSession.setBlockDeviceEnable(action);
-			return Promise.resolve(true);
-		}	catch (error) {
-			// this.error('setBlockDeviceEnable error', error);
-			return Promise.reject(error);
-		}
-	}
-
-	onPair(socket) {
+	async onPair(session) {
 		const router = new NetgearRouter();
-		socket.on('discover', async (data, callback) => {
+		session.setHandler('discover', async () => {
 			try {
 				this.log('discovery started from frontend');
 				const discover = await router.discover();
 				this.log(discover);
-				callback(null, JSON.stringify(discover)); // report success to frontend
+				return Promise.resolve(JSON.stringify(discover)); // report success to frontend
 			}	catch (error) {
 				this.log(error);
-				callback(error);
+				return Promise.reject(Error('Autodiscovery failed. Manual entry required.'));
 			}
 		});
-		socket.on('check', async (data, callback) => {
+		session.setHandler('check', async (data) => {
 			try {
 				this.log('Checking router settings from frontend');
 				const password = data.password;
@@ -286,17 +95,17 @@ class NetgearDriver extends Homey.Driver {
 						clear_known_devices: false,
 					},
 					class: 'sensor',
-					capabilities: ['alarm_generic', 'attached_devices', 'download_speed', 'upload_speed', 'cpu_utilization', 'mem_utilization'],
+					capabilities,
 					energy: {
 						approximation: {
 							usageConstant: 8,
 						},
 					},
 				};
-				callback(null, device); // report success to frontend
+				return Promise.resolve(device);
 			}	catch (error) {
 				this.error('Pair error:', error.message);
-				callback(error);
+				return Promise.reject(error);
 			}
 		});
 	}

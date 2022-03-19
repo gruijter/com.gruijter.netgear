@@ -1,0 +1,14 @@
+{
+  "title": {
+    "en": "Start internet speed test",
+    "nl": "Doe internet snelheidstest",
+    "de": "Starte Internet-Geschwindigkeitstest"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=netgear"
+   }
+  ]
+}

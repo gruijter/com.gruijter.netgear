@@ -11,9 +11,9 @@
     "de": "Überwache deinen Netgear-Router"
   },
   "brandColor": "#751939",
-  "version": "3.3.1",
-  "sdk": 2,
-  "compatibility": ">= 3.0",
+  "version": "4.0.0",
+  "sdk": 3,
+  "compatibility": ">= 5.0",
   "author": {
     "name": "Robin Gruijter",
     "email": "gruijter@hotmail.com"
@@ -91,5 +91,30 @@
       "nighthawk",
       "orbi"
     ]
+  },
+  "platforms": [
+    "local"
+  ],
+  "api": {
+    "getLogs": {
+      "method": "get",
+      "path": "/getlogs"
+    },
+    "deleteLogs": {
+      "method": "get",
+      "path": "/deletelogs"
+    },
+    "discover": {
+      "method": "get",
+      "path": "/discover"
+    },
+    "getkd": {
+      "method": "get",
+      "path": "/getkd"
+    },
+    "runTest": {
+      "method": "get",
+      "path": "/runtest"
+    }
   }
 }

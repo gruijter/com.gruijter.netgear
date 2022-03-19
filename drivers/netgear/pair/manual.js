@@ -36,7 +36,7 @@ $(document).ready(() => {
 			port: Number(port) || 0,
 		};
 		Homey.setViewStoreValue('select_options', 'settings', settings, (err) => {
-			if (err) return console.error(err);
+			if (err) console.error(err);
 		});
 
 	});

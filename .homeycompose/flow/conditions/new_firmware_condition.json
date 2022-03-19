@@ -1,0 +1,14 @@
+{
+  "title": {
+    "en": "!{{New|No}} firmware update",
+    "nl": "!{{Er is|Geen}} nieuwe firmware",
+    "de": "!{{Neues|Kein}} Firmware-Update"
+  },
+    "args": [
+        {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=netgear"
+        }
+    ]
+  }

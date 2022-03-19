@@ -36,10 +36,13 @@ function updateLogs() {
 							if (line.includes('[err]')) return;
 						}
 						const logLine = line
-							.replace(' [log] [ManagerDrivers]', '')
+							.replace(' [ManagerDrivers]', '')
+							.replace(/\[Device:(.*?)\]/, '[dev]')
+							.replace(/\[Driver:(.*?)\]/, '[$1]')
+							.replace(' [log] ', '')
+							.replace(' [App] ', '')
 							.replace(' [attached_device]', '');
 						lines += `${logLine}<br />`;
-
 					});
 				displayLogs(lines);
 			} else {
@@ -115,7 +118,7 @@ function runTest() {
 	const host = $('#host').val();
 	const port = $('#soapPort').val();
 	$('#testResult').html('Testing now. Hang on for three minutes........');
-	Homey.api('POST', 'runtest/', { password, host, port }, (err, result) => {
+	Homey.api('GET', `runtest/?password=${password}&host=${host}&port=${port}`, (err, result) => { // , { password, host, port }, (err, result) => {
 		if (err) {
 			$('#copyResult').prop('disabled', false);
 			$('#runTest').prop('disabled', false);

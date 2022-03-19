@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 /*
 Copyright 2017 - 2022, Robin de Gruijter (gruijter@hotmail.com)
 
@@ -19,17 +20,67 @@ along with com.gruijter.netgear.  If not, see <http://www.gnu.org/licenses/>.
 
 'use strict';
 
-const Homey = require('homey');
+const { Device } = require('homey');
+const util = require('util');
 
-class attachedNetgearDevice extends Homey.Device {
+const setTimeoutPromise = util.promisify(setTimeout);
+
+class attachedNetgearDevice extends Device {
 
 	// this method is called when the Device is inited
 	async onInit() {
-		// this.log(`device init: ${this.getName()}`);
 		this.settings = await this.getSettings();
-		await this.registerFlowCards();
+		this.lastInfo = {
+			MAC: this.getData().id,
+			Name: this.getCapabilityValue('name_in_router') || 'unknown',
+			IP: this.getCapabilityValue('ip_address') || 'unknown',
+		};
+
+		// migrate stuff
+		if (!this.migrated) await this.checkCaps(true).catch(this.error);
+
 		// add router available check here?
 		this.log(`device ready: ${this.getName()}`);
+	}
+
+	// migrate stuff from old version < 4.0.0 and reset capabilities after settings change
+	async checkCaps(migrate) {
+		try {
+			if (migrate) this.log(`checking device migration for ${this.getName()}`);
+			// console.log(this.getName(), this.settings, this.getStore());
+
+			// check and repair incorrect capability(order)	// remove unselected optional capabilities
+			const correctCaps = this.driver.capabilities.filter((cap) => {
+				let include = true;
+				if (!this.settings.use_link_info && (cap === 'meter_link_speed' || cap === 'meter_signal_strength')) include = false;
+				if (!this.settings.use_bandwidth_info && cap.includes('load_speed')) include = false;
+				if (!this.settings.report_power && cap === 'onoff') include = false;
+				return include;
+			});
+			for (let index = 0; index < correctCaps.length; index += 1) {
+				const caps = this.getCapabilities();
+				const newCap = correctCaps[index];
+				if (caps[index] !== newCap) {
+					// remove all caps from here
+					for (let i = index; i < caps.length; i += 1) {
+						this.log(`removing capability ${caps[i]} for ${this.getName()}`);
+						await this.removeCapability(caps[i])
+							.catch((error) => this.log(error));
+						await setTimeoutPromise(3 * 1000); // wait a bit for Homey to settle
+					}
+					// add the new cap
+					this.log(`adding capability ${newCap} for ${this.getName()}`);
+					await this.addCapability(newCap);
+					await setTimeoutPromise(3 * 1000); // wait a bit for Homey to settle
+				}
+			}
+			// set new migrate level
+			if (migrate) this.setSettings({ level: this.homey.app.manifest.version });
+			this.migrated = true;
+			Promise.resolve(this.migrated);
+		} catch (error) {
+			Promise.reject(Error('Migration failed', error));
+		}
 	}
 
 	// this method is called when the Device is added
@@ -42,75 +93,31 @@ class attachedNetgearDevice extends Homey.Device {
 		this.log(`${this.getData().id} deleted: ${this.getName()}`);
 	}
 
-	// this method is called when the user has changed the device's settings in Homey.
-	async onSettings(oldSettingsObj, newSettingsObj, changedKeysArr) {
-		this.log(`${this.getData().id} ${this.getName()} device settings changed`);
-		await changedKeysArr.forEach(async (key) => {
-			switch (key) {
-				case 'icon':
-					this.setIcon('../assets/smartphone.svg');
-					break;
-				case 'use_link_info':
-					if (newSettingsObj.use_link_info) {
-						await this.addCapability('link_speed');
-						await this.addCapability('signal_strength');
-					} else {
-						await this.removeCapability('link_speed');
-						await this.removeCapability('signal_strength');
-					}
-					break;
-				case 'use_bandwidth_info':
-					if (newSettingsObj.use_bandwidth_info) {
-						await this.addCapability('download_speed');
-						await this.addCapability('upload_speed');
-					} else {
-						await this.removeCapability('download_speed');
-						await this.removeCapability('upload_speed');
-					}
-					break;
-				case 'report_power':
-					if (newSettingsObj.report_power) {
-						await this.addCapability('onoff');
-					} else {
-						await this.removeCapability('onoff');
-					}
-					break;
-				default:
-					break;
-			}
-		});
-		this.log(newSettingsObj);
-		this.settings = newSettingsObj;
-		return Promise.resolve(true);
+	onSettings({ newSettings }) { // , oldSettings, changedKeys) {
+		this.migrated = false;
+		this.settings = newSettings;
+		this.log(`${this.getData().id} ${this.getName()} device settings changed by user`, newSettings);
+		this.checkCaps(false).catch(this.error);
 	}
 
 	// Update device capabilities and trigger flowcards
-	checkMetricsChanged(metrics, info) {
-		// check coming online or going offline
-		const wasConnected = this.getCapabilityValue('device_connected');
-		if (wasConnected !== metrics.device_connected) {
-			const tokens = {
-				mac: info.MAC,
-				name: info.Name,
-				ip: info.IP,
-			};
-			if (metrics.device_connected) {
-				this.log(`Connected: ${this.getName()} ${info.IP}`);
-				this.flows.deviceOnlineTrigger
-					.trigger(this, tokens)
-					// .then(this.log(tokens))
-					.catch((error) => {
-						this.error('trigger error', error);
-					});
-			} else {
-				this.log(`Disconnected: ${this.getName()}`);
-				this.flows.deviceOfflineTrigger
-					.trigger(this, tokens)
-					// .then(this.log(tokens))
-					.catch((error) => {
-						this.error('trigger error', error);
-					});
-			}
+	async checkMetricsChanged(metrics, info) {
+		if (!this.migrated) return Promise.resolve(true);
+		const tokens = {
+			mac: info.MAC,
+			name: metrics.name_in_router,
+			ip: metrics.ip_address,
+			device_connected: metrics.device_connected,
+			ssid: metrics.ssid,
+			link_speed: metrics.meter_link_speed,
+			signal_strength: metrics.meter_signal_strength,
+			download_speed: metrics.meter_download_speed,
+			upload_speed: metrics.meter_upload_speed,
+		};
+		// check for (dis)connected
+		let connectionChanged = false;
+		if (this.getCapabilityValue('device_connected') !== metrics.device_connected) {
+			connectionChanged = true;
 		}
 		// check metrics changed and update capability
 		let metricsChanged = false;
@@ -125,91 +132,66 @@ class attachedNetgearDevice extends Homey.Device {
 					});
 			}
 		});
-		// metrics have changed trigger flow
+
+		// trigger flow when (dis)connected
+		if (connectionChanged) {
+			if (metrics.device_connected) {
+				this.log(`Connected: ${this.getName()} ${info.MAC} ${info.IP}`);
+				this.homey.app.triggerCameOnline(this, tokens, {});
+			} else {
+				this.log(`Disconnected: ${this.getName()} ${info.MAC}`);
+				this.homey.app.triggerWentOffline(this, tokens, {});
+			}
+		}
+		// trigger flow when metrics changed
 		if (metricsChanged) {
-			const tokens = {
-				mac: info.MAC,
-				name: info.Name,
-				ip: info.IP,
-				device_connected: metrics.device_connected,
-				ssid: metrics.ssid,
-				link_speed: metrics.link_speed,
-				signal_strength: metrics.signal_strength,
-				download_speed: metrics.download_speed,
-				upload_speed: metrics.upload_speed,
-			};
-			this.flows.metricsChangedTrigger
-				.trigger(this, tokens)
-				// .then(this.log(tokens))
-				.catch((error) => {
-					this.error('trigger error', error);
-				});
+			this.homey.app.triggerMetricsChanged(this, tokens, {});
 		}
+		// trigger flow when Name changed
+		if (info.Name !== this.lastInfo.Name) {
+			this.homey.app.triggerNameChanged(this, tokens, {});
+		}
+		// trigger flow when IP changed
+		if ((info.IP !== this.lastInfo.IP) && !connectionChanged) {
+			this.homey.app.triggerIPChanged(this, tokens, {});
+		}
+		return Promise.resolve(true);
 	}
 
-	updateInfo(info) {
+	async updateInfo(info) {
 		try {
-			let connected = true;
-			if ((Date.parse(info.pollTime) - Date.parse(info.lastSeen)) > (this.settings.offline_after * 1000)) {
-				connected = false;
-			}
-			let ssid = 'offline';
-			let linkSpeed = 0;
-			let signalStrength = 0;
-			let download = 0;
-			let upload = 0;
-			if (connected) {
-				ssid = info.SSID ? info.SSID : info.ConnectionType;
-				linkSpeed = info.Linkspeed ? info.Linkspeed : 100;
-				signalStrength = info.SignalStrength ? info.SignalStrength : signalStrength;
-				download = info.Download ? info.Download : download;
-				upload = info.Upload ? info.Upload : upload;
-			}
-			const metrics = {
-				onoff: connected,
-				device_connected: connected,
-				ssid,
-				link_speed: linkSpeed,
-				signal_strength: signalStrength,
-				download_speed: download,
-				upload_speed: upload,
+			const hasInfo = info !== undefined;	// this device is gone from router list
+			const metrics = {	// defaults when gone from router list
+				onoff: false,
+				device_connected: false,
+				ssid: 'offline',
+				ip_address: 'offline',
+				name_in_router: this.lastInfo.Name,
+				meter_link_speed: 0,
+				meter_signal_strength: 0,
+				meter_download_speed: 0,
+				meter_upload_speed: 0,
 			};
-			this.checkMetricsChanged(metrics, info);
+			if (hasInfo) {
+				let connected = true;
+				if ((Date.parse(info.pollTime) - Date.parse(info.lastSeen)) > (this.settings.offline_after * 1000)) {
+					connected = false;
+				}
+				metrics.onoff = connected;
+				metrics.device_connected = connected;
+				if (connected) {
+					metrics.ssid = info.SSID ? info.SSID : info.ConnectionType;
+					metrics.ip_address = info.IP ? info.IP : 'unknown';
+					metrics.name_in_router = info.Name ? info.Name : 'unknown';
+					metrics.meter_link_speed = info.Linkspeed ? info.Linkspeed : 100;
+					metrics.meter_signal_strength = info.SignalStrength ? info.SignalStrength : 0;
+					metrics.meter_download_speed = info.Download ? info.Download : 0;
+					metrics.meter_upload_speed = info.Upload ? info.Upload : 0;
+				}
+			}
+			await this.checkMetricsChanged(metrics, info || this.lastInfo);
+			if (hasInfo) this.lastInfo = info;
 		} catch (error) { this.error(error); }
-	}
-
-	// register flow cards
-	async registerFlowCards() {
-		try {
-			// unregister cards first
-			if (!this.flows) this.flows = {};
-			const ready = Object.keys(this.flows).map((flow) => Promise.resolve(Homey.ManagerFlow.unregisterCard(this.flows[flow])));
-			await Promise.all(ready);
-
-			// add trigger cards
-			this.flows.deviceOnlineTrigger = new Homey.FlowCardTriggerDevice('came_online')
-				.register();
-			this.flows.deviceOfflineTrigger = new Homey.FlowCardTriggerDevice('went_offline')
-				.register();
-			this.flows.metricsChangedTrigger = new Homey.FlowCardTriggerDevice('device_metrics_changed')
-				.register();
-
-			// add condition cards
-			this.flows.deviceConnectedCondition = new Homey.FlowCardCondition('device_is_online');
-			this.flows.deviceConnectedCondition
-				.register()
-				.registerRunListener((args) => {
-					if (Object.prototype.hasOwnProperty.call(args, 'device')) {
-						return Promise.resolve(args.device.getCapabilityValue('device_connected'));
-					}
-					return Promise.reject(Error('The netgear device is unknown or not ready'));
-				});
-
-			return Promise.resolve(this.flows);
-		} catch (error) {
-			return Promise.resolve(error);
-		}
-
 	}
 
 }

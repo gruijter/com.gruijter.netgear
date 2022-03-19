@@ -75,7 +75,6 @@ $(document).ready(async () => {
 	}
 });
 
-
 async function save() {
 	if (!device.data) {
 		Homey.alert('No device loaded', 'error');
@@ -85,15 +84,15 @@ async function save() {
 	dev.name = $('#name').val();
 	dev.icon = `../assets/${$('#iconSelection').val()}.svg`;
 	dev.settings.use_link_info = $('#use_link_info').prop('checked');
-	dev.settings.use_bandwidth_info = $('#use_bandwidth_info').prop('checked');
+	dev.settings.use_bandwidth_info = false; // $('#use_bandwidth_info').prop('checked');
 	dev.settings.report_power = $('#report_power').prop('checked');
-	dev.capabilities = ['device_connected', 'ssid'];
+	dev.capabilities = ['device_connected', 'ip_address', 'name_in_router', 'ssid'];
 	if (dev.settings.use_link_info) {
-		dev.capabilities.push('link_speed', 'signal_strength');
+		dev.capabilities.push('meter_link_speed', 'meter_signal_strength');
 	}
-	if (dev.settings.use_bandwidth_info) {
-		dev.capabilities.push('download_speed', 'upload_speed');
-	}
+	// if (dev.settings.use_bandwidth_info) {
+	// 	dev.capabilities.push('meter_download_speed', 'meter_upload_speed');
+	// }
 	if (dev.settings.report_power) {
 		dev.capabilities.push('onoff');
 	}

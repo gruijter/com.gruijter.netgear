@@ -1,0 +1,14 @@
+{
+  "title": {
+    "en": "Update router firmware",
+    "nl": "Update router firmware",
+    "de": "Update Router-Firmware"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=netgear"
+   }
+  ]
+}
