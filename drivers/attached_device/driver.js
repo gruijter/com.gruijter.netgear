@@ -1,5 +1,5 @@
 /*
-Copyright 2017 - 2021, Robin de Gruijter (gruijter@hotmail.com)
+Copyright 2017 - 2022, Robin de Gruijter (gruijter@hotmail.com)
 
 This file is part of com.gruijter.netgear.
 
@@ -21,6 +21,9 @@ along with com.gruijter.netgear.  If not, see <http://www.gnu.org/licenses/>.
 
 const Homey = require('homey');
 // const util = require('util');
+
+const capabilities = ['device_connected', 'ip_address', 'name_in_router', 'ssid',
+	'meter_link_speed', 'meter_signal_strength', 'meter_download_speed', 'meter_upload_speed', 'onoff'];
 
 const iconArray = ['access_point', 'camera', 'default', 'desktop', 'game_console', 'laptop', 'media_player', 'multifunctional', 'nas',
 	'phone_man', 'phone_location', 'phone_person', 'phone_woman', 'router', 'smart_power', 'smart_tv', 'smartphone', 'switch', 'tablet', 'voip'];
@@ -82,32 +85,33 @@ const iconTable = {
 class AttachedDeviceDriver extends Homey.Driver {
 
 	async onInit() {
-		return;
 		this.log('AttachedDeviceDriver onInit');
-		// Homey
-		// 	.on('listUpdate', (info) => {
-		// 		// console.log(util.inspect(knownDevices, true, 4, true));
-		// 		this.updateDevices(JSON.parse(info));
-		// 	});
+		this.capabilities = capabilities;
+		this.homey.on('listUpdate', (info) => {
+			// console.log(util.inspect(knownDevices, true, 4, true));
+			this.updateDevices(JSON.parse(info));
+		});
 	}
 
 	updateDevices(info) {
 		const { knownDevices } = info;
 		const { routerID } = info;
-		Object.keys(knownDevices).forEach((key) => {
-			const device = this.getDevice({ id: key });
-			if (device instanceof Homey.Device) {
-				const attachedRouter = device.getSettings().router_id;
-				if (attachedRouter === 'unknown' || attachedRouter === routerID) device.updateInfo(knownDevices[key]);
-			}
+		const pairedDevices = this.getDevices();
+		pairedDevices.forEach((pairedDevice) => {
+			const newInfo = knownDevices[pairedDevice.getData().id];
+			// legacy check for correct router CAN I REMOVE THIS?
+			const deviceRouter = pairedDevice.getSettings().router_id;
+			if (deviceRouter !== 'unknown' && deviceRouter !== routerID) return;
+			pairedDevice.updateInfo(newInfo);
 		});
 	}
 
-	onPair(socket) {
-		socket.on('list_devices', async (data, callback) => {
-			// console.log('list devices');
+	async onPair(session) {
+		session.setHandler('get_icons', () => JSON.stringify(iconArray));
+		session.setHandler('list_devices', async () => {
 			try {
-				const netgearDriver = Homey.ManagerDrivers.getDriver('netgear');
+				this.log('Pairing of new Attached device started');
+				const netgearDriver = this.homey.drivers.getDriver('netgear');
 				await netgearDriver.ready(() => null);
 				const routers = await netgearDriver.getDevices();
 				const router = routers ? routers[0] : null;
@@ -135,7 +139,7 @@ class AttachedDeviceDriver extends Homey.Driver {
 							// energy_value_off: 0,
 							// energy_value_constant: 1,
 						},
-						capabilities: ['onoff', 'device_connected', 'ssid', 'link_speed', 'signal_strength', 'download_speed', 'upload_speed'],
+						capabilities,
 						// energy: {
 						// 	approximation: {
 						// 		usageOn: 3,
@@ -146,28 +150,14 @@ class AttachedDeviceDriver extends Homey.Driver {
 					};
 					devices.push(device);
 				});
-
 				// present last seen first
 				devices.sort((a, b) => Date.parse(b.lastSeen) - Date.parse(a.lastSeen));
-				callback(null, devices);
+				return Promise.resolve(devices);
 			} catch (error) {
 				this.error(error);
-				callback(error, null);
+				return Promise.reject(error);
 			}
 		});
-
-		socket.on('get_icons', (data, callback) => {
-			callback(null, JSON.stringify(iconArray));
-		});
-
-		// socket.on('showView', (viewId, callback) => {
-		// 	console.log('View: ' + viewId);
-		// 	callback();
-		// });
-
-		// socket.on('add_device', (data) => {
-		// 	console.log(data);
-		// });
 	}
 
 }

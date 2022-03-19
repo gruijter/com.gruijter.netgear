@@ -1,0 +1,106 @@
+{
+    "title": {
+      "en": "Device metrics changed",
+      "nl": "Apparaat waarden gewijzigd",
+      "de": "Gerätedaten verändert"
+    },
+    "args": [
+        {
+          "name": "device",
+          "type": "device",
+          "filter": "driver_id=attached_device"
+        }
+    ],
+    "tokens": [
+      {
+        "name": "mac",
+        "type": "string",
+        "title": {
+          "en": "mac",
+          "nl": "mac",
+          "de": "MAC"
+        },
+        "example": "AA:BB:CC:DD:EE:FF"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "title": {
+          "en": "name",
+          "nl": "naam",
+          "de": "Name"
+        },
+        "example": "iPhone"
+      },
+      {
+        "name": "ip",
+        "type": "string",
+        "title": {
+          "en": "ip",
+          "nl": "ip",
+          "de": "IP"
+        },
+        "example": "10.0.0.10"
+      },
+      {
+        "name": "device_connected",
+        "type": "boolean",
+        "title": {
+          "en": "Connected",
+          "nl": "Verbonden",
+          "de": "Verbunden"
+        },
+        "example": true
+      },
+      {
+        "name": "ssid",
+        "type": "string",
+        "title": {
+          "en": "SSID",
+          "nl": "SSID",
+          "de": "SSID"
+        },
+        "example": "wired"
+      },
+      {
+        "name": "link_speed",
+        "type": "number",
+        "title": {
+          "en": "link speed",
+          "nl": "link snelheid",
+          "de": "Verbindungsgeschwindigkeit"
+        },
+        "example": 35
+      },
+      {
+        "name": "signal_strength",
+        "type": "number",
+        "title": {
+          "en": "signal strength",
+          "nl": "signaal sterkte",
+          "de": "Signalstärke"
+        },
+        "example": 50
+      },
+      {
+        "name": "upload_speed",
+        "type": "number",
+        "title": {
+          "en": "up",
+          "nl": "up",
+          "de": "Up"
+        },
+        "example": 5
+      },
+      {
+        "name": "download_speed",
+        "type": "number",
+        "title": {
+          "en": "down",
+          "nl": "down",
+          "de": "Down"
+        },
+        "example": 1
+      }
+    ]
+  }

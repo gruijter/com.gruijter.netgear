@@ -1,5 +1,4 @@
 {
-  "id": "device_online_condition",
   "title": {
     "en": "Device !{{is|isn't}} online (mac)",
     "nl": "Apparaat !{{is|is niet}} online (mac)",

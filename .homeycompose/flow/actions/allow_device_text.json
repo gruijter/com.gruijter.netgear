@@ -1,14 +1,13 @@
 {
-  "id": "allow_device_text",
   "title": {
     "en": "Allow a device with tag",
     "nl": "Apparaat vrijgeven met tag",
     "de": "Ein Gerät mit Tag zulassen"
   },
   "titleFormatted": {
-    "en": "Allow [[mac]] device",
-    "nl": "Apparaat [[mac]] vrijgeven",
-    "de": "Gerät [[mac]] zulassen"
+    "en": "Allow [[mac]] device with tag",
+    "nl": "Apparaat [[mac]] vrijgeven met tag",
+    "de": "Gerät [[mac]] zulassen mit Tag"
   },
   "args": [
     {

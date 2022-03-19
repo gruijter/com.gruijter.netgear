@@ -118,7 +118,7 @@ function runTest() {
 	const host = $('#host').val();
 	const port = $('#soapPort').val();
 	$('#testResult').html('Testing now. Hang on for three minutes........');
-	Homey.api('POST', 'runtest/', { password, host, port }, (err, result) => {
+	Homey.api('GET', `runtest/?password=${password}&host=${host}&port=${port}`, (err, result) => { // , { password, host, port }, (err, result) => {
 		if (err) {
 			$('#copyResult').prop('disabled', false);
 			$('#runTest').prop('disabled', false);

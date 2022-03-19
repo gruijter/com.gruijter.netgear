@@ -113,7 +113,7 @@
       "path": "/getkd"
     },
     "runTest": {
-      "method": "post",
+      "method": "get",
       "path": "/runtest"
     }
   }

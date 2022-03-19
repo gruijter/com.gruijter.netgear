@@ -114,14 +114,13 @@
       "path": "/getkd"
     },
     "runTest": {
-      "method": "post",
+      "method": "get",
       "path": "/runtest"
     }
   },
   "flow": {
     "triggers": [
       {
-        "id": "alarm_generic_false",
         "title": {
           "en": "Internet connected",
           "nl": "Internet verbonden",
@@ -133,10 +132,10 @@
             "type": "device",
             "filter": "driver_id=netgear"
           }
-        ]
+        ],
+        "id": "alarm_generic_false"
       },
       {
-        "id": "alarm_generic_true",
         "title": {
           "en": "Internet disconnected",
           "nl": "Internet verbroken",
@@ -148,57 +147,11 @@
             "type": "device",
             "filter": "driver_id=netgear"
           }
-        ]
-      },
-      {
-        "id": "device_offline",
-        "title": {
-          "en": "Device went offline",
-          "nl": "Apparaat raakt offline",
-          "de": "Gerät ging offline"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "filter": "driver_id=netgear"
-          }
         ],
-        "tokens": [
-          {
-            "name": "mac",
-            "type": "string",
-            "title": {
-              "en": "mac",
-              "nl": "mac",
-              "de": "MAC"
-            },
-            "example": "AA:BB:CC:DD:EE:FF"
-          },
-          {
-            "name": "name",
-            "type": "string",
-            "title": {
-              "en": "name",
-              "nl": "naam",
-              "de": "Name"
-            },
-            "example": "iPhone"
-          },
-          {
-            "name": "ip",
-            "type": "string",
-            "title": {
-              "en": "ip",
-              "nl": "ip",
-              "de": "IP"
-            },
-            "example": "10.0.0.10"
-          }
-        ]
+        "id": "alarm_generic_true"
       },
       {
-        "id": "device_online",
+        "id": "came_online",
         "title": {
           "en": "Device came online",
           "nl": "Apparaat komt online",
@@ -208,7 +161,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=netgear"
+            "filter": "driver_id=netgear|attached_device"
           }
         ],
         "tokens": [
@@ -245,190 +198,18 @@
         ]
       },
       {
-        "id": "new_attached_device",
-        "title": {
-          "en": "New connected device",
-          "nl": "Nieuw verbonden apparaat",
-          "de": "Neues verbundenes Gerät"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "filter": "driver_id=netgear"
-          }
-        ],
-        "tokens": [
-          {
-            "name": "mac",
-            "type": "string",
-            "title": {
-              "en": "mac",
-              "nl": "mac",
-              "de": "MAC"
-            },
-            "example": "AA:BB:CC:DD:EE:FF"
-          },
-          {
-            "name": "name",
-            "type": "string",
-            "title": {
-              "en": "name",
-              "nl": "naam",
-              "de": "Name"
-            },
-            "example": "iPhone"
-          },
-          {
-            "name": "ip",
-            "type": "string",
-            "title": {
-              "en": "ip",
-              "nl": "ip",
-              "de": "IP"
-            },
-            "example": "10.0.0.10"
-          }
-        ]
-      },
-      {
-        "id": "new_router_firmware",
-        "title": {
-          "en": "New router firmware available",
-          "nl": "Er is nieuwe router firmware",
-          "de": "Neue Router-Firmware verfügbar"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "filter": "driver_id=netgear"
-          }
-        ],
-        "tokens": [
-          {
-            "name": "current_version",
-            "type": "string",
-            "title": {
-              "en": "current",
-              "nl": "huidig",
-              "de": "aktuell"
-            },
-            "example": "1.0.9.34"
-          },
-          {
-            "name": "new_version",
-            "type": "string",
-            "title": {
-              "en": "new",
-              "nl": "nieuw",
-              "de": "neu"
-            },
-            "example": "1.0.9.42_10.2.44"
-          },
-          {
-            "name": "release_note",
-            "type": "string",
-            "title": {
-              "en": "info",
-              "nl": "info",
-              "de": "Info"
-            },
-            "example": "security fixes"
-          }
-        ]
-      },
-      {
-        "id": "speed_test_result",
-        "title": {
-          "en": "Speed test is ready",
-          "nl": "Snelheidstest is klaar",
-          "de": "Geschwindigkeitstest ist bereit"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "filter": "driver_id=netgear"
-          }
-        ],
-        "tokens": [
-          {
-            "name": "uplink_bandwidth",
-            "type": "number",
-            "title": {
-              "en": "up",
-              "nl": "up",
-              "de": "Up"
-            },
-            "example": 1
-          },
-          {
-            "name": "downlink_bandwidth",
-            "type": "number",
-            "title": {
-              "en": "down",
-              "nl": "down",
-              "de": "Down"
-            },
-            "example": 5
-          },
-          {
-            "name": "average_ping",
-            "type": "number",
-            "title": {
-              "en": "ping",
-              "nl": "ping",
-              "de": "Ping"
-            },
-            "example": 10
-          }
-        ]
-      },
-      {
-        "id": "uldl_speed_changed",
-        "title": {
-          "en": "The up/down speed changed",
-          "nl": "Up/down snelheid gewijzigd",
-          "de": "Die Up/Down-Geschwindigkeit hat sich geändert"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "filter": "driver_id=netgear"
-          }
-        ],
-        "tokens": [
-          {
-            "name": "upload_speed",
-            "type": "number",
-            "title": {
-              "en": "up",
-              "nl": "up",
-              "de": "Up"
-            },
-            "example": 5
-          },
-          {
-            "name": "download_speed",
-            "type": "number",
-            "title": {
-              "en": "down",
-              "nl": "down",
-              "de": "Down"
-            },
-            "example": 1
-          }
-        ]
-      },
-      {
-        "id": "device_metrics_changed",
         "title": {
           "en": "Device metrics changed",
           "nl": "Apparaat waarden gewijzigd",
           "de": "Gerätedaten verändert"
         },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=attached_device"
+          }
+        ],
         "tokens": [
           {
             "name": "mac",
@@ -521,21 +302,21 @@
             "example": 1
           }
         ],
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=attached_device"
-          }
-        ]
+        "id": "device_metrics_changed"
       },
       {
-        "id": "came_online",
         "title": {
-          "en": "Device came online",
-          "nl": "Apparaat komt online",
-          "de": "Gerät kam online"
+          "en": "Device IP changed",
+          "nl": "Apparaat IP is gewijzigd",
+          "de": "Geräte-IP hat sich geändert"
         },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=netgear|attached_device"
+          }
+        ],
         "tokens": [
           {
             "name": "mac",
@@ -568,21 +349,246 @@
             "example": "10.0.0.10"
           }
         ],
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=attached_device"
-          }
-        ]
+        "id": "ip_changed"
       },
       {
-        "id": "went_offline",
+        "title": {
+          "en": "Device name changed in router",
+          "nl": "Apparaat naam is gewijzigd in router",
+          "de": "Gerätename wurde im Router geändert"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=netgear|attached_device"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "mac",
+            "type": "string",
+            "title": {
+              "en": "mac",
+              "nl": "mac",
+              "de": "MAC"
+            },
+            "example": "AA:BB:CC:DD:EE:FF"
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "title": {
+              "en": "name",
+              "nl": "naam",
+              "de": "Name"
+            },
+            "example": "iPhone"
+          },
+          {
+            "name": "ip",
+            "type": "string",
+            "title": {
+              "en": "ip",
+              "nl": "ip",
+              "de": "IP"
+            },
+            "example": "10.0.0.10"
+          }
+        ],
+        "id": "name_changed"
+      },
+      {
+        "title": {
+          "en": "New connected device",
+          "nl": "Nieuw verbonden apparaat",
+          "de": "Neues verbundenes Gerät"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=netgear"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "mac",
+            "type": "string",
+            "title": {
+              "en": "mac",
+              "nl": "mac",
+              "de": "MAC"
+            },
+            "example": "AA:BB:CC:DD:EE:FF"
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "title": {
+              "en": "name",
+              "nl": "naam",
+              "de": "Name"
+            },
+            "example": "iPhone"
+          },
+          {
+            "name": "ip",
+            "type": "string",
+            "title": {
+              "en": "ip",
+              "nl": "ip",
+              "de": "IP"
+            },
+            "example": "10.0.0.10"
+          }
+        ],
+        "id": "new_attached_device"
+      },
+      {
+        "title": {
+          "en": "New router firmware available",
+          "nl": "Er is nieuwe router firmware",
+          "de": "Neue Router-Firmware verfügbar"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=netgear"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "current_version",
+            "type": "string",
+            "title": {
+              "en": "current",
+              "nl": "huidig",
+              "de": "aktuell"
+            },
+            "example": "1.0.9.34"
+          },
+          {
+            "name": "new_version",
+            "type": "string",
+            "title": {
+              "en": "new",
+              "nl": "nieuw",
+              "de": "neu"
+            },
+            "example": "1.0.9.42_10.2.44"
+          },
+          {
+            "name": "release_note",
+            "type": "string",
+            "title": {
+              "en": "info",
+              "nl": "info",
+              "de": "Info"
+            },
+            "example": "security fixes"
+          }
+        ],
+        "id": "new_router_firmware"
+      },
+      {
+        "title": {
+          "en": "Speed test is ready",
+          "nl": "Snelheidstest is klaar",
+          "de": "Geschwindigkeitstest ist bereit"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=netgear"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "uplink_bandwidth",
+            "type": "number",
+            "title": {
+              "en": "up",
+              "nl": "up",
+              "de": "Up"
+            },
+            "example": 1
+          },
+          {
+            "name": "downlink_bandwidth",
+            "type": "number",
+            "title": {
+              "en": "down",
+              "nl": "down",
+              "de": "Down"
+            },
+            "example": 5
+          },
+          {
+            "name": "average_ping",
+            "type": "number",
+            "title": {
+              "en": "ping",
+              "nl": "ping",
+              "de": "Ping"
+            },
+            "example": 10
+          }
+        ],
+        "id": "speed_test_result"
+      },
+      {
+        "title": {
+          "en": "The up/down speed changed",
+          "nl": "Up/down snelheid gewijzigd",
+          "de": "Die Up/Down-Geschwindigkeit hat sich geändert"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=netgear"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "upload_speed",
+            "type": "number",
+            "title": {
+              "en": "up",
+              "nl": "up",
+              "de": "Up"
+            },
+            "example": 5
+          },
+          {
+            "name": "download_speed",
+            "type": "number",
+            "title": {
+              "en": "down",
+              "nl": "down",
+              "de": "Down"
+            },
+            "example": 1
+          }
+        ],
+        "id": "uldl_speed_changed"
+      },
+      {
         "title": {
           "en": "Device went offline",
           "nl": "Apparaat raakt offline",
           "de": "Gerät ging offline"
         },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=netgear|attached_device"
+          }
+        ],
         "tokens": [
           {
             "name": "mac",
@@ -615,88 +621,11 @@
             "example": "10.0.0.10"
           }
         ],
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=attached_device"
-          }
-        ]
-      },
-      {
-        "id": "attack",
-        "title": {
-          "en": "Cyber attack detected",
-          "nl": "Cyber aanval gedetecteerd"
-        },
-        "tokens": [
-          {
-            "name": "log",
-            "type": "string",
-            "title": {
-              "en": "log",
-              "nl": "log"
-            },
-            "example": "[LAN access from remote] from 171.67.70.80:41512 to 192.168.1.7:443, Tuesday, October 15, 2019 08:37:29"
-          },
-          {
-            "name": "event",
-            "type": "string",
-            "title": {
-              "en": "event",
-              "nl": "event"
-            },
-            "example": "LAN access from remote"
-          },
-          {
-            "name": "info",
-            "type": "string",
-            "title": {
-              "en": "info",
-              "nl": "info"
-            },
-            "example": "from 171.67.70.80:41512 to 192.168.1.7:443"
-          },
-          {
-            "name": "bad_ip",
-            "type": "string",
-            "title": {
-              "en": "bad_IP",
-              "nl": "slecht_IP"
-            },
-            "example": "171.67.70.80"
-          },
-          {
-            "name": "ip_country",
-            "type": "string",
-            "title": {
-              "en": "IP_country",
-              "nl": "IP_land"
-            },
-            "example": "RU"
-          },
-          {
-            "name": "ip_score",
-            "type": "number",
-            "title": {
-              "en": "IP_score",
-              "nl": "IP_score"
-            },
-            "example": 99.325001239777
-          }
-        ],
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=log_analyzer"
-          }
-        ]
+        "id": "went_offline"
       }
     ],
     "conditions": [
       {
-        "id": "alarm_generic",
         "title": {
           "en": "Internet !{{is|isn't}} connected",
           "nl": "Internet !{{is|is niet}} verbonden",
@@ -708,10 +637,25 @@
             "name": "device",
             "filter": "driver_id=netgear"
           }
-        ]
+        ],
+        "id": "alarm_generic"
       },
       {
-        "id": "device_online_condition",
+        "title": {
+          "en": "Device !{{is|isn't}} online",
+          "nl": "Apparaat !{{is|is niet}} online",
+          "de": "Gerät !{{ist|ist nicht}} online"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=attached_device"
+          }
+        ],
+        "id": "device_is_online"
+      },
+      {
         "title": {
           "en": "Device !{{is|isn't}} online (mac)",
           "nl": "Apparaat !{{is|is niet}} online (mac)",
@@ -736,10 +680,10 @@
               "de": "AA:BB:CC:DD:EE:FF"
             }
           }
-        ]
+        ],
+        "id": "device_is_online_autocomplete"
       },
       {
-        "id": "device_online_ip_range",
         "title": {
           "en": "!{{A|No}} device online on IP",
           "nl": "!{{Een|Geen}} apparaat online op IP",
@@ -780,10 +724,10 @@
               "de": "bis (254)"
             }
           }
-        ]
+        ],
+        "id": "device_is_online_ip_range"
       },
       {
-        "id": "new_firmware_condition",
         "title": {
           "en": "!{{New|No}} firmware update",
           "nl": "!{{Er is|Geen}} nieuwe firmware",
@@ -795,27 +739,12 @@
             "name": "device",
             "filter": "driver_id=netgear"
           }
-        ]
-      },
-      {
-        "id": "device_is_online",
-        "title": {
-          "en": "Device !{{is|isn't}} online",
-          "nl": "Apparaat !{{is|is niet}} online",
-          "de": "Gerät !{{ist|ist nicht}} online"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=attached_device"
-          }
-        ]
+        ],
+        "id": "new_firmware_condition"
       }
     ],
     "actions": [
       {
-        "id": "allow_device",
         "title": {
           "en": "Allow a device",
           "nl": "Apparaat vrijgeven",
@@ -840,19 +769,19 @@
               "de": "AA:BB:CC:DD:EE:FF"
             }
           }
-        ]
+        ],
+        "id": "allow_device"
       },
       {
-        "id": "allow_device_text",
         "title": {
           "en": "Allow a device with tag",
           "nl": "Apparaat vrijgeven met tag",
           "de": "Ein Gerät mit Tag zulassen"
         },
         "titleFormatted": {
-          "en": "Allow [[mac]] device",
-          "nl": "Apparaat [[mac]] vrijgeven",
-          "de": "Gerät [[mac]] zulassen"
+          "en": "Allow [[mac]] device with tag",
+          "nl": "Apparaat [[mac]] vrijgeven met tag",
+          "de": "Gerät [[mac]] zulassen mit Tag"
         },
         "args": [
           {
@@ -868,10 +797,10 @@
               "de": "AA:BB:CC:DD:EE:FF"
             }
           }
-        ]
+        ],
+        "id": "allow_device_text"
       },
       {
-        "id": "block_device",
         "title": {
           "en": "Block a device",
           "nl": "Apparaat blokkeren",
@@ -896,19 +825,19 @@
               "de": "AA:BB:CC:DD:EE:FF"
             }
           }
-        ]
+        ],
+        "id": "block_device"
       },
       {
-        "id": "block_device_text",
         "title": {
           "en": "Block a device with tag",
           "nl": "Apparaat blokkeren met tag",
           "de": "Ein Gerät mit Tag blockieren"
         },
         "titleFormatted": {
-          "en": "Block [[mac]] device",
-          "nl": "Apparaat [[mac]] blokkeren",
-          "de": "Gerät [[mac]] blockieren"
+          "en": "Block [[mac]] device with tag",
+          "nl": "Apparaat [[mac]] blokkeren met tag",
+          "de": "Gerät [[mac]] blockieren mit Tag"
         },
         "args": [
           {
@@ -924,10 +853,10 @@
               "de": "AA:BB:CC:DD:EE:FF"
             }
           }
-        ]
+        ],
+        "id": "block_device_text"
       },
       {
-        "id": "reboot",
         "title": {
           "en": "Reboot router",
           "nl": "Herstart router",
@@ -939,10 +868,10 @@
             "name": "device",
             "filter": "driver_id=netgear"
           }
-        ]
+        ],
+        "id": "reboot"
       },
       {
-        "id": "set_guest_wifi",
         "title": {
           "en": "Enable or disable guest wifi",
           "nl": "Gast wifi aan of uit zetten",
@@ -1019,10 +948,10 @@
               }
             ]
           }
-        ]
+        ],
+        "id": "set_guest_wifi"
       },
       {
-        "id": "speed_test_start",
         "title": {
           "en": "Start internet speed test",
           "nl": "Doe internet snelheidstest",
@@ -1034,10 +963,10 @@
             "name": "device",
             "filter": "driver_id=netgear"
           }
-        ]
+        ],
+        "id": "speed_test_start"
       },
       {
-        "id": "update_firmware",
         "title": {
           "en": "Update router firmware",
           "nl": "Update router firmware",
@@ -1049,10 +978,10 @@
             "name": "device",
             "filter": "driver_id=netgear"
           }
-        ]
+        ],
+        "id": "update_firmware"
       },
       {
-        "id": "wol",
         "title": {
           "en": "WakeOnLan",
           "nl": "WakeOnLan",
@@ -1094,7 +1023,8 @@
             },
             "value": "00:00:00:00:00:00"
           }
-        ]
+        ],
+        "id": "wol"
       }
     ]
   },
@@ -1114,10 +1044,12 @@
         "onoff",
         "device_connected",
         "ssid",
-        "link_speed",
-        "signal_strength",
-        "download_speed",
-        "upload_speed"
+        "ip_address",
+        "name_in_router",
+        "meter_link_speed",
+        "meter_signal_strength",
+        "meter_download_speed",
+        "meter_upload_speed"
       ],
       "energy": {
         "approximation": {
@@ -1237,6 +1169,11 @@
                 "nl": "Rapporteer Up/Down bandbreedte",
                 "de": "Bericht Up/Down Bandbreite"
               },
+              "hint": {
+                "en": "Note that it is very unlikely that bandwidth info is reported by the router.",
+                "nl": "Let op: het is zeer onwaarschijnlijk dat bandbreedte-informatie door de router wordt gerapporteerd.",
+                "de": "Beachten Sie, dass es sehr unwahrscheinlich ist, dass Bandbreiteninformationen vom Router gemeldet werden."
+              },
               "value": false
             },
             {
@@ -1246,6 +1183,11 @@
                 "en": "Report Energy",
                 "nl": "Rapporteer energie",
                 "de": "Bericht Energie"
+              },
+              "hint": {
+                "en": "Report on/off energy values to Homey Energy",
+                "nl": "Rapporteer aan/uit energy waarden naar Homey Energy",
+                "de": "Ein-/Aus-Energiewerte an Homey Energy melden"
               },
               "value": false
             }
@@ -1261,117 +1203,6 @@
       "id": "attached_device"
     },
     {
-      "deprecated": true,
-      "name": {
-        "en": "Cyber Detector",
-        "nl": "Cyber Detector",
-        "de": "Cyber Detector"
-      },
-      "images": {
-        "large": "drivers/log_analyzer/assets/images/large.jpg",
-        "small": "drivers/log_analyzer/assets/images/small.jpg"
-      },
-      "class": "sensor",
-      "capabilities": [
-        "alarm_cyber",
-        "attack_rate",
-        "last_attack",
-        "last_log"
-      ],
-      "pair": [
-        {
-          "id": "list_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_devices"
-          }
-        },
-        {
-          "id": "add_devices",
-          "template": "add_devices"
-        }
-      ],
-      "settings": [
-        {
-          "type": "group",
-          "label": {
-            "en": "Coupled Router",
-            "nl": "Gekoppelde Router"
-          },
-          "children": [
-            {
-              "id": "router_model",
-              "type": "label",
-              "label": {
-                "en": "Source router model",
-                "nl": "Bron router type"
-              },
-              "value": "unknown"
-            },
-            {
-              "id": "router_id",
-              "type": "label",
-              "label": {
-                "en": "Source router ID",
-                "nl": "Bron router ID"
-              },
-              "hint": {
-                "en": "This is the serial number of the router that provides the log information",
-                "nl": "Dit is het serienummer van de router die de log informatie verzorgt"
-              },
-              "value": "unknown"
-            }
-          ]
-        },
-        {
-          "type": "group",
-          "label": {
-            "en": "Detection settings",
-            "nl": "Detectie instellingen"
-          },
-          "children": [
-            {
-              "id": "contact",
-              "type": "text",
-              "label": {
-                "en": "Your email address",
-                "nl": "Je email adres"
-              },
-              "hint": {
-                "en": "See https://getipintel.net/privacy/",
-                "nl": "Zie https://getipintel.net/privacy/"
-              },
-              "value": ""
-            },
-            {
-              "id": "bad_ip_threshold",
-              "type": "number",
-              "label": {
-                "en": "Bad IP threshold",
-                "nl": "Slecht IP drempel"
-              },
-              "hint": {
-                "en": "A higher threshold will lead to less Bad IP detections. A lower threshold can lead to more false positives. Default is 95",
-                "nl": "Een hogere waarde leidt tot minder detectiesvan slechte IP adressen. Een lagere waarde kan leiden tot onterechte alarmen. Standaard waarde is 95."
-              },
-              "attr": {
-                "min": 0,
-                "max": 100
-              },
-              "value": 95
-            }
-          ]
-        }
-      ],
-      "connectivity": [
-        "lan"
-      ],
-      "platforms": [
-        "local"
-      ],
-      "id": "log_analyzer"
-    },
-    {
       "name": {
         "en": " Router",
         "nl": " Router",
@@ -1384,11 +1215,11 @@
       "class": "sensor",
       "capabilities": [
         "alarm_generic",
-        "attached_devices",
-        "download_speed",
-        "upload_speed",
-        "cpu_utilization",
-        "mem_utilization"
+        "meter_attached_devices",
+        "meter_download_speed",
+        "meter_upload_speed",
+        "meter_cpu_utilization",
+        "meter_mem_utilization"
       ],
       "energy": {
         "approximation": {
@@ -1729,28 +1560,6 @@
     }
   ],
   "capabilities": {
-    "alarm_cyber": {
-      "type": "boolean",
-      "uiComponent": "sensor",
-      "getable": true,
-      "setable": false,
-      "insights": true,
-      "title": {
-        "en": "Cyber alarm",
-        "nl": "Cyber alarm"
-      },
-      "desc": {
-        "en": "Cyber atack",
-        "nl": "Cyber aanval"
-      },
-      "insightsTitleTrue": {
-        "en": "Cyber attack detected",
-        "nl": "Cyber attack gedetecteerd"
-      },
-      "insightsTitleFalse": {
-        "en": ""
-      }
-    },
     "alarm_generic": {
       "type": "boolean",
       "uiComponent": "sensor",
@@ -1778,55 +1587,6 @@
         "de": "Internet verbunden"
       }
     },
-    "attached_devices": {
-      "type": "number",
-      "title": {
-        "en": "Attached devices",
-        "nl": "Verbonden apparaten",
-        "de": "Verbundene Geräte"
-      },
-      "getable": true,
-      "setable": false,
-      "insights": true,
-      "icon": "./assets/attached_devices.svg"
-    },
-    "attack_rate": {
-      "type": "number",
-      "uiComponent": "sensor",
-      "getable": true,
-      "setable": false,
-      "units": {
-        "en": "Attacks/hr"
-      },
-      "decimals": 0,
-      "insights": true,
-      "title": {
-        "en": "Attacks/hr",
-        "nl": "Aanvallen/h",
-        "de": "Angriffe/h"
-      },
-      "desc": {
-        "en": "Attacks in last 60 min.",
-        "nl": "Aanvallen afgelopen 60 min."
-      },
-      "icon": "./assets/attack_rate.svg"
-    },
-    "cpu_utilization": {
-      "type": "number",
-      "title": {
-        "en": "CPU utilization",
-        "nl": "CPU belasting",
-        "de": "CPU-Auslastung"
-      },
-      "getable": true,
-      "setable": false,
-      "units": {
-        "en": "%"
-      },
-      "decimals": 0,
-      "insights": true,
-      "icon": "./assets/cpu_utilization.svg"
-    },
     "device_connected": {
       "type": "boolean",
       "title": {
@@ -1851,7 +1611,44 @@
       "insights": true,
       "icon": "./assets/device_connected.svg"
     },
-    "download_speed": {
+    "ip_address": {
+      "type": "string",
+      "title": {
+        "en": "IP address"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "./assets/ssid.svg"
+    },
+    "meter_attached_devices": {
+      "type": "number",
+      "title": {
+        "en": "Attached devices",
+        "nl": "Verbonden apparaten",
+        "de": "Verbundene Geräte"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true,
+      "icon": "./assets/attached_devices.svg"
+    },
+    "meter_cpu_utilization": {
+      "type": "number",
+      "title": {
+        "en": "CPU utilization",
+        "nl": "CPU belasting",
+        "de": "CPU-Auslastung"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "%"
+      },
+      "decimals": 0,
+      "insights": true,
+      "icon": "./assets/cpu_utilization.svg"
+    },
+    "meter_download_speed": {
       "type": "number",
       "title": {
         "en": "Download speed",
@@ -1868,25 +1665,7 @@
       "insights": true,
       "icon": "./assets/download_speed.svg"
     },
-    "last_attack": {
-      "type": "string",
-      "title": {
-        "en": "Last attack"
-      },
-      "getable": true,
-      "setable": false,
-      "icon": "./assets/last_attack.svg"
-    },
-    "last_log": {
-      "type": "string",
-      "title": {
-        "en": "Last Log"
-      },
-      "getable": true,
-      "setable": false,
-      "icon": "./assets/last_log.svg"
-    },
-    "link_speed": {
+    "meter_link_speed": {
       "type": "number",
       "title": {
         "en": "Link speed",
@@ -1898,7 +1677,7 @@
       "insights": true,
       "icon": "./assets/link_speed.svg"
     },
-    "mem_utilization": {
+    "meter_mem_utilization": {
       "type": "number",
       "title": {
         "en": "Memory utilization",
@@ -1913,6 +1692,44 @@
       "decimals": 0,
       "insights": true,
       "icon": "./assets/mem_utilization.svg"
+    },
+    "meter_signal_strength": {
+      "type": "number",
+      "title": {
+        "en": "Signal strength",
+        "nl": "Signaalsterkte",
+        "de": "Signalstärke"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true,
+      "icon": "./assets/signal_strength.svg"
+    },
+    "meter_upload_speed": {
+      "type": "number",
+      "title": {
+        "en": "Upload speed",
+        "nl": "Upload snelheid",
+        "de": "Upload-Geschwindigkeit"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "Mbit/s",
+        "de": "Mbit/s"
+      },
+      "decimals": 2,
+      "insights": true,
+      "icon": "./assets/upload_speed.svg"
+    },
+    "name_in_router": {
+      "type": "string",
+      "title": {
+        "en": "Name in router"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "./assets/ssid.svg"
     },
     "onoff": {
       "type": "boolean",
@@ -1929,18 +1746,6 @@
         "it": "Attivato"
       }
     },
-    "signal_strength": {
-      "type": "number",
-      "title": {
-        "en": "Signal strength",
-        "nl": "Signaalsterkte",
-        "de": "Signalstärke"
-      },
-      "getable": true,
-      "setable": false,
-      "insights": true,
-      "icon": "./assets/signal_strength.svg"
-    },
     "ssid": {
       "type": "string",
       "title": {
@@ -1949,23 +1754,6 @@
       "getable": true,
       "setable": false,
       "icon": "./assets/ssid.svg"
-    },
-    "upload_speed": {
-      "type": "number",
-      "title": {
-        "en": "Upload speed",
-        "nl": "Upload snelheid",
-        "de": "Upload-Geschwindigkeit"
-      },
-      "getable": true,
-      "setable": false,
-      "units": {
-        "en": "Mbit/s",
-        "de": "Mbit/s"
-      },
-      "decimals": 2,
-      "insights": true,
-      "icon": "./assets/upload_speed.svg"
     }
   }
 }

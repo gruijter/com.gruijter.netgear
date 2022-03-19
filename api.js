@@ -22,7 +22,6 @@ module.exports = {
 	// run router test
 	async runTest({ homey, query }) {
 		const result = await homey.app.runTest(query);
-		// const result = await Homey.app.runTest(args.body);
 		return result;
 	},
 };

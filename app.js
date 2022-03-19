@@ -20,8 +20,8 @@ along with com.gruijter.netgear.  If not, see <http://www.gnu.org/licenses/>.
 'use strict';
 
 const Homey = require('homey');
-const _test = require('netgear/test/_test.js');
-const Logger = require('./captureLogs.js');
+const _test = require('netgear/test/_test');
+const Logger = require('./captureLogs');
 // require('inspector').open(9229, '0.0.0.0', false);
 
 class MyApp extends Homey.App {
@@ -67,7 +67,7 @@ class MyApp extends Homey.App {
 			const options = {
 				password: data.password,
 				host: data.host,
-				port: data.port,
+				port: Number(data.port),
 				info: `Homey fw:${this.homey.version} app: ${this.homey.manifest.version}`,
 				// shorttest: true,
 			};
@@ -81,8 +81,6 @@ class MyApp extends Homey.App {
 
 	runTest(data) {
 		this.log('Router compatibility test started');
-		console.log(data);
-		console.log(data.body);
 		this.emitTestResults(data);
 		return true;
 	}
@@ -104,11 +102,19 @@ class MyApp extends Homey.App {
 
 	registerFlowListeners() {
 
-		console.log('need to move driver.makeAutocompleteList to driver');
+		// autocomplete function for Netgear driver
 		const autoComplete = (query, args) => {
 			try {
-				let results = args.device._driver.makeAutocompleteList.call(args.device);
-				results = results.filter((result) => {		// filter for query on MAC and Name
+				const list = [];
+				Object.keys(args.device.knownDevices).forEach((key) => {
+					const device = args.device.knownDevices[key];
+					if (!device.MAC) { return; }
+					list.push({
+						name: device.MAC,
+						description: device.Name || 'unknown',
+					});
+				});
+				const results = list.filter((result) => {		// filter for query on MAC and Name
 					const macFound = result.name.toLowerCase().indexOf(query.toLowerCase()) > -1;
 					const nameFound = result.description.toLowerCase().indexOf(query.toLowerCase()) > -1;
 					return macFound || nameFound;
@@ -120,6 +126,48 @@ class MyApp extends Homey.App {
 		};
 
 		// trigger cards
+		this._cameOnline = this.homey.flow.getDeviceTriggerCard('came_online');
+		this.triggerCameOnline = (device, tokens, state) => {
+			this._cameOnline
+				.trigger(device, tokens, state)
+				// .then(this.log(device.getName(), tokens))
+				.catch(this.error);
+		};
+
+		this._wentOffline = this.homey.flow.getDeviceTriggerCard('went_offline');
+		this.triggerWentOffline = (device, tokens, state) => {
+			this._wentOffline
+				.trigger(device, tokens, state)
+				// .then(this.log(device.getName(), tokens))
+				.catch(this.error);
+		};
+
+		this._nameChanged = this.homey.flow.getDeviceTriggerCard('name_changed');
+		this.triggerNameChanged = (device, tokens, state) => {
+			this._nameChanged
+				.trigger(device, tokens, state)
+				// .then(this.log(device.getName(), tokens))
+				.catch(this.error);
+		};
+
+		this._IPChanged = this.homey.flow.getDeviceTriggerCard('ip_changed');
+		this.triggerIPChanged = (device, tokens, state) => {
+			this._IPChanged
+				.trigger(device, tokens, state)
+				// .then(this.log(device.getName(), tokens))
+				.catch(this.error);
+		};
+
+		// trigger cards for attachedDevice
+		this._metricsChanged = this.homey.flow.getDeviceTriggerCard('device_metrics_changed');
+		this.triggerMetricsChanged = (device, tokens, state) => {
+			this._metricsChanged
+				.trigger(device, tokens, state)
+				// .then(this.log(device.getName(), tokens))
+				.catch(this.error);
+		};
+
+		// trigger cards for Netgear driver
 		this._speedChanged = this.homey.flow.getDeviceTriggerCard('uldl_speed_changed');
 		this.triggerSpeedChanged = (device, tokens, state) => {
 			this._speedChanged
@@ -136,21 +184,21 @@ class MyApp extends Homey.App {
 				.catch(this.error);
 		};
 
-		this._deviceOnline = this.homey.flow.getDeviceTriggerCard('device_online');
-		this.triggerDeviceOnline = (device, tokens, state) => {
-			this._deviceOnline
-				.trigger(device, tokens, state)
-				// .then(this.log(device.getName(), tokens))
-				.catch(this.error);
-		};
+		// this._deviceOnline = this.homey.flow.getDeviceTriggerCard('device_online');
+		// this.triggerDeviceOnline = (device, tokens, state) => {
+		// 	this._deviceOnline
+		// 		.trigger(device, tokens, state)
+		// 		// .then(this.log(device.getName(), tokens))
+		// 		.catch(this.error);
+		// };
 
-		this._deviceOffline = this.homey.flow.getDeviceTriggerCard('device_offline');
-		this.triggerDeviceOffline = (device, tokens, state) => {
-			this._deviceOffline
-				.trigger(device, tokens, state)
-				// .then(this.log(device.getName(), tokens))
-				.catch(this.error);
-		};
+		// this._deviceOffline = this.homey.flow.getDeviceTriggerCard('device_offline');
+		// this.triggerDeviceOffline = (device, tokens, state) => {
+		// 	this._deviceOffline
+		// 		.trigger(device, tokens, state)
+		// 		// .then(this.log(device.getName(), tokens))
+		// 		.catch(this.error);
+		// };
 
 		this._speedTestResult = this.homey.flow.getDeviceTriggerCard('speed_test_result');
 		this.triggerSpeedTestResult = (device, tokens, state) => {
@@ -168,7 +216,11 @@ class MyApp extends Homey.App {
 				.catch(this.error);
 		};
 
-		// condition cards
+		// condition cards for attachedDevice
+		const deviceIsOnline = this.homey.flow.getConditionCard('device_is_online');
+		deviceIsOnline.registerRunListener((args) => args.device.getCapabilityValue('device_connected'));
+
+		// condition cards for Netgear driver
 		const internetConnected = this.homey.flow.getConditionCard('alarm_generic');
 		internetConnected.registerRunListener((args) => !args.device.getCapabilityValue('alarm_generic'));
 
@@ -176,8 +228,8 @@ class MyApp extends Homey.App {
 		newFirmware.registerRunListener((args) => (args.device.readings.newFirmware.newVersion
 			&& args.device.readings.newFirmware.newVersion !== ''));
 
-		const deviceOnline = this.homey.flow.getConditionCard('device_online_condition');
-		deviceOnline
+		const deviceIsOnlineAutocomplete = this.homey.flow.getConditionCard('device_is_online_autocomplete');
+		deviceIsOnlineAutocomplete
 			.registerRunListener((args) => {
 				if (Object.prototype.hasOwnProperty.call(args, 'device')) {
 					let isOnline = false;
@@ -190,8 +242,8 @@ class MyApp extends Homey.App {
 			})
 			.registerArgumentAutocompleteListener('mac', autoComplete);
 
-		const deviceOnlineIpRange = this.homey.flow.getConditionCard('device_online_ip_range');
-		deviceOnlineIpRange.registerRunListener((args) => {
+		const deviceIsOnlineIpRange = this.homey.flow.getConditionCard('device_is_online_ip_range');
+		deviceIsOnlineIpRange.registerRunListener((args) => {
 			const OnlineInIpRange = (total, knownDevice) => {
 				if (!knownDevice.online) { return total; }
 				if (!knownDevice.IP) { return total; }
@@ -205,52 +257,47 @@ class MyApp extends Homey.App {
 			return Promise.resolve(devicesOnlineInIpRange > 0);
 		});
 
-
-		// // action cards
-		// const forcePoll = this.homey.flow.getActionCard('force_refresh');
-		// forcePoll.registerRunListener((args) => args.device.refreshStatus(true, 'flow'));
-
-		console.log('move args.device._driver.() to device');
+		// action cards for Netgear driver
 		const blockDevice = this.homey.flow.getActionCard('block_device');
 		blockDevice
-			.registerRunListener((args) => args.device._driver.blockOrAllow.call(args.device, args.mac.name, 'Block'))
+			.registerRunListener((args) => args.device.blockOrAllow(args.mac.name, 'Block'))
 			.registerArgumentAutocompleteListener('mac', autoComplete);
 
 		const blockDeviceText = this.homey.flow.getActionCard('block_device_text');
 		blockDeviceText
-			.registerRunListener((args) => args.device._driver.blockOrAllow.call(args.device, args.mac.replace(' ', ''), 'Block'));
+			.registerRunListener((args) => args.device.blockOrAllow(args.mac.replace(' ', ''), 'Block'));
 
 		const allowDevice = this.homey.flow.getActionCard('allow_device');
 		allowDevice
-			.registerRunListener((args) => args.device._driver.blockOrAllow.call(args.device, args.mac.name, 'Allow'))
+			.registerRunListener((args) => args.device.blockOrAllow(args.mac.name, 'Allow'))
 			.registerArgumentAutocompleteListener('mac', autoComplete);
 
 		const allowDeviceText = this.homey.flow.getActionCard('allow_device_text');
 		allowDeviceText
-			.registerRunListener((args) => args.device._driver.blockOrAllow.call(args.device, args.mac.replace(' ', ''), 'Allow'));
+			.registerRunListener((args) => args.blockOrAllow(args.mac.replace(' ', ''), 'Allow'));
 
 		const wol = this.homey.flow.getActionCard('wol');
 		wol
-			.registerRunListener((args) => args.device._driver.wol.call(args.device, args.mac.name, args.password))
+			.registerRunListener((args) => args.wol(args.mac.name, args.password))
 			.registerArgumentAutocompleteListener('mac', autoComplete);
 
 		const setGuestWifi = this.homey.flow.getActionCard('set_guest_wifi');
 		setGuestWifi
 			.registerRunListener((args) => {
 				if (args.network === '5') {
-					args.device._driver.set5GGuestWifi.call(args.device, args.on_off);
+					args.device.set5GGuestWifi(args.on_off);
 				} else if (args.network === '5-2') {
-					args.device._driver.set5GGuestWifi2.call(args.device, args.on_off);
+					args.device.set5GGuestWifi2(args.on_off);
 				} else if (args.network === '2.4') {
-					args.device._driver.setGuestwifi.call(args.device, args.on_off);
+					args.device.setGuestwifi(args.on_off);
 				} else {
-					args.device._driver.setGuestwifi2.call(args.device, args.on_off);
+					args.device.setGuestwifi2(args.on_off);
 				}
 			});
 
 		const speedTestStart = this.homey.flow.getActionCard('speed_test_start');
 		speedTestStart.registerRunListener(async (args) => {
-			const speed = await this._driver.speedTest.call(args.device);
+			const speed = await args.device.speedTest();
 			const tokens = {
 				uplink_bandwidth: speed.uplinkBandwidth,
 				downlink_bandwidth: speed.downlinkBandwidth,
@@ -261,10 +308,10 @@ class MyApp extends Homey.App {
 		});
 
 		const updateFirmware = this.homey.flow.getActionCard('update_firmware');
-		updateFirmware.registerRunListener(async (args) => args.device._driver.updateNewFirmware.call(args.device));
+		updateFirmware.registerRunListener(async (args) => args.device.updateNewFirmware());
 
 		const reboot = this.homey.flow.getActionCard('reboot');
-		reboot.registerRunListener(async (args) => args.device._driver.reboot.call(args.device));
+		reboot.registerRunListener(async (args) => args.device.reboot());
 
 	}
 

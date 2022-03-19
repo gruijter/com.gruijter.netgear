@@ -1,9 +1,9 @@
 {
   "type": "string",
   "title": {
-    "en": "Last Log"
+    "en": "Name in router"
   },
   "getable": true,
   "setable": false,
-  "icon": "./assets/last_log.svg"
+  "icon": "./assets/ssid.svg"
 }

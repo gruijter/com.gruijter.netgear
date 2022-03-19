@@ -1,9 +1,9 @@
 {
   "type": "string",
   "title": {
-    "en": "Last attack"
+    "en": "IP address"
   },
   "getable": true,
   "setable": false,
-  "icon": "./assets/last_attack.svg"
+  "icon": "./assets/ssid.svg"
 }
