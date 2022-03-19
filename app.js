@@ -274,11 +274,11 @@ class MyApp extends Homey.App {
 
 		const allowDeviceText = this.homey.flow.getActionCard('allow_device_text');
 		allowDeviceText
-			.registerRunListener((args) => args.blockOrAllow(args.mac.replace(' ', ''), 'Allow'));
+			.registerRunListener((args) => args.device.blockOrAllow(args.mac.replace(' ', ''), 'Allow'));
 
 		const wol = this.homey.flow.getActionCard('wol');
 		wol
-			.registerRunListener((args) => args.wol(args.mac.name, args.password))
+			.registerRunListener((args) => args.device.wol(args.mac.name, args.password))
 			.registerArgumentAutocompleteListener('mac', autoComplete);
 
 		const setGuestWifi = this.homey.flow.getActionCard('set_guest_wifi');

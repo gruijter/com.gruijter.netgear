@@ -43,5 +43,11 @@
   },
   "4.0.0": {
     "en": "complete rewrite to SDK3"
+  },
+  "4.0.1": {
+    "en": "rewrite to SDK3. Fix restart."
+  },
+  "4.0.2": {
+    "en": "rewrite to SDK3. Fix some flow cards."
   }
 }
