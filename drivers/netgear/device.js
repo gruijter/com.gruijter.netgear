@@ -549,6 +549,7 @@ class NetgearDevice extends Homey.Device {
 				tls: this.settings.port === 443 || this.settings.port === 5555,
 			};
 			this.routerSession = new NetgearRouter(options);
+			await this.login().catch(() => this.error('failed to login during init'));
 
 			// get known device from store
 			this.log('retrieving knownDevices from persistent storage');
@@ -640,7 +641,7 @@ class NetgearDevice extends Homey.Device {
 		this.stopPolling();
 		const dly = delay || 2000;
 		this.log(`Device will restart in ${dly / 1000} seconds`);
-		await setTimeoutPromise(dly).then(() => this.onInitDevice());
+		await setTimeoutPromise(dly).then(() => this.onInit());
 		this.restarting = false;
 	}
 

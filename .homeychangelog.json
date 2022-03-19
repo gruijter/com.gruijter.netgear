@@ -40,6 +40,8 @@
   },
   "3.3.0": {
     "en": "Netgear package 4.4.1. Added discovery of orbilogin.net. Added support for SOAP port 5555."
+  },
+  "4.0.0": {
+    "en": "complete rewrite to SDK3"
   }
-
 }
