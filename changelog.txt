@@ -1,6 +1,6 @@
 Version changelog
 
-v4.1.0  2022.05.14 Fix pasword failure on pair. Fix crash on firmware check. Fix crash on setGuestWifi. Updated app store image.
+v4.1.1  2022.05.14 Fix pasword failure on pair. Fix crash on firmware check. Fix crash on setGuestWifi. Updated app store images.
 v4.0.2  2022.04.04 Rewrite to SDK3. Fix some flow cards.
 v4.0.1  2022.04.04 Rewrite to SDK3. Fix restart.
 v4.0.0  2021.11.26 Rewrite to SDK3. Improved offline detection for Attached Devices.

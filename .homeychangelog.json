@@ -52,5 +52,8 @@
   },
   "4.1.0": {
     "en": " Fix pasword failure on pair. Fix crash on firmware check. Fix crash on setGuestWifi. Updated app store image."
+  },
+  "4.1.1": {
+    "en": "Fix pasword failure on pair. Fix crash on firmware check. Fix crash on setGuestWifi. Updated app store images."
   }
 }
