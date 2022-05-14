@@ -218,11 +218,11 @@ class MyApp extends Homey.App {
 
 		// condition cards for attachedDevice
 		const deviceIsOnline = this.homey.flow.getConditionCard('device_is_online');
-		deviceIsOnline.registerRunListener((args) => args.device.getCapabilityValue('device_connected'));
+		deviceIsOnline.registerRunListener((args) => args.device.getCapabilityValue('device_connected').catch(this.error));
 
 		// condition cards for Netgear driver
 		const internetConnected = this.homey.flow.getConditionCard('alarm_generic');
-		internetConnected.registerRunListener((args) => !args.device.getCapabilityValue('alarm_generic'));
+		internetConnected.registerRunListener((args) => !args.device.getCapabilityValue('alarm_generic').catch(this.error));
 
 		const newFirmware = this.homey.flow.getConditionCard('new_firmware_condition');
 		newFirmware.registerRunListener((args) => (args.device.readings.newFirmware.newVersion
@@ -260,58 +260,58 @@ class MyApp extends Homey.App {
 		// action cards for Netgear driver
 		const blockDevice = this.homey.flow.getActionCard('block_device');
 		blockDevice
-			.registerRunListener((args) => args.device.blockOrAllow(args.mac.name, 'Block'))
+			.registerRunListener((args) => args.device.blockOrAllow(args.mac.name, 'Block').catch(this.error))
 			.registerArgumentAutocompleteListener('mac', autoComplete);
 
 		const blockDeviceText = this.homey.flow.getActionCard('block_device_text');
 		blockDeviceText
-			.registerRunListener((args) => args.device.blockOrAllow(args.mac.replace(' ', ''), 'Block'));
+			.registerRunListener((args) => args.device.blockOrAllow(args.mac.replace(' ', ''), 'Block').catch(this.error));
 
 		const allowDevice = this.homey.flow.getActionCard('allow_device');
 		allowDevice
-			.registerRunListener((args) => args.device.blockOrAllow(args.mac.name, 'Allow'))
+			.registerRunListener((args) => args.device.blockOrAllow(args.mac.name, 'Allow').catch(this.error))
 			.registerArgumentAutocompleteListener('mac', autoComplete);
 
 		const allowDeviceText = this.homey.flow.getActionCard('allow_device_text');
 		allowDeviceText
-			.registerRunListener((args) => args.device.blockOrAllow(args.mac.replace(' ', ''), 'Allow'));
+			.registerRunListener((args) => args.device.blockOrAllow(args.mac.replace(' ', ''), 'Allow').catch(this.error));
 
 		const wol = this.homey.flow.getActionCard('wol');
 		wol
-			.registerRunListener((args) => args.device.wol(args.mac.name, args.password))
+			.registerRunListener((args) => args.device.wol(args.mac.name, args.password).catch(this.error))
 			.registerArgumentAutocompleteListener('mac', autoComplete);
 
 		const setGuestWifi = this.homey.flow.getActionCard('set_guest_wifi');
 		setGuestWifi
 			.registerRunListener((args) => {
 				if (args.network === '5') {
-					args.device.set5GGuestWifi(args.on_off);
+					args.device.set5GGuestWifi(args.on_off).catch(this.error);
 				} else if (args.network === '5-2') {
-					args.device.set5GGuestWifi2(args.on_off);
+					args.device.set5GGuestWifi2(args.on_off).catch(this.error);
 				} else if (args.network === '2.4') {
-					args.device.setGuestwifi(args.on_off);
+					args.device.setGuestwifi(args.on_off).catch(this.error);
 				} else {
-					args.device.setGuestwifi2(args.on_off);
+					args.device.setGuestwifi2(args.on_off).catch(this.error);
 				}
 			});
 
 		const speedTestStart = this.homey.flow.getActionCard('speed_test_start');
 		speedTestStart.registerRunListener(async (args) => {
-			const speed = await args.device.speedTest();
+			const speed = await args.device.speedTest().catch(this.error);
 			const tokens = {
 				uplink_bandwidth: speed.uplinkBandwidth,
 				downlink_bandwidth: speed.downlinkBandwidth,
 				average_ping: speed.averagePing,
 			};
 			this.log(tokens);
-			this.homey.app.triggerSpeedTestResult(args.device, tokens, {});
+			this.homey.app.triggerSpeedTestResult(args.device, tokens, {}).catch(this.error);
 		});
 
 		const updateFirmware = this.homey.flow.getActionCard('update_firmware');
-		updateFirmware.registerRunListener(async (args) => args.device.updateNewFirmware());
+		updateFirmware.registerRunListener(async (args) => args.device.updateNewFirmware().catch(this.error));
 
 		const reboot = this.homey.flow.getActionCard('reboot');
-		reboot.registerRunListener(async (args) => args.device.reboot());
+		reboot.registerRunListener(async (args) => args.device.reboot().catch(this.error));
 
 	}
 

@@ -12,9 +12,9 @@
     "de": "Überwache deinen Netgear-Router"
   },
   "brandColor": "#751939",
-  "version": "4.0.2",
+  "version": "4.1.0",
   "sdk": 3,
-  "compatibility": ">= 5.0",
+  "compatibility": ">= 7.4",
   "author": {
     "name": "Robin Gruijter",
     "email": "gruijter@hotmail.com"

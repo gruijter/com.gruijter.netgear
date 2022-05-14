@@ -3,24 +3,11 @@
 
 let device = {};
 
-// get device to be paired
-async function getSettings() {
-	return new Promise((resolve, reject) => {
-		try {
-			Homey.getViewStoreValue('settings', (err, settings) => {
-				if (err) throw err;
-				resolve(settings);
-			});
-		} catch (error) {
-			reject(error);
-		}
-	});
-}
-
 $(document).ready(async () => {
 	// console.log('doc is ready');
 	Homey.showLoadingOverlay();
-	const settings = await getSettings();
+	// const settings = await getSettings();
+	const settings = await Homey.getViewStoreValue('select_options', 'settings');
 	// Check settings at back-end, pass along data
 	Homey.emit('check', settings, (error, dev) => {
 		if (error) {

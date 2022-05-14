@@ -42,12 +42,15 @@
     "en": "Netgear package 4.4.1. Added discovery of orbilogin.net. Added support for SOAP port 5555."
   },
   "4.0.0": {
-    "en": "complete rewrite to SDK3"
+    "en": "Complete rewrite to SDK3"
   },
   "4.0.1": {
-    "en": "rewrite to SDK3. Fix restart."
+    "en": "Rewrite to SDK3. Fix restart."
   },
   "4.0.2": {
-    "en": "rewrite to SDK3. Fix some flow cards."
+    "en": "Rewrite to SDK3. Fix some flow cards."
+  },
+  "4.1.0": {
+    "en": " Fix pasword failure on pair. Fix crash on firmware check. Fix crash on setGuestWifi. Updated app store image."
   }
 }

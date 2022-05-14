@@ -82,7 +82,7 @@ class NetgearDevice extends Homey.Device {
 				await this.routerSession.login();
 			}
 			const onOff = (action === 'on');
-			await this.routerSession.router.setGuestWifi(onOff);
+			await this.routerSession.setGuestWifi(onOff);
 			return Promise.resolve(true);
 		}	catch (error) {
 			// this.error('2.4GHz-1 set guest wifi error', error.message);f
@@ -295,7 +295,7 @@ class NetgearDevice extends Homey.Device {
 			this.extraPollTime = new Date();
 			// check for new firmware_version and trigger flow
 			const { newFirmware } = this.readings;
-			if (this.readings.newFirmware.newVersion && this.readings.newFirmware.newVersion !== '') {
+			if (this.readings.newFirmware && this.readings.newFirmware.newVersion && this.readings.newFirmware.newVersion !== '') {
 				const tokens = {
 					current_version: newFirmware.currentVersion,
 					new_version: newFirmware.newVersion,
@@ -499,13 +499,13 @@ class NetgearDevice extends Homey.Device {
 			this.busy = true;
 			await this.login();
 			await this.updateKnownDeviceList();	// attached devices state
-			await this.updateInternetConnectionState();	// disconnect alarm
-			await this.updateSpeed();	// up/down internet bandwidth
-			await this.updateSystemInfo();	// mem/cpu load
-			await this.updateLogs();	// system logs EXPERIMENTAL
+			await this.updateInternetConnectionState().catch(this.error);	// disconnect alarm
+			await this.updateSpeed().catch(this.error);	// up/down internet bandwidth
+			await this.updateSystemInfo().catch(this.error);	// mem/cpu load
+			await this.updateLogs().catch(this.error);	// system logs EXPERIMENTAL
 			// update exta info once an hour
 			if ((Date.now() - this.readings.extraPollTime) > (60 * 60 * 1000)) {
-				await this.updateFirmwareInfo();	// firmware and router mode
+				await this.updateFirmwareInfo().catch(this.error);	// firmware and router mode
 			}
 			this.busy = false;
 			return Promise.resolve(this.busy);
@@ -586,7 +586,7 @@ class NetgearDevice extends Homey.Device {
 		} catch (error) {
 			this.error(error);
 			this.setUnavailable(error.message).catch(this.error);
-			this.restartDevice(5 * 60 * 1000);
+			await this.restartDevice(5 * 60 * 1000);
 		}
 
 	}
@@ -605,7 +605,7 @@ class NetgearDevice extends Homey.Device {
 				return include;
 			});
 			for (let index = 0; index < correctCaps.length; index += 1) {
-				const caps = this.getCapabilities();
+				const caps = await this.getCapabilities();
 				const newCap = correctCaps[index];
 				if (caps[index] !== newCap) {
 					// remove all caps from here
@@ -622,16 +622,16 @@ class NetgearDevice extends Homey.Device {
 				}
 			}
 			// set new migrate level
-			if (migrate && this.homey.app.manifest.version !== this.settings.level) {
+			if (migrate && this.settings.level < '4.0.0') {
 				const excerpt = `The Netgear app is migrated to version ${this.homey.app.manifest.version} **CHECK FOR BROKEN FLOWS!**`;
 				await this.homey.notifications.createNotification({ excerpt });
-				this.setSettings({ level: this.homey.app.manifest.version });
+				await this.setSettings({ level: this.homey.app.manifest.version });
 				this.log(excerpt);
 			}
 			this.migrated = true;
-			Promise.resolve(this.migrated);
+			return Promise.resolve(this.migrated);
 		} catch (error) {
-			Promise.reject(Error('Migration failed', error));
+			return Promise.reject(Error('Migration failed', error));
 		}
 	}
 
@@ -683,7 +683,7 @@ class NetgearDevice extends Homey.Device {
 					// restart the app here
 					this.log('watchdog triggered, restarting Homey device now');
 					this.setUnavailable(error.message).catch(this.error);
-					this.restartDevice(5 * 60 * 1000); // restart after 5 minutes
+					await this.restartDevice(5 * 60 * 1000); // restart after 5 minutes
 				}
 			}
 		}, 1000 * interval);
@@ -697,7 +697,7 @@ class NetgearDevice extends Homey.Device {
 			this.knownDevices = {};
 			await this.setStoreValue('knownDevicesString', JSON.stringify(this.knownDevices));
 			this.log('known devices were deleted on request of user');
-			Promise.reject(Error('Known devices list deleted'));
+			return Promise.reject(Error('Known devices list deleted'));
 		}
 		if (newSettings.use_traffic_info) {
 			await this.addCapability('meter_download_speed');
@@ -713,8 +713,8 @@ class NetgearDevice extends Homey.Device {
 			await this.removeCapability('meter_cpu_utilization');
 			await this.removeCapability('meter_mem_utilization');
 		}
-
-		this.restartDevice(3000);
+		await this.restartDevice(3000);
+		return true;
 	}
 
 }

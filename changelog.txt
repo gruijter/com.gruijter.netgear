@@ -1,6 +1,9 @@
 Version changelog
 
-v4.0.0  2021.11.26 ***WIP*** Rewrite to SDK3. Improved offline detection for Attached Devices.
+v4.1.0  2022.05.14 Fix pasword failure on pair. Fix crash on firmware check. Fix crash on setGuestWifi. Updated app store image.
+v4.0.2  2022.04.04 Rewrite to SDK3. Fix some flow cards.
+v4.0.1  2022.04.04 Rewrite to SDK3. Fix restart.
+v4.0.0  2021.11.26 Rewrite to SDK3. Improved offline detection for Attached Devices.
 v3.3.1  2022.02.27 Netgear package 4.4.2. Fixed auto discovery for Orbi et al.
 v3.3.0  2022.02.12 Netgear package 4.4.1. Added discovery of orbilogin.net. Added support for SOAP port 5555.
 v3.2.5  2021.08.21 Netgear package 4.3.3. Fixed double flowcard naming issue. German translation updated. German and Dutch readme added.
