@@ -55,5 +55,8 @@
   },
   "4.1.1": {
     "en": "Fix pasword failure on pair. Fix crash on firmware check. Fix crash on setGuestWifi. Updated app store images."
+  },
+  "4.1.2": {
+    "en": "Fix crash on 'Device is online' and 'internet is connected' flow condition cards."
   }
 }

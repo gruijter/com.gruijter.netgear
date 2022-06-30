@@ -218,11 +218,11 @@ class MyApp extends Homey.App {
 
 		// condition cards for attachedDevice
 		const deviceIsOnline = this.homey.flow.getConditionCard('device_is_online');
-		deviceIsOnline.registerRunListener((args) => args.device.getCapabilityValue('device_connected').catch(this.error));
+		deviceIsOnline.registerRunListener((args) => args.device.getCapabilityValue('device_connected'));
 
 		// condition cards for Netgear driver
 		const internetConnected = this.homey.flow.getConditionCard('alarm_generic');
-		internetConnected.registerRunListener((args) => !args.device.getCapabilityValue('alarm_generic').catch(this.error));
+		internetConnected.registerRunListener((args) => !args.device.getCapabilityValue('alarm_generic'));
 
 		const newFirmware = this.homey.flow.getConditionCard('new_firmware_condition');
 		newFirmware.registerRunListener((args) => (args.device.readings.newFirmware.newVersion
