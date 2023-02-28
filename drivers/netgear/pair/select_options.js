@@ -32,12 +32,12 @@ async function save() {
 	dev.settings.use_traffic_info = $('#use_traffic_info').prop('checked');
 	dev.settings.use_system_info = $('#use_system_info').prop('checked');
 	dev.settings.use_firmware_check = $('#use_firmware_check').prop('checked');
-	dev.capabilities = ['alarm_generic', 'attached_devices'];
+	dev.capabilities = ['alarm_generic', 'meter_attached_devices'];
 	if (dev.settings.use_traffic_info) {
-		dev.capabilities.push('download_speed', 'upload_speed');
+		dev.capabilities.push('meter_download_speed', 'meter_upload_speed');
 	}
 	if (dev.settings.use_system_info) {
-		dev.capabilities.push('cpu_utilization', 'mem_utilization');
+		dev.capabilities.push('meter_cpu_utilization', 'meter_mem_utilization');
 	}
 	Homey.createDevice(dev, (err) => {
 		Homey.hideLoadingOverlay();
