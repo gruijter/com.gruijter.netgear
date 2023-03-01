@@ -12,7 +12,7 @@
     "de": "Überwache deinen Netgear-Router"
   },
   "brandColor": "#751939",
-  "version": "4.1.3",
+  "version": "4.2.0",
   "sdk": 3,
   "compatibility": ">= 7.4",
   "author": {
@@ -1112,6 +1112,68 @@
                 "de": "Dies ist die Seriennummer des Routers, die den On-/Offline-Status angibt."
               },
               "value": "unknown"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Aliasses",
+            "nl": "Aliassen",
+            "de": "Aliase"
+          },
+          "children": [
+            {
+              "id": "alias1",
+              "type": "text",
+              "label": {
+                "en": "Alias MAC 1"
+              },
+              "hint": {
+                "en": "Additional MAC address of the same device.",
+                "nl": "Extra MAC-adres van hetzelfde apparaat.",
+                "de": "Zusätzliche MAC-Adresse des gleichen Geräts."
+              },
+              "value": ""
+            },
+            {
+              "id": "alias2",
+              "type": "text",
+              "label": {
+                "en": "Alias MAC 2"
+              },
+              "hint": {
+                "en": "Additional MAC address of the same device.",
+                "nl": "Extra MAC-adres van hetzelfde apparaat.",
+                "de": "Zusätzliche MAC-Adresse des gleichen Geräts."
+              },
+              "value": ""
+            },
+            {
+              "id": "alias3",
+              "type": "text",
+              "label": {
+                "en": "Alias MAC 3"
+              },
+              "hint": {
+                "en": "Additional MAC address of the same device.",
+                "nl": "Extra MAC-adres van hetzelfde apparaat.",
+                "de": "Zusätzliche MAC-Adresse des gleichen Geräts."
+              },
+              "value": ""
+            },
+            {
+              "id": "alias4",
+              "type": "text",
+              "label": {
+                "en": "Alias MAC 4"
+              },
+              "hint": {
+                "en": "Additional MAC address of the same device.",
+                "nl": "Extra MAC-adres van hetzelfde apparaat.",
+                "de": "Zusätzliche MAC-Adresse des gleichen Geräts."
+              },
+              "value": ""
             }
           ]
         },

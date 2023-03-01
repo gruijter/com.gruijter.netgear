@@ -87,6 +87,68 @@
     {
       "type": "group",
       "label": {
+        "en": "Aliasses",
+        "nl": "Aliassen",
+        "de": "Aliase"
+      },
+      "children": [
+        {
+          "id": "alias1",
+          "type": "text",
+          "label": {
+            "en": "Alias MAC 1"
+          },
+          "hint": {
+            "en": "Additional MAC address of the same device.",
+            "nl": "Extra MAC-adres van hetzelfde apparaat.",
+            "de": "Zusätzliche MAC-Adresse des gleichen Geräts."
+          },
+          "value": ""
+        },
+        {
+          "id": "alias2",
+          "type": "text",
+          "label": {
+            "en": "Alias MAC 2"
+          },
+          "hint": {
+            "en": "Additional MAC address of the same device.",
+            "nl": "Extra MAC-adres van hetzelfde apparaat.",
+            "de": "Zusätzliche MAC-Adresse des gleichen Geräts."
+          },
+          "value": ""
+        },
+        {
+          "id": "alias3",
+          "type": "text",
+          "label": {
+            "en": "Alias MAC 3"
+          },
+          "hint": {
+            "en": "Additional MAC address of the same device.",
+            "nl": "Extra MAC-adres van hetzelfde apparaat.",
+            "de": "Zusätzliche MAC-Adresse des gleichen Geräts."
+          },
+          "value": ""
+        },
+        {
+          "id": "alias4",
+          "type": "text",
+          "label": {
+            "en": "Alias MAC 4"
+          },
+          "hint": {
+            "en": "Additional MAC address of the same device.",
+            "nl": "Extra MAC-adres van hetzelfde apparaat.",
+            "de": "Zusätzliche MAC-Adresse des gleichen Geräts."
+          },
+          "value": ""
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
         "en": "Presence settings",
         "nl": "Aanwezigheid instellingen",
         "de": "Anwesenheitseinstellungen"

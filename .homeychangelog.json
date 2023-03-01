@@ -61,5 +61,8 @@
   },
   "4.1.3": {
     "en": "Fix adding new router."
+  },
+  "4.2.0": {
+    "en": "Added MAC aliasses for attached devices."
   }
 }

@@ -1,6 +1,6 @@
 /* eslint-disable no-await-in-loop */
 /*
-Copyright 2017 - 2022, Robin de Gruijter (gruijter@hotmail.com)
+Copyright 2017 - 2023, Robin de Gruijter (gruijter@hotmail.com)
 
 This file is part of com.gruijter.netgear.
 
@@ -30,17 +30,32 @@ class attachedNetgearDevice extends Device {
 	// this method is called when the Device is inited
 	async onInit() {
 		this.settings = await this.getSettings();
-		this.lastInfo = {
-			MAC: this.getData().id,
-			Name: this.getCapabilityValue('name_in_router') || 'unknown',
-			IP: this.getCapabilityValue('ip_address') || 'unknown',
-		};
+		const aliasses = [this.settings.mac, this.settings.alias1, this.settings.alias2, this.settings.alias3, this.settings.alias4];
+		this.aliasses = aliasses.filter((mac) => mac && mac.length === 17);
+
+		if (!this.lastInfo) {
+			this.lastInfo = {
+				MAC: this.getData().id,
+				Name: this.getCapabilityValue('name_in_router') || 'unknown',
+				IP: this.getCapabilityValue('ip_address') || 'unknown',
+			};
+		}
 
 		// migrate stuff
 		if (!this.migrated) await this.checkCaps(true).catch(this.error);
 
 		// add router available check here?
 		this.log(`device ready: ${this.getName()}`);
+	}
+
+	async restartDevice(delay) {
+		if (this.restarting) return;
+		this.restarting = true;
+		// await this.destroyListeners();
+		const dly = delay || 2000;
+		this.log(`Device will restart in ${dly / 1000} seconds`);
+		// this.setUnavailable('Device is restarting. Wait a few minutes!');
+		await setTimeoutPromise(dly).then(() => this.onInit());
 	}
 
 	// migrate stuff from old version < 4.0.0 and reset capabilities after settings change
@@ -93,11 +108,15 @@ class attachedNetgearDevice extends Device {
 		this.log(`${this.getData().id} deleted: ${this.getName()}`);
 	}
 
-	onSettings({ newSettings }) { // , oldSettings, changedKeys) {
-		this.migrated = false;
-		this.settings = newSettings;
+	onSettings({ newSettings, changedKeys }) { // , oldSettings, ) {
 		this.log(`${this.getData().id} ${this.getName()} device settings changed by user`, newSettings);
-		this.checkCaps(false).catch(this.error);
+		changedKeys.forEach((key) => {
+			if (key.includes('alias') && newSettings[key] !== '') {
+				if (newSettings[key].length !== 17 || newSettings[key].split(':').length !== 6) throw Error('Invalid MAC alias');
+			}
+		});
+		this.migrated = false;
+		this.restartDevice(1000);
 	}
 
 	// Update device capabilities and trigger flowcards

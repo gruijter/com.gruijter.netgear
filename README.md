@@ -39,7 +39,7 @@ Do:
 The app is intended for netgear devices that work in Router mode. When using the router in Access Point (AP) mode, you will not have all functionality, e.g. traffic statistics (up/download speed). Your Homey should be connected inside the LAN part of the router, not from outside (WAN). To setup go to "Devices" and add the Netgear router by filling in the admin password. After the router device is added successfully you can change the polling interval (set to 1 minute as default). On app startup, Homey will try to automatically enable traffic statistics (up/download speed) and access control (block/allow internet access for an attached device). The availablity of these functions depend ond router type, router mode and firmware level. The app will start collecting and remember MAC addresses of all devices that ever connected to the router. If you need to clear this list you can do so by checking the box "delete devicelist" in the device settings.
 
 ### Presence detection ###
-After adding your router to Homey, you can start adding the mobile devices that you want to track for presence. They will be reported as connected or disconnected based on the WiFi connection to your Netgear network.
+After adding your router to Homey, you can start adding the mobile devices that you want to track for presence. They will be reported as connected or disconnected based on the WiFi connection to your Netgear network. If the device has multiple MAC adresses in your network (which can happen when you have multiple WiFi access points) you can add up to 4 additional alias MAC adresses in the device settings.
 
 ![image][presence-cards-image]
 

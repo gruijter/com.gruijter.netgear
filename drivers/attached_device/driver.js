@@ -1,5 +1,5 @@
 /*
-Copyright 2017 - 2022, Robin de Gruijter (gruijter@hotmail.com)
+Copyright 2017 - 2023, Robin de Gruijter (gruijter@hotmail.com)
 
 This file is part of com.gruijter.netgear.
 
@@ -98,11 +98,17 @@ class AttachedDeviceDriver extends Homey.Driver {
 		const { routerID } = info;
 		const pairedDevices = this.getDevices();
 		pairedDevices.forEach((pairedDevice) => {
-			const newInfo = knownDevices[pairedDevice.getData().id];
 			// legacy check for correct router CAN I REMOVE THIS?
 			const deviceRouter = pairedDevice.getSettings().router_id;
 			if (deviceRouter !== 'unknown' && deviceRouter !== routerID) return;
-			pairedDevice.updateInfo(newInfo);
+			// collect info from all aliasses
+			const aliasses = [];
+			pairedDevice.aliasses.forEach((mac) => {
+				if (knownDevices[mac]) aliasses.push(knownDevices[mac]);
+			});
+			const sorted = aliasses.sort((a, b) => new Date(b.lastSeen) - new Date(a.lastSeen));
+			// send info from last seen alias
+			if (sorted[0]) pairedDevice.updateInfo(sorted[0]);
 		});
 	}
 
