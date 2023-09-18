@@ -316,7 +316,7 @@ class NetgearDevice extends Homey.Device {
 					serial_number: this.readings.info.SerialNumber,
 					firmware_version: this.readings.info.Firmwareversion,
 					device_mode: this.driver.deviceModes[Number(this.readings.info.DeviceMode)],
-				});
+				}).catch(this.error);
 			}
 			return Promise.resolve(true);
 		} catch (error) {
@@ -355,23 +355,23 @@ class NetgearDevice extends Homey.Device {
 		}
 	}
 
-	async updateLogs() {
-		try {
-			if (!this.hasLogAnalyzer) return Promise.resolve(false);
-			const logs = await this.routerSession.getSystemLogs(true)
-				.catch(() => {
-					this.log('error getting Logs from router');
-					return undefined;
-				});
-			if (logs) {
-				// this.logs = logs;
-				// this.homey.emit(`log_${this.getData().id}`, JSON.stringify({ router: this.getData().id, logs }));	// send to log_analyzer driver
-			}
-			return Promise.resolve(true);
-		} catch (error) {
-			return Promise.reject(error);
-		}
-	}
+	// async updateLogs() {
+	// 	try {
+	// 		if (!this.hasLogAnalyzer) return Promise.resolve(false);
+	// 		const logs = await this.routerSession.getSystemLogs(true)
+	// 			.catch(() => {
+	// 				this.log('error getting Logs from router');
+	// 				return undefined;
+	// 			});
+	// 		if (logs) {
+	// 			// this.logs = logs;
+	// 			// this.homey.emit(`log_${this.getData().id}`, JSON.stringify({ router: this.getData().id, logs }));	// send to log_analyzer driver
+	// 		}
+	// 		return Promise.resolve(true);
+	// 	} catch (error) {
+	// 		return Promise.reject(error);
+	// 	}
+	// }
 
 	// function to keep a list of known attached devices, and update the device state
 	async updateKnownDeviceList() {
@@ -502,7 +502,7 @@ class NetgearDevice extends Homey.Device {
 			await this.updateInternetConnectionState().catch(this.error);	// disconnect alarm
 			await this.updateSpeed().catch(this.error);	// up/down internet bandwidth
 			await this.updateSystemInfo().catch(this.error);	// mem/cpu load
-			await this.updateLogs().catch(this.error);	// system logs EXPERIMENTAL
+			// await this.updateLogs().catch(this.error);	// system logs EXPERIMENTAL
 			// update exta info once an hour
 			if ((Date.now() - this.readings.extraPollTime) > (60 * 60 * 1000)) {
 				await this.updateFirmwareInfo().catch(this.error);	// firmware and router mode
@@ -526,15 +526,17 @@ class NetgearDevice extends Homey.Device {
 			if (!this.migrated) await this.checkCaps(true);
 
 			// init some values
-			this.readings = {
-				getEthernetLinkStatus: 'Up',
-				info: {},
-				newFirmware: {},
-				trafficMeter: undefined,
-				attachedDevices: [],
-				pollTime: 0,
-				extraPollTime: 0,
-			};
+			if (!this.readings) {
+				this.readings = {
+					getEthernetLinkStatus: 'Up',
+					info: {},
+					newFirmware: {},
+					trafficMeter: undefined,
+					attachedDevices: [],
+					pollTime: 0,
+					extraPollTime: 0,
+				};
+			}
 			this.busy = false;
 			this.watchDogCounter = 4;
 			// this.hasLogAnalyzer = false;
@@ -582,11 +584,13 @@ class NetgearDevice extends Homey.Device {
 			this.startPolling(this.settings.polling_interval);
 
 			this.log(`device ready: ${this.getName()} id: ${this.getData().id}`);
+			this.restarting = false;
 
 		} catch (error) {
 			this.error(error);
 			this.setUnavailable(error.message).catch(this.error);
-			await this.restartDevice(5 * 60 * 1000);
+			this.restarting = false;
+			this.restartDevice(5 * 60 * 1000);
 		}
 
 	}
@@ -625,7 +629,7 @@ class NetgearDevice extends Homey.Device {
 			if (migrate && this.settings.level < '4.0.0') {
 				const excerpt = `The Netgear app is migrated to version ${this.homey.app.manifest.version} **CHECK FOR BROKEN FLOWS!**`;
 				await this.homey.notifications.createNotification({ excerpt });
-				await this.setSettings({ level: this.homey.app.manifest.version });
+				await this.setSettings({ level: this.homey.app.manifest.version }).catch(this.error);
 				this.log(excerpt);
 			}
 			this.migrated = true;
@@ -635,14 +639,14 @@ class NetgearDevice extends Homey.Device {
 		}
 	}
 
-	async restartDevice(delay) {
+	restartDevice(delay) {
 		if (this.restarting) return;
 		this.restarting = true;
 		this.stopPolling();
 		const dly = delay || 2000;
 		this.log(`Device will restart in ${dly / 1000} seconds`);
-		await setTimeoutPromise(dly).then(() => this.onInit());
-		this.restarting = false;
+		// this.setUnavailable('Device is restarting. Wait a few minutes!');
+		setTimeoutPromise(dly).then(() => this.onInit());
 	}
 
 	// this method is called when the Device is added
@@ -692,12 +696,11 @@ class NetgearDevice extends Homey.Device {
 	async onSettings({ newSettings }) { // , changedKeys }) { // , oldSettings, changedKeys) {
 		this.log(`${this.getName()} device settings changed by user`, newSettings);
 		this.stopPolling();
-
 		if (newSettings.clear_known_devices) {
 			this.knownDevices = {};
 			await this.setStoreValue('knownDevicesString', JSON.stringify(this.knownDevices));
 			this.log('known devices were deleted on request of user');
-			return Promise.reject(Error('Known devices list deleted'));
+			throw Error('Known devices list deleted');
 		}
 		if (newSettings.use_traffic_info) {
 			await this.addCapability('meter_download_speed');
@@ -713,8 +716,7 @@ class NetgearDevice extends Homey.Device {
 			await this.removeCapability('meter_cpu_utilization');
 			await this.removeCapability('meter_mem_utilization');
 		}
-		await this.restartDevice(3000);
-		return true;
+		this.restartDevice(3000);
 	}
 
 }

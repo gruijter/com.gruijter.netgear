@@ -64,5 +64,8 @@
   },
   "4.2.0": {
     "en": "Added MAC aliasses for attached devices."
+  },
+  "4.2.1": {
+    "en": "Stability improvements."
   }
 }

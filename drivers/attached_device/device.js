@@ -29,6 +29,7 @@ class attachedNetgearDevice extends Device {
 
 	// this method is called when the Device is inited
 	async onInit() {
+		this.restarting = false;
 		this.settings = await this.getSettings();
 		const aliasses = [this.settings.mac, this.settings.alias1, this.settings.alias2, this.settings.alias3, this.settings.alias4];
 		this.aliasses = aliasses.filter((mac) => mac && mac.length === 17);
@@ -48,14 +49,14 @@ class attachedNetgearDevice extends Device {
 		this.log(`device ready: ${this.getName()}`);
 	}
 
-	async restartDevice(delay) {
+	restartDevice(delay) {
 		if (this.restarting) return;
 		this.restarting = true;
 		// await this.destroyListeners();
 		const dly = delay || 2000;
 		this.log(`Device will restart in ${dly / 1000} seconds`);
 		// this.setUnavailable('Device is restarting. Wait a few minutes!');
-		await setTimeoutPromise(dly).then(() => this.onInit());
+		setTimeoutPromise(dly).then(() => this.onInit());
 	}
 
 	// migrate stuff from old version < 4.0.0 and reset capabilities after settings change
@@ -90,7 +91,7 @@ class attachedNetgearDevice extends Device {
 				}
 			}
 			// set new migrate level
-			if (migrate) this.setSettings({ level: this.homey.app.manifest.version });
+			if (migrate) this.setSettings({ level: this.homey.app.manifest.version }).catch(this.error);
 			this.migrated = true;
 			Promise.resolve(this.migrated);
 		} catch (error) {

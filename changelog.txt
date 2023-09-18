@@ -1,6 +1,7 @@
 Version changelog
 
-v4.2.0  2023.03.01 Added MAC aliasses for attached devices.
+v4.2.1  2023.09.18 Stability improvements.
+v4.2.0  2023.03.01 Added MAC aliases for attached devices.
 v4.1.3  2023.02.28 Fix adding new router.
 v4.1.2  2022.06.30 Fix crash on 'Device is online' and 'internet is connected' flow condition cards.
 v4.1.1  2022.05.14 Fix pasword failure on pair. Fix crash on firmware check. Fix crash on setGuestWifi. Updated app store images.
