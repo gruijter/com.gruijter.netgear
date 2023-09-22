@@ -29,12 +29,9 @@
   "pair": [
     {
       "id": "list_devices",
-      "navigation": {
-        "next": "select_options"
-      },
-      "options": {
-        "singular": true
-      }
+      "template": "list_devices",
+      "navigation": { "next": "select_options" },
+      "options": { "singular": true }
     },
     {
       "id": "select_options"

@@ -24,10 +24,7 @@
   },
   "pair": [
     {
-      "id": "manual",
-      "navigation": {
-        "next": "select_options"
-      }
+      "id": "manual"
     },
     {
       "id": "select_options"

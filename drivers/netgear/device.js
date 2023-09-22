@@ -399,7 +399,7 @@ class NetgearDevice extends Homey.Device {
 			// detect online and new attached devices
 			attachedDevices.forEach((attachedDevice) => {
 				// filter corrupt stuff
-				if (!knownDevices[attachedDevice.MAC] || (knownDevices[attachedDevice.MAC].MAC.length !== 17)) {	// knownDevice is corrupt
+				if (knownDevices[attachedDevice.MAC] && (knownDevices[attachedDevice.MAC].MAC.length !== 17)) {	// knownDevice is corrupt
 					this.log('deleting corrupt device', knownDevices[attachedDevice.MAC]);
 					delete knownDevices[attachedDevice.MAC];
 				}
@@ -653,6 +653,7 @@ class NetgearDevice extends Homey.Device {
 	async onAdded() {
 		const settings = this.getSettings();
 		this.log(`router ${settings.model_name} added as device @ ${settings.host}:${settings.port}`);
+		this.setAvailable().catch(this.error);
 	}
 
 	// this method is called when the Device is deleted

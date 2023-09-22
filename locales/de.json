@@ -16,6 +16,8 @@
 		"select_options": {
 			"title": "Geräteoptionen",
 			"intro": "",
+			"name": "Name in Homey",
+			"icon": "Symbol",
 			"capabilities": "Geräteoptionen auswählen",
 			"use_link_info": "WiFi-Verbindung",
 			"use_bandwidth_info": "Bandbreite",

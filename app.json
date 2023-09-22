@@ -12,9 +12,9 @@
     "de": "Überwache deinen Netgear-Router"
   },
   "brandColor": "#751939",
-  "version": "4.2.1",
+  "version": "4.3.0",
   "sdk": 3,
-  "compatibility": ">= 7.4",
+  "compatibility": ">= 8.0",
   "author": {
     "name": "Robin Gruijter",
     "email": "gruijter@hotmail.com"
@@ -1060,6 +1060,7 @@
       "pair": [
         {
           "id": "list_devices",
+          "template": "list_devices",
           "navigation": {
             "next": "select_options"
           },
@@ -1290,10 +1291,7 @@
       },
       "pair": [
         {
-          "id": "manual",
-          "navigation": {
-            "next": "select_options"
-          }
+          "id": "manual"
         },
         {
           "id": "select_options"

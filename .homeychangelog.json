@@ -67,5 +67,8 @@
   },
   "4.2.1": {
     "en": "Stability improvements."
+  },
+  "4.3.0": {
+    "en": "Stability improvements. Improved SOAP port detection and autodiscovery. Fixed pairing and improved GUI. Netgear package 4.4.3."
   }
 }

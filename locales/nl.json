@@ -11,11 +11,13 @@
 			"password": "Wachtwoord",
 			"host": "IP adres",
 			"port": "SOAP Poort",
-			"save": "Opslaan"
+			"save": "Volgende"
 		},
 		"select_options": {
-			"title": "apparaat opties",
+			"title": "Apparaat opties",
 			"intro": "",
+			"name": "Naam in Homey",
+			"icon": "Icoon",
 			"capabilities": "capabilities",
 			"use_link_info": "Wifi link",
 			"use_bandwidth_info": "Bandbreedte",

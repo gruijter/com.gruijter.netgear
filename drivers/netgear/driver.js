@@ -37,11 +37,12 @@ class NetgearDriver extends Homey.Driver {
 	}
 
 	async onPair(session) {
+		let device;
 		const router = new NetgearRouter();
 		session.setHandler('discover', async () => {
 			try {
 				this.log('discovery started from frontend');
-				const discover = await router.discover();
+				const discover = await router.discover({ family: 4 });
 				this.log(discover);
 				return Promise.resolve(JSON.stringify(discover)); // report success to frontend
 			}	catch (error) {
@@ -56,11 +57,13 @@ class NetgearDriver extends Homey.Driver {
 				const username = data.username;
 				let host = data.host;
 				let port = data.port;
+				let tls = data.tls;
 				let discover = {};
 				if (!port || !host || host === '') {
 					discover = await router.discover();
 					port = port || discover.port;
 					host = host || discover.host;
+					tls = discover.tls;
 				}
 				// try to login
 				const options = {
@@ -68,12 +71,17 @@ class NetgearDriver extends Homey.Driver {
 					username,
 					host,
 					port,
-					tls: port === 443 || port === 5555,
+					tls,
 				};
 				await router.login(options);
 				const info = await router.getInfo();
 				if (!Object.prototype.hasOwnProperty.call(info, 'SerialNumber')) throw Error('No SerialNumber found');
-				const device = {
+				let knownRouter;
+				try {
+					knownRouter = this.getDevice({ id: info.SerialNumber });
+				} catch (error) { knownRouter = false; }
+				if (knownRouter) throw Error('This router is already paired in Homey');
+				device = {
 					name: info.ModelName || info.DeviceName || 'Netgear',
 					data: { id: info.SerialNumber },
 					settings: {
@@ -102,10 +110,24 @@ class NetgearDriver extends Homey.Driver {
 						},
 					},
 				};
+				await session.showView('select_options');
 				return Promise.resolve(device);
 			}	catch (error) {
 				this.error('Pair error:', error.message);
 				return Promise.reject(error);
+			}
+		});
+		session.setHandler('save_options', async (options) => {
+			try {
+				if (!device || !device.settings) throw Error('Device info went missing.');
+				const dev = { ...device };
+				dev.settings = { ...dev.settings, ...options };
+				// console.log(dev);
+				this.log('saving new router from frontend');
+				return Promise.resolve(dev);
+			}	catch (error) {
+				this.log(error);
+				return Promise.reject(Error('Autodiscovery failed. Manual entry required.'));
 			}
 		});
 	}

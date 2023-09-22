@@ -5,7 +5,7 @@
   "main": "api.js",
   "dependencies": {
     "fixture-stdout": "^0.2.1",
-    "netgear": "^4.4.2"
+    "netgear": "^4.4.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

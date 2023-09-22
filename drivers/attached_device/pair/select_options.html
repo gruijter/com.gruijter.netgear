@@ -1,71 +1,115 @@
-<!doctype html>
-<html>
-	<head>
-		<script type="text/javascript" src="/manager/webserver/assets/js/jquery.js"></script>
-		<script type="text/javascript" src="select_options.js"></script>
-		<link rel="stylesheet" type="text/css" href="../../../assets/styles.css" />
-		<style>
-			/* place on top of Homey navigation window */
-			#hy-views { position: static; }
-		</style>
-	</head>
-	<body>
-		<div class="setting">
+<script>
+	Homey.hideLoadingOverlay();
+	let device;
+	getBackendInfo();
+	// change icon on select
+	$('#iconSelection').change(() => {
+		$('img[id=icon]').attr('src', `../assets/${$('#iconSelection').val()}.svg`);
+	});
 
-			<label class="settings-item-description" data-i18n="pair.select_options.name">name</label>
-			<div class="settings-itemgroup">
-				<input id="name" type="text" value="">
-			</div>
+	// get the selected device from backend and set options in frontend
+	async function getDevice() {
+		try {
+			device = await Homey.emit('get_device');
+			$('#name').val(device.name);
+			$('#iconSelection').val(device.icon.replace('/', '').replace('.svg', ''));
+			$('img[id=icon]').attr('src', `../assets/${device.icon}`);
+			return Promise.resolve(true);
+		} catch (error) {
+			return Promise.reject(error);
+		}
+	}
 
-			<label class="settings-item-description" data-i18n="pair.select_options.icon">Select icon</label>
-			<div class="settings-itemgroup">
-				<select id="iconSelection" >
-					<option value="default" selected>default</option>
-				</select>
-			</div>
+	// function to populate the icon dropdown list and get selected device
+	async function getBackendInfo() {
+		try {
+			// first empty the dropdownlist
+			const dropDown = document.getElementById('iconSelection');
+			while (dropDown.length > 0) {
+				dropDown.remove(dropDown.length - 1);
+			}
+			// get icon list
+			const iconArray = await Homey.emit('get_icons');
+			// iconArray = JSON.parse(icons);
+			// now fill the dropdown list and add an empty item in the dropdown list
+			iconArray.forEach((icon) => {
+				const iconOption = document.createElement('option');
+				iconOption.text = icon;
+				iconOption.value = icon;
+				dropDown.add(iconOption);
+			});
+			await getDevice();
+			return Promise.resolve(true);
+		} catch (error) {
+			return Promise.reject(error);
+		}
+	}
 
-			<img id="icon" width="50px" src="../assets/default.svg" />
+	async function saveOptions() {
+		try {
+			Homey.showLoadingOverlay();
+			if (!device || !device.data) throw Error('No device loaded');
+			const dev = device;
+			dev.name = $('#name').val();
+			dev.icon = `../assets/${$('#iconSelection').val()}.svg`;
+			dev.settings.use_link_info = $('#use_link_info').prop('checked');
+			dev.settings.use_bandwidth_info = false; // $('#use_bandwidth_info').prop('checked');
+			dev.settings.report_power = $('#report_power').prop('checked');
+			dev.capabilities = ['device_connected', 'ip_address', 'name_in_router', 'ssid'];
+			if (dev.settings.use_link_info) dev.capabilities.push('meter_link_speed', 'meter_signal_strength');
+			// if (dev.settings.use_bandwidth_info) dev.capabilities.push('meter_download_speed', 'meter_upload_speed');
+			if (dev.settings.report_power) dev.capabilities.push('onoff');
+			await Homey.createDevice(dev);
+			Homey.hideLoadingOverlay();
+			Homey.done();
+		} catch (error) { 
+			Homey.hideLoadingOverlay();
+			Homey.alert(error, 'error');
+		}
+	}
 
-			<label class="settings-item-description" data-i18n="pair.select_options.capabilities">Capabilities</label>
+</script>
 
-			<div class="settings-itemgroup">
-					<div class="settings-item-text">
-							<span data-i18n="pair.select_options.use_link_info">Report Wifi link info</span>
-					</div>
-					<div class="settings-item-last">
-							<label class="form-switch">
-									<input type="checkbox" id="use_link_info" checked="true"/>
-									<i></i>
-							</label>
-					</div>
-			</div>
-			<!-- <div class="settings-itemgroup">
-				<div class="settings-item-text">
-						<span data-i18n="pair.select_options.use_bandwidth_info">Report Up/Down bandwidth</span>
-				</div>
-				<div class="settings-item-last">
-						<label class="form-switch">
-								<input type="checkbox" id="use_bandwidth_info"/>
-								<i></i>
-						</label>
-				</div>
-			</div> -->
-			<div class="settings-itemgroup">
-				<div class="settings-item-text">
-						<span data-i18n="pair.select_options.report_power">Report Energy</span>
-				</div>
-				<div class="settings-item-last">
-						<label class="form-switch">
-								<input type="checkbox" id="report_power"/>
-								<i></i>
-						</label>
-				</div>
-			</div>
+<form class="homey-form">
 
-			<!-- <label class="settings-item-description" data-i18n="pair.select_options.save">Save</label> -->
-			<br>
-			<button id="pair.select_options.save" class="btn" onclick="save()" data-i18n="pair.select_options.save">Save</button>
+	<fieldset class="homey-form-fieldset">
+		<legend class="homey-form-legend" data-i18n="pair.select_options.title"></legend>
 
+		<div class="homey-form-group">
+			<label class="homey-form-label" for="name" data-i18n="pair.select_options.name"></label>
+			<input class="homey-form-input" id="name" type="text" value="" />
 		</div>
-	</body>
-</html>
+	</fieldset>
+
+
+	<div class="homey-form-group">
+		<label class="homey-form-label" for="iconSelection" data-i18n="pair.select_options.icon"></label>
+		<select class="homey-form-select" name="select-example" id="iconSelection">
+			<option value="default" selected>default</option>
+		</select>
+	</div>
+
+	<img id="icon" height="100px" src="../assets/default.svg" />
+	<br>
+
+	<div class="homey-form-group">
+		<fieldset class="homey-form-checkbox-set">
+			<legend class="homey-form-checkbox-set-title" data-i18n="pair.select_options.capabilities"></legend>
+	
+			<label class="homey-form-checkbox">
+				<input class="homey-form-checkbox-input" type="checkbox" id="use_link_info" checked/>
+				<span class="homey-form-checkbox-checkmark"></span>
+				<span class="homey-form-checkbox-text" data-i18n="pair.select_options.use_link_info"></span>
+			</label>
+		
+			<label class="homey-form-checkbox">
+				<input class="homey-form-checkbox-input" type="checkbox" id="report_power" />
+				<span class="homey-form-checkbox-checkmark"></span>
+				<span class="homey-form-checkbox-text" data-i18n="pair.select_options.report_power"></span>
+			</label>
+		</fieldset>
+	</div>
+
+</form>
+<br>
+<button class="homey-button-primary-full" id="saveOptions" onclick="saveOptions()" data-i18n="pair.select_options.save" ></button>

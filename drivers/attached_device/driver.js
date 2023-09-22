@@ -113,7 +113,12 @@ class AttachedDeviceDriver extends Homey.Driver {
 	}
 
 	async onPair(session) {
-		session.setHandler('get_icons', () => JSON.stringify(iconArray));
+		let device;
+		session.setHandler('get_icons', () => iconArray);
+		session.setHandler('get_device', () => device);
+		session.setHandler('list_devices_selection', (devices) => {
+			if (devices && devices[0]) [device] = devices;
+		});
 		session.setHandler('list_devices', async () => {
 			try {
 				this.log('Pairing of new Attached device started');
@@ -126,9 +131,9 @@ class AttachedDeviceDriver extends Homey.Driver {
 				const { knownDevices } = router;
 				Object.keys(knownDevices).forEach((attachedDevice) => {
 					const icon = iconTable[knownDevices[attachedDevice].DeviceType] || 'default';
-					const device = {
+					device = {
 						name: `${knownDevices[attachedDevice].Name} - ${knownDevices[attachedDevice].MAC}`,
-						icon: `../assets/${icon}.svg`,	// change the icon?
+						icon: `${icon}.svg`,	// change the icon?
 						data: {
 							id: knownDevices[attachedDevice].MAC,
 							// icon_name: deviceType,

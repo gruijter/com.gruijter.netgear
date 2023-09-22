@@ -1,39 +1,67 @@
-<!doctype html>
-<html>
-	<head>
-		<script type="text/javascript" src="/manager/webserver/assets/js/jquery.js"></script>
-		<script type="text/javascript" src="manual.js" data-origin="settings"></script>
-		<link rel="stylesheet" type="text/css" href="../../../assets/styles.css" />
-		<!-- <style>
-			/* place on top of Homey navigation window */
-			#hy-views { position: static; }
-		</style> -->
-	</head>
-	<body>
-		<div class="setting">
-				<fieldset class="listContainer">
-					<legend data-i18n="pair.start.title">Start pairing</legend>
-					<p data-i18n="pair.start.intro" class="instructions">Instructions</p>
-				</fieldset>
+<script>
+	Homey.hideLoadingOverlay();
+	discover();
 
-				<!-- <label class="settings-item-description" data-i18n="pair.start.discover">host</label>
-				<button id="discover" class="btn" onclick="discover()" data-i18n="pair.start.discover">Discover</button> -->
+	function discover() {
+	Homey.showLoadingOverlay();
+	Homey.emit('discover', {}, (error, result) => {
+		if (error) {
+			Homey.hideLoadingOverlay();
+			Homey.alert(error.message, 'error');
+		} else {
+			Homey.hideLoadingOverlay();
+			const info = JSON.parse(result);
+			$('#host').val(info.host);
+			$('#port').val(Number(info.port));
+			$("#tls").prop("checked", info.tls);
+		}
+	});
+}
 
-				<label class="settings-item-description" data-i18n="pair.start.host">host</label>
-				<div class="settings-itemgroup">
-					<input id="host" type="text" value="">
-				</div>
-				<label class="settings-item-description" data-i18n="pair.start.port">port</label>
-				<div class="settings-itemgroup">
-					<input id="soapPort" type="number" value="">
-				</div>
-				<label class="settings-item-description" data-i18n="pair.start.password">password</label>
-				<div class="settings-itemgroup">
-					<input id="password" type="password" value="">
-				</div>
+	async function save() {
+		try {
+			Homey.showLoadingOverlay();
+			const settings = {
+				password: document.getElementById('password').value,
+				host: document.getElementById('host').value,
+				port: Number(document.getElementById('port').value),
+				tls: document.getElementById('tls').checked,
+			};
+			if (!settings.host || settings.host.length < 8 || !settings.port || settings.password === '') throw Error(__('pair.start.required'), 'error');
+			const result = await Homey.emit('check', settings);
+			Homey.hideLoadingOverlay();
+			Homey.showView('select_options');
+			// Homey.alert(result, 'info');
+		} catch (error) { 
+			Homey.hideLoadingOverlay();
+			Homey.alert(error, 'error');
+		}
+	}
 
-				<!-- <label class="settings-item-description" data-i18n="pair.start.save">Save</label>
-				<button id="pair.start.save" class="btn" onclick="save()" data-i18n="pair.start.save">Save</button> -->
-			</div>
-	</body>
-</html>
+</script>
+
+<form class="homey-form">
+	<div class="homey-form-group">
+		<h1 class="homey-title" data-i18n="pair.start.title">Start pairing</h1>
+		<p class="homey-subtitle" data-i18n="pair.start.intro">Instructions</p>
+
+		<label class="homey-form-label" for="password" data-i18n="pair.start.password"></label>
+		<input class="homey-form-input" id="password" type="password" value="" />
+
+		<label class="homey-form-label" for="host" data-i18n="pair.start.host"></label>
+		<input class="homey-form-input" id="host" type="text" placeholder="e.g. 10.0.0.100" value="" />
+
+		<label class="homey-form-label" for="port" data-i18n="pair.start.port"></label>
+		<input class="homey-form-input" id="port" type="number" value="" />
+
+		<label class="homey-form-checkbox">
+			<input class="homey-form-checkbox-input" type="checkbox" id="tls" name="tls" />
+			<span class="homey-form-checkbox-checkmark"></span>
+			<span class="homey-form-checkbox-text">Secure TLS</span>
+		</label>
+
+	</div>
+</form>
+<br>
+<button class="homey-button-primary-full" id="manual" onclick="save()" data-i18n="pair.start.save" ></button>
+
