@@ -17,6 +17,30 @@
     "meter_cpu_utilization",
     "meter_mem_utilization"
   ],
+  "capabilitiesOptions": {
+    "alarm_generic": { 
+      "title": {
+        "en": "Internet disconnected",
+        "nl": "Internet verbroken",
+        "de": "Internet unterbrochen"
+      },
+      "desc": {
+        "en": "Internet disconnected alarm",
+        "nl": "Internet verbroken alarm",
+        "de": "Internet unterbrochen Alarm"
+      },
+      "insightsTitleTrue": {
+        "en": "Internet disconnected",
+        "nl": "Internet verbroken",
+        "de": "Internet unterbrochen"
+      },
+      "insightsTitleFalse": {
+        "en": "Internet connected",
+        "nl": "Internet verbonden",
+        "de": "Internet verbunden"
+      }
+    }
+	},
   "energy": {
     "approximation": {
       "usageConstant": 8

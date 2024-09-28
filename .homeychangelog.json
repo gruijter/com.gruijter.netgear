@@ -70,5 +70,8 @@
   },
   "4.3.0": {
     "en": "Stability improvements. Improved SOAP port detection and autodiscovery. Fixed pairing and improved GUI. Netgear package 4.4.3."
+  },
+  "4.4.0": {
+    "en": "Capability flows compatibility >=fw12.2.0. Code cleanup."
   }
 }

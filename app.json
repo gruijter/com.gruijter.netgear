@@ -12,7 +12,7 @@
     "de": "Überwache deinen Netgear-Router"
   },
   "brandColor": "#751939",
-  "version": "4.3.0",
+  "version": "4.4.0",
   "sdk": 3,
   "compatibility": ">= 8.0",
   "author": {
@@ -1284,6 +1284,30 @@
         "meter_cpu_utilization",
         "meter_mem_utilization"
       ],
+      "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Internet disconnected",
+            "nl": "Internet verbroken",
+            "de": "Internet unterbrochen"
+          },
+          "desc": {
+            "en": "Internet disconnected alarm",
+            "nl": "Internet verbroken alarm",
+            "de": "Internet unterbrochen Alarm"
+          },
+          "insightsTitleTrue": {
+            "en": "Internet disconnected",
+            "nl": "Internet verbroken",
+            "de": "Internet unterbrochen"
+          },
+          "insightsTitleFalse": {
+            "en": "Internet connected",
+            "nl": "Internet verbonden",
+            "de": "Internet verbunden"
+          }
+        }
+      },
       "energy": {
         "approximation": {
           "usageConstant": 8
@@ -1620,33 +1644,6 @@
     }
   ],
   "capabilities": {
-    "alarm_generic": {
-      "type": "boolean",
-      "uiComponent": "sensor",
-      "getable": true,
-      "setable": false,
-      "insights": true,
-      "title": {
-        "en": "Internet disconnected",
-        "nl": "Internet verbroken",
-        "de": "Internet unterbrochen"
-      },
-      "desc": {
-        "en": "Internet disconnected alarm",
-        "nl": "Internet verbroken alarm",
-        "de": "Internet unterbrochen Alarm"
-      },
-      "insightsTitleTrue": {
-        "en": "Internet disconnected",
-        "nl": "Internet verbroken",
-        "de": "Internet unterbrochen"
-      },
-      "insightsTitleFalse": {
-        "en": "Internet connected",
-        "nl": "Internet verbonden",
-        "de": "Internet verbunden"
-      }
-    },
     "device_connected": {
       "type": "boolean",
       "title": {

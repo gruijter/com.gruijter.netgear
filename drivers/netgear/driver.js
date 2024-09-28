@@ -1,6 +1,6 @@
 /* eslint-disable prefer-destructuring */
 /*
-Copyright 2017 - 2023, Robin de Gruijter (gruijter@hotmail.com)
+Copyright 2017 - 2024, Robin de Gruijter (gruijter@hotmail.com)
 
 This file is part of com.gruijter.netgear.
 
@@ -26,111 +26,113 @@ const NetgearRouter = require('netgear');
 const deviceModes = ['Router', 'Access Point', 'Bridge', '3: Unknown', '4: Unknown'];
 
 const capabilities = ['alarm_generic', 'meter_attached_devices', 'meter_download_speed',
-	'meter_upload_speed', 'meter_cpu_utilization', 'meter_mem_utilization'];
+  'meter_upload_speed', 'meter_cpu_utilization', 'meter_mem_utilization'];
 
 class NetgearDriver extends Homey.Driver {
 
-	onInit() {
-		this.log('NetgearDriver onInit');
-		this.capabilities = capabilities;
-		this.deviceModes = deviceModes;
-	}
+  onInit() {
+    this.log('NetgearDriver onInit');
+    this.capabilities = capabilities;
+    this.deviceModes = deviceModes;
+  }
 
-	async onPair(session) {
-		let device;
-		const router = new NetgearRouter();
-		session.setHandler('discover', async () => {
-			try {
-				this.log('discovery started from frontend');
-				const discover = await router.discover({ family: 4 });
-				this.log(discover);
-				return Promise.resolve(JSON.stringify(discover)); // report success to frontend
-			}	catch (error) {
-				this.log(error);
-				return Promise.reject(Error('Autodiscovery failed. Manual entry required.'));
-			}
-		});
-		session.setHandler('check', async (data) => {
-			try {
-				this.log('Checking router settings from frontend');
-				const password = data.password;
-				const username = data.username;
-				let host = data.host;
-				let port = data.port;
-				let tls = data.tls;
-				let discover = {};
-				if (!port || !host || host === '') {
-					discover = await router.discover();
-					port = port || discover.port;
-					host = host || discover.host;
-					tls = discover.tls;
-				}
-				// try to login
-				const options = {
-					password,
-					username,
-					host,
-					port,
-					tls,
-				};
-				await router.login(options);
-				const info = await router.getInfo();
-				if (!Object.prototype.hasOwnProperty.call(info, 'SerialNumber')) throw Error('No SerialNumber found');
-				let knownRouter;
-				try {
-					knownRouter = this.getDevice({ id: info.SerialNumber });
-				} catch (error) { knownRouter = false; }
-				if (knownRouter) throw Error('This router is already paired in Homey');
-				device = {
-					name: info.ModelName || info.DeviceName || 'Netgear',
-					data: { id: info.SerialNumber },
-					settings: {
-						username: router.username,
-						password: router.password,
-						host: router.host,
-						port: router.port,
-						model_name: info.ModelName || info.DeviceName || 'Netgear',
-						serial_number: info.SerialNumber,
-						firmware_version: info.Firmwareversion,
-						device_mode: deviceModes[Number(info.DeviceMode)],
-						internet_connection_check: 'homey',	// 'netgear'
-						use_traffic_info: false,	// up/down speed
-						use_system_info: false, // cpu/mem load
-						use_firmware_check: false,
-						polling_interval: 60,
-						offline_after: 500,
-						attached_devices_method: '0', // auto
-						clear_known_devices: false,
-					},
-					class: 'sensor',
-					capabilities,
-					energy: {
-						approximation: {
-							usageConstant: 8,
-						},
-					},
-				};
-				await session.showView('select_options');
-				return Promise.resolve(device);
-			}	catch (error) {
-				this.error('Pair error:', error.message);
-				return Promise.reject(error);
-			}
-		});
-		session.setHandler('save_options', async (options) => {
-			try {
-				if (!device || !device.settings) throw Error('Device info went missing.');
-				const dev = { ...device };
-				dev.settings = { ...dev.settings, ...options };
-				// console.log(dev);
-				this.log('saving new router from frontend');
-				return Promise.resolve(dev);
-			}	catch (error) {
-				this.log(error);
-				return Promise.reject(Error('Autodiscovery failed. Manual entry required.'));
-			}
-		});
-	}
+  async onPair(session) {
+    let device;
+    const router = new NetgearRouter();
+    session.setHandler('discover', async () => {
+      try {
+        this.log('discovery started from frontend');
+        const discover = await router.discover({ family: 4 });
+        this.log(discover);
+        return Promise.resolve(JSON.stringify(discover)); // report success to frontend
+      } catch (error) {
+        this.log(error);
+        return Promise.reject(Error('Autodiscovery failed. Manual entry required.'));
+      }
+    });
+    session.setHandler('check', async (data) => {
+      try {
+        this.log('Checking router settings from frontend');
+        const password = data.password;
+        const username = data.username;
+        let host = data.host;
+        let port = data.port;
+        let tls = data.tls;
+        let discover = {};
+        if (!port || !host || host === '') {
+          discover = await router.discover();
+          port = port || discover.port;
+          host = host || discover.host;
+          tls = discover.tls;
+        }
+        // try to login
+        const options = {
+          password,
+          username,
+          host,
+          port,
+          tls,
+        };
+        await router.login(options);
+        const info = await router.getInfo();
+        if (!Object.prototype.hasOwnProperty.call(info, 'SerialNumber')) throw Error('No SerialNumber found');
+        let knownRouter;
+        try {
+          knownRouter = this.getDevice({ id: info.SerialNumber });
+        } catch (error) {
+          knownRouter = false;
+        }
+        if (knownRouter) throw Error('This router is already paired in Homey');
+        device = {
+          name: info.ModelName || info.DeviceName || 'Netgear',
+          data: { id: info.SerialNumber },
+          settings: {
+            username: router.username,
+            password: router.password,
+            host: router.host,
+            port: router.port,
+            model_name: info.ModelName || info.DeviceName || 'Netgear',
+            serial_number: info.SerialNumber,
+            firmware_version: info.Firmwareversion,
+            device_mode: deviceModes[Number(info.DeviceMode)],
+            internet_connection_check: 'homey', // 'netgear'
+            use_traffic_info: false, // up/down speed
+            use_system_info: false, // cpu/mem load
+            use_firmware_check: false,
+            polling_interval: 60,
+            offline_after: 500,
+            attached_devices_method: '0', // auto
+            clear_known_devices: false,
+          },
+          class: 'sensor',
+          capabilities,
+          energy: {
+            approximation: {
+              usageConstant: 8,
+            },
+          },
+        };
+        await session.showView('select_options');
+        return Promise.resolve(device);
+      } catch (error) {
+        this.error('Pair error:', error.message);
+        return Promise.reject(error);
+      }
+    });
+    session.setHandler('save_options', async (options) => {
+      try {
+        if (!device || !device.settings) throw Error('Device info went missing.');
+        const dev = { ...device };
+        dev.settings = { ...dev.settings, ...options };
+        // console.log(dev);
+        this.log('saving new router from frontend');
+        return Promise.resolve(dev);
+      } catch (error) {
+        this.log(error);
+        return Promise.reject(Error('Autodiscovery failed. Manual entry required.'));
+      }
+    });
+  }
 
 }
 
