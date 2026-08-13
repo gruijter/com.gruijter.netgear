@@ -10,8 +10,23 @@
 // install node (https://nodejs.org)
 // install this package: > npm i netgear
 // run the test (from the package folder): > npm test password
+//
+// `npm test -- --unit` runs the mocked unit suite (no router needed) instead - `npm test`
+// on its own always talks to a real, physical router, unchanged since v4.
 
 'use strict';
+
+const { spawnSync } = require('node:child_process');
+const path = require('node:path');
+
+if (process.argv.includes('--unit')) {
+	const result = spawnSync('npm', ['run', 'test:unit'], {
+		stdio: 'inherit',
+		cwd: path.join(__dirname, '..'),
+		shell: true,
+	});
+	process.exit(result.status === null ? 1 : result.status);
+}
 
 const _test = require('./_test');
 

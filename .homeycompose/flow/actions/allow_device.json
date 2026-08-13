@@ -2,12 +2,32 @@
   "title": {
     "en": "Allow a device",
     "nl": "Apparaat vrijgeven",
-    "de": "Ein Gerät zulassen"
+    "de": "Ein Gerät zulassen",
+    "fr": "Autoriser un appareil",
+    "es": "Permitir un dispositivo",
+    "it": "Consenti un dispositivo",
+    "da": "Tillad en enhed",
+    "sv": "Tillåt en enhet",
+    "no": "Tillat en enhet",
+    "pl": "Zezwól na urządzenie",
+    "ru": "Разрешить устройство",
+    "ar": "السماح لجهاز",
+    "ko": "기기 허용"
   },
   "titleFormatted": {
     "en": "Allow [[mac]] device",
     "nl": "Apparaat [[mac]] vrijgeven",
-    "de": "Gerät [[mac]] zulassen"
+    "de": "Gerät [[mac]] zulassen",
+    "fr": "Autoriser l'appareil [[mac]]",
+    "es": "Permitir el dispositivo [[mac]]",
+    "it": "Consenti il dispositivo [[mac]]",
+    "da": "Tillad enheden [[mac]]",
+    "sv": "Tillåt enheten [[mac]]",
+    "no": "Tillat enheten [[mac]]",
+    "pl": "Zezwól na urządzenie [[mac]]",
+    "ru": "Разрешить устройство [[mac]]",
+    "ar": "السماح للجهاز [[mac]]",
+    "ko": "[[mac]] 기기 허용"
   },
   "args": [
     {
@@ -20,7 +40,18 @@
       "type": "autocomplete",
       "placeholder": {
         "en": "AA:BB:CC:DD:EE:FF",
-        "de": "AA:BB:CC:DD:EE:FF"
+        "nl": "AA:BB:CC:DD:EE:FF",
+        "de": "AA:BB:CC:DD:EE:FF",
+        "fr": "AA:BB:CC:DD:EE:FF",
+        "es": "AA:BB:CC:DD:EE:FF",
+        "it": "AA:BB:CC:DD:EE:FF",
+        "da": "AA:BB:CC:DD:EE:FF",
+        "sv": "AA:BB:CC:DD:EE:FF",
+        "no": "AA:BB:CC:DD:EE:FF",
+        "pl": "AA:BB:CC:DD:EE:FF",
+        "ru": "AA:BB:CC:DD:EE:FF",
+        "ar": "AA:BB:CC:DD:EE:FF",
+        "ko": "AA:BB:CC:DD:EE:FF"
       }
     }
   ]

@@ -2,7 +2,17 @@
   "title": {
     "en": "Reboot router",
     "nl": "Herstart router",
-    "de": "Router neu starten"
+    "de": "Router neu starten",
+    "fr": "Redémarrer le routeur",
+    "es": "Reiniciar el router",
+    "it": "Riavvia il router",
+    "da": "Genstart router",
+    "sv": "Starta om router",
+    "no": "Start ruteren på nytt",
+    "pl": "Uruchom ponownie router",
+    "ru": "Перезагрузить роутер",
+    "ar": "إعادة تشغيل الراوتر",
+    "ko": "라우터 재부팅"
   },
   "args": [
     {

@@ -3,7 +3,17 @@
   "title": {
     "en": "Link speed",
     "nl": "Verbindingssnelheid",
-    "de": "Verbindungsgeschwindigkeit"
+    "de": "Verbindungsgeschwindigkeit",
+    "fr": "Vitesse de liaison",
+    "es": "Velocidad de enlace",
+    "it": "Velocità di collegamento",
+    "da": "Forbindelseshastighed",
+    "sv": "Länkhastighet",
+    "no": "Tilkoblingshastighet",
+    "pl": "Prędkość łącza",
+    "ru": "Скорость соединения",
+    "ar": "سرعة الاتصال",
+    "ko": "링크 속도"
   },
   "getable": true,
   "setable": false,

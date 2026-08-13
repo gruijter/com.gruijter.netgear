@@ -3,12 +3,34 @@
   "title": {
     "en": "Memory utilization",
     "nl": "Geheugen belasting",
-    "de": "Speicherauslastung"
+    "de": "Speicherauslastung",
+    "fr": "Utilisation de la mémoire",
+    "es": "Uso de memoria",
+    "it": "Utilizzo memoria",
+    "da": "Hukommelsesforbrug",
+    "sv": "Minnesanvändning",
+    "no": "Minnebruk",
+    "pl": "Wykorzystanie pamięci",
+    "ru": "Использование памяти",
+    "ar": "استخدام الذاكرة",
+    "ko": "메모리 사용량"
   },
   "getable": true,
   "setable": false,
   "units": {
-    "en": "%"
+    "en": "%",
+    "nl": "%",
+    "de": "%",
+    "fr": "%",
+    "es": "%",
+    "it": "%",
+    "da": "%",
+    "sv": "%",
+    "no": "%",
+    "pl": "%",
+    "ru": "%",
+    "ar": "%",
+    "ko": "%"
   },
   "decimals": 0,
   "insights": true,

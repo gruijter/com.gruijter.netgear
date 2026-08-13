@@ -56,7 +56,6 @@ class NetgearDevice extends Homey.Device {
       await this.routerSession.wol(mac, password);
       return Promise.resolve(true);
     } catch (error) {
-      // this.error('WOL error', error.message);
       return Promise.reject(error);
     }
   }
@@ -70,7 +69,6 @@ class NetgearDevice extends Homey.Device {
       await this.routerSession.setBlockDevice(mac, action);
       return Promise.resolve(true);
     } catch (error) {
-      // this.error('blockOrAllow error', error.message);
       return Promise.reject(error);
     }
   }
@@ -85,7 +83,6 @@ class NetgearDevice extends Homey.Device {
       await this.routerSession.setGuestWifi(onOff);
       return Promise.resolve(true);
     } catch (error) {
-      // this.error('2.4GHz-1 set guest wifi error', error.message);f
       return Promise.reject(error);
     }
   }
@@ -100,7 +97,6 @@ class NetgearDevice extends Homey.Device {
       await this.routerSession.setGuestWifi(onOff); // there is actually no method yet to do 2.4Ghz-2
       return Promise.resolve(true);
     } catch (error) {
-      // this.error('2.4GHz-2 set guest wifi error error', error.message);
       return Promise.reject(error);
     }
   }
@@ -115,7 +111,6 @@ class NetgearDevice extends Homey.Device {
       await this.routerSession.set5GGuestWifi(onOff);
       return Promise.resolve(true);
     } catch (error) {
-      // this.error('5GHz-1 set guest wifi error errorr', error.message);
       return Promise.reject(error);
     }
   }
@@ -130,7 +125,6 @@ class NetgearDevice extends Homey.Device {
       await this.routerSession.set5GGuestWifi2(onOff);
       return Promise.resolve(true);
     } catch (error) {
-      // this.error('5GHz-2 set guest wifi error error', error.message);
       return Promise.reject(error);
     }
   }
@@ -144,9 +138,6 @@ class NetgearDevice extends Homey.Device {
       const speed = await this.routerSession.speedTest();
       return Promise.resolve(speed);
     } catch (error) {
-      // this.error('speedTest error', error);
-      // this.log('last repsonse from router:');
-      // this.log(this.routerSession.lastResponse);
       return Promise.reject(error);
     }
   }
@@ -160,9 +151,6 @@ class NetgearDevice extends Homey.Device {
       await this.routerSession.updateNewFirmware();
       return Promise.resolve(true);
     } catch (error) {
-      // this.error('updateNewFirmware error', error);
-      // this.log('last repsonse from router:');
-      // this.log(this.routerSession.lastResponse);
       return Promise.reject(error);
     }
   }
@@ -176,7 +164,6 @@ class NetgearDevice extends Homey.Device {
       await this.routerSession.reboot();
       return Promise.resolve(true);
     } catch (error) {
-      // this.error('reboot error', error);
       return Promise.reject(error);
     }
   }
@@ -191,7 +178,6 @@ class NetgearDevice extends Homey.Device {
       await this.routerSession.enableTrafficMeter(action);
       return Promise.resolve(true);
     } catch (error) {
-      // this.error('enableTrafficMeter error', error);
       return Promise.reject(error);
     }
   }
@@ -206,7 +192,6 @@ class NetgearDevice extends Homey.Device {
       await this.routerSession.setBlockDeviceEnable(action);
       return Promise.resolve(true);
     } catch (error) {
-      // this.error('setBlockDeviceEnable error', error);
       return Promise.reject(error);
     }
   }
@@ -228,8 +213,8 @@ class NetgearDevice extends Homey.Device {
       if (!this.settings.use_traffic_info) return Promise.resolve(false);
       const lastTrafficMeter = this.readings.trafficMeter;
       this.readings.trafficMeter = await this.routerSession.getTrafficMeter()
-        .catch(() => {
-          this.log('error getting traffic meter info');
+        .catch((error) => {
+          this.error('error getting traffic meter info:', error.message);
           return undefined;
         });
       if (!this.readings.trafficMeter) return Promise.resolve(false);
@@ -265,8 +250,8 @@ class NetgearDevice extends Homey.Device {
     try {
       if (!this.settings.use_system_info) return Promise.resolve(false);
       this.readings.systemInfo = await this.routerSession.getSystemInfo()
-        .catch(() => {
-          this.log('error getting system info');
+        .catch((error) => {
+          this.error('error getting system info:', error.message);
           return undefined;
         });
       if (!this.readings.systemInfo) return Promise.resolve(false);
@@ -283,13 +268,13 @@ class NetgearDevice extends Homey.Device {
     try {
       if (!this.settings.use_firmware_check) return Promise.resolve(false);
       this.readings.info = await this.routerSession.getInfo()
-        .catch(() => {
-          this.log('error getting router info');
+        .catch((error) => {
+          this.error('error getting router info:', error.message);
           return undefined;
         });
       this.readings.newFirmware = await this.routerSession.checkNewFirmware()
-        .catch(() => {
-          this.log('error getting new Firmware info');
+        .catch((error) => {
+          this.error('error getting new firmware info:', error.message);
           return undefined;
         });
       this.extraPollTime = new Date();
@@ -329,8 +314,8 @@ class NetgearDevice extends Homey.Device {
       let internetConnectionStatus = true;
       if (this.settings.internet_connection_check === 'netgear') {
         this.readings.getEthernetLinkStatus = await this.routerSession.getEthernetLinkStatus()
-          .catch(() => {
-            this.log('error getting new Internet connection status');
+          .catch((error) => {
+            this.error('error getting new internet connection status:', error.message);
             return undefined;
           });
         if (!this.readings.getEthernetLinkStatus) return Promise.resolve(false);
@@ -364,7 +349,6 @@ class NetgearDevice extends Homey.Device {
       this.readings.pollTime = new Date();
       this.readings.attachedDevices = attDevs;
 
-      // console.log(this.readings);
       const { readings } = this;
       const { knownDevices } = this;
       const { attachedDevices } = readings;
@@ -471,7 +455,6 @@ class NetgearDevice extends Homey.Device {
       await this.setStoreValue('knownDevicesString', knownDevicesString);
       return Promise.resolve(true);
     } catch (error) {
-      // this.error('error:', error);
       return Promise.reject(error);
     }
   }
@@ -484,7 +467,6 @@ class NetgearDevice extends Homey.Device {
       await this.updateInternetConnectionState().catch(this.error); // disconnect alarm
       await this.updateSpeed().catch(this.error); // up/down internet bandwidth
       await this.updateSystemInfo().catch(this.error); // mem/cpu load
-      // await this.updateLogs().catch(this.error); // system logs EXPERIMENTAL
       // update exta info once an hour
       if ((Date.now() - this.readings.extraPollTime) > (60 * 60 * 1000)) {
         await this.updateFirmwareInfo().catch(this.error); // firmware and router mode
@@ -521,7 +503,6 @@ class NetgearDevice extends Homey.Device {
       }
       this.busy = false;
       this.watchDogCounter = 4;
-      // this.hasLogAnalyzer = false;
       this.logs = [];
 
       // create router session
@@ -531,9 +512,11 @@ class NetgearDevice extends Homey.Device {
         host: this.settings.host,
         port: this.settings.port,
         tls: this.settings.port === 443 || this.settings.port === 5555,
+        logLevel: 'error',
       };
       this.routerSession = new NetgearRouter(options);
-      await this.login().catch(() => this.error('failed to login during init'));
+      this.routerSession.on('log', ({ message, ...context }) => this.error(`[netgear] ${message}`, context));
+      await this.login().catch((error) => this.error('failed to login during init:', error.message));
 
       // get known device from store
       this.log('retrieving knownDevices from persistent storage');
@@ -550,16 +533,10 @@ class NetgearDevice extends Homey.Device {
       // activate traffic meter and access control
       if (this.settings.use_traffic_info) {
         await this.enableTrafficMeter(true)
-          .catch(() => this.log('Traffic meter could not be enabled'));
+          .catch((error) => this.error('Traffic meter could not be enabled:', error.message));
       }
       await this.setBlockDeviceEnable(true)
-        .catch(() => this.log('Device Access Control could not be enabled'));
-      // store known devices when app unloads
-      this.homey.on('unload', async () => {
-        this.log('unload called, storing knownDevices state');
-        const devicesString = JSON.stringify(this.knownDevices).replace('&lt', '').replace('&gt', '').replace(';', '');
-        await this.setStoreValue('knownDevicesString', devicesString);
-      });
+        .catch((error) => this.error('Device Access Control could not be enabled:', error.message));
 
       // start polling router for info
       await this.updateRouterDeviceState();
@@ -579,7 +556,6 @@ class NetgearDevice extends Homey.Device {
   async checkCaps(migrate) {
     try {
       if (migrate) this.log(`checking device migration for ${this.getName()}`);
-      // console.log(this.getName(), this.settings, this.getStore());
 
       // check and repair incorrect capability(order) // remove unselected optional capabilities
       const correctCaps = this.driver.capabilities.filter((cap) => {
@@ -625,7 +601,6 @@ class NetgearDevice extends Homey.Device {
     this.stopPolling();
     const dly = delay || 2000;
     this.log(`Device will restart in ${dly / 1000} seconds`);
-    // this.setUnavailable('Device is restarting. Wait a few minutes!');
     setTimeoutPromise(dly).then(() => this.onInit());
   }
 
@@ -640,6 +615,12 @@ class NetgearDevice extends Homey.Device {
   onDeleted() {
     this.stopPolling();
     this.log(`Router deleted as device: ${this.getName()}`);
+  }
+
+  // this method is called before the Device is unloaded (app stop/restart or deletion)
+  onUninit() {
+    this.stopPolling();
+    this.log(`Device uninit: ${this.getName()}`);
   }
 
   stopPolling() {

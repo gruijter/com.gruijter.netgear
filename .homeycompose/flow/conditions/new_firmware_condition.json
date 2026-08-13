@@ -2,7 +2,17 @@
   "title": {
     "en": "!{{New|No}} firmware update",
     "nl": "!{{Er is|Geen}} nieuwe firmware",
-    "de": "!{{Neues|Kein}} Firmware-Update"
+    "de": "!{{Neues|Kein}} Firmware-Update",
+    "fr": "!{{Nouvelle|Aucune}} mise à jour du firmware",
+    "es": "!{{Nueva|Ninguna}} actualización de firmware",
+    "it": "!{{Nuovo|Nessun}} aggiornamento firmware",
+    "da": "!{{Ny|Ingen}} firmwareopdatering",
+    "sv": "!{{Ny|Ingen}} firmware-uppdatering",
+    "no": "!{{Ny|Ingen}} fastvareoppdatering",
+    "pl": "!{{Jest|Brak}} nowej aktualizacji firmware",
+    "ru": "!{{Есть|Нет}} нового обновления прошивки",
+    "ar": "!{{يوجد|لا يوجد}} تحديث جديد للبرنامج الثابت",
+    "ko": "!{{새|없음}} 펌웨어 업데이트"
   },
     "args": [
         {

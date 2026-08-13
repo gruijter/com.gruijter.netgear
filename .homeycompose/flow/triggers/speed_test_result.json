@@ -2,7 +2,17 @@
   "title": {
     "en": "Speed test is ready",
     "nl": "Snelheidstest is klaar",
-    "de": "Geschwindigkeitstest ist bereit"
+    "de": "Geschwindigkeitstest ist bereit",
+    "fr": "Le test de vitesse est prêt",
+    "es": "La prueba de velocidad está lista",
+    "it": "Il test di velocità è pronto",
+    "da": "Hastighedstest er klar",
+    "sv": "Hastighetstestet är klart",
+    "no": "Hastighetstesten er klar",
+    "pl": "Test prędkości jest gotowy",
+    "ru": "Тест скорости готов",
+    "ar": "اختبار السرعة جاهز",
+    "ko": "속도 테스트 준비 완료"
   },
   "args": [
     {
@@ -18,7 +28,17 @@
       "title": {
         "en": "up",
         "nl": "up",
-        "de": "Up"
+        "de": "Up",
+        "fr": "up",
+        "es": "up",
+        "it": "up",
+        "da": "up",
+        "sv": "up",
+        "no": "up",
+        "pl": "up",
+        "ru": "up",
+        "ar": "up",
+        "ko": "up"
       },
       "example": 1
     },
@@ -28,7 +48,17 @@
       "title": {
         "en": "down",
         "nl": "down",
-        "de": "Down"
+        "de": "Down",
+        "fr": "down",
+        "es": "down",
+        "it": "down",
+        "da": "down",
+        "sv": "down",
+        "no": "down",
+        "pl": "down",
+        "ru": "down",
+        "ar": "down",
+        "ko": "down"
       },
       "example": 5
     },
@@ -38,7 +68,17 @@
       "title": {
         "en": "ping",
         "nl": "ping",
-        "de": "Ping"
+        "de": "Ping",
+        "fr": "ping",
+        "es": "ping",
+        "it": "ping",
+        "da": "ping",
+        "sv": "ping",
+        "no": "ping",
+        "pl": "ping",
+        "ru": "ping",
+        "ar": "ping",
+        "ko": "ping"
       },
       "example": 10
     }

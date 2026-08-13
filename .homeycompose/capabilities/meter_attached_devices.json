@@ -3,7 +3,17 @@
   "title": {
     "en": "Attached devices",
     "nl": "Verbonden apparaten",
-    "de": "Verbundene Geräte"
+    "de": "Verbundene Geräte",
+    "fr": "Appareils connectés",
+    "es": "Dispositivos conectados",
+    "it": "Dispositivi collegati",
+    "da": "Tilsluttede enheder",
+    "sv": "Anslutna enheter",
+    "no": "Tilkoblede enheter",
+    "pl": "Podłączone urządzenia",
+    "ru": "Подключенные устройства",
+    "ar": "الأجهزة المتصلة",
+    "ko": "연결된 기기"
   },
   "getable": true,
   "setable": false,

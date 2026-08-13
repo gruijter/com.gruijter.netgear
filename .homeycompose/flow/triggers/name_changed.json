@@ -2,7 +2,17 @@
     "title": {
       "en": "Device name changed in router",
       "nl": "Apparaat naam is gewijzigd in router",
-      "de": "Gerätename wurde im Router geändert"
+      "de": "Gerätename wurde im Router geändert",
+      "fr": "Le nom de l'appareil a changé dans le routeur",
+      "es": "El nombre del dispositivo cambió en el router",
+      "it": "Il nome del dispositivo è cambiato nel router",
+      "da": "Enhedsnavn ændret i routeren",
+      "sv": "Enhetens namn ändrades i routern",
+      "no": "Enhetsnavn endret i ruteren",
+      "pl": "Nazwa urządzenia zmieniła się w routerze",
+      "ru": "Имя устройства изменилось в роутере",
+      "ar": "تغير اسم الجهاز في الراوتر",
+      "ko": "라우터에서 기기 이름이 변경됨"
     },
     "args": [
         {
@@ -18,7 +28,17 @@
         "title": {
           "en": "mac",
           "nl": "mac",
-          "de": "MAC"
+          "de": "MAC",
+          "fr": "mac",
+          "es": "mac",
+          "it": "mac",
+          "da": "mac",
+          "sv": "mac",
+          "no": "mac",
+          "pl": "mac",
+          "ru": "mac",
+          "ar": "mac",
+          "ko": "mac"
         },
         "example": "AA:BB:CC:DD:EE:FF"
       },
@@ -28,7 +48,17 @@
         "title": {
           "en": "name",
           "nl": "naam",
-          "de": "Name"
+          "de": "Name",
+          "fr": "nom",
+          "es": "nombre",
+          "it": "nome",
+          "da": "navn",
+          "sv": "namn",
+          "no": "navn",
+          "pl": "nazwa",
+          "ru": "имя",
+          "ar": "الاسم",
+          "ko": "이름"
         },
         "example": "iPhone"
       },
@@ -38,7 +68,17 @@
         "title": {
           "en": "ip",
           "nl": "ip",
-          "de": "IP"
+          "de": "IP",
+          "fr": "ip",
+          "es": "ip",
+          "it": "ip",
+          "da": "ip",
+          "sv": "ip",
+          "no": "ip",
+          "pl": "ip",
+          "ru": "ip",
+          "ar": "ip",
+          "ko": "ip"
         },
         "example": "10.0.0.10"
       }

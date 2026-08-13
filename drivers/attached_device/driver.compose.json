@@ -2,7 +2,17 @@
   "name": {
     "en": "Attached device",
     "nl": "Verbonden apparaat",
-    "de": "Verbundene Geräte"
+    "de": "Verbundene Geräte",
+    "fr": "Appareil connecté",
+    "es": "Dispositivo conectado",
+    "it": "Dispositivo collegato",
+    "da": "Tilsluttet enhed",
+    "sv": "Ansluten enhet",
+    "no": "Tilkoblet enhet",
+    "pl": "Podłączone urządzenie",
+    "ru": "Подключенное устройство",
+    "ar": "الجهاز المتصل",
+    "ko": "연결된 장치"
   },
   "images": {
     "large": "drivers/attached_device/assets/images/large.jpg",
@@ -43,14 +53,36 @@
       "label": {
         "en": "Device information",
         "nl": "Apparaat informatie",
-        "de": "Geräteinformation"
+        "de": "Geräteinformation",
+        "fr": "Informations sur l'appareil",
+        "es": "Información del dispositivo",
+        "it": "Informazioni sul dispositivo",
+        "da": "Enhedsoplysninger",
+        "sv": "Enhetsinformation",
+        "no": "Enhetsinformasjon",
+        "pl": "Informacje o urządzeniu",
+        "ru": "Информация об устройстве",
+        "ar": "معلومات الجهاز",
+        "ko": "장치 정보"
       },
       "children": [
         {
           "id": "mac",
           "type": "label",
           "label": {
-            "en": "MAC"
+            "en": "MAC",
+            "nl": "MAC",
+            "de": "MAC",
+            "fr": "MAC",
+            "es": "MAC",
+            "it": "MAC",
+            "da": "MAC",
+            "sv": "MAC",
+            "no": "MAC",
+            "pl": "MAC",
+            "ru": "MAC",
+            "ar": "MAC",
+            "ko": "MAC"
           },
           "value": "unknown"
         },
@@ -60,7 +92,17 @@
           "label": {
             "en": "Source router model",
             "nl": "Bron router type",
-            "de": "Modell Ausgangsrouter"
+            "de": "Modell Ausgangsrouter",
+            "fr": "Modèle du routeur source",
+            "es": "Modelo del router de origen",
+            "it": "Modello del router di origine",
+            "da": "Kilde router model",
+            "sv": "Käll-routerns modell",
+            "no": "Kilde-ruterens modell",
+            "pl": "Model routera źródłowego",
+            "ru": "Модель исходного маршрутизатора",
+            "ar": "طراز الراوتر المصدر",
+            "ko": "소스 라우터 모델"
           },
           "value": "unknown"
         },
@@ -70,12 +112,32 @@
           "label": {
             "en": "Source router ID",
             "nl": "Bron router ID",
-            "de": "IP des Ausgangsrouters"
+            "de": "IP des Ausgangsrouters",
+            "fr": "ID du routeur source",
+            "es": "ID del router de origen",
+            "it": "ID del router di origine",
+            "da": "Kilde router ID",
+            "sv": "Käll-routerns ID",
+            "no": "Kilde-ruterens ID",
+            "pl": "ID routera źródłowego",
+            "ru": "ID исходного маршрутизатора",
+            "ar": "معرف الراوتر المصدر",
+            "ko": "소스 라우터 ID"
           },
           "hint": {
             "en": "This is the serial number of the router that provides the on/offline status",
             "nl": "Dit is het serienummer van de router die de on/offline status verzorgt",
-            "de": "Dies ist die Seriennummer des Routers, die den On-/Offline-Status angibt."
+            "de": "Dies ist die Seriennummer des Routers, die den On-/Offline-Status angibt.",
+            "fr": "Ceci est le numéro de série du routeur qui fournit le statut en/hors ligne",
+            "es": "Este es el número de serie del router que proporciona el estado en línea/fuera de línea",
+            "it": "Questo è il numero di serie del router che fornisce lo stato online/offline",
+            "da": "Dette er serienummeret på den router, der leverer online/offline-status",
+            "sv": "Detta är serienumret på routern som tillhandahåller online/offline-status",
+            "no": "Dette er serienummeret til ruteren som gir online/offline-status",
+            "pl": "To jest numer seryjny routera, który dostarcza status online/offline",
+            "ru": "Это серийный номер маршрутизатора, который предоставляет статус онлайн/офлайн",
+            "ar": "هذا هو الرقم التسلسلي لجهاز الراوتر الذي يوفر حالة الاتصال/عدم الاتصال",
+            "ko": "이것은 온라인/오프라인 상태를 제공하는 라우터의 일련번호입니다"
           },
           "value": "unknown"
         }
@@ -86,19 +148,51 @@
       "label": {
         "en": "Aliases",
         "nl": "Aliassen",
-        "de": "Aliase"
+        "de": "Aliase",
+        "fr": "Alias",
+        "es": "Alias",
+        "it": "Alias",
+        "da": "Aliaser",
+        "sv": "Alias",
+        "no": "Alias",
+        "pl": "Aliasy",
+        "ru": "Псевдонимы",
+        "ar": "الأسماء المستعارة",
+        "ko": "별칭"
       },
       "children": [
         {
           "id": "alias1",
           "type": "text",
           "label": {
-            "en": "Alias MAC 1"
+            "en": "Alias MAC 1",
+            "nl": "Alias MAC 1",
+            "de": "Alias MAC 1",
+            "fr": "Alias MAC 1",
+            "es": "Alias MAC 1",
+            "it": "Alias MAC 1",
+            "da": "Alias MAC 1",
+            "sv": "Alias MAC 1",
+            "no": "Alias MAC 1",
+            "pl": "Alias MAC 1",
+            "ru": "Алиас MAC 1",
+            "ar": "بديل MAC 1",
+            "ko": "별칭 MAC 1"
           },
           "hint": {
             "en": "Additional MAC address of the same device.",
             "nl": "Extra MAC-adres van hetzelfde apparaat.",
-            "de": "Zusätzliche MAC-Adresse des gleichen Geräts."
+            "de": "Zusätzliche MAC-Adresse des gleichen Geräts.",
+            "fr": "Adresse MAC supplémentaire du même appareil.",
+            "es": "Dirección MAC adicional del mismo dispositivo.",
+            "it": "Indirizzo MAC aggiuntivo dello stesso dispositivo.",
+            "da": "Yderligere MAC-adresse på samme enhed.",
+            "sv": "Ytterligare MAC-adress för samma enhet.",
+            "no": "Ytterligere MAC-adresse for samme enhet.",
+            "pl": "Dodatkowy adres MAC tego samego urządzenia.",
+            "ru": "Дополнительный MAC-адрес того же устройства.",
+            "ar": "عنوان MAC إضافي لنفس الجهاز.",
+            "ko": "동일한 장치의 추가 MAC 주소입니다."
           },
           "value": ""
         },
@@ -106,12 +200,34 @@
           "id": "alias2",
           "type": "text",
           "label": {
-            "en": "Alias MAC 2"
+            "en": "Alias MAC 2",
+            "nl": "Alias MAC 2",
+            "de": "Alias MAC 2",
+            "fr": "Alias MAC 2",
+            "es": "Alias MAC 2",
+            "it": "Alias MAC 2",
+            "da": "Alias MAC 2",
+            "sv": "Alias MAC 2",
+            "no": "Alias MAC 2",
+            "pl": "Alias MAC 2",
+            "ru": "Алиас MAC 2",
+            "ar": "بديل MAC 2",
+            "ko": "별칭 MAC 2"
           },
           "hint": {
             "en": "Additional MAC address of the same device.",
             "nl": "Extra MAC-adres van hetzelfde apparaat.",
-            "de": "Zusätzliche MAC-Adresse des gleichen Geräts."
+            "de": "Zusätzliche MAC-Adresse des gleichen Geräts.",
+            "fr": "Adresse MAC supplémentaire du même appareil.",
+            "es": "Dirección MAC adicional del mismo dispositivo.",
+            "it": "Indirizzo MAC aggiuntivo dello stesso dispositivo.",
+            "da": "Yderligere MAC-adresse på samme enhed.",
+            "sv": "Ytterligare MAC-adress för samma enhet.",
+            "no": "Ytterligere MAC-adresse for samme enhet.",
+            "pl": "Dodatkowy adres MAC tego samego urządzenia.",
+            "ru": "Дополнительный MAC-адрес того же устройства.",
+            "ar": "عنوان MAC إضافي لنفس الجهاز.",
+            "ko": "동일한 장치의 추가 MAC 주소입니다."
           },
           "value": ""
         },
@@ -119,12 +235,34 @@
           "id": "alias3",
           "type": "text",
           "label": {
-            "en": "Alias MAC 3"
+            "en": "Alias MAC 3",
+            "nl": "Alias MAC 3",
+            "de": "Alias MAC 3",
+            "fr": "Alias MAC 3",
+            "es": "Alias MAC 3",
+            "it": "Alias MAC 3",
+            "da": "Alias MAC 3",
+            "sv": "Alias MAC 3",
+            "no": "Alias MAC 3",
+            "pl": "Alias MAC 3",
+            "ru": "Алиас MAC 3",
+            "ar": "بديل MAC 3",
+            "ko": "별칭 MAC 3"
           },
           "hint": {
             "en": "Additional MAC address of the same device.",
             "nl": "Extra MAC-adres van hetzelfde apparaat.",
-            "de": "Zusätzliche MAC-Adresse des gleichen Geräts."
+            "de": "Zusätzliche MAC-Adresse des gleichen Geräts.",
+            "fr": "Adresse MAC supplémentaire du même appareil.",
+            "es": "Dirección MAC adicional del mismo dispositivo.",
+            "it": "Indirizzo MAC aggiuntivo dello stesso dispositivo.",
+            "da": "Yderligere MAC-adresse på samme enhed.",
+            "sv": "Ytterligare MAC-adress för samma enhet.",
+            "no": "Ytterligere MAC-adresse for samme enhet.",
+            "pl": "Dodatkowy adres MAC tego samego urządzenia.",
+            "ru": "Дополнительный MAC-адрес того же устройства.",
+            "ar": "عنوان MAC إضافي لنفس الجهاز.",
+            "ko": "동일한 장치의 추가 MAC 주소입니다."
           },
           "value": ""
         },
@@ -132,12 +270,34 @@
           "id": "alias4",
           "type": "text",
           "label": {
-            "en": "Alias MAC 4"
+            "en": "Alias MAC 4",
+            "nl": "Alias MAC 4",
+            "de": "Alias MAC 4",
+            "fr": "Alias MAC 4",
+            "es": "Alias MAC 4",
+            "it": "Alias MAC 4",
+            "da": "Alias MAC 4",
+            "sv": "Alias MAC 4",
+            "no": "Alias MAC 4",
+            "pl": "Alias MAC 4",
+            "ru": "Алиас MAC 4",
+            "ar": "بديل MAC 4",
+            "ko": "별칭 MAC 4"
           },
           "hint": {
             "en": "Additional MAC address of the same device.",
             "nl": "Extra MAC-adres van hetzelfde apparaat.",
-            "de": "Zusätzliche MAC-Adresse des gleichen Geräts."
+            "de": "Zusätzliche MAC-Adresse des gleichen Geräts.",
+            "fr": "Adresse MAC supplémentaire du même appareil.",
+            "es": "Dirección MAC adicional del mismo dispositivo.",
+            "it": "Indirizzo MAC aggiuntivo dello stesso dispositivo.",
+            "da": "Yderligere MAC-adresse på samme enhed.",
+            "sv": "Ytterligare MAC-adress för samma enhet.",
+            "no": "Ytterligere MAC-adresse for samme enhet.",
+            "pl": "Dodatkowy adres MAC tego samego urządzenia.",
+            "ru": "Дополнительный MAC-адрес того же устройства.",
+            "ar": "عنوان MAC إضافي لنفس الجهاز.",
+            "ko": "동일한 장치의 추가 MAC 주소입니다."
           },
           "value": ""
         }
@@ -148,7 +308,17 @@
       "label": {
         "en": "Presence settings",
         "nl": "Aanwezigheid instellingen",
-        "de": "Anwesenheitseinstellungen"
+        "de": "Anwesenheitseinstellungen",
+        "fr": "Paramètres de présence",
+        "es": "Ajustes de presencia",
+        "it": "Impostazioni di presenza",
+        "da": "Tilstedeværelsesindstillinger",
+        "sv": "Närvaroinställningar",
+        "no": "Tilstedeværelsesinnstillinger",
+        "pl": "Ustawienia obecności",
+        "ru": "Настройки присутствия",
+        "ar": "إعدادات الحضور",
+        "ko": "재실 설정"
       },
       "children": [
         {
@@ -157,12 +327,32 @@
           "label": {
             "en": "Offline after (seconds)",
             "nl": "Offline na (seconden)",
-            "de": "Offline nach (Sekunden)"
+            "de": "Offline nach (Sekunden)",
+            "fr": "Hors ligne après (secondes)",
+            "es": "Fuera de línea después de (segundos)",
+            "it": "Offline dopo (secondi)",
+            "da": "Offline efter (sekunder)",
+            "sv": "Offline efter (sekunder)",
+            "no": "Offline etter (sekunder)",
+            "pl": "Offline po (sekundy)",
+            "ru": "Офлайн через (секунды)",
+            "ar": "غير متصل بعد (ثوانٍ)",
+            "ko": "오프라인 처리 시간 (초)"
           },
           "hint": {
             "en": "Reducing this value will result in faster 'offline' status. If the device is on a wired connection, or if you have a very (very!) stable wifi, you can even set this value to 0.",
             "nl": "Een lagere waarde leidt tot snellere 'offline' status. Als het apparaat bedraad is aangesloten, of als je een zeer (zeer!) stabiele wifi hebt, kan de waarde zelfs op 0 worden gezet.",
-            "de": "Eine Verringerung dieses Wertes führt zu einem schnelleren 'Offline'-Status. Wenn das Gerät über eine kabelgebundene Verbindung verfügt, oder wenn Sie ein sehr (sehr!) stabiles WLAN haben, können Sie diesen Wert sogar auf 0 setzen."
+            "de": "Eine Verringerung dieses Wertes führt zu einem schnelleren 'Offline'-Status. Wenn das Gerät über eine kabelgebundene Verbindung verfügt, oder wenn Sie ein sehr (sehr!) stabiles WLAN haben, können Sie diesen Wert sogar auf 0 setzen.",
+            "fr": "Réduire cette valeur entraînera un statut 'hors ligne' plus rapide. Si l'appareil est sur une connexion filaire, ou si vous avez un wifi très (très !) stable, vous pouvez même définir cette valeur à 0.",
+            "es": "Reducir este valor dará como resultado un estado 'fuera de línea' más rápido. Si el dispositivo está en una conexión por cable, o si tiene un wifi muy (¡muy!) estable, incluso puede establecer este valor en 0.",
+            "it": "Ridurre questo valore comporterà uno stato 'offline' più rapido. Se il dispositivo è collegato via cavo, o se hai un wifi molto (molto!) stabile, puoi persino impostare questo valore su 0.",
+            "da": "Hvis du reducerer denne værdi, vil det resultere i hurtigere 'offline'-status. Hvis enheden har en kabelforbindelse, eller hvis du har en meget (meget!) stabil wifi, kan du endda sætte denne værdi til 0.",
+            "sv": "Att minska detta värde resulterar i snabbare 'offline'-status. Om enheten har en trådbunden anslutning, eller om du har ett mycket (mycket!) stabilt wifi, kan du till och med sätta detta värde till 0.",
+            "no": "Å redusere denne verdien vil resultere i raskere 'offline'-status. Hvis enheten har en kablet tilkobling, eller hvis du har en veldig (veldig!) stabil wifi, kan du til og med sette denne verdien til 0.",
+            "pl": "Zmniejszenie tej wartości spowoduje szybszy status 'offline'. Jeśli urządzenie jest podłączone przewodowo lub masz bardzo (bardzo!) stabilne wifi, możesz nawet ustawić tę wartość na 0.",
+            "ru": "Уменьшение этого значения приведет к более быстрому переходу в статус 'офлайн'. Если устройство подключено по проводу, или если у вас очень (очень!) стабильный wifi, вы можете даже установить это значение на 0.",
+            "ar": "سيؤدي تقليل هذه القيمة إلى حالة 'غير متصل' أسرع. إذا كان الجهاز متصلاً بشكل سلكي، أو إذا كان لديك واي فاي مستقر جدًا (جدًا!)، يمكنك حتى تعيين هذه القيمة إلى 0.",
+            "ko": "이 값을 줄이면 '오프라인' 상태가 더 빨리 표시됩니다. 장치가 유선 연결이거나 매우 (매우!) 안정적인 와이파이를 사용하는 경우 이 값을 0으로 설정할 수도 있습니다."
           },
           "attr": {
             "min": 0
@@ -176,7 +366,17 @@
       "label": {
         "en": "Device functionality",
         "nl": "Apparaat functionaliteit",
-        "de": "Gerätefunktionalität"
+        "de": "Gerätefunktionalität",
+        "fr": "Fonctionnalité de l'appareil",
+        "es": "Funcionalidad del dispositivo",
+        "it": "Funzionalità del dispositivo",
+        "da": "Enhedsfunktionalitet",
+        "sv": "Enhetsfunktionalitet",
+        "no": "Enhetsfunksjonalitet",
+        "pl": "Funkcjonalność urządzenia",
+        "ru": "Функциональность устройства",
+        "ar": "وظائف الجهاز",
+        "ko": "장치 기능"
       },
       "children": [
         {
@@ -185,7 +385,17 @@
           "label": {
             "en": "Report Wifi link info",
             "nl": "Rapporteer Wifi link info",
-            "de": "Bericht Wifi Link-Info"
+            "de": "Bericht Wifi Link-Info",
+            "fr": "Signaler les infos de liaison Wifi",
+            "es": "Informar datos de enlace Wifi",
+            "it": "Segnala informazioni sul collegamento Wifi",
+            "da": "Rapporter Wifi-forbindelsesinfo",
+            "sv": "Rapportera Wifi-länkinfo",
+            "no": "Rapporter Wifi-tilkoblingsinfo",
+            "pl": "Zgłaszaj informacje o połączeniu Wifi",
+            "ru": "Сообщать информацию о Wi-Fi соединении",
+            "ar": "الإبلاغ عن معلومات اتصال Wifi",
+            "ko": "Wifi 링크 정보 보고"
           },
           "value": false
         },
@@ -195,12 +405,32 @@
           "label": {
             "en": "Report Up/Down bandwidth",
             "nl": "Rapporteer Up/Down bandbreedte",
-            "de": "Bericht Up/Down Bandbreite"
+            "de": "Bericht Up/Down Bandbreite",
+            "fr": "Signaler la bande passante montante/descendante",
+            "es": "Informar ancho de banda de subida/bajada",
+            "it": "Segnala larghezza di banda Up/Down",
+            "da": "Rapporter Op/Ned-båndbredde",
+            "sv": "Rapportera upp/ner-bandbredd",
+            "no": "Rapporter opp/ned-båndbredde",
+            "pl": "Zgłaszaj przepustowość Up/Down",
+            "ru": "Сообщать пропускную способность Up/Down",
+            "ar": "الإبلاغ عن نطاق ترددي للتحميل/التنزيل",
+            "ko": "업/다운 대역폭 보고"
           },
           "hint": {
             "en": "Note that it is very unlikely that bandwidth info is reported by the router.",
             "nl": "Let op: het is zeer onwaarschijnlijk dat bandbreedte-informatie door de router wordt gerapporteerd.",
-            "de": "Beachten Sie, dass es sehr unwahrscheinlich ist, dass Bandbreiteninformationen vom Router gemeldet werden."
+            "de": "Beachten Sie, dass es sehr unwahrscheinlich ist, dass Bandbreiteninformationen vom Router gemeldet werden.",
+            "fr": "Notez qu'il est très peu probable que les informations de bande passante soient signalées par le routeur.",
+            "es": "Tenga en cuenta que es muy poco probable que el router informe la información de ancho de banda.",
+            "it": "Nota che è molto improbabile che le informazioni sulla larghezza di banda vengano segnalate dal router.",
+            "da": "Bemærk, at det er meget usandsynligt, at båndbreddeoplysninger rapporteres af routeren.",
+            "sv": "Observera att det är mycket osannolikt att bandbreddsinformation rapporteras av routern.",
+            "no": "Merk at det er svært usannsynlig at båndbreddeinformasjon rapporteres av ruteren.",
+            "pl": "Należy pamiętać, że jest bardzo mało prawdopodobne, aby informacje o przepustowości były zgłaszane przez router.",
+            "ru": "Обратите внимание, что маловероятно, что информация о пропускной способности будет предоставлена маршрутизатором.",
+            "ar": "لاحظ أنه من غير المرجح جدًا أن يقوم الراوتر بالإبلاغ عن معلومات النطاق الترددي.",
+            "ko": "라우터가 대역폭 정보를 보고할 가능성은 매우 낮다는 점에 유의하세요."
           },
           "value": false
         },
@@ -210,12 +440,32 @@
           "label": {
             "en": "Report Energy",
             "nl": "Rapporteer energie",
-            "de": "Bericht Energie"
+            "de": "Bericht Energie",
+            "fr": "Signaler l'énergie",
+            "es": "Informar energía",
+            "it": "Segnala energia",
+            "da": "Rapporter energi",
+            "sv": "Rapportera energi",
+            "no": "Rapporter energi",
+            "pl": "Zgłaszaj energię",
+            "ru": "Сообщать энергию",
+            "ar": "الإبلاغ عن الطاقة",
+            "ko": "에너지 보고"
           },
           "hint": {
             "en": "Report on/off energy values to Homey Energy",
             "nl": "Rapporteer aan/uit energy waarden naar Homey Energy",
-            "de": "Ein-/Aus-Energiewerte an Homey Energy melden"
+            "de": "Ein-/Aus-Energiewerte an Homey Energy melden",
+            "fr": "Signaler les valeurs d'énergie marche/arrêt à Homey Energy",
+            "es": "Informar valores de energía encendido/apagado a Homey Energy",
+            "it": "Segnala i valori di energia on/off a Homey Energy",
+            "da": "Rapporter til/fra energiværdier til Homey Energy",
+            "sv": "Rapportera på/av-energivärden till Homey Energy",
+            "no": "Rapporter på/av-energiverdier til Homey Energy",
+            "pl": "Zgłaszaj wartości energii wł./wył. do Homey Energy",
+            "ru": "Сообщать значения энергии вкл/выкл в Homey Energy",
+            "ar": "الإبلاغ عن قيم الطاقة تشغيل/إيقاف إلى Homey Energy",
+            "ko": "Homey Energy에 켜기/끄기 에너지 값 보고"
           },
           "value": false
         }

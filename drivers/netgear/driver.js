@@ -38,7 +38,8 @@ class NetgearDriver extends Homey.Driver {
 
   async onPair(session) {
     let device;
-    const router = new NetgearRouter();
+    const router = new NetgearRouter({ logLevel: 'error' });
+    router.on('log', ({ message, ...context }) => this.error(`[netgear] ${message}`, context));
     session.setHandler('discover', async () => {
       try {
         this.log('discovery started from frontend');
@@ -124,7 +125,6 @@ class NetgearDriver extends Homey.Driver {
         if (!device || !device.settings) throw Error('Device info went missing.');
         const dev = { ...device };
         dev.settings = { ...dev.settings, ...options };
-        // console.log(dev);
         this.log('saving new router from frontend');
         return Promise.resolve(dev);
       } catch (error) {

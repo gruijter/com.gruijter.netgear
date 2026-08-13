@@ -2,12 +2,32 @@
   "title": {
     "en": "Device !{{is|isn't}} online (mac)",
     "nl": "Apparaat !{{is|is niet}} online (mac)",
-    "de": "Gerät !{{ist|ist nicht}} online (MAC)"
+    "de": "Gerät !{{ist|ist nicht}} online (MAC)",
+    "fr": "L'appareil !{{est|n'est pas}} en ligne (mac)",
+    "es": "El dispositivo !{{está|no está}} en línea (mac)",
+    "it": "Il dispositivo !{{è|non è}} online (mac)",
+    "da": "Enheden !{{er|er ikke}} online (mac)",
+    "sv": "Enheten !{{är|är inte}} online (mac)",
+    "no": "Enheten !{{er|er ikke}} online (mac)",
+    "pl": "Urządzenie !{{jest|nie jest}} online (mac)",
+    "ru": "Устройство !{{онлайн|не онлайн}} (mac)",
+    "ar": "الجهاز !{{متصل|غير متصل}} بالإنترنت (mac)",
+    "ko": "기기가 !{{온라인|오프라인}} 상태임 (mac)"
   },
   "titleFormatted": {
     "en": "[[mac]] !{{is|isn't}} online",
     "nl": "[[mac]] !{{is|is niet}} online",
-    "de": "[[mac]] !{{ist|ist nicht}} online"
+    "de": "[[mac]] !{{ist|ist nicht}} online",
+    "fr": "[[mac]] !{{est|n'est pas}} en ligne",
+    "es": "[[mac]] !{{está|no está}} en línea",
+    "it": "[[mac]] !{{è|non è}} online",
+    "da": "[[mac]] !{{er|er ikke}} online",
+    "sv": "[[mac]] !{{är|är inte}} online",
+    "no": "[[mac]] !{{er|er ikke}} online",
+    "pl": "[[mac]] !{{jest|nie jest}} online",
+    "ru": "[[mac]] !{{онлайн|не онлайн}}",
+    "ar": "[[mac]] !{{متصل|غير متصل}} بالإنترنت",
+    "ko": "[[mac]]이(가) !{{온라인|오프라인}} 상태임"
   },
   "args": [
     {
@@ -20,7 +40,18 @@
       "name": "mac",
       "placeholder": {
         "en": "AA:BB:CC:DD:EE:FF",
-        "de": "AA:BB:CC:DD:EE:FF"
+        "nl": "AA:BB:CC:DD:EE:FF",
+        "de": "AA:BB:CC:DD:EE:FF",
+        "fr": "AA:BB:CC:DD:EE:FF",
+        "es": "AA:BB:CC:DD:EE:FF",
+        "it": "AA:BB:CC:DD:EE:FF",
+        "da": "AA:BB:CC:DD:EE:FF",
+        "sv": "AA:BB:CC:DD:EE:FF",
+        "no": "AA:BB:CC:DD:EE:FF",
+        "pl": "AA:BB:CC:DD:EE:FF",
+        "ru": "AA:BB:CC:DD:EE:FF",
+        "ar": "AA:BB:CC:DD:EE:FF",
+        "ko": "AA:BB:CC:DD:EE:FF"
       }
     }
   ]

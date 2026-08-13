@@ -3,17 +3,37 @@
   "name": {
     "en": "Netgear Router",
     "nl": "Netgear Router",
-    "de": "Netgear-Router"
+    "de": "Netgear-Router",
+    "fr": "Routeur Netgear",
+    "es": "Router Netgear",
+    "it": "Router Netgear",
+    "da": "Netgear-router",
+    "sv": "Netgear-router",
+    "no": "Netgear-ruter",
+    "pl": "Router Netgear",
+    "ru": "Роутер Netgear",
+    "ar": "راوتر Netgear",
+    "ko": "Netgear 라우터"
   },
   "description": {
     "en": "Monitor your Netgear router",
     "nl": "Verbind je Netgear router",
-    "de": "Überwache deinen Netgear-Router"
+    "de": "Überwache deinen Netgear-Router",
+    "fr": "Surveillez votre routeur Netgear",
+    "es": "Supervisa tu router Netgear",
+    "it": "Monitora il tuo router Netgear",
+    "da": "Overvåg din Netgear-router",
+    "sv": "Övervaka din Netgear-router",
+    "no": "Overvåk Netgear-ruteren din",
+    "pl": "Monitoruj swój router Netgear",
+    "ru": "Отслеживайте свой роутер Netgear",
+    "ar": "راقب راوتر Netgear الخاص بك",
+    "ko": "Netgear 라우터를 모니터링하세요"
   },
   "brandColor": "#751939",
-  "version": "4.4.0",
+  "version": "5.0.0",
   "sdk": 3,
-  "compatibility": ">= 8.0",
+  "compatibility": ">=12.9.0",
   "author": {
     "name": "Robin Gruijter",
     "email": "gruijter@hotmail.com"
@@ -75,6 +95,14 @@
       "nighthawk",
       "orbi"
     ],
+    "nl": [
+      "Netgear",
+      "router",
+      "wifi",
+      "aanwezigheid",
+      "nighthawk",
+      "orbi"
+    ],
     "de": [
       "Netgear",
       "router",
@@ -83,11 +111,83 @@
       "nighthawk",
       "orbi"
     ],
-    "nl": [
+    "fr": [
       "Netgear",
       "router",
       "wifi",
-      "aanwezigheid",
+      "présence",
+      "nighthawk",
+      "orbi"
+    ],
+    "es": [
+      "Netgear",
+      "router",
+      "wifi",
+      "presencia",
+      "nighthawk",
+      "orbi"
+    ],
+    "it": [
+      "Netgear",
+      "router",
+      "wifi",
+      "presenza",
+      "nighthawk",
+      "orbi"
+    ],
+    "da": [
+      "Netgear",
+      "router",
+      "wifi",
+      "tilstedeværelse",
+      "nighthawk",
+      "orbi"
+    ],
+    "sv": [
+      "Netgear",
+      "router",
+      "wifi",
+      "närvaro",
+      "nighthawk",
+      "orbi"
+    ],
+    "no": [
+      "Netgear",
+      "router",
+      "wifi",
+      "tilstedeværelse",
+      "nighthawk",
+      "orbi"
+    ],
+    "pl": [
+      "Netgear",
+      "router",
+      "wifi",
+      "obecność",
+      "nighthawk",
+      "orbi"
+    ],
+    "ru": [
+      "Netgear",
+      "router",
+      "wifi",
+      "присутствие",
+      "nighthawk",
+      "orbi"
+    ],
+    "ar": [
+      "Netgear",
+      "router",
+      "wifi",
+      "حضور",
+      "nighthawk",
+      "orbi"
+    ],
+    "ko": [
+      "Netgear",
+      "router",
+      "wifi",
+      "존재",
       "nighthawk",
       "orbi"
     ]

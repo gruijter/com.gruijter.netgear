@@ -3,13 +3,34 @@
   "title": {
     "en": "Upload speed",
     "nl": "Upload snelheid",
-    "de": "Upload-Geschwindigkeit"
+    "de": "Upload-Geschwindigkeit",
+    "fr": "Vitesse d'envoi",
+    "es": "Velocidad de subida",
+    "it": "Velocità di upload",
+    "da": "Uploadhastighed",
+    "sv": "Uppladdningshastighet",
+    "no": "Opplastingshastighet",
+    "pl": "Prędkość wysyłania",
+    "ru": "Скорость отдачи",
+    "ar": "سرعة الرفع",
+    "ko": "업로드 속도"
   },
   "getable": true,
   "setable": false,
   "units": {
     "en": "Mbit/s",
-    "de": "Mbit/s"
+    "nl": "Mbit/s",
+    "de": "Mbit/s",
+    "fr": "Mbit/s",
+    "es": "Mbit/s",
+    "it": "Mbit/s",
+    "da": "Mbit/s",
+    "sv": "Mbit/s",
+    "no": "Mbit/s",
+    "pl": "Mbit/s",
+    "ru": "Mbit/s",
+    "ar": "Mbit/s",
+    "ko": "Mbit/s"
   },
   "decimals": 2,
   "insights": true,

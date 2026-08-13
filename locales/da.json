@@ -1,0 +1,80 @@
+{
+	"pair": {
+		"start": {
+			"title": "Tilføj Netgear-router",
+			"intro": "Kontroller eller indtast IP-adressen og SOAP-porten. Indtast derefter administratoradgangskoden til Netgear-routeren, og tryk på `Næste`.",
+			"discover": "Find router",
+			"error": "Der er opstået en fejl.",
+			"success": "Succes! ",
+			"required": "IP-adresse, port og adgangskode er påkrævet",
+			"username": "Brugernavn",
+			"password": "Adgangskode",
+			"host": "IP-adresse",
+			"port": "SOAP-port",
+			"save": "Næste"
+		},
+		"select_options": {
+			"title": "Enhedsindstillinger",
+			"intro": "",
+			"name": "Navn i Homey",
+			"icon": "Ikon",
+			"capabilities": "Inkluder funktioner",
+			"use_link_info": "Wifi-forbindelse",
+			"use_bandwidth_info": "Båndbredde",
+			"report_power": "Energiforbrug",
+			"save": "Gem"
+		},
+		"select_options_router": {
+			"title": "Vælg enhedsindstillinger",
+			"intro": "Forbindelsesstatus for tilsluttede enheder vil altid blive hentet (tilstedeværelse). Vælg hvilke yderligere oplysninger du vil hente fra routeren, men nogle routere kan blive ustabile på grund af firmwarefejl",
+			"name": "Navn",
+			"capabilities": "Rapporteringsmuligheder",
+			"use_traffic_info": "Rapportér op-/downstream-trafik",
+			"use_system_info": "Rapportér CPU/MEM-belastning",
+			"use_firmware_check": "Tjek for ny firmware",
+			"save": "Gem",
+			"ready": "For optimal stabilitet, lav en PTP af din router nu! (sluk-30s-tænd)",
+			"duplicate": "Denne router er allerede tilføjet til Homey"
+		}
+	},
+	"settings": {
+		"benefit": "Netgear-router",
+		"tab1": {
+			"title": "Instruktioner",
+			"addDeviceTitle": "Tilføj en ny router",
+			"addDeviceInstructions": "Tilføj en router via Homey-fanen `Enheder`, og indtast administratoradgangskoden. Afhængigt af din routertype er nogle funktioner muligvis ikke tilgængelige. Du kan køre en kompatibilitetstest i fanen Test.",
+			"presenceTitle": "Tilstedeværelsesregistrering",
+			"presenceInstructions": "Efter du har tilføjet din router til Homey, kan du begynde at tilføje mobile enheder, som du vil spore for tilstedeværelse. De vil blive rapporteret som tilsluttet eller afbrudt baseret på WiFi-forbindelsen til dit Netgear-netværk. Du kan finjustere 'offline efter forsinkelse' i enhedsindstillingerne. Hvis du får falske afbrudt-meddelelser, bør du øge denne forsinkelse. Hvis du ønsker hurtigere registrering, kan du prøve at mindske denne forsinkelse. Du kan også prøve at reducere routerens pollingsinterval. Standard pollingsinterval er 1 minut, men hvis du gør det for kort, kan din router gå i stå.",
+			"energyTitle": "Energiovervågning",
+			"energyInstructions": "Efter du har tilføjet din router til Homey, kan du tilføje yderligere enheder, som du vil overvåge for strømforbrug, f.eks. dit TV eller printer. Indtast det anslåede/gennemsnitlige strømforbrug for enheden, når den er SLUKKET eller TÆNDT. Når du nu tænder dit TV, vil du se, at det anslåede strømforbrug er inkluderet i Homeys Energi-fane"
+		},
+		"tab2": {
+			"title": "Logfiler",
+			"showLogs": "Vis logfiler",
+			"showErrors": "Vis fejl",
+			"deletelogs": "Slet logfiler",
+			"deleteWarning": "Slet alle logfiler?",
+			"deleted": "Logfiler slettet!"
+		},
+		"tab3": {
+			"title": "Test",
+			"instructionsLegend": "Routerkompatibilitetstest",
+			"instructions": "Hvis du har problemer med appen, kan du udføre en kompatibilitetstest. Resultatet bruges til at forbedre appen. Tryk på 'Find router' for automatisk at finde IP-adressen og SOAP-porten. Indtast routerens adgangskode. Start derefter testen. Med knappen 'Kopiér resultat' kan du oprette en issue og indsætte resultatet der. Bemærk: du skal bruge en github-konto for at oprette en issue.",
+			"discover": "Find router",
+			"host": "IP-adresse",
+			"port": "SOAP-port",
+			"password": "Adgangskode",
+			"startTest": "Start test",
+			"testingNow": "Tester nu. Vent et par minutter...",
+			"result": "Resultat",
+			"copyResult": "Kopiér resultat"
+		},
+		"tab4": {
+			"title": "Liste",
+			"instructionsLegend": "Liste over alle kendte enheder",
+			"instructions": "Appen begynder at indsamle og huske MAC-adresser på alle enheder, der nogensinde har været forbundet til routeren. Hvis du skal rydde denne liste, kan du gøre det ved at markere afkrydsningsfeltet `slet enhedsliste` i enhedsindstillingerne.",
+			"resultList": "Enhedsliste",
+			"copyList": "Kopiér liste"
+		}
+	}
+}

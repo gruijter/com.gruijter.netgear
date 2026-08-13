@@ -3,17 +3,47 @@
   "title": {
     "en": "Device connected",
     "nl": "Apparaat verbonden",
-    "de": "Gerät verbunden"
+    "de": "Gerät verbunden",
+    "fr": "Appareil connecté",
+    "es": "Dispositivo conectado",
+    "it": "Dispositivo connesso",
+    "da": "Enhed forbundet",
+    "sv": "Enhet ansluten",
+    "no": "Enhet tilkoblet",
+    "pl": "Urządzenie połączone",
+    "ru": "Устройство подключено",
+    "ar": "الجهاز متصل",
+    "ko": "기기 연결됨"
   },
   "insightsTitleTrue": {
     "en": "Connected",
     "nl": "Verbonden",
-    "de": "Verbunden"
+    "de": "Verbunden",
+    "fr": "Connecté",
+    "es": "Conectado",
+    "it": "Connesso",
+    "da": "Forbundet",
+    "sv": "Ansluten",
+    "no": "Tilkoblet",
+    "pl": "Połączono",
+    "ru": "Подключено",
+    "ar": "متصل",
+    "ko": "연결됨"
   },
   "insightsTitleFalse": {
     "en": "Disconnected",
     "nl": "Verbroken",
-    "de": "Getrennt"
+    "de": "Getrennt",
+    "fr": "Déconnecté",
+    "es": "Desconectado",
+    "it": "Disconnesso",
+    "da": "Afbrudt",
+    "sv": "Frånkopplad",
+    "no": "Frakoblet",
+    "pl": "Rozłączono",
+    "ru": "Отключено",
+    "ar": "غير متصل",
+    "ko": "연결 끊김"
   },
   "uiComponent": "sensor",
   "uiQuickAction": true,

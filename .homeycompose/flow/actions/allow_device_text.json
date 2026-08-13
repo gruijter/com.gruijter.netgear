@@ -2,12 +2,32 @@
   "title": {
     "en": "Allow a device with tag",
     "nl": "Apparaat vrijgeven met tag",
-    "de": "Ein Gerät mit Tag zulassen"
+    "de": "Ein Gerät mit Tag zulassen",
+    "fr": "Autoriser un appareil avec un tag",
+    "es": "Permitir un dispositivo con etiqueta",
+    "it": "Consenti un dispositivo con tag",
+    "da": "Tillad en enhed med tag",
+    "sv": "Tillåt en enhet med tagg",
+    "no": "Tillat en enhet med tagg",
+    "pl": "Zezwól na urządzenie z tagiem",
+    "ru": "Разрешить устройство с тегом",
+    "ar": "السماح لجهاز بعلامة",
+    "ko": "태그로 기기 허용"
   },
   "titleFormatted": {
     "en": "Allow [[mac]] device with tag",
     "nl": "Apparaat [[mac]] vrijgeven met tag",
-    "de": "Gerät [[mac]] zulassen mit Tag"
+    "de": "Gerät [[mac]] zulassen mit Tag",
+    "fr": "Autoriser l'appareil [[mac]] avec un tag",
+    "es": "Permitir el dispositivo [[mac]] con etiqueta",
+    "it": "Consenti il dispositivo [[mac]] con tag",
+    "da": "Tillad enheden [[mac]] med tag",
+    "sv": "Tillåt enheten [[mac]] med tagg",
+    "no": "Tillat enheten [[mac]] med tagg",
+    "pl": "Zezwól na urządzenie [[mac]] z tagiem",
+    "ru": "Разрешить устройство [[mac]] с тегом",
+    "ar": "السماح للجهاز [[mac]] بعلامة",
+    "ko": "태그로 [[mac]] 기기 허용"
   },
   "args": [
     {
@@ -20,7 +40,18 @@
       "type": "text",
       "placeholder": {
         "en": "AA:BB:CC:DD:EE:FF",
-        "de": "AA:BB:CC:DD:EE:FF"
+        "nl": "AA:BB:CC:DD:EE:FF",
+        "de": "AA:BB:CC:DD:EE:FF",
+        "fr": "AA:BB:CC:DD:EE:FF",
+        "es": "AA:BB:CC:DD:EE:FF",
+        "it": "AA:BB:CC:DD:EE:FF",
+        "da": "AA:BB:CC:DD:EE:FF",
+        "sv": "AA:BB:CC:DD:EE:FF",
+        "no": "AA:BB:CC:DD:EE:FF",
+        "pl": "AA:BB:CC:DD:EE:FF",
+        "ru": "AA:BB:CC:DD:EE:FF",
+        "ar": "AA:BB:CC:DD:EE:FF",
+        "ko": "AA:BB:CC:DD:EE:FF"
       }
     }
   ]

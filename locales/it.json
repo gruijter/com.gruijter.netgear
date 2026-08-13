@@ -1,0 +1,80 @@
+{
+	"pair": {
+		"start": {
+			"title": "Aggiungi router Netgear",
+			"intro": "Controlla o inserisci l'indirizzo IP e la porta SOAP. Quindi inserisci la password di amministratore del router Netgear e premi `Avanti`.",
+			"discover": "Cerca router",
+			"error": "Si è verificato un errore.",
+			"success": "Successo! ",
+			"required": "Sono richiesti indirizzo IP, porta e password",
+			"username": "Nome utente",
+			"password": "Password",
+			"host": "Indirizzo IP",
+			"port": "Porta SOAP",
+			"save": "Avanti"
+		},
+		"select_options": {
+			"title": "Opzioni dispositivo",
+			"intro": "",
+			"name": "Nome in Homey",
+			"icon": "Icona",
+			"capabilities": "Includi funzionalità",
+			"use_link_info": "Collegamento Wifi",
+			"use_bandwidth_info": "Larghezza di banda",
+			"report_power": "Consumo energetico",
+			"save": "Salva"
+		},
+		"select_options_router": {
+			"title": "Seleziona le opzioni del dispositivo",
+			"intro": "Lo stato di connessione dei dispositivi collegati verrà sempre recuperato (presenza). Seleziona quali informazioni aggiuntive desideri recuperare dal router, ma alcuni router potrebbero diventare instabili a causa di bug del firmware",
+			"name": "Nome",
+			"capabilities": "Opzioni di segnalazione",
+			"use_traffic_info": "Segnala traffico Up/Down",
+			"use_system_info": "Segnala carico CPU/MEM",
+			"use_firmware_check": "Controlla nuovo firmware",
+			"save": "Salva",
+			"ready": "Per una stabilità ottimale, esegui un PTP del router ora! (spento-30s-acceso)",
+			"duplicate": "Questo router è già stato aggiunto a Homey"
+		}
+	},
+	"settings": {
+		"benefit": "Router Netgear",
+		"tab1": {
+			"title": "Istruzioni",
+			"addDeviceTitle": "Aggiungi un nuovo router",
+			"addDeviceInstructions": "Aggiungi un router tramite la scheda `Dispositivi` di Homey e inserisci la password di amministratore. A seconda del tipo di router, alcune funzionalità potrebbero non essere disponibili. Puoi eseguire un test di compatibilità nella scheda Test.",
+			"presenceTitle": "Rilevamento presenza",
+			"presenceInstructions": "Dopo aver aggiunto il router a Homey, puoi iniziare ad aggiungere dispositivi mobili che vuoi monitorare per la presenza. Verranno segnalati come connessi o disconnessi in base alla connessione WiFi alla tua rete Netgear. Puoi regolare il 'ritardo prima di offline' nelle impostazioni del dispositivo. Se ricevi falsi messaggi di disconnessione, dovresti aumentare questo ritardo. Se desideri un rilevamento più rapido, puoi provare a ridurre questo ritardo. Puoi anche provare a ridurre l'intervallo di polling del router. L'intervallo di polling predefinito è di 1 minuto, ma se lo rendi troppo breve il router potrebbe bloccarsi.",
+			"energyTitle": "Monitoraggio energia",
+			"energyInstructions": "Dopo aver aggiunto il router a Homey, puoi aggiungere ulteriori dispositivi che vuoi monitorare per il consumo energetico, ad esempio la tua TV o stampante. Inserisci il consumo energetico stimato / medio del dispositivo quando è SPENTO o ACCESO. Ora, quando accendi la TV, vedrai che il consumo stimato è incluso nella scheda Energia di Homey"
+		},
+		"tab2": {
+			"title": "Registri",
+			"showLogs": "Mostra registri",
+			"showErrors": "Mostra errori",
+			"deletelogs": "Elimina registri",
+			"deleteWarning": "Eliminare tutti i registri?",
+			"deleted": "Registri eliminati!"
+		},
+		"tab3": {
+			"title": "Test",
+			"instructionsLegend": "Test di compatibilità del router",
+			"instructions": "Se hai problemi con l'app, puoi eseguire un test di compatibilità. Il risultato viene utilizzato per migliorare l'app. Premi 'Cerca router' per trovare automaticamente l'indirizzo IP e la porta SOAP. Inserisci la password del router. Quindi avvia il test. Con il pulsante 'Copia risultato' puoi creare un issue e incollare lì il risultato. Nota: hai bisogno di un account github per pubblicare un issue.",
+			"discover": "Cerca router",
+			"host": "Indirizzo IP",
+			"port": "Porta SOAP",
+			"password": "Password",
+			"startTest": "Avvia test",
+			"testingNow": "Test in corso. Attendi qualche minuto...",
+			"result": "Risultato",
+			"copyResult": "Copia risultato"
+		},
+		"tab4": {
+			"title": "Elenco",
+			"instructionsLegend": "Elenco di tutti i dispositivi conosciuti",
+			"instructions": "L'app inizierà a raccogliere e ricordare gli indirizzi MAC di tutti i dispositivi che si sono mai connessi al router. Se devi cancellare questo elenco, puoi farlo selezionando la casella `elimina elenco dispositivi` nelle impostazioni del dispositivo.",
+			"resultList": "Elenco dispositivi",
+			"copyList": "Copia elenco"
+		}
+	}
+}

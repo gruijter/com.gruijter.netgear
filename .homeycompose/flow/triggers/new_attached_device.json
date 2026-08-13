@@ -2,7 +2,17 @@
   "title": {
     "en": "New connected device",
     "nl": "Nieuw verbonden apparaat",
-    "de": "Neues verbundenes Gerät"
+    "de": "Neues verbundenes Gerät",
+    "fr": "Nouvel appareil connecté",
+    "es": "Nuevo dispositivo conectado",
+    "it": "Nuovo dispositivo connesso",
+    "da": "Ny tilsluttet enhed",
+    "sv": "Ny ansluten enhet",
+    "no": "Ny tilkoblet enhet",
+    "pl": "Nowe podłączone urządzenie",
+    "ru": "Новое подключенное устройство",
+    "ar": "جهاز جديد متصل",
+    "ko": "새로 연결된 기기"
   },
   "args": [
     {
@@ -18,7 +28,17 @@
       "title": {
         "en": "mac",
         "nl": "mac",
-        "de": "MAC"
+        "de": "MAC",
+        "fr": "mac",
+        "es": "mac",
+        "it": "mac",
+        "da": "mac",
+        "sv": "mac",
+        "no": "mac",
+        "pl": "mac",
+        "ru": "mac",
+        "ar": "mac",
+        "ko": "mac"
       },
       "example": "AA:BB:CC:DD:EE:FF"
     },
@@ -28,7 +48,17 @@
       "title": {
         "en": "name",
         "nl": "naam",
-        "de": "Name"
+        "de": "Name",
+        "fr": "nom",
+        "es": "nombre",
+        "it": "nome",
+        "da": "navn",
+        "sv": "namn",
+        "no": "navn",
+        "pl": "nazwa",
+        "ru": "имя",
+        "ar": "الاسم",
+        "ko": "이름"
       },
       "example": "iPhone"
     },
@@ -38,7 +68,17 @@
       "title": {
         "en": "ip",
         "nl": "ip",
-        "de": "IP"
+        "de": "IP",
+        "fr": "ip",
+        "es": "ip",
+        "it": "ip",
+        "da": "ip",
+        "sv": "ip",
+        "no": "ip",
+        "pl": "ip",
+        "ru": "ip",
+        "ar": "ip",
+        "ko": "ip"
       },
       "example": "10.0.0.10"
     }

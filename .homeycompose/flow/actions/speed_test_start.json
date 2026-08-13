@@ -2,7 +2,17 @@
   "title": {
     "en": "Start internet speed test",
     "nl": "Doe internet snelheidstest",
-    "de": "Starte Internet-Geschwindigkeitstest"
+    "de": "Starte Internet-Geschwindigkeitstest",
+    "fr": "Démarrer un test de vitesse internet",
+    "es": "Iniciar prueba de velocidad de internet",
+    "it": "Avvia il test di velocità internet",
+    "da": "Start internethastighedstest",
+    "sv": "Starta internethastighetstest",
+    "no": "Start internetthastighetstest",
+    "pl": "Rozpocznij test prędkości internetu",
+    "ru": "Запустить тест скорости интернета",
+    "ar": "بدء اختبار سرعة الإنترنت",
+    "ko": "인터넷 속도 테스트 시작"
   },
   "args": [
     {

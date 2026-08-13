@@ -45,17 +45,19 @@ class attachedNetgearDevice extends Device {
     // migrate stuff
     if (!this.migrated) await this.checkCaps(true).catch(this.error);
 
-    // add router available check here?
     this.log(`device ready: ${this.getName()}`);
+  }
+
+  // this method is called before the Device is unloaded (app stop/restart or deletion)
+  onUninit() {
+    this.log(`Device uninit: ${this.getName()}`);
   }
 
   restartDevice(delay) {
     if (this.restarting) return;
     this.restarting = true;
-    // await this.destroyListeners();
     const dly = delay || 2000;
     this.log(`Device will restart in ${dly / 1000} seconds`);
-    // this.setUnavailable('Device is restarting. Wait a few minutes!');
     setTimeoutPromise(dly).then(() => this.onInit());
   }
 
@@ -63,7 +65,6 @@ class attachedNetgearDevice extends Device {
   async checkCaps(migrate) {
     try {
       if (migrate) this.log(`checking device migration for ${this.getName()}`);
-      // console.log(this.getName(), this.settings, this.getStore());
 
       // check and repair incorrect capability(order) // remove unselected optional capabilities
       const correctCaps = this.driver.capabilities.filter((cap) => {

@@ -2,7 +2,17 @@
   "name": {
     "en": " Router",
     "nl": " Router",
-    "de": " Router"
+    "de": " Router",
+    "fr": " Routeur",
+    "es": " Router",
+    "it": " Router",
+    "da": " Router",
+    "sv": " Router",
+    "no": " Router",
+    "pl": " Router",
+    "ru": " Роутер",
+    "ar": " راوتر",
+    "ko": " 라우터"
   },
   "images": {
     "large": "drivers/netgear/assets/images/large.jpg",
@@ -22,22 +32,62 @@
       "title": {
         "en": "Internet disconnected",
         "nl": "Internet verbroken",
-        "de": "Internet unterbrochen"
+        "de": "Internet unterbrochen",
+        "fr": "Internet déconnecté",
+        "es": "Internet desconectado",
+        "it": "Internet disconnesso",
+        "da": "Internet afbrudt",
+        "sv": "Internet frånkopplat",
+        "no": "Internett frakoblet",
+        "pl": "Internet rozłączony",
+        "ru": "Интернет отключен",
+        "ar": "الإنترنت غير متصل",
+        "ko": "인터넷 연결 끊김"
       },
       "desc": {
         "en": "Internet disconnected alarm",
         "nl": "Internet verbroken alarm",
-        "de": "Internet unterbrochen Alarm"
+        "de": "Internet unterbrochen Alarm",
+        "fr": "Alarme Internet déconnecté",
+        "es": "Alarma de Internet desconectado",
+        "it": "Allarme Internet disconnesso",
+        "da": "Internet afbrudt alarm",
+        "sv": "Internet frånkopplat larm",
+        "no": "Internett frakoblet-alarm",
+        "pl": "Alarm rozłączenia internetu",
+        "ru": "Аварийный сигнал отключения интернета",
+        "ar": "إنذار انقطاع الإنترنت",
+        "ko": "인터넷 연결 끊김 알람"
       },
       "insightsTitleTrue": {
         "en": "Internet disconnected",
         "nl": "Internet verbroken",
-        "de": "Internet unterbrochen"
+        "de": "Internet unterbrochen",
+        "fr": "Internet déconnecté",
+        "es": "Internet desconectado",
+        "it": "Internet disconnesso",
+        "da": "Internet afbrudt",
+        "sv": "Internet frånkopplat",
+        "no": "Internett frakoblet",
+        "pl": "Internet rozłączony",
+        "ru": "Интернет отключен",
+        "ar": "الإنترنت غير متصل",
+        "ko": "인터넷 연결 끊김"
       },
       "insightsTitleFalse": {
         "en": "Internet connected",
         "nl": "Internet verbonden",
-        "de": "Internet verbunden"
+        "de": "Internet verbunden",
+        "fr": "Internet connecté",
+        "es": "Internet conectado",
+        "it": "Internet connesso",
+        "da": "Internet forbundet",
+        "sv": "Internet anslutet",
+        "no": "Internett tilkoblet",
+        "pl": "Internet połączony",
+        "ru": "Интернет подключен",
+        "ar": "الإنترنت متصل",
+        "ko": "인터넷 연결됨"
       }
     }
 	},
@@ -60,7 +110,17 @@
       "label": {
         "en": "Router information",
         "nl": "Router informatie",
-        "de": "Router-Information"
+        "de": "Router-Information",
+        "fr": "Informations du routeur",
+        "es": "Información del router",
+        "it": "Informazioni router",
+        "da": "Router information",
+        "sv": "Routerinformation",
+        "no": "Ruterinformasjon",
+        "pl": "Informacje o routerze",
+        "ru": "Информация о роутере",
+        "ar": "معلومات الراوتر",
+        "ko": "라우터 정보"
       },
       "children": [
         {
@@ -69,7 +129,17 @@
           "label": {
             "en": "Model",
             "nl": "Type",
-            "de": "Modell"
+            "de": "Modell",
+            "fr": "Modèle",
+            "es": "Modelo",
+            "it": "Modello",
+            "da": "Model",
+            "sv": "Modell",
+            "no": "Modell",
+            "pl": "Model",
+            "ru": "Модель",
+            "ar": "الطراز",
+            "ko": "모델"
           },
           "value": "unknown"
         },
@@ -79,7 +149,17 @@
           "label": {
             "en": "Serial number",
             "nl": "Serienummer",
-            "de": "Seriennummer"
+            "de": "Seriennummer",
+            "fr": "Numéro de série",
+            "es": "Número de serie",
+            "it": "Numero di serie",
+            "da": "Serienummer",
+            "sv": "Serienummer",
+            "no": "Serienummer",
+            "pl": "Numer seryjny",
+            "ru": "Серийный номер",
+            "ar": "الرقم التسلسلي",
+            "ko": "일련 번호"
           },
           "value": "unknown"
         },
@@ -89,7 +169,17 @@
           "label": {
             "en": "Firmware version",
             "nl": "Firmware versie",
-            "de": "Firmware Version"
+            "de": "Firmware Version",
+            "fr": "Version du firmware",
+            "es": "Versión de firmware",
+            "it": "Versione firmware",
+            "da": "Firmwareversion",
+            "sv": "Firmwareversion",
+            "no": "Firmwareversjon",
+            "pl": "Wersja firmware",
+            "ru": "Версия прошивки",
+            "ar": "إصدار البرنامج الثابت",
+            "ko": "펌웨어 버전"
           },
           "value": "unknown"
         },
@@ -99,7 +189,17 @@
           "label": {
             "en": "Device mode",
             "nl": "Apparaat modus",
-            "de": "Gerätemodus"
+            "de": "Gerätemodus",
+            "fr": "Mode de l'appareil",
+            "es": "Modo del dispositivo",
+            "it": "Modalità dispositivo",
+            "da": "Enhedstilstand",
+            "sv": "Enhetsläge",
+            "no": "Enhetsmodus",
+            "pl": "Tryb urządzenia",
+            "ru": "Режим устройства",
+            "ar": "وضع الجهاز",
+            "ko": "장치 모드"
           },
           "value": "unknown"
         }
@@ -110,7 +210,17 @@
       "label": {
         "en": "Connection settings",
         "nl": "Verbinding instellingen",
-        "de": "Verbindungseinstellungen"
+        "de": "Verbindungseinstellungen",
+        "fr": "Paramètres de connexion",
+        "es": "Ajustes de conexión",
+        "it": "Impostazioni di connessione",
+        "da": "Forbindelsesindstillinger",
+        "sv": "Anslutningsinställningar",
+        "no": "Tilkoblingsinnstillinger",
+        "pl": "Ustawienia połączenia",
+        "ru": "Настройки соединения",
+        "ar": "إعدادات الاتصال",
+        "ko": "연결 설정"
       },
       "children": [
         {
@@ -119,7 +229,17 @@
           "label": {
             "en": "IP address",
             "nl": "IP adres",
-            "de": "IP-Addresse"
+            "de": "IP-Addresse",
+            "fr": "Adresse IP",
+            "es": "Dirección IP",
+            "it": "Indirizzo IP",
+            "da": "IP-adresse",
+            "sv": "IP-adress",
+            "no": "IP-adresse",
+            "pl": "Adres IP",
+            "ru": "IP-адрес",
+            "ar": "عنوان IP",
+            "ko": "IP 주소"
           },
           "value": "routerlogin.net"
         },
@@ -129,7 +249,17 @@
           "label": {
             "en": "SOAP port",
             "nl": "SOAP poort",
-            "de": "SOAP-Port"
+            "de": "SOAP-Port",
+            "fr": "Port SOAP",
+            "es": "Puerto SOAP",
+            "it": "Porta SOAP",
+            "da": "SOAP-port",
+            "sv": "SOAP-port",
+            "no": "SOAP-port",
+            "pl": "Port SOAP",
+            "ru": "SOAP-порт",
+            "ar": "منفذ SOAP",
+            "ko": "SOAP 포트"
           },
           "value": 5000
         },
@@ -139,7 +269,17 @@
           "label": {
             "en": "Username",
             "nl": "Gebruikersnaam",
-            "de": "Benutzername"
+            "de": "Benutzername",
+            "fr": "Nom d'utilisateur",
+            "es": "Nombre de usuario",
+            "it": "Nome utente",
+            "da": "Brugernavn",
+            "sv": "Användarnamn",
+            "no": "Brukernavn",
+            "pl": "Nazwa użytkownika",
+            "ru": "Имя пользователя",
+            "ar": "اسم المستخدم",
+            "ko": "사용자 이름"
           },
           "value": "admin"
         },
@@ -149,7 +289,17 @@
           "label": {
             "en": "Password",
             "nl": "Wachtwoord",
-            "de": "Passwort"
+            "de": "Passwort",
+            "fr": "Mot de passe",
+            "es": "Contraseña",
+            "it": "Password",
+            "da": "Adgangskode",
+            "sv": "Lösenord",
+            "no": "Passord",
+            "pl": "Hasło",
+            "ru": "Пароль",
+            "ar": "كلمة المرور",
+            "ko": "비밀번호"
           },
           "value": "password"
         },
@@ -160,7 +310,17 @@
           "label": {
             "en": "Login method",
             "nl": "Login methode",
-            "de": "Login Methode"
+            "de": "Login Methode",
+            "fr": "Méthode de connexion",
+            "es": "Método de inicio de sesión",
+            "it": "Metodo di accesso",
+            "da": "Login metode",
+            "sv": "Inloggningsmetod",
+            "no": "Innloggingsmetode",
+            "pl": "Metoda logowania",
+            "ru": "Метод входа",
+            "ar": "طريقة تسجيل الدخول",
+            "ko": "로그인 방법"
           },
           "values": [
             {
@@ -168,7 +328,17 @@
               "label": {
                 "en": "Auto",
                 "nl": "Auto",
-                "de": "Auto"
+                "de": "Auto",
+                "fr": "Auto",
+                "es": "Auto",
+                "it": "Auto",
+                "da": "Auto",
+                "sv": "Auto",
+                "no": "Auto",
+                "pl": "Auto",
+                "ru": "Авто",
+                "ar": "تلقائي",
+                "ko": "자동"
               }
             },
             {
@@ -176,7 +346,17 @@
               "label": {
                 "en": "Old",
                 "nl": "Oud",
-                "de": "Alt"
+                "de": "Alt",
+                "fr": "Ancien",
+                "es": "Antiguo",
+                "it": "Vecchio",
+                "da": "Gammel",
+                "sv": "Gammal",
+                "no": "Gammel",
+                "pl": "Stary",
+                "ru": "Старый",
+                "ar": "قديم",
+                "ko": "이전"
               }
             },
             {
@@ -184,14 +364,34 @@
               "label": {
                 "en": "New",
                 "nl": "Nieuw",
-                "de": "Neu"
+                "de": "Neu",
+                "fr": "Nouveau",
+                "es": "Nuevo",
+                "it": "Nuovo",
+                "da": "Ny",
+                "sv": "Ny",
+                "no": "Ny",
+                "pl": "Nowy",
+                "ru": "Новый",
+                "ar": "جديد",
+                "ko": "신규"
               }
             }
           ],
           "hint": {
             "en": "Leave on Auto unless you experience issues",
             "nl": "Laat op Auto tenzij je problemen hebt",
-            "de": "Auf Auto stehen lassen, außer es treten Probleme auf"
+            "de": "Auf Auto stehen lassen, außer es treten Probleme auf",
+            "fr": "Laissez sur Auto sauf en cas de problème",
+            "es": "Déjelo en Auto a menos que tenga problemas",
+            "it": "Lascia su Auto a meno che non riscontri problemi",
+            "da": "Lad stå på Auto medmindre du oplever problemer",
+            "sv": "Lämna på Auto om du inte upplever problem",
+            "no": "La stå på Auto med mindre du opplever problemer",
+            "pl": "Pozostaw na Auto, chyba że wystąpią problemy",
+            "ru": "Оставьте на Авто, если не возникают проблемы",
+            "ar": "اتركه على تلقائي ما لم تواجه مشاكل",
+            "ko": "문제가 없으면 자동으로 두세요"
           }
         }
       ]
@@ -201,7 +401,17 @@
       "label": {
         "en": "Report options",
         "nl": "Rapportage opties",
-        "de": "Berichtsoptionen"
+        "de": "Berichtsoptionen",
+        "fr": "Options de rapport",
+        "es": "Opciones de informe",
+        "it": "Opzioni di report",
+        "da": "Rapporteringsindstillinger",
+        "sv": "Rapportalternativ",
+        "no": "Rapporteringsalternativer",
+        "pl": "Opcje raportowania",
+        "ru": "Параметры отчетов",
+        "ar": "خيارات التقارير",
+        "ko": "보고 옵션"
       },
       "children": [
         {
@@ -210,28 +420,71 @@
           "value": "netgear",
           "label": {
             "en": "Internet check",
-            "de": "Internet-Prüfung"
+            "nl": "Internet controle",
+            "de": "Internet-Prüfung",
+            "fr": "Vérification Internet",
+            "es": "Verificación de Internet",
+            "it": "Verifica Internet",
+            "da": "Internet-tjek",
+            "sv": "Internetkontroll",
+            "no": "Internettsjekk",
+            "pl": "Sprawdzanie internetu",
+            "ru": "Проверка интернета",
+            "ar": "فحص الإنترنت",
+            "ko": "인터넷 확인"
           },
           "values": [
             {
               "id": "netgear",
               "label": {
                 "en": "Netgear",
-                "de": "Netgear"
+                "nl": "Netgear",
+                "de": "Netgear",
+                "fr": "Netgear",
+                "es": "Netgear",
+                "it": "Netgear",
+                "da": "Netgear",
+                "sv": "Netgear",
+                "no": "Netgear",
+                "pl": "Netgear",
+                "ru": "Netgear",
+                "ar": "Netgear",
+                "ko": "Netgear"
               }
             },
             {
               "id": "homey",
               "label": {
                 "en": "Homey",
-                "de": "Homey"
+                "nl": "Homey",
+                "de": "Homey",
+                "fr": "Homey",
+                "es": "Homey",
+                "it": "Homey",
+                "da": "Homey",
+                "sv": "Homey",
+                "no": "Homey",
+                "pl": "Homey",
+                "ru": "Homey",
+                "ar": "Homey",
+                "ko": "Homey"
               }
             }
           ],
           "hint": {
             "en": "Which device should check if the internet is connected",
             "nl": "Welk apparaat controleert of internet verbonden is",
-            "de": "Welches Gerät soll prüfen, ob das Internet verbunden ist"
+            "de": "Welches Gerät soll prüfen, ob das Internet verbunden ist",
+            "fr": "Quel appareil doit vérifier si Internet est connecté",
+            "es": "Qué dispositivo debe comprobar si Internet está conectado",
+            "it": "Quale dispositivo deve verificare se Internet è connesso",
+            "da": "Hvilken enhed skal kontrollere, om internettet er forbundet",
+            "sv": "Vilken enhet ska kontrollera om internet är anslutet",
+            "no": "Hvilken enhet skal sjekke om internett er tilkoblet",
+            "pl": "Które urządzenie ma sprawdzać, czy internet jest połączony",
+            "ru": "Какое устройство должно проверять подключение к интернету",
+            "ar": "أي جهاز يجب أن يتحقق مما إذا كان الإنترنت متصلاً",
+            "ko": "인터넷 연결 여부를 확인할 장치"
           }
         },
         {
@@ -240,7 +493,17 @@
           "label": {
             "en": "Report Up/Down traffic",
             "nl": "Rapporteer Up/Down verkeer",
-            "de": "Up/Down Traffic anzeigen"
+            "de": "Up/Down Traffic anzeigen",
+            "fr": "Rapporter le trafic montant/descendant",
+            "es": "Informar tráfico de subida/bajada",
+            "it": "Segnala traffico Up/Down",
+            "da": "Rapporter Up/Down trafik",
+            "sv": "Rapportera Up/Down-trafik",
+            "no": "Rapporter Up/Down-trafikk",
+            "pl": "Raportuj ruch Up/Down",
+            "ru": "Отчет о трафике Up/Down",
+            "ar": "الإبلاغ عن حركة المرور Up/Down",
+            "ko": "업/다운 트래픽 보고"
           },
           "value": false
         },
@@ -250,7 +513,17 @@
           "label": {
             "en": "Report CPU/MEM load",
             "nl": "Rapporteer CPU/MEM belasting",
-            "de": "CPU/MEM-Auslastung anzeigen"
+            "de": "CPU/MEM-Auslastung anzeigen",
+            "fr": "Rapporter la charge CPU/MEM",
+            "es": "Informar carga de CPU/MEM",
+            "it": "Segnala carico CPU/MEM",
+            "da": "Rapporter CPU/MEM belastning",
+            "sv": "Rapportera CPU/MEM-belastning",
+            "no": "Rapporter CPU/MEM-belastning",
+            "pl": "Raportuj obciążenie CPU/MEM",
+            "ru": "Отчет о нагрузке CPU/MEM",
+            "ar": "الإبلاغ عن حمل CPU/MEM",
+            "ko": "CPU/MEM 부하 보고"
           },
           "value": false
         },
@@ -260,7 +533,17 @@
           "label": {
             "en": "New firmware check",
             "nl": "Controleer op nieuwe firmware",
-            "de": "Prüfung auf neue Firmware"
+            "de": "Prüfung auf neue Firmware",
+            "fr": "Vérification de nouveau firmware",
+            "es": "Comprobación de nuevo firmware",
+            "it": "Verifica nuovo firmware",
+            "da": "Tjek for ny firmware",
+            "sv": "Kontroll av ny firmware",
+            "no": "Sjekk for ny firmware",
+            "pl": "Sprawdzanie nowego firmware",
+            "ru": "Проверка новой прошивки",
+            "ar": "التحقق من البرنامج الثابت الجديد",
+            "ko": "새 펌웨어 확인"
           },
           "value": false
         }
@@ -271,7 +554,17 @@
       "label": {
         "en": "Presence settings",
         "nl": "Aanwezigheid instellingen",
-        "de": "Anwesenheitseinstellungen"
+        "de": "Anwesenheitseinstellungen",
+        "fr": "Paramètres de présence",
+        "es": "Ajustes de presencia",
+        "it": "Impostazioni di presenza",
+        "da": "Tilstedeværelsesindstillinger",
+        "sv": "Närvaroinställningar",
+        "no": "Tilstedeværelsesinnstillinger",
+        "pl": "Ustawienia obecności",
+        "ru": "Настройки присутствия",
+        "ar": "إعدادات الحضور",
+        "ko": "재실 설정"
       },
       "children": [
         {
@@ -280,12 +573,32 @@
           "label": {
             "en": "Polling interval (seconds)",
             "nl": "Polling interval (seconden)",
-            "de": "Polling Intervall (Sekunden)"
+            "de": "Polling Intervall (Sekunden)",
+            "fr": "Intervalle d'interrogation (secondes)",
+            "es": "Intervalo de sondeo (segundos)",
+            "it": "Intervallo di polling (secondi)",
+            "da": "Polling interval (sekunder)",
+            "sv": "Pollingintervall (sekunder)",
+            "no": "Polling-intervall (sekunder)",
+            "pl": "Interwał odpytywania (sekundy)",
+            "ru": "Интервал опроса (секунды)",
+            "ar": "فاصل الاستطلاع (ثوانٍ)",
+            "ko": "폴링 간격 (초)"
           },
           "hint": {
             "en": "A shorter value will update the presence of devices more often, but could lead to router faults",
             "nl": "Een kortere waarde zal de aanwezigheids detectie verbeteren, maar kan leiden tot fouten in de router.",
-            "de": "Ein kleinerer Wert aktualisiert das Vorhandensein von Geräten häufiger, kann jedoch zu Routerfehlern führen"
+            "de": "Ein kleinerer Wert aktualisiert das Vorhandensein von Geräten häufiger, kann jedoch zu Routerfehlern führen",
+            "fr": "Une valeur plus courte mettra à jour la présence des appareils plus souvent, mais pourrait entraîner des erreurs de routeur",
+            "es": "Un valor más corto actualizará la presencia de los dispositivos con más frecuencia, pero podría provocar fallos en el router",
+            "it": "Un valore più breve aggiornerà la presenza dei dispositivi più spesso, ma potrebbe causare errori del router",
+            "da": "En kortere værdi vil opdatere enhedernes tilstedeværelse oftere, men kan føre til routerfejl",
+            "sv": "Ett kortare värde uppdaterar enheternas närvaro oftare, men kan leda till routerfel",
+            "no": "En kortere verdi vil oppdatere enhetenes tilstedeværelse oftere, men kan føre til ruterfeil",
+            "pl": "Krótsza wartość będzie częściej aktualizować obecność urządzeń, ale może prowadzić do błędów routera",
+            "ru": "Меньшее значение будет чаще обновлять присутствие устройств, но может привести к сбоям роутера",
+            "ar": "ستؤدي القيمة الأقصر إلى تحديث وجود الأجهزة بشكل أكثر تكرارًا، ولكن قد يؤدي ذلك إلى أخطاء في الراوتر",
+            "ko": "값을 짧게 설정하면 장치의 재실 상태가 더 자주 업데이트되지만 라우터 오류가 발생할 수 있습니다"
           },
           "attr": {
             "min": 15
@@ -298,12 +611,32 @@
           "label": {
             "en": "Offline after (seconds)",
             "nl": "Offline na (seconden)",
-            "de": "Offline nach (Sekunden)"
+            "de": "Offline nach (Sekunden)",
+            "fr": "Hors ligne après (secondes)",
+            "es": "Fuera de línea después de (segundos)",
+            "it": "Offline dopo (secondi)",
+            "da": "Offline efter (sekunder)",
+            "sv": "Offline efter (sekunder)",
+            "no": "Offline etter (sekunder)",
+            "pl": "Offline po (sekundy)",
+            "ru": "Офлайн через (секунды)",
+            "ar": "غير متصل بعد (ثوانٍ)",
+            "ko": "오프라인 처리 시간 (초)"
           },
           "hint": {
             "en": "This value will be only used for attached devices that are not individually paired to Homey.",
             "nl": "Deze waarde wordt alleen gebruikt voor apparaten die niet individueel aan Homey zijn toegevoegd.",
-            "de": "Dieser Wert wird nur für verbundene Geräte verwendet, die nicht einzeln mit Homey gekoppelt sind."
+            "de": "Dieser Wert wird nur für verbundene Geräte verwendet, die nicht einzeln mit Homey gekoppelt sind.",
+            "fr": "Cette valeur ne sera utilisée que pour les appareils connectés qui ne sont pas appairés individuellement à Homey.",
+            "es": "Este valor solo se utilizará para los dispositivos conectados que no estén emparejados individualmente con Homey.",
+            "it": "Questo valore verrà utilizzato solo per i dispositivi collegati che non sono associati individualmente a Homey.",
+            "da": "Denne værdi vil kun blive brugt til tilsluttede enheder, der ikke er individuelt parret med Homey.",
+            "sv": "Detta värde används endast för anslutna enheter som inte är individuellt parkopplade med Homey.",
+            "no": "Denne verdien vil kun bli brukt for tilkoblede enheter som ikke er individuelt paret med Homey.",
+            "pl": "Ta wartość będzie używana tylko dla podłączonych urządzeń, które nie są indywidualnie sparowane z Homey.",
+            "ru": "Это значение будет использоваться только для подключенных устройств, которые не сопряжены отдельно с Homey.",
+            "ar": "سيتم استخدام هذه القيمة فقط للأجهزة المتصلة التي لم يتم إقرانها بشكل فردي بـ Homey.",
+            "ko": "이 값은 Homey에 개별적으로 페어링되지 않은 연결된 장치에만 사용됩니다."
           },
           "attr": {
             "min": 60
@@ -317,13 +650,35 @@
           "label": {
             "en": "Attached devices method",
             "nl": "Aangesloten apparaten methode",
-            "de": "Methode der verbundenen Geräte"
+            "de": "Methode der verbundenen Geräte",
+            "fr": "Méthode des appareils connectés",
+            "es": "Método de dispositivos conectados",
+            "it": "Metodo dispositivi collegati",
+            "da": "Metode for tilsluttede enheder",
+            "sv": "Metod för anslutna enheter",
+            "no": "Metode for tilkoblede enheter",
+            "pl": "Metoda podłączonych urządzeń",
+            "ru": "Метод подключенных устройств",
+            "ar": "طريقة الأجهزة المتصلة",
+            "ko": "연결된 장치 방식"
           },
           "values": [
             {
               "id": "0",
               "label": {
-                "en": "Auto"
+                "en": "Auto",
+                "nl": "Auto",
+                "de": "Auto",
+                "fr": "Auto",
+                "es": "Auto",
+                "it": "Auto",
+                "da": "Auto",
+                "sv": "Auto",
+                "no": "Auto",
+                "pl": "Auto",
+                "ru": "Авто",
+                "ar": "تلقائي",
+                "ko": "자동"
               }
             },
             {
@@ -331,7 +686,17 @@
               "label": {
                 "en": "Old",
                 "nl": "Oud",
-                "de": "Alt"
+                "de": "Alt",
+                "fr": "Ancien",
+                "es": "Antiguo",
+                "it": "Vecchio",
+                "da": "Gammel",
+                "sv": "Gammal",
+                "no": "Gammel",
+                "pl": "Stary",
+                "ru": "Старый",
+                "ar": "قديم",
+                "ko": "이전"
               }
             },
             {
@@ -339,14 +704,34 @@
               "label": {
                 "en": "New",
                 "nl": "Nieuw",
-                "de": "Neu"
+                "de": "Neu",
+                "fr": "Nouveau",
+                "es": "Nuevo",
+                "it": "Nuovo",
+                "da": "Ny",
+                "sv": "Ny",
+                "no": "Ny",
+                "pl": "Nowy",
+                "ru": "Новый",
+                "ar": "جديد",
+                "ko": "신규"
               }
             }
           ],
           "hint": {
             "en": "Which method to use to get the attached devices list from the router",
             "nl": "Welke methode gebruiken om de aangesloten apparaten lijst uit de router op te halen",
-            "de": "Welche Methode zum Abrufen der Liste der verbundenen Geräte vom Router verwendet werden soll"
+            "de": "Welche Methode zum Abrufen der Liste der verbundenen Geräte vom Router verwendet werden soll",
+            "fr": "Quelle méthode utiliser pour obtenir la liste des appareils connectés depuis le routeur",
+            "es": "Qué método usar para obtener la lista de dispositivos conectados del router",
+            "it": "Quale metodo utilizzare per ottenere l'elenco dei dispositivi collegati dal router",
+            "da": "Hvilken metode der skal bruges til at hente listen over tilsluttede enheder fra routeren",
+            "sv": "Vilken metod som ska användas för att hämta listan över anslutna enheter från routern",
+            "no": "Hvilken metode som skal brukes for å hente listen over tilkoblede enheter fra ruteren",
+            "pl": "Której metody użyć do pobrania listy podłączonych urządzeń z routera",
+            "ru": "Какой метод использовать для получения списка подключенных устройств с роутера",
+            "ar": "الطريقة المستخدمة للحصول على قائمة الأجهزة المتصلة من الراوتر",
+            "ko": "라우터에서 연결된 장치 목록을 가져오는 데 사용할 방법"
           }
         },
         {
@@ -355,13 +740,33 @@
           "label": {
             "en": "Delete devicelist (!)",
             "nl": "Apparaatlijst legen (!)",
-            "de": "Geräteliste löschen (!)"
+            "de": "Geräteliste löschen (!)",
+            "fr": "Supprimer la liste des appareils (!)",
+            "es": "Eliminar lista de dispositivos (!)",
+            "it": "Elimina elenco dispositivi (!)",
+            "da": "Slet enhedsliste (!)",
+            "sv": "Ta bort enhetslista (!)",
+            "no": "Slett enhetsliste (!)",
+            "pl": "Usuń listę urządzeń (!)",
+            "ru": "Удалить список устройств (!)",
+            "ar": "حذف قائمة الأجهزة (!)",
+            "ko": "장치 목록 삭제 (!)"
           },
           "value": false,
           "hint": {
             "en": "When checked, the list of known devices will be emptied. New settings will not be saved!",
             "nl": "Aangevinkt: de lijst met bekende apparaten zal worden geleegd. Nieuwe instellingen worden niet opgeslagen!",
-            "de": "Wenn aktiviert, wird die Liste der bekannten Geräte gelöscht. Neue Einstellungen werden nicht gespeichert!"
+            "de": "Wenn aktiviert, wird die Liste der bekannten Geräte gelöscht. Neue Einstellungen werden nicht gespeichert!",
+            "fr": "Si cette case est cochée, la liste des appareils connus sera vidée. Les nouveaux paramètres ne seront pas enregistrés !",
+            "es": "Si se marca, la lista de dispositivos conocidos se vaciará. ¡Los nuevos ajustes no se guardarán!",
+            "it": "Se selezionato, l'elenco dei dispositivi conosciuti verrà svuotato. Le nuove impostazioni non verranno salvate!",
+            "da": "Når markeret, tømmes listen over kendte enheder. Nye indstillinger vil ikke blive gemt!",
+            "sv": "Om markerad töms listan över kända enheter. Nya inställningar sparas inte!",
+            "no": "Når merket av, vil listen over kjente enheter bli tømt. Nye innstillinger vil ikke bli lagret!",
+            "pl": "Po zaznaczeniu lista znanych urządzeń zostanie wyczyszczona. Nowe ustawienia nie zostaną zapisane!",
+            "ru": "При установке флажка список известных устройств будет очищен. Новые настройки не будут сохранены!",
+            "ar": "عند التحديد، سيتم إفراغ قائمة الأجهزة المعروفة. لن يتم حفظ الإعدادات الجديدة!",
+            "ko": "선택하면 알려진 장치 목록이 지워집니다. 새 설정은 저장되지 않습니다!"
           }
         }
       ]

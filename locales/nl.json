@@ -33,10 +33,12 @@
 			"use_system_info": "Rapporteer CPU/MEM belasting",
 			"use_firmware_check": "Controleer op nieuwe firmware",
 			"save": "Opslaan",
-			"ready": "Voor optimale stabiliteit, PTP je router nu! (uit-30s-aan)"
+			"ready": "Voor optimale stabiliteit, PTP je router nu! (uit-30s-aan)",
+			"duplicate": "Deze router is al toegevoegd aan Homey"
 		}
 	},
 	"settings": {
+		"benefit": "Netgear Router",
 		"tab1": {
 			"title": "Instructies",
 			"addDeviceTitle": "Voeg een router toe",
@@ -44,11 +46,12 @@
 			"presenceTitle": "Aanwezigheids detectie",
 			"presenceInstructions": "Nadat de router aan Homey is toegevoegd kun je mobiele apparaten toevoegen waarvan je de aanwezigheid wilt weten. Ze worden als aan- of afwezig gerapporteerd op basis van de WiFi verbinding met je Netgear netwerk. De 'offline na' tijd kan worden geoptimaliseerd via de apparaat instellingen. Als je onjuiste afwezig meldingen krijgt moet de tijd worden verhoogd. Voor snellere detectie kun je proberen de tijd te verkorten. Je kunt ook proberen de 'polling interval'van de router te verlagen. Deze staat standaard op 1 minuut, maar als je hem te kort maakt kan de router vastlopen",
 			"energyTitle": "Energie monitoring",
-			"energyInstructions": "Nadat de router aan Homey is toegevoegd kun je netwerk apparaten toevoegen waarvan je het stroomverbruik wilt weten, zoals je T.V. Voer het gemiddelde / geschatte vermogen in bij AAN en UIT stand. Als je nu je T.V. aanzet zie je het geschatte energie verbruik in de Energie tab van Homey"	
+			"energyInstructions": "Nadat de router aan Homey is toegevoegd kun je netwerk apparaten toevoegen waarvan je het stroomverbruik wilt weten, zoals je T.V. Voer het gemiddelde / geschatte vermogen in bij AAN en UIT stand. Als je nu je T.V. aanzet zie je het geschatte energie verbruik in de Energie tab van Homey"
 		},
 		"tab2": {
 			"title": "Logs",
-			"logs": "Logs",
+			"showLogs": "Toon logs",
+			"showErrors": "Toon fouten",
 			"deletelogs": "Verwijder logs",
 			"deleteWarning": "Verwijder alle logs?",
 			"deleted": "Logs verwijderd!"
@@ -62,6 +65,7 @@
 			"port": "SOAP Poort",
 			"password": "Wachtwoord",
 			"startTest": "Start test",
+			"testingNow": "Bezig met testen. Dit kan een paar minuten duren...",
 			"result": "Resulaat",
 			"copyResult": "Kopiëer resultaat"
 		},
@@ -69,7 +73,6 @@
 			"title": "Lijst",
 			"instructionsLegend": "Lijst met bekende apparaten",
 			"instructions": "De app zal een lijst verzamelen met alle MAC adressen van alle apparaten die ooit met de router zijn verbonden. Als je deze lijst wilt wissen, dan kan dat via de router device instellingen met de optie `Apparaatlijst legen`.",
-			"getList": "Haal lijst op",
 			"resultList": "Apparaten lijst",
 			"copyList": "Kopiëer lijst"
 		}

@@ -3,12 +3,34 @@
   "title": {
     "en": "CPU utilization",
     "nl": "CPU belasting",
-    "de": "CPU-Auslastung"
+    "de": "CPU-Auslastung",
+    "fr": "Utilisation du CPU",
+    "es": "Uso de CPU",
+    "it": "Utilizzo CPU",
+    "da": "CPU-forbrug",
+    "sv": "CPU-användning",
+    "no": "CPU-bruk",
+    "pl": "Wykorzystanie CPU",
+    "ru": "Загрузка ЦП",
+    "ar": "استخدام المعالج",
+    "ko": "CPU 사용량"
   },
   "getable": true,
   "setable": false,
   "units": {
-    "en": "%"
+    "en": "%",
+    "nl": "%",
+    "de": "%",
+    "fr": "%",
+    "es": "%",
+    "it": "%",
+    "da": "%",
+    "sv": "%",
+    "no": "%",
+    "pl": "%",
+    "ru": "%",
+    "ar": "%",
+    "ko": "%"
   },
   "decimals": 0,
   "insights": true,

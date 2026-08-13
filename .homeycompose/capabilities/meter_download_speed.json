@@ -3,13 +3,34 @@
   "title": {
     "en": "Download speed",
     "nl": "Download snelheid",
-    "de": "Download-Geschwindigkeit"
+    "de": "Download-Geschwindigkeit",
+    "fr": "Vitesse de téléchargement",
+    "es": "Velocidad de descarga",
+    "it": "Velocità di download",
+    "da": "Downloadhastighed",
+    "sv": "Nedladdningshastighet",
+    "no": "Nedlastingshastighet",
+    "pl": "Prędkość pobierania",
+    "ru": "Скорость загрузки",
+    "ar": "سرعة التنزيل",
+    "ko": "다운로드 속도"
   },
   "getable": true,
   "setable": false,
   "units": {
     "en": "Mbit/s",
-    "de": "Mbit/s"
+    "nl": "Mbit/s",
+    "de": "Mbit/s",
+    "fr": "Mbit/s",
+    "es": "Mbit/s",
+    "it": "Mbit/s",
+    "da": "Mbit/s",
+    "sv": "Mbit/s",
+    "no": "Mbit/s",
+    "pl": "Mbit/s",
+    "ru": "Mbit/s",
+    "ar": "Mbit/s",
+    "ko": "Mbit/s"
   },
   "decimals": 2,
   "insights": true,

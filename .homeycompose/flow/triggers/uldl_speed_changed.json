@@ -2,7 +2,17 @@
   "title": {
     "en": "The up/down speed changed",
     "nl": "Up/down snelheid gewijzigd",
-    "de": "Die Up/Down-Geschwindigkeit hat sich geändert"
+    "de": "Die Up/Down-Geschwindigkeit hat sich geändert",
+    "fr": "La vitesse montante/descendante a changé",
+    "es": "La velocidad de subida/bajada cambió",
+    "it": "La velocità di upload/download è cambiata",
+    "da": "Op/ned-hastigheden ændrede sig",
+    "sv": "Upp-/nedladdningshastigheten ändrades",
+    "no": "Opp-/nedlastingshastigheten endret seg",
+    "pl": "Prędkość wysyłania/pobierania zmieniła się",
+    "ru": "Скорость загрузки/выгрузки изменилась",
+    "ar": "تغيرت سرعة الرفع/التنزيل",
+    "ko": "업/다운로드 속도가 변경됨"
   },
   "args": [
     {
@@ -18,7 +28,17 @@
       "title": {
         "en": "up",
         "nl": "up",
-        "de": "Up"
+        "de": "Up",
+        "fr": "up",
+        "es": "up",
+        "it": "up",
+        "da": "up",
+        "sv": "up",
+        "no": "up",
+        "pl": "up",
+        "ru": "up",
+        "ar": "up",
+        "ko": "up"
       },
       "example": 5
     },
@@ -28,7 +48,17 @@
       "title": {
         "en": "down",
         "nl": "down",
-        "de": "Down"
+        "de": "Down",
+        "fr": "down",
+        "es": "down",
+        "it": "down",
+        "da": "down",
+        "sv": "down",
+        "no": "down",
+        "pl": "down",
+        "ru": "down",
+        "ar": "down",
+        "ko": "down"
       },
       "example": 1
     }

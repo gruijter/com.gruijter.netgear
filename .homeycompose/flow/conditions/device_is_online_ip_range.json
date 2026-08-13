@@ -2,12 +2,32 @@
   "title": {
     "en": "!{{A|No}} device online on IP",
     "nl": "!{{Een|Geen}} apparaat online op IP",
-    "de": "!{{Ein|Kein}} Gerät ist online mit dieser IP"
+    "de": "!{{Ein|Kein}} Gerät ist online mit dieser IP",
+    "fr": "!{{Un|Aucun}} appareil en ligne sur l'IP",
+    "es": "!{{Un|Ningún}} dispositivo en línea en la IP",
+    "it": "!{{Un|Nessun}} dispositivo online sull'IP",
+    "da": "!{{En|Ingen}} enhed online på IP",
+    "sv": "!{{En|Ingen}} enhet online på IP",
+    "no": "!{{En|Ingen}} enhet online på IP",
+    "pl": "!{{Jest|Brak}} urządzenia online na IP",
+    "ru": "!{{Есть|Нет}} устройства онлайн по IP",
+    "ar": "!{{يوجد|لا يوجد}} جهاز متصل على عنوان IP",
+    "ko": "IP에 !{{기기가 온라인 상태임|온라인 기기 없음}}"
   },
   "titleFormatted": {
     "en": "!{{A|No}} device online on IP [[ip_from]] - [[ip_to]]",
     "nl": "!{{Een|Geen}} apparaat online op IP [[ip_from]] - [[ip_to]]",
-    "de": "!{{Ein|Kein}} Gerät ist online mit IP [[ip_from]] - [[ip_to]]"
+    "de": "!{{Ein|Kein}} Gerät ist online mit IP [[ip_from]] - [[ip_to]]",
+    "fr": "!{{Un|Aucun}} appareil en ligne sur l'IP [[ip_from]] - [[ip_to]]",
+    "es": "!{{Un|Ningún}} dispositivo en línea en la IP [[ip_from]] - [[ip_to]]",
+    "it": "!{{Un|Nessun}} dispositivo online sull'IP [[ip_from]] - [[ip_to]]",
+    "da": "!{{En|Ingen}} enhed online på IP [[ip_from]] - [[ip_to]]",
+    "sv": "!{{En|Ingen}} enhet online på IP [[ip_from]] - [[ip_to]]",
+    "no": "!{{En|Ingen}} enhet online på IP [[ip_from]] - [[ip_to]]",
+    "pl": "!{{Jest|Brak}} urządzenia online na IP [[ip_from]] - [[ip_to]]",
+    "ru": "!{{Есть|Нет}} устройства онлайн по IP [[ip_from]] - [[ip_to]]",
+    "ar": "!{{يوجد|لا يوجد}} جهاز متصل على عنوان IP [[ip_from]] - [[ip_to]]",
+    "ko": "IP [[ip_from]] - [[ip_to]]에 !{{기기가 온라인 상태임|온라인 기기 없음}}"
   },
   "args": [
     {
@@ -24,7 +44,17 @@
       "placeholder": {
         "en": "from (1)",
         "nl": "vanaf (1)",
-        "de": "von (1)"
+        "de": "von (1)",
+        "fr": "de (1)",
+        "es": "desde (1)",
+        "it": "da (1)",
+        "da": "fra (1)",
+        "sv": "från (1)",
+        "no": "fra (1)",
+        "pl": "od (1)",
+        "ru": "от (1)",
+        "ar": "من (1)",
+        "ko": "부터 (1)"
       }
     },
     {
@@ -36,7 +66,17 @@
       "placeholder": {
         "en": "to (254)",
         "nl": "tot (254)",
-        "de": "bis (254)"
+        "de": "bis (254)",
+        "fr": "à (254)",
+        "es": "hasta (254)",
+        "it": "a (254)",
+        "da": "til (254)",
+        "sv": "till (254)",
+        "no": "til (254)",
+        "pl": "do (254)",
+        "ru": "до (254)",
+        "ar": "إلى (254)",
+        "ko": "까지 (254)"
       }
     }
   ]

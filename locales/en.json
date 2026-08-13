@@ -33,10 +33,12 @@
 			"use_system_info": "Report CPU/MEM load",
 			"use_firmware_check": "New firmware check",
 			"save": "Save",
-			"ready": "For optimal stability, PTP your router now! (off-30s-on)"
+			"ready": "For optimal stability, PTP your router now! (off-30s-on)",
+			"duplicate": "This router is already added to Homey"
 		}
 	},
 	"settings": {
+		"benefit": "Netgear Router",
 		"tab1": {
 			"title": "Instructions",
 			"addDeviceTitle": "Add a new router",
@@ -48,7 +50,8 @@
 		},
 		"tab2": {
 			"title": "Logs",
-			"logs": "Logs",
+			"showLogs": "Show logs",
+			"showErrors": "Show errors",
 			"deletelogs": "Delete logs",
 			"deleteWarning": "Delete all logs?",
 			"deleted": "Logs deleted!"
@@ -62,6 +65,7 @@
 			"port": "SOAP Port",
 			"password": "Password",
 			"startTest": "Start test",
+			"testingNow": "Testing now. Hang on for a few minutes...",
 			"result": "Result",
 			"copyResult": "Copy result"
 		},
@@ -69,7 +73,6 @@
 			"title": "List",
 			"instructionsLegend": "List all known devices",
 			"instructions": "The app will start collecting and remember MAC addresses of all devices that ever connected to the router. If you need to clear this list you can do so by checking the box `delete devicelist` in the device settings.",
-			"getList": "Get the list",
 			"resultList": "Device list",
 			"copyList": "Copy list"
 		}

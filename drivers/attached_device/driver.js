@@ -20,7 +20,6 @@ along with com.gruijter.netgear.  If not, see <http://www.gnu.org/licenses/>.
 'use strict';
 
 const Homey = require('homey');
-// const util = require('util');
 
 const capabilities = ['device_connected', 'ip_address', 'name_in_router', 'ssid',
   'meter_link_speed', 'meter_signal_strength', 'meter_download_speed', 'meter_upload_speed', 'onoff'];
@@ -88,7 +87,6 @@ class AttachedDeviceDriver extends Homey.Driver {
     this.log('AttachedDeviceDriver onInit');
     this.capabilities = capabilities;
     this.homey.on('listUpdate', (info) => {
-      // console.log(util.inspect(knownDevices, true, 4, true));
       this.updateDevices(JSON.parse(info));
     });
   }
@@ -98,7 +96,7 @@ class AttachedDeviceDriver extends Homey.Driver {
     const { routerID } = info;
     const pairedDevices = this.getDevices();
     pairedDevices.forEach((pairedDevice) => {
-      // legacy check for correct router CAN I REMOVE THIS?
+      // ignore updates from a different router when multiple netgear routers are paired
       const deviceRouter = pairedDevice.getSettings().router_id;
       if (deviceRouter !== 'unknown' && deviceRouter !== routerID) return;
       // collect info from all aliasses
@@ -136,7 +134,6 @@ class AttachedDeviceDriver extends Homey.Driver {
             icon: `${icon}.svg`, // change the icon?
             data: {
               id: knownDevices[attachedDevice].MAC,
-              // icon_name: deviceType,
             },
             settings: {
               mac: knownDevices[attachedDevice].MAC,
@@ -146,17 +143,8 @@ class AttachedDeviceDriver extends Homey.Driver {
               use_link_info: true, // wifi link speed and signal strength
               use_bandwidth_info: true, // up/down speed
               report_power: true, // linked to onoff capability
-              // energy_value_on: 3,
-              // energy_value_off: 0,
-              // energy_value_constant: 1,
             },
             capabilities,
-            // energy: {
-            //   approximation: {
-            //     usageOn: 3,
-            //     usageOff: 0,
-            //   },
-            // },
             lastSeen: knownDevices[attachedDevice].lastSeen,
           };
           devices.push(device);

@@ -3,20 +3,19 @@
 	discover();
 
 	function discover() {
-	Homey.showLoadingOverlay();
-	Homey.emit('discover', {}, (error, result) => {
-		if (error) {
+		Homey.showLoadingOverlay();
+		Homey.emit('discover', {}, (error, result) => {
 			Homey.hideLoadingOverlay();
-			Homey.alert(error.message, 'error');
-		} else {
-			Homey.hideLoadingOverlay();
+			if (error) {
+				Homey.alert(error.message, 'error');
+				return;
+			}
 			const info = JSON.parse(result);
-			$('#host').val(info.host);
-			$('#port').val(Number(info.port));
-			$("#tls").prop("checked", info.tls);
-		}
-	});
-}
+			document.getElementById('host').value = info.host;
+			document.getElementById('port').value = Number(info.port);
+			document.getElementById('tls').checked = info.tls;
+		});
+	}
 
 	async function save() {
 		try {
@@ -27,14 +26,13 @@
 				port: Number(document.getElementById('port').value),
 				tls: document.getElementById('tls').checked,
 			};
-			if (!settings.host || settings.host.length < 8 || !settings.port || settings.password === '') throw Error(__('pair.start.required'), 'error');
-			const result = await Homey.emit('check', settings);
+			if (!settings.host || settings.host.length < 8 || !settings.port || settings.password === '') throw new Error(Homey.__('pair.start.required'));
+			await Homey.emit('check', settings);
 			Homey.hideLoadingOverlay();
 			Homey.showView('select_options');
-			// Homey.alert(result, 'info');
-		} catch (error) { 
+		} catch (error) {
 			Homey.hideLoadingOverlay();
-			Homey.alert(error, 'error');
+			Homey.alert(error.message || error, 'error');
 		}
 	}
 

@@ -2,7 +2,17 @@
   "title": {
     "en": "Update router firmware",
     "nl": "Update router firmware",
-    "de": "Update Router-Firmware"
+    "de": "Update Router-Firmware",
+    "fr": "Mettre à jour le firmware du routeur",
+    "es": "Actualizar firmware del router",
+    "it": "Aggiorna il firmware del router",
+    "da": "Opdater router-firmware",
+    "sv": "Uppdatera routerns firmware",
+    "no": "Oppdater ruterens firmware",
+    "pl": "Zaktualizuj firmware routera",
+    "ru": "Обновить прошивку роутера",
+    "ar": "تحديث برنامج الراوتر الثابت",
+    "ko": "라우터 펌웨어 업데이트"
   },
   "args": [
     {

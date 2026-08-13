@@ -1,113 +1,103 @@
 <!doctype html>
 <html>
 	<head>
-		<!-- The '/homey.js' script must be included in your settings view to work -->
 		<script type="text/javascript" src="/homey.js" data-origin="settings"></script>
-		<script type="text/javascript" src="/manager/webserver/assets/js/jquery.js"></script>
 		<script type="text/javascript" src="settings.js" data-origin="settings"></script>
-		<link rel="stylesheet" type="text/css" href="../assets/styles.css" />
 	</head>
 	<body>
-		<div id="app">
-			<div class="rTable tabs">
-				<div class="rTableRow">
-					<div id="tabb1" class="tab tab-inactive" onclick="showTab(1)" data-i18n="settings.tab1.title">Instructions</div>
-					<div id="tabb2" class="tab tab-inactive" onclick="showTab(2)" data-i18n="settings.tab2.title">Log</div>
-					<div id="tabb3" class="tab tab-inactive" onclick="showTab(3)" data-i18n="settings.tab3.title">Compatibility Test</div>
-					<div id="tabb4" class="tab tab-inactive" onclick="showTab(4)" data-i18n="settings.tab4.title">Show known devices</div>
-				</div>
-			</div>
+		<header class="homey-header">
+			<h1 class="homey-title" data-i18n="settings.benefit">Netgear Router</h1>
+		</header>
 
-			<div class="tab-content">
-				<div style="height:8px" class="panel"></div>
+		<div>
+			<button id="tabb1" class="homey-button-primary" onclick="showTab(1)" data-i18n="settings.tab1.title">Instructions</button>
+			<button id="tabb2" class="homey-button-secondary" onclick="showTab(2)" data-i18n="settings.tab2.title">Logs</button>
+			<button id="tabb3" class="homey-button-secondary" onclick="showTab(3)" data-i18n="settings.tab3.title">Test</button>
+			<button id="tabb4" class="homey-button-secondary" onclick="showTab(4)" data-i18n="settings.tab4.title">List</button>
+		</div>
 
-				<!-- Instructions panel -->
-				<div id="tab1" class="panel">
-					<fieldset class="listContainer">
-						<legend data-i18n="settings.tab1.addDeviceTitle">Add device</legend>
-						<p data-i18n="settings.tab1.addDeviceInstructions" class="instructions">Instructions</p>
-					</fieldset>
-					<fieldset class="listContainer">
-						<legend data-i18n="settings.tab1.presenceTitle">Presence</legend>
-						<p data-i18n="settings.tab1.presenceInstructions" class="instructions">Instructions</p>
-					</fieldset>
-					<fieldset class="listContainer">
-						<legend data-i18n="settings.tab1.energyTitle">Energy</legend>
-						<p data-i18n="settings.tab1.energyInstructions" class="instructions">Instructions</p>
-					</fieldset>
-				</div>
+		<!-- Instructions panel -->
+		<div id="tab1">
+			<fieldset class="homey-form-fieldset">
+				<legend class="homey-form-legend" data-i18n="settings.tab1.addDeviceTitle">Add a new router</legend>
+				<p data-i18n="settings.tab1.addDeviceInstructions">Instructions</p>
+			</fieldset>
+			<fieldset class="homey-form-fieldset">
+				<legend class="homey-form-legend" data-i18n="settings.tab1.presenceTitle">Presence detection</legend>
+				<p data-i18n="settings.tab1.presenceInstructions">Instructions</p>
+			</fieldset>
+			<fieldset class="homey-form-fieldset">
+				<legend class="homey-form-legend" data-i18n="settings.tab1.energyTitle">Energy monitoring</legend>
+				<p data-i18n="settings.tab1.energyInstructions">Instructions</p>
+			</fieldset>
+		</div>
 
-				<!-- Logging panel -->
-				<div id="tab2" class="panel">
-					<div class="setting">
-						<button id="deleteButton" class="btn" onclick="deleteLogs()" data-i18n="settings.tab2.deletelogs">Delete</button>
-						<br>
-						<label class="form-switch">
-							log
-							<input type="checkbox" name="logs" id="show_logs" onchange="updateLogs()" checked/>
-							<i></i>
-						</label>
-						<label class="form-switch">
-							error
-							<input type="checkbox" name="errors" id="show_errors" onchange="updateLogs()" checked/>
-							<i></i>
-						</label>
-						<div id="loglines" class="instructions"></div>
-					</div>
+		<!-- Logging panel -->
+		<div id="tab2" style="display: none;">
+			<fieldset class="homey-form-fieldset">
+				<legend class="homey-form-legend" data-i18n="settings.tab2.title">Logs</legend>
+
+				<div class="homey-form-group">
+					<label class="homey-form-checkbox">
+						<input type="checkbox" id="show_logs" checked onchange="updateLogs()">
+						<span data-i18n="settings.tab2.showLogs">Show logs</span>
+					</label>
+					<label class="homey-form-checkbox">
+						<input type="checkbox" id="show_errors" checked onchange="updateLogs()">
+						<span data-i18n="settings.tab2.showErrors">Show errors</span>
+					</label>
 				</div>
 
-				<!-- compatibilityTest panel -->
-				<div id="tab3" class="panel">
-					<div class="setting">
-						<fieldset class="listContainer">
-							<legend data-i18n="settings.tab3.instructionsLegend">Router compatibility test</legend>
-							<p data-i18n="settings.tab3.instructions" class="instructions">Instructions</p>
-						</fieldset>
+				<button id="deleteButton" class="homey-button-danger" onclick="deleteLogs()" data-i18n="settings.tab2.deletelogs">Delete logs</button>
+				<pre id="loglines"></pre>
+			</fieldset>
+		</div>
 
-						<label class="settings-item-description" data-i18n="settings.tab3.discover">Discover</label>
-						<button id="discover" class="btn" onclick="discover()" data-i18n="settings.tab3.discover">Discover</button>
+		<!-- Compatibility test panel -->
+		<div id="tab3" style="display: none;">
+			<fieldset class="homey-form-fieldset">
+				<legend class="homey-form-legend" data-i18n="settings.tab3.instructionsLegend">Router compatibility test</legend>
+				<p data-i18n="settings.tab3.instructions">Instructions</p>
 
-						<label class="settings-item-description" data-i18n="settings.tab3.host">host</label>
-						<div class="settings-itemgroup">
-							<input id="host" type="text" value="">
-						</div>
-						<label class="settings-item-description" data-i18n="settings.tab3.port">port</label>
-						<div class="settings-itemgroup">
-							<input id="soapPort" type="number" value="">
-						</div>
-						<label class="settings-item-description" data-i18n="settings.tab3.password">password</label>
-						<div class="settings-itemgroup">
-							<input id="password" type="password" value="">
-						</div>
+				<button id="discover" class="homey-button-secondary" onclick="discover()" data-i18n="settings.tab3.discover">Discover router</button>
 
-						<label class="settings-item-description" data-i18n="settings.tab3.startTest">Start test</label>
-						<button id="runTest" class="btn" onclick="runTest()" data-i18n="settings.tab3.startTest">Start Test</button>
-
-						<label class="settings-item-description" data-i18n="settings.tab3.copyResult">Copy to clipboard</label>
-						<button id="copyResult" class="btn" onclick="copyResult()" data-i18n="settings.tab3.copyResult">Copy to clipboard</button>
-						
-						<label class="settings-item-description" data-i18n="settings.tab3.result">Result</label>
-						<textarea id="testResult" style="width:98%; height:98%" rows=15></textarea>
-					</div>
+				<div class="homey-form-group">
+					<label class="homey-form-label" for="host" data-i18n="settings.tab3.host">IP address</label>
+					<input class="homey-form-input" id="host" type="text" value="">
+				</div>
+				<div class="homey-form-group">
+					<label class="homey-form-label" for="soapPort" data-i18n="settings.tab3.port">SOAP Port</label>
+					<input class="homey-form-input" id="soapPort" type="number" value="">
+				</div>
+				<div class="homey-form-group">
+					<label class="homey-form-label" for="password" data-i18n="settings.tab3.password">Password</label>
+					<input class="homey-form-input" id="password" type="password" value="">
 				</div>
 
-				<!-- Attached devicelist panel -->
-				<div id="tab4" class="panel">
-					<div class="setting">
-						<fieldset class="listContainer">
-							<legend data-i18n="settings.tab4.instructionsLegend">List all devices</legend>
-							<p data-i18n="settings.tab4.instructions" class="instructions">Instructions</p>
-						</fieldset>
+				<button id="runTest" class="homey-button-primary-full" onclick="runTest()" disabled data-i18n="settings.tab3.startTest">Start test</button>
 
-						<label class="settings-item-description" data-i18n="settings.tab4.copyList">Copy to clipboard</label>
-						<button id="copyList" class="btn" onclick="copyList()" data-i18n="settings.tab4.copyList">Copy to clipboard</button>
-						
-						<label class="settings-item-description" data-i18n="settings.tab4.resultList">Result list</label>
-						<textarea id="resultList" style="width:98%; height:98%" rows=15></textarea>
-					</div>
+				<div class="homey-form-group">
+					<label class="homey-form-label" for="testResult" data-i18n="settings.tab3.result">Result</label>
+					<textarea class="homey-form-textarea" id="testResult" rows="12" disabled></textarea>
 				</div>
 
-			</div>
+				<button id="copyResult" class="homey-button-secondary-full" onclick="copyResult()" disabled data-i18n="settings.tab3.copyResult">Copy result</button>
+			</fieldset>
+		</div>
+
+		<!-- Known devices panel -->
+		<div id="tab4" style="display: none;">
+			<fieldset class="homey-form-fieldset">
+				<legend class="homey-form-legend" data-i18n="settings.tab4.instructionsLegend">List all known devices</legend>
+				<p data-i18n="settings.tab4.instructions">Instructions</p>
+
+				<div class="homey-form-group">
+					<label class="homey-form-label" for="resultList" data-i18n="settings.tab4.resultList">Device list</label>
+					<textarea class="homey-form-textarea" id="resultList" rows="12" disabled></textarea>
+				</div>
+
+				<button id="copyList" class="homey-button-secondary-full" onclick="copyList()" data-i18n="settings.tab4.copyList">Copy list</button>
+			</fieldset>
 		</div>
 	</body>
 </html>

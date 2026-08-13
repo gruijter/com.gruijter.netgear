@@ -1,0 +1,80 @@
+{
+	"pair": {
+		"start": {
+			"title": "Lägg till Netgear-router",
+			"intro": "Kontrollera eller ange IP-adressen och SOAP-porten. Fyll sedan i administratörslösenordet för Netgear-routern och tryck på `Nästa`.",
+			"discover": "Sök router",
+			"error": "Ett fel har uppstått.",
+			"success": "Klart! ",
+			"required": "IP-adress, port och lösenord krävs",
+			"username": "Användarnamn",
+			"password": "Lösenord",
+			"host": "IP-adress",
+			"port": "SOAP-port",
+			"save": "Nästa"
+		},
+		"select_options": {
+			"title": "Enhetsalternativ",
+			"intro": "",
+			"name": "Namn i Homey",
+			"icon": "Ikon",
+			"capabilities": "Inkludera funktioner",
+			"use_link_info": "Wifi-länk",
+			"use_bandwidth_info": "Bandbredd",
+			"report_power": "Energiförbrukning",
+			"save": "Spara"
+		},
+		"select_options_router": {
+			"title": "Välj enhetsalternativ",
+			"intro": "Anslutningsstatus för anslutna enheter hämtas alltid (närvaro). Välj vilken ytterligare information du vill hämta från routern, men vissa routrar kan bli instabila på grund av firmwarefel",
+			"name": "Namn",
+			"capabilities": "Rapporteringsalternativ",
+			"use_traffic_info": "Rapportera upp-/nedströmstrafik",
+			"use_system_info": "Rapportera CPU/MEM-belastning",
+			"use_firmware_check": "Kontrollera ny firmware",
+			"save": "Spara",
+			"ready": "För optimal stabilitet, gör en PTP av din router nu! (av-30s-på)",
+			"duplicate": "Den här routern är redan tillagd i Homey"
+		}
+	},
+	"settings": {
+		"benefit": "Netgear-router",
+		"tab1": {
+			"title": "Instruktioner",
+			"addDeviceTitle": "Lägg till en ny router",
+			"addDeviceInstructions": "Lägg till en router via Homey-fliken `Enheter` och fyll i administratörslösenordet. Beroende på din routertyp kan viss funktionalitet inte vara tillgänglig. Du kan köra ett kompatibilitetstest på fliken Test.",
+			"presenceTitle": "Närvarodetektering",
+			"presenceInstructions": "Efter att du har lagt till din router i Homey kan du börja lägga till mobila enheter som du vill spåra för närvaro. De rapporteras som anslutna eller frånkopplade baserat på WiFi-anslutningen till ditt Netgear-nätverk. Du kan finjustera 'offline efter fördröjning' i enhetsinställningarna. Om du får falska frånkopplingsmeddelanden bör du öka denna fördröjning. Om du vill ha snabbare detektering kan du försöka minska denna fördröjning. Du kan också försöka minska routerns pollningsintervall. Standardpollningsintervallet är 1 minut, men om du gör det för kort kan din router överbelastas.",
+			"energyTitle": "Energiövervakning",
+			"energyInstructions": "Efter att du har lagt till din router i Homey kan du lägga till ytterligare enheter som du vill övervaka för strömförbrukning, t.ex. din TV eller skrivare. Ange den uppskattade/genomsnittliga strömförbrukningen för enheten när den är AV eller PÅ. När du nu slår på din TV kommer du att se att den uppskattade strömförbrukningen inkluderas i Homeys Energi-flik"
+		},
+		"tab2": {
+			"title": "Loggar",
+			"showLogs": "Visa loggar",
+			"showErrors": "Visa fel",
+			"deletelogs": "Ta bort loggar",
+			"deleteWarning": "Ta bort alla loggar?",
+			"deleted": "Loggar borttagna!"
+		},
+		"tab3": {
+			"title": "Test",
+			"instructionsLegend": "Routerkompatibilitetstest",
+			"instructions": "Om du har problem med appen kan du utföra ett kompatibilitetstest. Resultatet används för att förbättra appen. Tryck på 'Sök router' för att automatiskt hitta IP-adressen och SOAP-porten. Ange routerns lösenord. Starta sedan testet. Med knappen 'Kopiera resultat' kan du skapa ett ärende och klistra in resultatet där. Obs: du behöver ett github-konto för att skapa ett ärende.",
+			"discover": "Sök router",
+			"host": "IP-adress",
+			"port": "SOAP-port",
+			"password": "Lösenord",
+			"startTest": "Starta test",
+			"testingNow": "Testar nu. Vänta några minuter...",
+			"result": "Resultat",
+			"copyResult": "Kopiera resultat"
+		},
+		"tab4": {
+			"title": "Lista",
+			"instructionsLegend": "Lista över alla kända enheter",
+			"instructions": "Appen börjar samla in och komma ihåg MAC-adresser för alla enheter som någonsin anslutits till routern. Om du behöver rensa denna lista kan du göra det genom att markera kryssrutan `ta bort enhetslista` i enhetsinställningarna.",
+			"resultList": "Enhetslista",
+			"copyList": "Kopiera lista"
+		}
+	}
+}

@@ -1,7 +1,19 @@
 {
   "type": "string",
   "title": {
-    "en": "Name in router"
+    "en": "Name in router",
+    "nl": "Naam in router",
+    "de": "Name im Router",
+    "fr": "Nom dans le routeur",
+    "es": "Nombre en el router",
+    "it": "Nome nel router",
+    "da": "Navn i router",
+    "sv": "Namn i router",
+    "no": "Navn i ruter",
+    "pl": "Nazwa w routerze",
+    "ru": "Имя в роутере",
+    "ar": "الاسم في الراوتر",
+    "ko": "라우터 내 이름"
   },
   "getable": true,
   "setable": false,

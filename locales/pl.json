@@ -1,0 +1,80 @@
+{
+	"pair": {
+		"start": {
+			"title": "Dodaj router Netgear",
+			"intro": "Sprawdź lub wprowadź adres IP i port SOAP. Następnie wpisz hasło administratora routera Netgear i naciśnij `Dalej`.",
+			"discover": "Wyszukaj router",
+			"error": "Wystąpił błąd.",
+			"success": "Sukces! ",
+			"required": "Wymagane są adres IP, port i hasło",
+			"username": "Nazwa użytkownika",
+			"password": "Hasło",
+			"host": "Adres IP",
+			"port": "Port SOAP",
+			"save": "Dalej"
+		},
+		"select_options": {
+			"title": "Opcje urządzenia",
+			"intro": "",
+			"name": "Nazwa w Homey",
+			"icon": "Ikona",
+			"capabilities": "Uwzględnij funkcje",
+			"use_link_info": "Łącze Wifi",
+			"use_bandwidth_info": "Przepustowość",
+			"report_power": "Zużycie energii",
+			"save": "Zapisz"
+		},
+		"select_options_router": {
+			"title": "Wybierz opcje urządzenia",
+			"intro": "Stan połączenia podłączonych urządzeń będzie zawsze pobierany (obecność). Wybierz, jakie dodatkowe informacje chcesz pobierać z routera, ale niektóre routery mogą stać się niestabilne z powodu błędów w oprogramowaniu układowym",
+			"name": "Nazwa",
+			"capabilities": "Opcje raportowania",
+			"use_traffic_info": "Raportuj ruch Up/Down",
+			"use_system_info": "Raportuj obciążenie CPU/MEM",
+			"use_firmware_check": "Sprawdź nowe oprogramowanie układowe",
+			"save": "Zapisz",
+			"ready": "Dla optymalnej stabilności wykonaj teraz PTP routera! (wyłącz-30s-włącz)",
+			"duplicate": "Ten router jest już dodany do Homey"
+		}
+	},
+	"settings": {
+		"benefit": "Router Netgear",
+		"tab1": {
+			"title": "Instrukcje",
+			"addDeviceTitle": "Dodaj nowy router",
+			"addDeviceInstructions": "Dodaj router za pomocą karty Homey `Urządzenia` i wpisz hasło administratora. W zależności od typu routera niektóre funkcje mogą być niedostępne. Możesz przeprowadzić test kompatybilności na karcie Test.",
+			"presenceTitle": "Wykrywanie obecności",
+			"presenceInstructions": "Po dodaniu routera do Homey możesz zacząć dodawać urządzenia mobilne, których obecność chcesz śledzić. Będą one zgłaszane jako połączone lub rozłączone na podstawie połączenia WiFi z siecią Netgear. Możesz dostroić 'opóźnienie przed offline' w ustawieniach urządzenia. Jeśli otrzymujesz fałszywe powiadomienia o rozłączeniu, powinieneś zwiększyć to opóźnienie. Jeśli chcesz szybszego wykrywania, możesz spróbować zmniejszyć to opóźnienie. Możesz też spróbować zmniejszyć interwał odpytywania routera. Domyślny interwał odpytywania to 1 minuta, ale jeśli ustawisz go zbyt krótko, router może się zawiesić.",
+			"energyTitle": "Monitorowanie energii",
+			"energyInstructions": "Po dodaniu routera do Homey możesz dodać kolejne urządzenia, których zużycie energii chcesz monitorować, np. telewizor lub drukarkę. Wprowadź szacowane / średnie zużycie energii urządzenia, gdy jest WYŁĄCZONE lub WŁĄCZONE. Teraz, gdy włączysz telewizor, zobaczysz, że szacowane zużycie energii jest uwzględnione na karcie Energia w Homey"
+		},
+		"tab2": {
+			"title": "Dzienniki",
+			"showLogs": "Pokaż dzienniki",
+			"showErrors": "Pokaż błędy",
+			"deletelogs": "Usuń dzienniki",
+			"deleteWarning": "Usunąć wszystkie dzienniki?",
+			"deleted": "Dzienniki usunięte!"
+		},
+		"tab3": {
+			"title": "Test",
+			"instructionsLegend": "Test kompatybilności routera",
+			"instructions": "Jeśli masz problemy z aplikacją, możesz przeprowadzić test kompatybilności. Wynik jest wykorzystywany do ulepszania aplikacji. Naciśnij 'Wyszukaj router', aby automatycznie znaleźć adres IP i port SOAP. Wprowadź hasło routera. Następnie rozpocznij test. Za pomocą przycisku 'Kopiuj wynik' możesz utworzyć zgłoszenie (issue) i wkleić tam wynik. Uwaga: potrzebujesz konta github, aby opublikować zgłoszenie.",
+			"discover": "Wyszukaj router",
+			"host": "Adres IP",
+			"port": "Port SOAP",
+			"password": "Hasło",
+			"startTest": "Rozpocznij test",
+			"testingNow": "Trwa testowanie. Poczekaj kilka minut...",
+			"result": "Wynik",
+			"copyResult": "Kopiuj wynik"
+		},
+		"tab4": {
+			"title": "Lista",
+			"instructionsLegend": "Lista wszystkich znanych urządzeń",
+			"instructions": "Aplikacja zacznie zbierać i zapamiętywać adresy MAC wszystkich urządzeń, które kiedykolwiek połączyły się z routerem. Jeśli chcesz wyczyścić tę listę, możesz to zrobić, zaznaczając pole `usuń listę urządzeń` w ustawieniach urządzenia.",
+			"resultList": "Lista urządzeń",
+			"copyList": "Kopiuj listę"
+		}
+	}
+}

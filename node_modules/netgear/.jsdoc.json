@@ -1,10 +1,15 @@
 {
 	"tags": {
 		"allowUnknownTags": true,
-		"dictionaries": ["jsdoc"]
+		"dictionaries": [
+			"jsdoc"
+		]
 	},
 	"source": {
-		"include": ["netgear.js", "package.json", "README.md"],
+		"include": [
+			"netgear.js",
+			"README.md"
+		],
 		"includePattern": ".js$",
 		"excludePattern": "(node_modules/|docs)"
 	},

@@ -2,7 +2,17 @@
     "title": {
       "en": "Internet !{{is|isn't}} connected",
       "nl": "Internet !{{is|is niet}} verbonden",
-      "de": "Internet !{{ist|ist nicht}} verbunden"
+      "de": "Internet !{{ist|ist nicht}} verbunden",
+      "fr": "Internet !{{est|n'est pas}} connecté",
+      "es": "Internet !{{está|no está}} conectado",
+      "it": "Internet !{{è|non è}} connesso",
+      "da": "Internettet !{{er|er ikke}} forbundet",
+      "sv": "Internet !{{är|är inte}} anslutet",
+      "no": "Internett !{{er|er ikke}} tilkoblet",
+      "pl": "Internet !{{jest|nie jest}} połączony",
+      "ru": "Интернет !{{подключен|не подключен}}",
+      "ar": "الإنترنت !{{متصل|غير متصل}}",
+      "ko": "인터넷이 !{{연결됨|연결되지 않음}}"
     },
     "args": [
         {

@@ -2,7 +2,17 @@
   "title": {
     "en": "New router firmware available",
     "nl": "Er is nieuwe router firmware",
-    "de": "Neue Router-Firmware verfügbar"
+    "de": "Neue Router-Firmware verfügbar",
+    "fr": "Nouveau firmware du routeur disponible",
+    "es": "Nuevo firmware del router disponible",
+    "it": "Nuovo firmware del router disponibile",
+    "da": "Ny router-firmware tilgængelig",
+    "sv": "Ny routerfirmware tillgänglig",
+    "no": "Ny ruter-firmware tilgjengelig",
+    "pl": "Dostępny nowy firmware routera",
+    "ru": "Доступна новая прошивка роутера",
+    "ar": "برنامج ثابت جديد للراوتر متاح",
+    "ko": "새 라우터 펌웨어 사용 가능"
   },
   "args": [
     {
@@ -18,7 +28,17 @@
       "title": {
         "en": "current",
         "nl": "huidig",
-        "de": "aktuell"
+        "de": "aktuell",
+        "fr": "actuel",
+        "es": "actual",
+        "it": "attuale",
+        "da": "nuværende",
+        "sv": "aktuell",
+        "no": "nåværende",
+        "pl": "obecny",
+        "ru": "текущая",
+        "ar": "الحالي",
+        "ko": "현재"
       },
       "example": "1.0.9.34"
     },
@@ -28,7 +48,17 @@
       "title": {
         "en": "new",
         "nl": "nieuw",
-        "de": "neu"
+        "de": "neu",
+        "fr": "nouveau",
+        "es": "nuevo",
+        "it": "nuovo",
+        "da": "ny",
+        "sv": "ny",
+        "no": "ny",
+        "pl": "nowy",
+        "ru": "новая",
+        "ar": "جديد",
+        "ko": "새"
       },
       "example": "1.0.9.42_10.2.44"
     },
@@ -38,7 +68,17 @@
       "title": {
         "en": "info",
         "nl": "info",
-        "de": "Info"
+        "de": "Info",
+        "fr": "info",
+        "es": "info",
+        "it": "info",
+        "da": "info",
+        "sv": "info",
+        "no": "info",
+        "pl": "info",
+        "ru": "инфо",
+        "ar": "معلومات",
+        "ko": "정보"
       },
       "example": "security fixes"
     }

@@ -20,9 +20,9 @@ along with com.gruijter.netgear.  If not, see <http://www.gnu.org/licenses/>.
 'use strict';
 
 const Homey = require('homey');
+const v8 = require('v8');
 const _test = require('netgear/test/_test');
-const Logger = require('./captureLogs');
-// require('inspector').open(9229, '0.0.0.0', false);
+const Logger = require('./lib/captureLogs');
 
 class MyApp extends Homey.App {
 
@@ -44,7 +44,7 @@ class MyApp extends Homey.App {
         this.logger.saveLogs();
       })
       .on('memwarn', () => {
-        this.log('memwarn!');
+        this.log('memwarn! heap stats:', v8.getHeapStatistics());
       });
     this.registerFlowListeners();
   }
@@ -65,7 +65,6 @@ class MyApp extends Homey.App {
         host: data.host,
         port: Number(data.port),
         info: `Homey fw:${this.homey.version} app: ${this.homey.manifest.version}`,
-        // shorttest: true,
       };
       const output = await _test.test(options);
       this.homey.api.realtime('test_results', output);
@@ -91,8 +90,6 @@ class MyApp extends Homey.App {
     this.log('Retrieving known devices list');
     const driver = this.homey.drivers.getDriver('netgear');
     const routers = driver.getDevices();
-    // const kdArray = [];
-    // routers.forEach((router) => { kdArray[router.getName()] = router.knownDevices; });
     return Promise.resolve(routers[0].knownDevices);
   }
 
@@ -125,7 +122,6 @@ class MyApp extends Homey.App {
     this.triggerCameOnline = (device, tokens, state) => {
       this._cameOnline
         .trigger(device, tokens, state)
-        // .then(this.log(device.getName(), tokens))
         .catch(this.error);
     };
 
@@ -133,7 +129,6 @@ class MyApp extends Homey.App {
     this.triggerWentOffline = (device, tokens, state) => {
       this._wentOffline
         .trigger(device, tokens, state)
-        // .then(this.log(device.getName(), tokens))
         .catch(this.error);
     };
 
@@ -141,7 +136,6 @@ class MyApp extends Homey.App {
     this.triggerNameChanged = (device, tokens, state) => {
       this._nameChanged
         .trigger(device, tokens, state)
-        // .then(this.log(device.getName(), tokens))
         .catch(this.error);
     };
 
@@ -149,7 +143,6 @@ class MyApp extends Homey.App {
     this.triggerIPChanged = (device, tokens, state) => {
       this._IPChanged
         .trigger(device, tokens, state)
-        // .then(this.log(device.getName(), tokens))
         .catch(this.error);
     };
 
@@ -158,7 +151,6 @@ class MyApp extends Homey.App {
     this.triggerMetricsChanged = (device, tokens, state) => {
       this._metricsChanged
         .trigger(device, tokens, state)
-        // .then(this.log(device.getName(), tokens))
         .catch(this.error);
     };
 
@@ -167,7 +159,6 @@ class MyApp extends Homey.App {
     this.triggerSpeedChanged = (device, tokens, state) => {
       this._speedChanged
         .trigger(device, tokens, state)
-        // .then(this.log(device.getName(), tokens))
         .catch(this.error);
     };
 
@@ -175,7 +166,6 @@ class MyApp extends Homey.App {
     this.triggerNewAttachedDevice = (device, tokens, state) => {
       this._newAttachedDevice
         .trigger(device, tokens, state)
-        // .then(this.log(device.getName(), tokens))
         .catch(this.error);
     };
 
@@ -183,7 +173,6 @@ class MyApp extends Homey.App {
     this.triggerSpeedTestResult = (device, tokens, state) => {
       this._speedTestResult
         .trigger(device, tokens, state)
-        // .then(this.log(device.getName(), tokens))
         .catch(this.error);
     };
 
@@ -191,7 +180,6 @@ class MyApp extends Homey.App {
     this.triggerNewRouterFirmware = (device, tokens, state) => {
       this._newRouterFirmware
         .trigger(device, tokens, state)
-        // .then(this.log(device.getName(), tokens))
         .catch(this.error);
     };
 

@@ -3,17 +3,17 @@
 	let device;
 	getBackendInfo();
 	// change icon on select
-	$('#iconSelection').change(() => {
-		$('img[id=icon]').attr('src', `../assets/${$('#iconSelection').val()}.svg`);
+	document.getElementById('iconSelection').addEventListener('change', () => {
+		document.getElementById('icon').src = `../assets/${document.getElementById('iconSelection').value}.svg`;
 	});
 
 	// get the selected device from backend and set options in frontend
 	async function getDevice() {
 		try {
 			device = await Homey.emit('get_device');
-			$('#name').val(device.name);
-			$('#iconSelection').val(device.icon.replace('/', '').replace('.svg', ''));
-			$('img[id=icon]').attr('src', `../assets/${device.icon}`);
+			document.getElementById('name').value = device.name;
+			document.getElementById('iconSelection').value = device.icon.replace('/', '').replace('.svg', '');
+			document.getElementById('icon').src = `../assets/${device.icon}`;
 			return Promise.resolve(true);
 		} catch (error) {
 			return Promise.reject(error);
@@ -48,23 +48,22 @@
 	async function saveOptions() {
 		try {
 			Homey.showLoadingOverlay();
-			if (!device || !device.data) throw Error('No device loaded');
+			if (!device || !device.data) throw new Error('No device loaded');
 			const dev = device;
-			dev.name = $('#name').val();
-			dev.icon = `../assets/${$('#iconSelection').val()}.svg`;
-			dev.settings.use_link_info = $('#use_link_info').prop('checked');
-			dev.settings.use_bandwidth_info = false; // $('#use_bandwidth_info').prop('checked');
-			dev.settings.report_power = $('#report_power').prop('checked');
+			dev.name = document.getElementById('name').value;
+			dev.icon = `../assets/${document.getElementById('iconSelection').value}.svg`;
+			dev.settings.use_link_info = document.getElementById('use_link_info').checked;
+			dev.settings.use_bandwidth_info = false;
+			dev.settings.report_power = document.getElementById('report_power').checked;
 			dev.capabilities = ['device_connected', 'ip_address', 'name_in_router', 'ssid'];
 			if (dev.settings.use_link_info) dev.capabilities.push('meter_link_speed', 'meter_signal_strength');
-			// if (dev.settings.use_bandwidth_info) dev.capabilities.push('meter_download_speed', 'meter_upload_speed');
 			if (dev.settings.report_power) dev.capabilities.push('onoff');
 			await Homey.createDevice(dev);
 			Homey.hideLoadingOverlay();
 			Homey.done();
-		} catch (error) { 
+		} catch (error) {
 			Homey.hideLoadingOverlay();
-			Homey.alert(error, 'error');
+			Homey.alert(error.message || error, 'error');
 		}
 	}
 

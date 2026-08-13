@@ -2,7 +2,17 @@
     "title": {
       "en": "Device metrics changed",
       "nl": "Apparaat waarden gewijzigd",
-      "de": "Gerätedaten verändert"
+      "de": "Gerätedaten verändert",
+      "fr": "Les métriques de l'appareil ont changé",
+      "es": "Las métricas del dispositivo cambiaron",
+      "it": "Le metriche del dispositivo sono cambiate",
+      "da": "Enhedsmålinger ændret",
+      "sv": "Enhetens mätvärden ändrades",
+      "no": "Enhetsmålinger endret",
+      "pl": "Dane urządzenia zmieniły się",
+      "ru": "Показатели устройства изменились",
+      "ar": "تغيرت مقاييس الجهاز",
+      "ko": "기기 지표가 변경됨"
     },
     "args": [
         {
@@ -18,7 +28,17 @@
         "title": {
           "en": "mac",
           "nl": "mac",
-          "de": "MAC"
+          "de": "MAC",
+          "fr": "mac",
+          "es": "mac",
+          "it": "mac",
+          "da": "mac",
+          "sv": "mac",
+          "no": "mac",
+          "pl": "mac",
+          "ru": "mac",
+          "ar": "mac",
+          "ko": "mac"
         },
         "example": "AA:BB:CC:DD:EE:FF"
       },
@@ -28,7 +48,17 @@
         "title": {
           "en": "name",
           "nl": "naam",
-          "de": "Name"
+          "de": "Name",
+          "fr": "nom",
+          "es": "nombre",
+          "it": "nome",
+          "da": "navn",
+          "sv": "namn",
+          "no": "navn",
+          "pl": "nazwa",
+          "ru": "имя",
+          "ar": "الاسم",
+          "ko": "이름"
         },
         "example": "iPhone"
       },
@@ -38,7 +68,17 @@
         "title": {
           "en": "ip",
           "nl": "ip",
-          "de": "IP"
+          "de": "IP",
+          "fr": "ip",
+          "es": "ip",
+          "it": "ip",
+          "da": "ip",
+          "sv": "ip",
+          "no": "ip",
+          "pl": "ip",
+          "ru": "ip",
+          "ar": "ip",
+          "ko": "ip"
         },
         "example": "10.0.0.10"
       },
@@ -48,7 +88,17 @@
         "title": {
           "en": "Connected",
           "nl": "Verbonden",
-          "de": "Verbunden"
+          "de": "Verbunden",
+          "fr": "Connecté",
+          "es": "Conectado",
+          "it": "Connesso",
+          "da": "Forbundet",
+          "sv": "Ansluten",
+          "no": "Tilkoblet",
+          "pl": "Połączony",
+          "ru": "Подключено",
+          "ar": "متصل",
+          "ko": "연결됨"
         },
         "example": true
       },
@@ -58,7 +108,17 @@
         "title": {
           "en": "SSID",
           "nl": "SSID",
-          "de": "SSID"
+          "de": "SSID",
+          "fr": "SSID",
+          "es": "SSID",
+          "it": "SSID",
+          "da": "SSID",
+          "sv": "SSID",
+          "no": "SSID",
+          "pl": "SSID",
+          "ru": "SSID",
+          "ar": "SSID",
+          "ko": "SSID"
         },
         "example": "wired"
       },
@@ -68,7 +128,17 @@
         "title": {
           "en": "link speed",
           "nl": "link snelheid",
-          "de": "Verbindungsgeschwindigkeit"
+          "de": "Verbindungsgeschwindigkeit",
+          "fr": "vitesse de liaison",
+          "es": "velocidad de enlace",
+          "it": "velocità di collegamento",
+          "da": "linkhastighed",
+          "sv": "länkhastighet",
+          "no": "linkhastighet",
+          "pl": "prędkość łącza",
+          "ru": "скорость соединения",
+          "ar": "سرعة الاتصال",
+          "ko": "링크 속도"
         },
         "example": 35
       },
@@ -78,7 +148,17 @@
         "title": {
           "en": "signal strength",
           "nl": "signaal sterkte",
-          "de": "Signalstärke"
+          "de": "Signalstärke",
+          "fr": "force du signal",
+          "es": "intensidad de la señal",
+          "it": "intensità del segnale",
+          "da": "signalstyrke",
+          "sv": "signalstyrka",
+          "no": "signalstyrke",
+          "pl": "siła sygnału",
+          "ru": "уровень сигнала",
+          "ar": "قوة الإشارة",
+          "ko": "신호 강도"
         },
         "example": 50
       },
@@ -88,7 +168,17 @@
         "title": {
           "en": "up",
           "nl": "up",
-          "de": "Up"
+          "de": "Up",
+          "fr": "up",
+          "es": "up",
+          "it": "up",
+          "da": "up",
+          "sv": "up",
+          "no": "up",
+          "pl": "up",
+          "ru": "up",
+          "ar": "up",
+          "ko": "up"
         },
         "example": 5
       },
@@ -98,7 +188,17 @@
         "title": {
           "en": "down",
           "nl": "down",
-          "de": "Down"
+          "de": "Down",
+          "fr": "down",
+          "es": "down",
+          "it": "down",
+          "da": "down",
+          "sv": "down",
+          "no": "down",
+          "pl": "down",
+          "ru": "down",
+          "ar": "down",
+          "ko": "down"
         },
         "example": 1
       }

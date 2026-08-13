@@ -2,7 +2,17 @@
   "title": {
     "en": "Internet connected",
     "nl": "Internet verbonden",
-    "de": "Internet verbunden"
+    "de": "Internet verbunden",
+    "fr": "Internet connecté",
+    "es": "Internet conectado",
+    "it": "Internet connesso",
+    "da": "Internet forbundet",
+    "sv": "Internet anslutet",
+    "no": "Internett tilkoblet",
+    "pl": "Internet połączony",
+    "ru": "Интернет подключен",
+    "ar": "الإنترنت متصل",
+    "ko": "인터넷 연결됨"
   },
   "args": [
     {

@@ -23,9 +23,22 @@
 			"use_bandwidth_info": "Bandbreite",
 			"report_power": "Energieverbrauch",
 			"save": "Speichern"
+		},
+		"select_options_router": {
+			"title": "Geräteoptionen auswählen",
+			"intro": "Der Verbindungsstatus verbundener Geräte wird immer abgerufen (Anwesenheit). Wähle, welche zusätzlichen Informationen du vom Router abrufen möchtest, aber manche Router können durch Firmware-Fehler instabil werden",
+			"name": "Name",
+			"capabilities": "Berichtsoptionen",
+			"use_traffic_info": "Up-/Download-Verkehr melden",
+			"use_system_info": "CPU-/MEM-Auslastung melden",
+			"use_firmware_check": "Auf neue Firmware prüfen",
+			"save": "Speichern",
+			"ready": "Für optimale Stabilität, mache jetzt einen PTP deines Routers! (aus-30s-an)",
+			"duplicate": "Dieser Router wurde bereits zu Homey hinzugefügt"
 		}
 	},
 	"settings": {
+		"benefit": "Netgear Router",
 		"tab1": {
 			"title": "Anweisungen",
 			"addDeviceTitle": "Neuen Router hinzufügen",
@@ -37,7 +50,8 @@
 		},
 		"tab2": {
 			"title": "Protokolle",
-			"logs": "Protokolle",
+			"showLogs": "Protokolle anzeigen",
+			"showErrors": "Fehler anzeigen",
 			"deletelogs": "Protokolle löschen",
 			"deleteWarning": "Alle Protokolle löschen?",
 			"deleted": "Protokolle gelöscht!"
@@ -51,6 +65,7 @@
 			"port": "SOAP-Port",
 			"password": "Passwort",
 			"startTest": "Starte Test",
+			"testingNow": "Test läuft. Das kann einige Minuten dauern...",
 			"result": "Ergebnis",
 			"copyResult": "Ergebnis kopieren"
 		},
@@ -58,7 +73,6 @@
 			"title": "Liste",
 			"instructionsLegend": "Liste aller bekannten Geräte",
 			"instructions": "Die App beginnt damit, alle MAC-Addressen der Geräte zu sammeln und zu speichern, die sich irgendwann mit dem Router verbinden. Wenn du die Liste löschen möchtest, kannst du das machen, indem du die Check-Box `Lösche Geräte` in den Geräteeinstellungen aktivierst.",
-			"getList": "Beziehe die Liste",
 			"resultList": "Geräteliste",
 			"copyList": "Kopiere die Liste"
 		}

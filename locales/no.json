@@ -1,0 +1,80 @@
+{
+	"pair": {
+		"start": {
+			"title": "Legg til Netgear-ruter",
+			"intro": "Kontroller eller angi IP-adressen og SOAP-porten. Fyll deretter inn administratorpassordet for Netgear-ruteren og trykk på `Neste`.",
+			"discover": "Finn ruter",
+			"error": "Det har oppstått en feil.",
+			"success": "Suksess! ",
+			"required": "IP-adresse, port og passord er påkrevd",
+			"username": "Brukernavn",
+			"password": "Passord",
+			"host": "IP-adresse",
+			"port": "SOAP-port",
+			"save": "Neste"
+		},
+		"select_options": {
+			"title": "Enhetsalternativer",
+			"intro": "",
+			"name": "Navn i Homey",
+			"icon": "Ikon",
+			"capabilities": "Inkluder funksjoner",
+			"use_link_info": "Wifi-tilkobling",
+			"use_bandwidth_info": "Båndbredde",
+			"report_power": "Strømforbruk",
+			"save": "Lagre"
+		},
+		"select_options_router": {
+			"title": "Velg enhetsalternativer",
+			"intro": "Tilkoblingsstatus for tilkoblede enheter vil alltid bli hentet (tilstedeværelse). Velg hvilken tilleggsinformasjon du vil hente fra ruteren, men enkelte rutere kan bli ustabile på grunn av fastvarefeil",
+			"name": "Navn",
+			"capabilities": "Rapporteringsalternativer",
+			"use_traffic_info": "Rapporter opp-/nedstrøms trafikk",
+			"use_system_info": "Rapporter CPU/MEM-belastning",
+			"use_firmware_check": "Sjekk ny fastvare",
+			"save": "Lagre",
+			"ready": "For optimal stabilitet, gjør en PTP av ruteren din nå! (av-30s-på)",
+			"duplicate": "Denne ruteren er allerede lagt til i Homey"
+		}
+	},
+	"settings": {
+		"benefit": "Netgear-ruter",
+		"tab1": {
+			"title": "Instruksjoner",
+			"addDeviceTitle": "Legg til en ny ruter",
+			"addDeviceInstructions": "Legg til en ruter via Homey-fanen `Enheter` og fyll inn administratorpassordet. Avhengig av rutertypen din er det mulig at noe funksjonalitet ikke er tilgjengelig. Du kan kjøre en kompatibilitetstest i Test-fanen.",
+			"presenceTitle": "Tilstedeværelsesdeteksjon",
+			"presenceInstructions": "Etter at du har lagt til ruteren din i Homey, kan du begynne å legge til mobile enheter du vil spore for tilstedeværelse. De vil bli rapportert som tilkoblet eller frakoblet basert på WiFi-tilkoblingen til Netgear-nettverket ditt. Du kan finjustere 'offline etter forsinkelse' i enhetsinnstillingene. Hvis du får falske frakoblingsmeldinger, bør du øke denne forsinkelsen. Hvis du ønsker raskere deteksjon, kan du prøve å redusere denne forsinkelsen. Du kan også prøve å redusere pollingintervallet til ruteren. Standard pollingintervall er 1 minutt, men hvis du gjør det for kort, kan ruteren din kveles.",
+			"energyTitle": "Energiovervåking",
+			"energyInstructions": "Etter at du har lagt til ruteren din i Homey, kan du legge til flere enheter du vil overvåke for strømforbruk, f.eks. TV-en eller skriveren din. Angi det estimerte/gjennomsnittlige strømforbruket til enheten når den er AV eller PÅ. Når du nå slår på TV-en din, vil du se at det estimerte strømforbruket er inkludert i Homeys Energi-fane"
+		},
+		"tab2": {
+			"title": "Logger",
+			"showLogs": "Vis logger",
+			"showErrors": "Vis feil",
+			"deletelogs": "Slett logger",
+			"deleteWarning": "Slette alle logger?",
+			"deleted": "Logger slettet!"
+		},
+		"tab3": {
+			"title": "Test",
+			"instructionsLegend": "Ruterkompatibilitetstest",
+			"instructions": "Hvis du har problemer med appen, kan du utføre en kompatibilitetstest. Resultatet brukes til å forbedre appen. Trykk på 'Finn ruter' for automatisk å finne IP-adressen og SOAP-porten. Angi passordet til ruteren. Start deretter testen. Med knappen 'Kopier resultat' kan du opprette en sak (issue) og lime inn resultatet der. Merk: du trenger en github-konto for å publisere en sak.",
+			"discover": "Finn ruter",
+			"host": "IP-adresse",
+			"port": "SOAP-port",
+			"password": "Passord",
+			"startTest": "Start test",
+			"testingNow": "Tester nå. Vent noen minutter...",
+			"result": "Resultat",
+			"copyResult": "Kopier resultat"
+		},
+		"tab4": {
+			"title": "Liste",
+			"instructionsLegend": "Liste over alle kjente enheter",
+			"instructions": "Appen vil begynne å samle inn og huske MAC-adresser til alle enheter som noensinne har koblet til ruteren. Hvis du trenger å tømme denne listen, kan du gjøre det ved å krysse av boksen `slett enhetsliste` i enhetsinnstillingene.",
+			"resultList": "Enhetsliste",
+			"copyList": "Kopier liste"
+		}
+	}
+}

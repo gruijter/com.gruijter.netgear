@@ -2,12 +2,32 @@
   "title": {
     "en": "Block a device",
     "nl": "Apparaat blokkeren",
-    "de": "Ein Gerät blockieren"
+    "de": "Ein Gerät blockieren",
+    "fr": "Bloquer un appareil",
+    "es": "Bloquear un dispositivo",
+    "it": "Blocca un dispositivo",
+    "da": "Bloker en enhed",
+    "sv": "Blockera en enhet",
+    "no": "Blokker en enhet",
+    "pl": "Zablokuj urządzenie",
+    "ru": "Заблокировать устройство",
+    "ar": "حظر جهاز",
+    "ko": "기기 차단"
   },
   "titleFormatted": {
     "en": "Block [[mac]] device",
     "nl": "Apparaat [[mac]] blokkeren",
-    "de": "Gerät [[mac]] blockieren"
+    "de": "Gerät [[mac]] blockieren",
+    "fr": "Bloquer l'appareil [[mac]]",
+    "es": "Bloquear el dispositivo [[mac]]",
+    "it": "Blocca il dispositivo [[mac]]",
+    "da": "Bloker enheden [[mac]]",
+    "sv": "Blockera enheten [[mac]]",
+    "no": "Blokker enheten [[mac]]",
+    "pl": "Zablokuj urządzenie [[mac]]",
+    "ru": "Заблокировать устройство [[mac]]",
+    "ar": "حظر الجهاز [[mac]]",
+    "ko": "[[mac]] 기기 차단"
   },
   "args": [
     {
@@ -20,7 +40,18 @@
       "name": "mac",
       "placeholder": {
         "en": "AA:BB:CC:DD:EE:FF",
-        "de": "AA:BB:CC:DD:EE:FF"
+        "nl": "AA:BB:CC:DD:EE:FF",
+        "de": "AA:BB:CC:DD:EE:FF",
+        "fr": "AA:BB:CC:DD:EE:FF",
+        "es": "AA:BB:CC:DD:EE:FF",
+        "it": "AA:BB:CC:DD:EE:FF",
+        "da": "AA:BB:CC:DD:EE:FF",
+        "sv": "AA:BB:CC:DD:EE:FF",
+        "no": "AA:BB:CC:DD:EE:FF",
+        "pl": "AA:BB:CC:DD:EE:FF",
+        "ru": "AA:BB:CC:DD:EE:FF",
+        "ar": "AA:BB:CC:DD:EE:FF",
+        "ko": "AA:BB:CC:DD:EE:FF"
       }
     }
   ]

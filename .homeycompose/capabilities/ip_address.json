@@ -1,7 +1,19 @@
 {
   "type": "string",
   "title": {
-    "en": "IP address"
+    "en": "IP address",
+    "nl": "IP-adres",
+    "de": "IP-Adresse",
+    "fr": "Adresse IP",
+    "es": "Dirección IP",
+    "it": "Indirizzo IP",
+    "da": "IP-adresse",
+    "sv": "IP-adress",
+    "no": "IP-adresse",
+    "pl": "Adres IP",
+    "ru": "IP-адрес",
+    "ar": "عنوان IP",
+    "ko": "IP 주소"
   },
   "getable": true,
   "setable": false,

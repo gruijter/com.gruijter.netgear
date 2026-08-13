@@ -4,17 +4,37 @@
   "name": {
     "en": "Netgear Router",
     "nl": "Netgear Router",
-    "de": "Netgear-Router"
+    "de": "Netgear-Router",
+    "fr": "Routeur Netgear",
+    "es": "Router Netgear",
+    "it": "Router Netgear",
+    "da": "Netgear-router",
+    "sv": "Netgear-router",
+    "no": "Netgear-ruter",
+    "pl": "Router Netgear",
+    "ru": "Роутер Netgear",
+    "ar": "راوتر Netgear",
+    "ko": "Netgear 라우터"
   },
   "description": {
     "en": "Monitor your Netgear router",
     "nl": "Verbind je Netgear router",
-    "de": "Überwache deinen Netgear-Router"
+    "de": "Überwache deinen Netgear-Router",
+    "fr": "Surveillez votre routeur Netgear",
+    "es": "Supervisa tu router Netgear",
+    "it": "Monitora il tuo router Netgear",
+    "da": "Overvåg din Netgear-router",
+    "sv": "Övervaka din Netgear-router",
+    "no": "Overvåk Netgear-ruteren din",
+    "pl": "Monitoruj swój router Netgear",
+    "ru": "Отслеживайте свой роутер Netgear",
+    "ar": "راقب راوتر Netgear الخاص بك",
+    "ko": "Netgear 라우터를 모니터링하세요"
   },
   "brandColor": "#751939",
-  "version": "4.4.0",
+  "version": "5.0.0",
   "sdk": 3,
-  "compatibility": ">= 8.0",
+  "compatibility": ">=12.9.0",
   "author": {
     "name": "Robin Gruijter",
     "email": "gruijter@hotmail.com"
@@ -76,6 +96,14 @@
       "nighthawk",
       "orbi"
     ],
+    "nl": [
+      "Netgear",
+      "router",
+      "wifi",
+      "aanwezigheid",
+      "nighthawk",
+      "orbi"
+    ],
     "de": [
       "Netgear",
       "router",
@@ -84,11 +112,83 @@
       "nighthawk",
       "orbi"
     ],
-    "nl": [
+    "fr": [
       "Netgear",
       "router",
       "wifi",
-      "aanwezigheid",
+      "présence",
+      "nighthawk",
+      "orbi"
+    ],
+    "es": [
+      "Netgear",
+      "router",
+      "wifi",
+      "presencia",
+      "nighthawk",
+      "orbi"
+    ],
+    "it": [
+      "Netgear",
+      "router",
+      "wifi",
+      "presenza",
+      "nighthawk",
+      "orbi"
+    ],
+    "da": [
+      "Netgear",
+      "router",
+      "wifi",
+      "tilstedeværelse",
+      "nighthawk",
+      "orbi"
+    ],
+    "sv": [
+      "Netgear",
+      "router",
+      "wifi",
+      "närvaro",
+      "nighthawk",
+      "orbi"
+    ],
+    "no": [
+      "Netgear",
+      "router",
+      "wifi",
+      "tilstedeværelse",
+      "nighthawk",
+      "orbi"
+    ],
+    "pl": [
+      "Netgear",
+      "router",
+      "wifi",
+      "obecność",
+      "nighthawk",
+      "orbi"
+    ],
+    "ru": [
+      "Netgear",
+      "router",
+      "wifi",
+      "присутствие",
+      "nighthawk",
+      "orbi"
+    ],
+    "ar": [
+      "Netgear",
+      "router",
+      "wifi",
+      "حضور",
+      "nighthawk",
+      "orbi"
+    ],
+    "ko": [
+      "Netgear",
+      "router",
+      "wifi",
+      "존재",
       "nighthawk",
       "orbi"
     ]
@@ -124,7 +224,17 @@
         "title": {
           "en": "Internet connected",
           "nl": "Internet verbonden",
-          "de": "Internet verbunden"
+          "de": "Internet verbunden",
+          "fr": "Internet connecté",
+          "es": "Internet conectado",
+          "it": "Internet connesso",
+          "da": "Internet forbundet",
+          "sv": "Internet anslutet",
+          "no": "Internett tilkoblet",
+          "pl": "Internet połączony",
+          "ru": "Интернет подключен",
+          "ar": "الإنترنت متصل",
+          "ko": "인터넷 연결됨"
         },
         "args": [
           {
@@ -139,7 +249,17 @@
         "title": {
           "en": "Internet disconnected",
           "nl": "Internet verbroken",
-          "de": "Internet unterbrochen"
+          "de": "Internet unterbrochen",
+          "fr": "Internet déconnecté",
+          "es": "Internet desconectado",
+          "it": "Internet disconnesso",
+          "da": "Internet afbrudt",
+          "sv": "Internet frånkopplat",
+          "no": "Internett frakoblet",
+          "pl": "Internet rozłączony",
+          "ru": "Интернет отключен",
+          "ar": "الإنترنت غير متصل",
+          "ko": "인터넷 연결 끊김"
         },
         "args": [
           {
@@ -155,7 +275,17 @@
         "title": {
           "en": "Device came online",
           "nl": "Apparaat komt online",
-          "de": "Gerät kam online"
+          "de": "Gerät kam online",
+          "fr": "L'appareil est en ligne",
+          "es": "El dispositivo está en línea",
+          "it": "Il dispositivo è online",
+          "da": "Enheden kom online",
+          "sv": "Enheten kom online",
+          "no": "Enheten kom online",
+          "pl": "Urządzenie pojawiło się online",
+          "ru": "Устройство вышло в сеть",
+          "ar": "أصبح الجهاز متصلاً بالإنترنت",
+          "ko": "기기가 온라인 상태가 됨"
         },
         "args": [
           {
@@ -171,7 +301,17 @@
             "title": {
               "en": "mac",
               "nl": "mac",
-              "de": "MAC"
+              "de": "MAC",
+              "fr": "mac",
+              "es": "mac",
+              "it": "mac",
+              "da": "mac",
+              "sv": "mac",
+              "no": "mac",
+              "pl": "mac",
+              "ru": "mac",
+              "ar": "mac",
+              "ko": "mac"
             },
             "example": "AA:BB:CC:DD:EE:FF"
           },
@@ -181,7 +321,17 @@
             "title": {
               "en": "name",
               "nl": "naam",
-              "de": "Name"
+              "de": "Name",
+              "fr": "nom",
+              "es": "nombre",
+              "it": "nome",
+              "da": "navn",
+              "sv": "namn",
+              "no": "navn",
+              "pl": "nazwa",
+              "ru": "имя",
+              "ar": "الاسم",
+              "ko": "이름"
             },
             "example": "iPhone"
           },
@@ -191,7 +341,17 @@
             "title": {
               "en": "ip",
               "nl": "ip",
-              "de": "IP"
+              "de": "IP",
+              "fr": "ip",
+              "es": "ip",
+              "it": "ip",
+              "da": "ip",
+              "sv": "ip",
+              "no": "ip",
+              "pl": "ip",
+              "ru": "ip",
+              "ar": "ip",
+              "ko": "ip"
             },
             "example": "10.0.0.10"
           }
@@ -201,7 +361,17 @@
         "title": {
           "en": "Device metrics changed",
           "nl": "Apparaat waarden gewijzigd",
-          "de": "Gerätedaten verändert"
+          "de": "Gerätedaten verändert",
+          "fr": "Les métriques de l'appareil ont changé",
+          "es": "Las métricas del dispositivo cambiaron",
+          "it": "Le metriche del dispositivo sono cambiate",
+          "da": "Enhedsmålinger ændret",
+          "sv": "Enhetens mätvärden ändrades",
+          "no": "Enhetsmålinger endret",
+          "pl": "Dane urządzenia zmieniły się",
+          "ru": "Показатели устройства изменились",
+          "ar": "تغيرت مقاييس الجهاز",
+          "ko": "기기 지표가 변경됨"
         },
         "args": [
           {
@@ -217,7 +387,17 @@
             "title": {
               "en": "mac",
               "nl": "mac",
-              "de": "MAC"
+              "de": "MAC",
+              "fr": "mac",
+              "es": "mac",
+              "it": "mac",
+              "da": "mac",
+              "sv": "mac",
+              "no": "mac",
+              "pl": "mac",
+              "ru": "mac",
+              "ar": "mac",
+              "ko": "mac"
             },
             "example": "AA:BB:CC:DD:EE:FF"
           },
@@ -227,7 +407,17 @@
             "title": {
               "en": "name",
               "nl": "naam",
-              "de": "Name"
+              "de": "Name",
+              "fr": "nom",
+              "es": "nombre",
+              "it": "nome",
+              "da": "navn",
+              "sv": "namn",
+              "no": "navn",
+              "pl": "nazwa",
+              "ru": "имя",
+              "ar": "الاسم",
+              "ko": "이름"
             },
             "example": "iPhone"
           },
@@ -237,7 +427,17 @@
             "title": {
               "en": "ip",
               "nl": "ip",
-              "de": "IP"
+              "de": "IP",
+              "fr": "ip",
+              "es": "ip",
+              "it": "ip",
+              "da": "ip",
+              "sv": "ip",
+              "no": "ip",
+              "pl": "ip",
+              "ru": "ip",
+              "ar": "ip",
+              "ko": "ip"
             },
             "example": "10.0.0.10"
           },
@@ -247,7 +447,17 @@
             "title": {
               "en": "Connected",
               "nl": "Verbonden",
-              "de": "Verbunden"
+              "de": "Verbunden",
+              "fr": "Connecté",
+              "es": "Conectado",
+              "it": "Connesso",
+              "da": "Forbundet",
+              "sv": "Ansluten",
+              "no": "Tilkoblet",
+              "pl": "Połączony",
+              "ru": "Подключено",
+              "ar": "متصل",
+              "ko": "연결됨"
             },
             "example": true
           },
@@ -257,7 +467,17 @@
             "title": {
               "en": "SSID",
               "nl": "SSID",
-              "de": "SSID"
+              "de": "SSID",
+              "fr": "SSID",
+              "es": "SSID",
+              "it": "SSID",
+              "da": "SSID",
+              "sv": "SSID",
+              "no": "SSID",
+              "pl": "SSID",
+              "ru": "SSID",
+              "ar": "SSID",
+              "ko": "SSID"
             },
             "example": "wired"
           },
@@ -267,7 +487,17 @@
             "title": {
               "en": "link speed",
               "nl": "link snelheid",
-              "de": "Verbindungsgeschwindigkeit"
+              "de": "Verbindungsgeschwindigkeit",
+              "fr": "vitesse de liaison",
+              "es": "velocidad de enlace",
+              "it": "velocità di collegamento",
+              "da": "linkhastighed",
+              "sv": "länkhastighet",
+              "no": "linkhastighet",
+              "pl": "prędkość łącza",
+              "ru": "скорость соединения",
+              "ar": "سرعة الاتصال",
+              "ko": "링크 속도"
             },
             "example": 35
           },
@@ -277,7 +507,17 @@
             "title": {
               "en": "signal strength",
               "nl": "signaal sterkte",
-              "de": "Signalstärke"
+              "de": "Signalstärke",
+              "fr": "force du signal",
+              "es": "intensidad de la señal",
+              "it": "intensità del segnale",
+              "da": "signalstyrke",
+              "sv": "signalstyrka",
+              "no": "signalstyrke",
+              "pl": "siła sygnału",
+              "ru": "уровень сигнала",
+              "ar": "قوة الإشارة",
+              "ko": "신호 강도"
             },
             "example": 50
           },
@@ -287,7 +527,17 @@
             "title": {
               "en": "up",
               "nl": "up",
-              "de": "Up"
+              "de": "Up",
+              "fr": "up",
+              "es": "up",
+              "it": "up",
+              "da": "up",
+              "sv": "up",
+              "no": "up",
+              "pl": "up",
+              "ru": "up",
+              "ar": "up",
+              "ko": "up"
             },
             "example": 5
           },
@@ -297,7 +547,17 @@
             "title": {
               "en": "down",
               "nl": "down",
-              "de": "Down"
+              "de": "Down",
+              "fr": "down",
+              "es": "down",
+              "it": "down",
+              "da": "down",
+              "sv": "down",
+              "no": "down",
+              "pl": "down",
+              "ru": "down",
+              "ar": "down",
+              "ko": "down"
             },
             "example": 1
           }
@@ -308,7 +568,17 @@
         "title": {
           "en": "Device IP changed",
           "nl": "Apparaat IP is gewijzigd",
-          "de": "Geräte-IP hat sich geändert"
+          "de": "Geräte-IP hat sich geändert",
+          "fr": "L'adresse IP de l'appareil a changé",
+          "es": "La IP del dispositivo cambió",
+          "it": "L'IP del dispositivo è cambiato",
+          "da": "Enhedens IP ændret",
+          "sv": "Enhetens IP ändrades",
+          "no": "Enhetens IP endret",
+          "pl": "IP urządzenia zmieniło się",
+          "ru": "IP-адрес устройства изменился",
+          "ar": "تغير عنوان IP للجهاز",
+          "ko": "기기 IP가 변경됨"
         },
         "args": [
           {
@@ -324,7 +594,17 @@
             "title": {
               "en": "mac",
               "nl": "mac",
-              "de": "MAC"
+              "de": "MAC",
+              "fr": "mac",
+              "es": "mac",
+              "it": "mac",
+              "da": "mac",
+              "sv": "mac",
+              "no": "mac",
+              "pl": "mac",
+              "ru": "mac",
+              "ar": "mac",
+              "ko": "mac"
             },
             "example": "AA:BB:CC:DD:EE:FF"
           },
@@ -334,7 +614,17 @@
             "title": {
               "en": "name",
               "nl": "naam",
-              "de": "Name"
+              "de": "Name",
+              "fr": "nom",
+              "es": "nombre",
+              "it": "nome",
+              "da": "navn",
+              "sv": "namn",
+              "no": "navn",
+              "pl": "nazwa",
+              "ru": "имя",
+              "ar": "الاسم",
+              "ko": "이름"
             },
             "example": "iPhone"
           },
@@ -344,7 +634,17 @@
             "title": {
               "en": "ip",
               "nl": "ip",
-              "de": "IP"
+              "de": "IP",
+              "fr": "ip",
+              "es": "ip",
+              "it": "ip",
+              "da": "ip",
+              "sv": "ip",
+              "no": "ip",
+              "pl": "ip",
+              "ru": "ip",
+              "ar": "ip",
+              "ko": "ip"
             },
             "example": "10.0.0.10"
           }
@@ -355,7 +655,17 @@
         "title": {
           "en": "Device name changed in router",
           "nl": "Apparaat naam is gewijzigd in router",
-          "de": "Gerätename wurde im Router geändert"
+          "de": "Gerätename wurde im Router geändert",
+          "fr": "Le nom de l'appareil a changé dans le routeur",
+          "es": "El nombre del dispositivo cambió en el router",
+          "it": "Il nome del dispositivo è cambiato nel router",
+          "da": "Enhedsnavn ændret i routeren",
+          "sv": "Enhetens namn ändrades i routern",
+          "no": "Enhetsnavn endret i ruteren",
+          "pl": "Nazwa urządzenia zmieniła się w routerze",
+          "ru": "Имя устройства изменилось в роутере",
+          "ar": "تغير اسم الجهاز في الراوتر",
+          "ko": "라우터에서 기기 이름이 변경됨"
         },
         "args": [
           {
@@ -371,7 +681,17 @@
             "title": {
               "en": "mac",
               "nl": "mac",
-              "de": "MAC"
+              "de": "MAC",
+              "fr": "mac",
+              "es": "mac",
+              "it": "mac",
+              "da": "mac",
+              "sv": "mac",
+              "no": "mac",
+              "pl": "mac",
+              "ru": "mac",
+              "ar": "mac",
+              "ko": "mac"
             },
             "example": "AA:BB:CC:DD:EE:FF"
           },
@@ -381,7 +701,17 @@
             "title": {
               "en": "name",
               "nl": "naam",
-              "de": "Name"
+              "de": "Name",
+              "fr": "nom",
+              "es": "nombre",
+              "it": "nome",
+              "da": "navn",
+              "sv": "namn",
+              "no": "navn",
+              "pl": "nazwa",
+              "ru": "имя",
+              "ar": "الاسم",
+              "ko": "이름"
             },
             "example": "iPhone"
           },
@@ -391,7 +721,17 @@
             "title": {
               "en": "ip",
               "nl": "ip",
-              "de": "IP"
+              "de": "IP",
+              "fr": "ip",
+              "es": "ip",
+              "it": "ip",
+              "da": "ip",
+              "sv": "ip",
+              "no": "ip",
+              "pl": "ip",
+              "ru": "ip",
+              "ar": "ip",
+              "ko": "ip"
             },
             "example": "10.0.0.10"
           }
@@ -402,7 +742,17 @@
         "title": {
           "en": "New connected device",
           "nl": "Nieuw verbonden apparaat",
-          "de": "Neues verbundenes Gerät"
+          "de": "Neues verbundenes Gerät",
+          "fr": "Nouvel appareil connecté",
+          "es": "Nuevo dispositivo conectado",
+          "it": "Nuovo dispositivo connesso",
+          "da": "Ny tilsluttet enhed",
+          "sv": "Ny ansluten enhet",
+          "no": "Ny tilkoblet enhet",
+          "pl": "Nowe podłączone urządzenie",
+          "ru": "Новое подключенное устройство",
+          "ar": "جهاز جديد متصل",
+          "ko": "새로 연결된 기기"
         },
         "args": [
           {
@@ -418,7 +768,17 @@
             "title": {
               "en": "mac",
               "nl": "mac",
-              "de": "MAC"
+              "de": "MAC",
+              "fr": "mac",
+              "es": "mac",
+              "it": "mac",
+              "da": "mac",
+              "sv": "mac",
+              "no": "mac",
+              "pl": "mac",
+              "ru": "mac",
+              "ar": "mac",
+              "ko": "mac"
             },
             "example": "AA:BB:CC:DD:EE:FF"
           },
@@ -428,7 +788,17 @@
             "title": {
               "en": "name",
               "nl": "naam",
-              "de": "Name"
+              "de": "Name",
+              "fr": "nom",
+              "es": "nombre",
+              "it": "nome",
+              "da": "navn",
+              "sv": "namn",
+              "no": "navn",
+              "pl": "nazwa",
+              "ru": "имя",
+              "ar": "الاسم",
+              "ko": "이름"
             },
             "example": "iPhone"
           },
@@ -438,7 +808,17 @@
             "title": {
               "en": "ip",
               "nl": "ip",
-              "de": "IP"
+              "de": "IP",
+              "fr": "ip",
+              "es": "ip",
+              "it": "ip",
+              "da": "ip",
+              "sv": "ip",
+              "no": "ip",
+              "pl": "ip",
+              "ru": "ip",
+              "ar": "ip",
+              "ko": "ip"
             },
             "example": "10.0.0.10"
           }
@@ -449,7 +829,17 @@
         "title": {
           "en": "New router firmware available",
           "nl": "Er is nieuwe router firmware",
-          "de": "Neue Router-Firmware verfügbar"
+          "de": "Neue Router-Firmware verfügbar",
+          "fr": "Nouveau firmware du routeur disponible",
+          "es": "Nuevo firmware del router disponible",
+          "it": "Nuovo firmware del router disponibile",
+          "da": "Ny router-firmware tilgængelig",
+          "sv": "Ny routerfirmware tillgänglig",
+          "no": "Ny ruter-firmware tilgjengelig",
+          "pl": "Dostępny nowy firmware routera",
+          "ru": "Доступна новая прошивка роутера",
+          "ar": "برنامج ثابت جديد للراوتر متاح",
+          "ko": "새 라우터 펌웨어 사용 가능"
         },
         "args": [
           {
@@ -465,7 +855,17 @@
             "title": {
               "en": "current",
               "nl": "huidig",
-              "de": "aktuell"
+              "de": "aktuell",
+              "fr": "actuel",
+              "es": "actual",
+              "it": "attuale",
+              "da": "nuværende",
+              "sv": "aktuell",
+              "no": "nåværende",
+              "pl": "obecny",
+              "ru": "текущая",
+              "ar": "الحالي",
+              "ko": "현재"
             },
             "example": "1.0.9.34"
           },
@@ -475,7 +875,17 @@
             "title": {
               "en": "new",
               "nl": "nieuw",
-              "de": "neu"
+              "de": "neu",
+              "fr": "nouveau",
+              "es": "nuevo",
+              "it": "nuovo",
+              "da": "ny",
+              "sv": "ny",
+              "no": "ny",
+              "pl": "nowy",
+              "ru": "новая",
+              "ar": "جديد",
+              "ko": "새"
             },
             "example": "1.0.9.42_10.2.44"
           },
@@ -485,7 +895,17 @@
             "title": {
               "en": "info",
               "nl": "info",
-              "de": "Info"
+              "de": "Info",
+              "fr": "info",
+              "es": "info",
+              "it": "info",
+              "da": "info",
+              "sv": "info",
+              "no": "info",
+              "pl": "info",
+              "ru": "инфо",
+              "ar": "معلومات",
+              "ko": "정보"
             },
             "example": "security fixes"
           }
@@ -496,7 +916,17 @@
         "title": {
           "en": "Speed test is ready",
           "nl": "Snelheidstest is klaar",
-          "de": "Geschwindigkeitstest ist bereit"
+          "de": "Geschwindigkeitstest ist bereit",
+          "fr": "Le test de vitesse est prêt",
+          "es": "La prueba de velocidad está lista",
+          "it": "Il test di velocità è pronto",
+          "da": "Hastighedstest er klar",
+          "sv": "Hastighetstestet är klart",
+          "no": "Hastighetstesten er klar",
+          "pl": "Test prędkości jest gotowy",
+          "ru": "Тест скорости готов",
+          "ar": "اختبار السرعة جاهز",
+          "ko": "속도 테스트 준비 완료"
         },
         "args": [
           {
@@ -512,7 +942,17 @@
             "title": {
               "en": "up",
               "nl": "up",
-              "de": "Up"
+              "de": "Up",
+              "fr": "up",
+              "es": "up",
+              "it": "up",
+              "da": "up",
+              "sv": "up",
+              "no": "up",
+              "pl": "up",
+              "ru": "up",
+              "ar": "up",
+              "ko": "up"
             },
             "example": 1
           },
@@ -522,7 +962,17 @@
             "title": {
               "en": "down",
               "nl": "down",
-              "de": "Down"
+              "de": "Down",
+              "fr": "down",
+              "es": "down",
+              "it": "down",
+              "da": "down",
+              "sv": "down",
+              "no": "down",
+              "pl": "down",
+              "ru": "down",
+              "ar": "down",
+              "ko": "down"
             },
             "example": 5
           },
@@ -532,7 +982,17 @@
             "title": {
               "en": "ping",
               "nl": "ping",
-              "de": "Ping"
+              "de": "Ping",
+              "fr": "ping",
+              "es": "ping",
+              "it": "ping",
+              "da": "ping",
+              "sv": "ping",
+              "no": "ping",
+              "pl": "ping",
+              "ru": "ping",
+              "ar": "ping",
+              "ko": "ping"
             },
             "example": 10
           }
@@ -543,7 +1003,17 @@
         "title": {
           "en": "The up/down speed changed",
           "nl": "Up/down snelheid gewijzigd",
-          "de": "Die Up/Down-Geschwindigkeit hat sich geändert"
+          "de": "Die Up/Down-Geschwindigkeit hat sich geändert",
+          "fr": "La vitesse montante/descendante a changé",
+          "es": "La velocidad de subida/bajada cambió",
+          "it": "La velocità di upload/download è cambiata",
+          "da": "Op/ned-hastigheden ændrede sig",
+          "sv": "Upp-/nedladdningshastigheten ändrades",
+          "no": "Opp-/nedlastingshastigheten endret seg",
+          "pl": "Prędkość wysyłania/pobierania zmieniła się",
+          "ru": "Скорость загрузки/выгрузки изменилась",
+          "ar": "تغيرت سرعة الرفع/التنزيل",
+          "ko": "업/다운로드 속도가 변경됨"
         },
         "args": [
           {
@@ -559,7 +1029,17 @@
             "title": {
               "en": "up",
               "nl": "up",
-              "de": "Up"
+              "de": "Up",
+              "fr": "up",
+              "es": "up",
+              "it": "up",
+              "da": "up",
+              "sv": "up",
+              "no": "up",
+              "pl": "up",
+              "ru": "up",
+              "ar": "up",
+              "ko": "up"
             },
             "example": 5
           },
@@ -569,7 +1049,17 @@
             "title": {
               "en": "down",
               "nl": "down",
-              "de": "Down"
+              "de": "Down",
+              "fr": "down",
+              "es": "down",
+              "it": "down",
+              "da": "down",
+              "sv": "down",
+              "no": "down",
+              "pl": "down",
+              "ru": "down",
+              "ar": "down",
+              "ko": "down"
             },
             "example": 1
           }
@@ -580,7 +1070,17 @@
         "title": {
           "en": "Device went offline",
           "nl": "Apparaat raakt offline",
-          "de": "Gerät ging offline"
+          "de": "Gerät ging offline",
+          "fr": "L'appareil est hors ligne",
+          "es": "El dispositivo se desconectó",
+          "it": "Il dispositivo è andato offline",
+          "da": "Enheden gik offline",
+          "sv": "Enheten gick offline",
+          "no": "Enheten gikk offline",
+          "pl": "Urządzenie przeszło offline",
+          "ru": "Устройство вышло из сети",
+          "ar": "أصبح الجهاز غير متصل",
+          "ko": "기기가 오프라인 상태가 됨"
         },
         "args": [
           {
@@ -596,7 +1096,17 @@
             "title": {
               "en": "mac",
               "nl": "mac",
-              "de": "MAC"
+              "de": "MAC",
+              "fr": "mac",
+              "es": "mac",
+              "it": "mac",
+              "da": "mac",
+              "sv": "mac",
+              "no": "mac",
+              "pl": "mac",
+              "ru": "mac",
+              "ar": "mac",
+              "ko": "mac"
             },
             "example": "AA:BB:CC:DD:EE:FF"
           },
@@ -606,7 +1116,17 @@
             "title": {
               "en": "name",
               "nl": "naam",
-              "de": "Name"
+              "de": "Name",
+              "fr": "nom",
+              "es": "nombre",
+              "it": "nome",
+              "da": "navn",
+              "sv": "namn",
+              "no": "navn",
+              "pl": "nazwa",
+              "ru": "имя",
+              "ar": "الاسم",
+              "ko": "이름"
             },
             "example": "iPhone"
           },
@@ -616,7 +1136,17 @@
             "title": {
               "en": "ip",
               "nl": "ip",
-              "de": "IP"
+              "de": "IP",
+              "fr": "ip",
+              "es": "ip",
+              "it": "ip",
+              "da": "ip",
+              "sv": "ip",
+              "no": "ip",
+              "pl": "ip",
+              "ru": "ip",
+              "ar": "ip",
+              "ko": "ip"
             },
             "example": "10.0.0.10"
           }
@@ -629,7 +1159,17 @@
         "title": {
           "en": "Internet !{{is|isn't}} connected",
           "nl": "Internet !{{is|is niet}} verbonden",
-          "de": "Internet !{{ist|ist nicht}} verbunden"
+          "de": "Internet !{{ist|ist nicht}} verbunden",
+          "fr": "Internet !{{est|n'est pas}} connecté",
+          "es": "Internet !{{está|no está}} conectado",
+          "it": "Internet !{{è|non è}} connesso",
+          "da": "Internettet !{{er|er ikke}} forbundet",
+          "sv": "Internet !{{är|är inte}} anslutet",
+          "no": "Internett !{{er|er ikke}} tilkoblet",
+          "pl": "Internet !{{jest|nie jest}} połączony",
+          "ru": "Интернет !{{подключен|не подключен}}",
+          "ar": "الإنترنت !{{متصل|غير متصل}}",
+          "ko": "인터넷이 !{{연결됨|연결되지 않음}}"
         },
         "args": [
           {
@@ -644,7 +1184,17 @@
         "title": {
           "en": "Device !{{is|isn't}} online",
           "nl": "Apparaat !{{is|is niet}} online",
-          "de": "Gerät !{{ist|ist nicht}} online"
+          "de": "Gerät !{{ist|ist nicht}} online",
+          "fr": "L'appareil !{{est|n'est pas}} en ligne",
+          "es": "El dispositivo !{{está|no está}} en línea",
+          "it": "Il dispositivo !{{è|non è}} online",
+          "da": "Enheden !{{er|er ikke}} online",
+          "sv": "Enheten !{{är|är inte}} online",
+          "no": "Enheten !{{er|er ikke}} online",
+          "pl": "Urządzenie !{{jest|nie jest}} online",
+          "ru": "Устройство !{{онлайн|не онлайн}}",
+          "ar": "الجهاز !{{متصل|غير متصل}} بالإنترنت",
+          "ko": "기기가 !{{온라인|오프라인}} 상태임"
         },
         "args": [
           {
@@ -659,12 +1209,32 @@
         "title": {
           "en": "Device !{{is|isn't}} online (mac)",
           "nl": "Apparaat !{{is|is niet}} online (mac)",
-          "de": "Gerät !{{ist|ist nicht}} online (MAC)"
+          "de": "Gerät !{{ist|ist nicht}} online (MAC)",
+          "fr": "L'appareil !{{est|n'est pas}} en ligne (mac)",
+          "es": "El dispositivo !{{está|no está}} en línea (mac)",
+          "it": "Il dispositivo !{{è|non è}} online (mac)",
+          "da": "Enheden !{{er|er ikke}} online (mac)",
+          "sv": "Enheten !{{är|är inte}} online (mac)",
+          "no": "Enheten !{{er|er ikke}} online (mac)",
+          "pl": "Urządzenie !{{jest|nie jest}} online (mac)",
+          "ru": "Устройство !{{онлайн|не онлайн}} (mac)",
+          "ar": "الجهاز !{{متصل|غير متصل}} بالإنترنت (mac)",
+          "ko": "기기가 !{{온라인|오프라인}} 상태임 (mac)"
         },
         "titleFormatted": {
           "en": "[[mac]] !{{is|isn't}} online",
           "nl": "[[mac]] !{{is|is niet}} online",
-          "de": "[[mac]] !{{ist|ist nicht}} online"
+          "de": "[[mac]] !{{ist|ist nicht}} online",
+          "fr": "[[mac]] !{{est|n'est pas}} en ligne",
+          "es": "[[mac]] !{{está|no está}} en línea",
+          "it": "[[mac]] !{{è|non è}} online",
+          "da": "[[mac]] !{{er|er ikke}} online",
+          "sv": "[[mac]] !{{är|är inte}} online",
+          "no": "[[mac]] !{{er|er ikke}} online",
+          "pl": "[[mac]] !{{jest|nie jest}} online",
+          "ru": "[[mac]] !{{онлайн|не онлайн}}",
+          "ar": "[[mac]] !{{متصل|غير متصل}} بالإنترنت",
+          "ko": "[[mac]]이(가) !{{온라인|오프라인}} 상태임"
         },
         "args": [
           {
@@ -677,7 +1247,18 @@
             "name": "mac",
             "placeholder": {
               "en": "AA:BB:CC:DD:EE:FF",
-              "de": "AA:BB:CC:DD:EE:FF"
+              "nl": "AA:BB:CC:DD:EE:FF",
+              "de": "AA:BB:CC:DD:EE:FF",
+              "fr": "AA:BB:CC:DD:EE:FF",
+              "es": "AA:BB:CC:DD:EE:FF",
+              "it": "AA:BB:CC:DD:EE:FF",
+              "da": "AA:BB:CC:DD:EE:FF",
+              "sv": "AA:BB:CC:DD:EE:FF",
+              "no": "AA:BB:CC:DD:EE:FF",
+              "pl": "AA:BB:CC:DD:EE:FF",
+              "ru": "AA:BB:CC:DD:EE:FF",
+              "ar": "AA:BB:CC:DD:EE:FF",
+              "ko": "AA:BB:CC:DD:EE:FF"
             }
           }
         ],
@@ -687,12 +1268,32 @@
         "title": {
           "en": "!{{A|No}} device online on IP",
           "nl": "!{{Een|Geen}} apparaat online op IP",
-          "de": "!{{Ein|Kein}} Gerät ist online mit dieser IP"
+          "de": "!{{Ein|Kein}} Gerät ist online mit dieser IP",
+          "fr": "!{{Un|Aucun}} appareil en ligne sur l'IP",
+          "es": "!{{Un|Ningún}} dispositivo en línea en la IP",
+          "it": "!{{Un|Nessun}} dispositivo online sull'IP",
+          "da": "!{{En|Ingen}} enhed online på IP",
+          "sv": "!{{En|Ingen}} enhet online på IP",
+          "no": "!{{En|Ingen}} enhet online på IP",
+          "pl": "!{{Jest|Brak}} urządzenia online na IP",
+          "ru": "!{{Есть|Нет}} устройства онлайн по IP",
+          "ar": "!{{يوجد|لا يوجد}} جهاز متصل على عنوان IP",
+          "ko": "IP에 !{{기기가 온라인 상태임|온라인 기기 없음}}"
         },
         "titleFormatted": {
           "en": "!{{A|No}} device online on IP [[ip_from]] - [[ip_to]]",
           "nl": "!{{Een|Geen}} apparaat online op IP [[ip_from]] - [[ip_to]]",
-          "de": "!{{Ein|Kein}} Gerät ist online mit IP [[ip_from]] - [[ip_to]]"
+          "de": "!{{Ein|Kein}} Gerät ist online mit IP [[ip_from]] - [[ip_to]]",
+          "fr": "!{{Un|Aucun}} appareil en ligne sur l'IP [[ip_from]] - [[ip_to]]",
+          "es": "!{{Un|Ningún}} dispositivo en línea en la IP [[ip_from]] - [[ip_to]]",
+          "it": "!{{Un|Nessun}} dispositivo online sull'IP [[ip_from]] - [[ip_to]]",
+          "da": "!{{En|Ingen}} enhed online på IP [[ip_from]] - [[ip_to]]",
+          "sv": "!{{En|Ingen}} enhet online på IP [[ip_from]] - [[ip_to]]",
+          "no": "!{{En|Ingen}} enhet online på IP [[ip_from]] - [[ip_to]]",
+          "pl": "!{{Jest|Brak}} urządzenia online na IP [[ip_from]] - [[ip_to]]",
+          "ru": "!{{Есть|Нет}} устройства онлайн по IP [[ip_from]] - [[ip_to]]",
+          "ar": "!{{يوجد|لا يوجد}} جهاز متصل على عنوان IP [[ip_from]] - [[ip_to]]",
+          "ko": "IP [[ip_from]] - [[ip_to]]에 !{{기기가 온라인 상태임|온라인 기기 없음}}"
         },
         "args": [
           {
@@ -709,7 +1310,17 @@
             "placeholder": {
               "en": "from (1)",
               "nl": "vanaf (1)",
-              "de": "von (1)"
+              "de": "von (1)",
+              "fr": "de (1)",
+              "es": "desde (1)",
+              "it": "da (1)",
+              "da": "fra (1)",
+              "sv": "från (1)",
+              "no": "fra (1)",
+              "pl": "od (1)",
+              "ru": "от (1)",
+              "ar": "من (1)",
+              "ko": "부터 (1)"
             }
           },
           {
@@ -721,7 +1332,17 @@
             "placeholder": {
               "en": "to (254)",
               "nl": "tot (254)",
-              "de": "bis (254)"
+              "de": "bis (254)",
+              "fr": "à (254)",
+              "es": "hasta (254)",
+              "it": "a (254)",
+              "da": "til (254)",
+              "sv": "till (254)",
+              "no": "til (254)",
+              "pl": "do (254)",
+              "ru": "до (254)",
+              "ar": "إلى (254)",
+              "ko": "까지 (254)"
             }
           }
         ],
@@ -731,7 +1352,17 @@
         "title": {
           "en": "!{{New|No}} firmware update",
           "nl": "!{{Er is|Geen}} nieuwe firmware",
-          "de": "!{{Neues|Kein}} Firmware-Update"
+          "de": "!{{Neues|Kein}} Firmware-Update",
+          "fr": "!{{Nouvelle|Aucune}} mise à jour du firmware",
+          "es": "!{{Nueva|Ninguna}} actualización de firmware",
+          "it": "!{{Nuovo|Nessun}} aggiornamento firmware",
+          "da": "!{{Ny|Ingen}} firmwareopdatering",
+          "sv": "!{{Ny|Ingen}} firmware-uppdatering",
+          "no": "!{{Ny|Ingen}} fastvareoppdatering",
+          "pl": "!{{Jest|Brak}} nowej aktualizacji firmware",
+          "ru": "!{{Есть|Нет}} нового обновления прошивки",
+          "ar": "!{{يوجد|لا يوجد}} تحديث جديد للبرنامج الثابت",
+          "ko": "!{{새|없음}} 펌웨어 업데이트"
         },
         "args": [
           {
@@ -748,12 +1379,32 @@
         "title": {
           "en": "Allow a device",
           "nl": "Apparaat vrijgeven",
-          "de": "Ein Gerät zulassen"
+          "de": "Ein Gerät zulassen",
+          "fr": "Autoriser un appareil",
+          "es": "Permitir un dispositivo",
+          "it": "Consenti un dispositivo",
+          "da": "Tillad en enhed",
+          "sv": "Tillåt en enhet",
+          "no": "Tillat en enhet",
+          "pl": "Zezwól na urządzenie",
+          "ru": "Разрешить устройство",
+          "ar": "السماح لجهاز",
+          "ko": "기기 허용"
         },
         "titleFormatted": {
           "en": "Allow [[mac]] device",
           "nl": "Apparaat [[mac]] vrijgeven",
-          "de": "Gerät [[mac]] zulassen"
+          "de": "Gerät [[mac]] zulassen",
+          "fr": "Autoriser l'appareil [[mac]]",
+          "es": "Permitir el dispositivo [[mac]]",
+          "it": "Consenti il dispositivo [[mac]]",
+          "da": "Tillad enheden [[mac]]",
+          "sv": "Tillåt enheten [[mac]]",
+          "no": "Tillat enheten [[mac]]",
+          "pl": "Zezwól na urządzenie [[mac]]",
+          "ru": "Разрешить устройство [[mac]]",
+          "ar": "السماح للجهاز [[mac]]",
+          "ko": "[[mac]] 기기 허용"
         },
         "args": [
           {
@@ -766,7 +1417,18 @@
             "type": "autocomplete",
             "placeholder": {
               "en": "AA:BB:CC:DD:EE:FF",
-              "de": "AA:BB:CC:DD:EE:FF"
+              "nl": "AA:BB:CC:DD:EE:FF",
+              "de": "AA:BB:CC:DD:EE:FF",
+              "fr": "AA:BB:CC:DD:EE:FF",
+              "es": "AA:BB:CC:DD:EE:FF",
+              "it": "AA:BB:CC:DD:EE:FF",
+              "da": "AA:BB:CC:DD:EE:FF",
+              "sv": "AA:BB:CC:DD:EE:FF",
+              "no": "AA:BB:CC:DD:EE:FF",
+              "pl": "AA:BB:CC:DD:EE:FF",
+              "ru": "AA:BB:CC:DD:EE:FF",
+              "ar": "AA:BB:CC:DD:EE:FF",
+              "ko": "AA:BB:CC:DD:EE:FF"
             }
           }
         ],
@@ -776,12 +1438,32 @@
         "title": {
           "en": "Allow a device with tag",
           "nl": "Apparaat vrijgeven met tag",
-          "de": "Ein Gerät mit Tag zulassen"
+          "de": "Ein Gerät mit Tag zulassen",
+          "fr": "Autoriser un appareil avec un tag",
+          "es": "Permitir un dispositivo con etiqueta",
+          "it": "Consenti un dispositivo con tag",
+          "da": "Tillad en enhed med tag",
+          "sv": "Tillåt en enhet med tagg",
+          "no": "Tillat en enhet med tagg",
+          "pl": "Zezwól na urządzenie z tagiem",
+          "ru": "Разрешить устройство с тегом",
+          "ar": "السماح لجهاز بعلامة",
+          "ko": "태그로 기기 허용"
         },
         "titleFormatted": {
           "en": "Allow [[mac]] device with tag",
           "nl": "Apparaat [[mac]] vrijgeven met tag",
-          "de": "Gerät [[mac]] zulassen mit Tag"
+          "de": "Gerät [[mac]] zulassen mit Tag",
+          "fr": "Autoriser l'appareil [[mac]] avec un tag",
+          "es": "Permitir el dispositivo [[mac]] con etiqueta",
+          "it": "Consenti il dispositivo [[mac]] con tag",
+          "da": "Tillad enheden [[mac]] med tag",
+          "sv": "Tillåt enheten [[mac]] med tagg",
+          "no": "Tillat enheten [[mac]] med tagg",
+          "pl": "Zezwól na urządzenie [[mac]] z tagiem",
+          "ru": "Разрешить устройство [[mac]] с тегом",
+          "ar": "السماح للجهاز [[mac]] بعلامة",
+          "ko": "태그로 [[mac]] 기기 허용"
         },
         "args": [
           {
@@ -794,7 +1476,18 @@
             "type": "text",
             "placeholder": {
               "en": "AA:BB:CC:DD:EE:FF",
-              "de": "AA:BB:CC:DD:EE:FF"
+              "nl": "AA:BB:CC:DD:EE:FF",
+              "de": "AA:BB:CC:DD:EE:FF",
+              "fr": "AA:BB:CC:DD:EE:FF",
+              "es": "AA:BB:CC:DD:EE:FF",
+              "it": "AA:BB:CC:DD:EE:FF",
+              "da": "AA:BB:CC:DD:EE:FF",
+              "sv": "AA:BB:CC:DD:EE:FF",
+              "no": "AA:BB:CC:DD:EE:FF",
+              "pl": "AA:BB:CC:DD:EE:FF",
+              "ru": "AA:BB:CC:DD:EE:FF",
+              "ar": "AA:BB:CC:DD:EE:FF",
+              "ko": "AA:BB:CC:DD:EE:FF"
             }
           }
         ],
@@ -804,12 +1497,32 @@
         "title": {
           "en": "Block a device",
           "nl": "Apparaat blokkeren",
-          "de": "Ein Gerät blockieren"
+          "de": "Ein Gerät blockieren",
+          "fr": "Bloquer un appareil",
+          "es": "Bloquear un dispositivo",
+          "it": "Blocca un dispositivo",
+          "da": "Bloker en enhed",
+          "sv": "Blockera en enhet",
+          "no": "Blokker en enhet",
+          "pl": "Zablokuj urządzenie",
+          "ru": "Заблокировать устройство",
+          "ar": "حظر جهاز",
+          "ko": "기기 차단"
         },
         "titleFormatted": {
           "en": "Block [[mac]] device",
           "nl": "Apparaat [[mac]] blokkeren",
-          "de": "Gerät [[mac]] blockieren"
+          "de": "Gerät [[mac]] blockieren",
+          "fr": "Bloquer l'appareil [[mac]]",
+          "es": "Bloquear el dispositivo [[mac]]",
+          "it": "Blocca il dispositivo [[mac]]",
+          "da": "Bloker enheden [[mac]]",
+          "sv": "Blockera enheten [[mac]]",
+          "no": "Blokker enheten [[mac]]",
+          "pl": "Zablokuj urządzenie [[mac]]",
+          "ru": "Заблокировать устройство [[mac]]",
+          "ar": "حظر الجهاز [[mac]]",
+          "ko": "[[mac]] 기기 차단"
         },
         "args": [
           {
@@ -822,7 +1535,18 @@
             "name": "mac",
             "placeholder": {
               "en": "AA:BB:CC:DD:EE:FF",
-              "de": "AA:BB:CC:DD:EE:FF"
+              "nl": "AA:BB:CC:DD:EE:FF",
+              "de": "AA:BB:CC:DD:EE:FF",
+              "fr": "AA:BB:CC:DD:EE:FF",
+              "es": "AA:BB:CC:DD:EE:FF",
+              "it": "AA:BB:CC:DD:EE:FF",
+              "da": "AA:BB:CC:DD:EE:FF",
+              "sv": "AA:BB:CC:DD:EE:FF",
+              "no": "AA:BB:CC:DD:EE:FF",
+              "pl": "AA:BB:CC:DD:EE:FF",
+              "ru": "AA:BB:CC:DD:EE:FF",
+              "ar": "AA:BB:CC:DD:EE:FF",
+              "ko": "AA:BB:CC:DD:EE:FF"
             }
           }
         ],
@@ -832,12 +1556,32 @@
         "title": {
           "en": "Block a device with tag",
           "nl": "Apparaat blokkeren met tag",
-          "de": "Ein Gerät mit Tag blockieren"
+          "de": "Ein Gerät mit Tag blockieren",
+          "fr": "Bloquer un appareil avec un tag",
+          "es": "Bloquear un dispositivo con etiqueta",
+          "it": "Blocca un dispositivo con tag",
+          "da": "Bloker en enhed med tag",
+          "sv": "Blockera en enhet med tagg",
+          "no": "Blokker en enhet med tagg",
+          "pl": "Zablokuj urządzenie z tagiem",
+          "ru": "Заблокировать устройство с тегом",
+          "ar": "حظر جهاز بعلامة",
+          "ko": "태그로 기기 차단"
         },
         "titleFormatted": {
           "en": "Block [[mac]] device with tag",
           "nl": "Apparaat [[mac]] blokkeren met tag",
-          "de": "Gerät [[mac]] blockieren mit Tag"
+          "de": "Gerät [[mac]] blockieren mit Tag",
+          "fr": "Bloquer l'appareil [[mac]] avec un tag",
+          "es": "Bloquear el dispositivo [[mac]] con etiqueta",
+          "it": "Blocca il dispositivo [[mac]] con tag",
+          "da": "Bloker enheden [[mac]] med tag",
+          "sv": "Blockera enheten [[mac]] med tagg",
+          "no": "Blokker enheten [[mac]] med tagg",
+          "pl": "Zablokuj urządzenie [[mac]] z tagiem",
+          "ru": "Заблокировать устройство [[mac]] с тегом",
+          "ar": "حظر الجهاز [[mac]] بعلامة",
+          "ko": "태그로 [[mac]] 기기 차단"
         },
         "args": [
           {
@@ -850,7 +1594,18 @@
             "type": "text",
             "placeholder": {
               "en": "AA:BB:CC:DD:EE:FF",
-              "de": "AA:BB:CC:DD:EE:FF"
+              "nl": "AA:BB:CC:DD:EE:FF",
+              "de": "AA:BB:CC:DD:EE:FF",
+              "fr": "AA:BB:CC:DD:EE:FF",
+              "es": "AA:BB:CC:DD:EE:FF",
+              "it": "AA:BB:CC:DD:EE:FF",
+              "da": "AA:BB:CC:DD:EE:FF",
+              "sv": "AA:BB:CC:DD:EE:FF",
+              "no": "AA:BB:CC:DD:EE:FF",
+              "pl": "AA:BB:CC:DD:EE:FF",
+              "ru": "AA:BB:CC:DD:EE:FF",
+              "ar": "AA:BB:CC:DD:EE:FF",
+              "ko": "AA:BB:CC:DD:EE:FF"
             }
           }
         ],
@@ -860,7 +1615,17 @@
         "title": {
           "en": "Reboot router",
           "nl": "Herstart router",
-          "de": "Router neu starten"
+          "de": "Router neu starten",
+          "fr": "Redémarrer le routeur",
+          "es": "Reiniciar el router",
+          "it": "Riavvia il router",
+          "da": "Genstart router",
+          "sv": "Starta om router",
+          "no": "Start ruteren på nytt",
+          "pl": "Uruchom ponownie router",
+          "ru": "Перезагрузить роутер",
+          "ar": "إعادة تشغيل الراوتر",
+          "ko": "라우터 재부팅"
         },
         "args": [
           {
@@ -875,12 +1640,32 @@
         "title": {
           "en": "Enable or disable guest wifi",
           "nl": "Gast wifi aan of uit zetten",
-          "de": "Ein- oder ausschalten des Gäste-WIFI"
+          "de": "Ein- oder ausschalten des Gäste-WIFI",
+          "fr": "Activer ou désactiver le wifi invité",
+          "es": "Activar o desactivar el wifi de invitados",
+          "it": "Attiva o disattiva il wifi ospiti",
+          "da": "Aktiver eller deaktiver gæste-wifi",
+          "sv": "Aktivera eller inaktivera gäst-wifi",
+          "no": "Aktiver eller deaktiver gjeste-wifi",
+          "pl": "Włącz lub wyłącz wifi dla gości",
+          "ru": "Включить или отключить гостевой wifi",
+          "ar": "تفعيل أو تعطيل واي فاي الضيوف",
+          "ko": "게스트 와이파이 켜기 또는 끄기"
         },
         "titleFormatted": {
           "en": "Turn [[network]] guest wifi [[on_off]]",
           "nl": "Zet [[network]] gast wifi [[on_off]]",
-          "de": "Schalten [[network]] Gäste-WIFI [[on_off]]"
+          "de": "Schalten [[network]] Gäste-WIFI [[on_off]]",
+          "fr": "Mettre le wifi invité [[network]] [[on_off]]",
+          "es": "Poner el wifi de invitados [[network]] [[on_off]]",
+          "it": "Metti il wifi ospiti [[network]] [[on_off]]",
+          "da": "Sæt [[network]] gæste-wifi [[on_off]]",
+          "sv": "Sätt [[network]] gäst-wifi [[on_off]]",
+          "no": "Sett [[network]] gjeste-wifi [[on_off]]",
+          "pl": "Ustaw wifi dla gości [[network]] [[on_off]]",
+          "ru": "Переключить гостевой wifi [[network]] [[on_off]]",
+          "ar": "قم بتبديل واي فاي الضيوف [[network]] [[on_off]]",
+          "ko": "게스트 와이파이 [[network]]를 [[on_off]]"
         },
         "args": [
           {
@@ -897,7 +1682,17 @@
                 "label": {
                   "en": "2.4GHz",
                   "nl": "2.4GHz",
-                  "de": "2,4 GHz"
+                  "de": "2,4 GHz",
+                  "fr": "2,4 GHz",
+                  "es": "2,4 GHz",
+                  "it": "2,4 GHz",
+                  "da": "2,4 GHz",
+                  "sv": "2,4 GHz",
+                  "no": "2,4 GHz",
+                  "pl": "2,4 GHz",
+                  "ru": "2,4 GHz",
+                  "ar": "2.4GHz",
+                  "ko": "2.4GHz"
                 }
               },
               {
@@ -905,7 +1700,17 @@
                 "label": {
                   "en": "5GHz",
                   "nl": "5GHz",
-                  "de": "5 GHz"
+                  "de": "5 GHz",
+                  "fr": "5 GHz",
+                  "es": "5 GHz",
+                  "it": "5 GHz",
+                  "da": "5 GHz",
+                  "sv": "5 GHz",
+                  "no": "5 GHz",
+                  "pl": "5 GHz",
+                  "ru": "5 GHz",
+                  "ar": "5GHz",
+                  "ko": "5GHz"
                 }
               },
               {
@@ -913,7 +1718,17 @@
                 "label": {
                   "en": "2.4GHz-2",
                   "nl": "2.4GHz-2",
-                  "de": "2,4 GHz-2"
+                  "de": "2,4 GHz-2",
+                  "fr": "2,4 GHz-2",
+                  "es": "2,4 GHz-2",
+                  "it": "2,4 GHz-2",
+                  "da": "2,4 GHz-2",
+                  "sv": "2,4 GHz-2",
+                  "no": "2,4 GHz-2",
+                  "pl": "2,4 GHz-2",
+                  "ru": "2,4 GHz-2",
+                  "ar": "2.4GHz-2",
+                  "ko": "2.4GHz-2"
                 }
               },
               {
@@ -921,7 +1736,17 @@
                 "label": {
                   "en": "5GHz-2",
                   "nl": "5GHz-2",
-                  "de": "5 GHz-2"
+                  "de": "5 GHz-2",
+                  "fr": "5 GHz-2",
+                  "es": "5 GHz-2",
+                  "it": "5 GHz-2",
+                  "da": "5 GHz-2",
+                  "sv": "5 GHz-2",
+                  "no": "5 GHz-2",
+                  "pl": "5 GHz-2",
+                  "ru": "5 GHz-2",
+                  "ar": "5GHz-2",
+                  "ko": "5GHz-2"
                 }
               }
             ]
@@ -935,7 +1760,17 @@
                 "label": {
                   "en": "Enable",
                   "nl": "Aan",
-                  "de": "An"
+                  "de": "An",
+                  "fr": "Activer",
+                  "es": "Activar",
+                  "it": "Attiva",
+                  "da": "Aktiver",
+                  "sv": "Aktivera",
+                  "no": "Aktiver",
+                  "pl": "Włącz",
+                  "ru": "Включить",
+                  "ar": "تفعيل",
+                  "ko": "켜기"
                 }
               },
               {
@@ -943,7 +1778,17 @@
                 "label": {
                   "en": "Disable",
                   "nl": "Uit",
-                  "de": "Aus"
+                  "de": "Aus",
+                  "fr": "Désactiver",
+                  "es": "Desactivar",
+                  "it": "Disattiva",
+                  "da": "Deaktiver",
+                  "sv": "Inaktivera",
+                  "no": "Deaktiver",
+                  "pl": "Wyłącz",
+                  "ru": "Отключить",
+                  "ar": "تعطيل",
+                  "ko": "끄기"
                 }
               }
             ]
@@ -955,7 +1800,17 @@
         "title": {
           "en": "Start internet speed test",
           "nl": "Doe internet snelheidstest",
-          "de": "Starte Internet-Geschwindigkeitstest"
+          "de": "Starte Internet-Geschwindigkeitstest",
+          "fr": "Démarrer un test de vitesse internet",
+          "es": "Iniciar prueba de velocidad de internet",
+          "it": "Avvia il test di velocità internet",
+          "da": "Start internethastighedstest",
+          "sv": "Starta internethastighetstest",
+          "no": "Start internetthastighetstest",
+          "pl": "Rozpocznij test prędkości internetu",
+          "ru": "Запустить тест скорости интернета",
+          "ar": "بدء اختبار سرعة الإنترنت",
+          "ko": "인터넷 속도 테스트 시작"
         },
         "args": [
           {
@@ -970,7 +1825,17 @@
         "title": {
           "en": "Update router firmware",
           "nl": "Update router firmware",
-          "de": "Update Router-Firmware"
+          "de": "Update Router-Firmware",
+          "fr": "Mettre à jour le firmware du routeur",
+          "es": "Actualizar firmware del router",
+          "it": "Aggiorna il firmware del router",
+          "da": "Opdater router-firmware",
+          "sv": "Uppdatera routerns firmware",
+          "no": "Oppdater ruterens firmware",
+          "pl": "Zaktualizuj firmware routera",
+          "ru": "Обновить прошивку роутера",
+          "ar": "تحديث برنامج الراوتر الثابت",
+          "ko": "라우터 펌웨어 업데이트"
         },
         "args": [
           {
@@ -985,12 +1850,32 @@
         "title": {
           "en": "WakeOnLan",
           "nl": "WakeOnLan",
-          "de": "WakeOnLan"
+          "de": "WakeOnLan",
+          "fr": "WakeOnLan",
+          "es": "WakeOnLan",
+          "it": "WakeOnLan",
+          "da": "WakeOnLan",
+          "sv": "WakeOnLan",
+          "no": "WakeOnLan",
+          "pl": "WakeOnLan",
+          "ru": "WakeOnLan",
+          "ar": "WakeOnLan",
+          "ko": "WakeOnLan"
         },
         "titleFormatted": {
           "en": "WakeOnLan [[mac]] [[password]]",
           "nl": "WakeOnLan [[mac]] [[password]]",
-          "de": "WakeOnLan [[mac]] [[password]]"
+          "de": "WakeOnLan [[mac]] [[password]]",
+          "fr": "WakeOnLan [[mac]] [[password]]",
+          "es": "WakeOnLan [[mac]] [[password]]",
+          "it": "WakeOnLan [[mac]] [[password]]",
+          "da": "WakeOnLan [[mac]] [[password]]",
+          "sv": "WakeOnLan [[mac]] [[password]]",
+          "no": "WakeOnLan [[mac]] [[password]]",
+          "pl": "WakeOnLan [[mac]] [[password]]",
+          "ru": "WakeOnLan [[mac]] [[password]]",
+          "ar": "WakeOnLan [[mac]] [[password]]",
+          "ko": "WakeOnLan [[mac]] [[password]]"
         },
         "args": [
           {
@@ -1004,10 +1889,32 @@
             "title": {
               "en": "Which device (mac address)",
               "nl": "Welk apparaat (mac address)",
-              "de": "Welches Gerät (MAC-Adresse)"
+              "de": "Welches Gerät (MAC-Adresse)",
+              "fr": "Quel appareil (adresse mac)",
+              "es": "Qué dispositivo (dirección mac)",
+              "it": "Quale dispositivo (indirizzo mac)",
+              "da": "Hvilken enhed (mac-adresse)",
+              "sv": "Vilken enhet (mac-adress)",
+              "no": "Hvilken enhet (mac-adresse)",
+              "pl": "Które urządzenie (adres mac)",
+              "ru": "Какое устройство (mac-адрес)",
+              "ar": "أي جهاز (عنوان mac)",
+              "ko": "어느 기기 (mac 주소)"
             },
             "placeholder": {
-              "en": "AA:BB:CC:DD:EE:FF"
+              "en": "AA:BB:CC:DD:EE:FF",
+              "nl": "AA:BB:CC:DD:EE:FF",
+              "de": "AA:BB:CC:DD:EE:FF",
+              "fr": "AA:BB:CC:DD:EE:FF",
+              "es": "AA:BB:CC:DD:EE:FF",
+              "it": "AA:BB:CC:DD:EE:FF",
+              "da": "AA:BB:CC:DD:EE:FF",
+              "sv": "AA:BB:CC:DD:EE:FF",
+              "no": "AA:BB:CC:DD:EE:FF",
+              "pl": "AA:BB:CC:DD:EE:FF",
+              "ru": "AA:BB:CC:DD:EE:FF",
+              "ar": "AA:BB:CC:DD:EE:FF",
+              "ko": "AA:BB:CC:DD:EE:FF"
             }
           },
           {
@@ -1016,10 +1923,32 @@
             "title": {
               "en": "Password or use 00:00:00:00:00:00",
               "nl": "Password of gebruik 00:00:00:00:00:00",
-              "de": "Passwort oder 00:00:00:00:00:00"
+              "de": "Passwort oder 00:00:00:00:00:00",
+              "fr": "Mot de passe ou utilisez 00:00:00:00:00:00",
+              "es": "Contraseña o usa 00:00:00:00:00:00",
+              "it": "Password oppure usa 00:00:00:00:00:00",
+              "da": "Adgangskode eller brug 00:00:00:00:00:00",
+              "sv": "Lösenord eller använd 00:00:00:00:00:00",
+              "no": "Passord eller bruk 00:00:00:00:00:00",
+              "pl": "Hasło lub użyj 00:00:00:00:00:00",
+              "ru": "Пароль или используйте 00:00:00:00:00:00",
+              "ar": "كلمة المرور أو استخدم 00:00:00:00:00:00",
+              "ko": "비밀번호 또는 00:00:00:00:00:00 사용"
             },
             "placeholder": {
-              "en": "00:00:00:00:00:00"
+              "en": "00:00:00:00:00:00",
+              "nl": "00:00:00:00:00:00",
+              "de": "00:00:00:00:00:00",
+              "fr": "00:00:00:00:00:00",
+              "es": "00:00:00:00:00:00",
+              "it": "00:00:00:00:00:00",
+              "da": "00:00:00:00:00:00",
+              "sv": "00:00:00:00:00:00",
+              "no": "00:00:00:00:00:00",
+              "pl": "00:00:00:00:00:00",
+              "ru": "00:00:00:00:00:00",
+              "ar": "00:00:00:00:00:00",
+              "ko": "00:00:00:00:00:00"
             },
             "value": "00:00:00:00:00:00"
           }
@@ -1033,7 +1962,17 @@
       "name": {
         "en": "Attached device",
         "nl": "Verbonden apparaat",
-        "de": "Verbundene Geräte"
+        "de": "Verbundene Geräte",
+        "fr": "Appareil connecté",
+        "es": "Dispositivo conectado",
+        "it": "Dispositivo collegato",
+        "da": "Tilsluttet enhed",
+        "sv": "Ansluten enhet",
+        "no": "Tilkoblet enhet",
+        "pl": "Podłączone urządzenie",
+        "ru": "Подключенное устройство",
+        "ar": "الجهاز المتصل",
+        "ko": "연결된 장치"
       },
       "images": {
         "large": "drivers/attached_device/assets/images/large.jpg",
@@ -1078,14 +2017,36 @@
           "label": {
             "en": "Device information",
             "nl": "Apparaat informatie",
-            "de": "Geräteinformation"
+            "de": "Geräteinformation",
+            "fr": "Informations sur l'appareil",
+            "es": "Información del dispositivo",
+            "it": "Informazioni sul dispositivo",
+            "da": "Enhedsoplysninger",
+            "sv": "Enhetsinformation",
+            "no": "Enhetsinformasjon",
+            "pl": "Informacje o urządzeniu",
+            "ru": "Информация об устройстве",
+            "ar": "معلومات الجهاز",
+            "ko": "장치 정보"
           },
           "children": [
             {
               "id": "mac",
               "type": "label",
               "label": {
-                "en": "MAC"
+                "en": "MAC",
+                "nl": "MAC",
+                "de": "MAC",
+                "fr": "MAC",
+                "es": "MAC",
+                "it": "MAC",
+                "da": "MAC",
+                "sv": "MAC",
+                "no": "MAC",
+                "pl": "MAC",
+                "ru": "MAC",
+                "ar": "MAC",
+                "ko": "MAC"
               },
               "value": "unknown"
             },
@@ -1095,7 +2056,17 @@
               "label": {
                 "en": "Source router model",
                 "nl": "Bron router type",
-                "de": "Modell Ausgangsrouter"
+                "de": "Modell Ausgangsrouter",
+                "fr": "Modèle du routeur source",
+                "es": "Modelo del router de origen",
+                "it": "Modello del router di origine",
+                "da": "Kilde router model",
+                "sv": "Käll-routerns modell",
+                "no": "Kilde-ruterens modell",
+                "pl": "Model routera źródłowego",
+                "ru": "Модель исходного маршрутизатора",
+                "ar": "طراز الراوتر المصدر",
+                "ko": "소스 라우터 모델"
               },
               "value": "unknown"
             },
@@ -1105,12 +2076,32 @@
               "label": {
                 "en": "Source router ID",
                 "nl": "Bron router ID",
-                "de": "IP des Ausgangsrouters"
+                "de": "IP des Ausgangsrouters",
+                "fr": "ID du routeur source",
+                "es": "ID del router de origen",
+                "it": "ID del router di origine",
+                "da": "Kilde router ID",
+                "sv": "Käll-routerns ID",
+                "no": "Kilde-ruterens ID",
+                "pl": "ID routera źródłowego",
+                "ru": "ID исходного маршрутизатора",
+                "ar": "معرف الراوتر المصدر",
+                "ko": "소스 라우터 ID"
               },
               "hint": {
                 "en": "This is the serial number of the router that provides the on/offline status",
                 "nl": "Dit is het serienummer van de router die de on/offline status verzorgt",
-                "de": "Dies ist die Seriennummer des Routers, die den On-/Offline-Status angibt."
+                "de": "Dies ist die Seriennummer des Routers, die den On-/Offline-Status angibt.",
+                "fr": "Ceci est le numéro de série du routeur qui fournit le statut en/hors ligne",
+                "es": "Este es el número de serie del router que proporciona el estado en línea/fuera de línea",
+                "it": "Questo è il numero di serie del router che fornisce lo stato online/offline",
+                "da": "Dette er serienummeret på den router, der leverer online/offline-status",
+                "sv": "Detta är serienumret på routern som tillhandahåller online/offline-status",
+                "no": "Dette er serienummeret til ruteren som gir online/offline-status",
+                "pl": "To jest numer seryjny routera, który dostarcza status online/offline",
+                "ru": "Это серийный номер маршрутизатора, который предоставляет статус онлайн/офлайн",
+                "ar": "هذا هو الرقم التسلسلي لجهاز الراوتر الذي يوفر حالة الاتصال/عدم الاتصال",
+                "ko": "이것은 온라인/오프라인 상태를 제공하는 라우터의 일련번호입니다"
               },
               "value": "unknown"
             }
@@ -1121,19 +2112,51 @@
           "label": {
             "en": "Aliases",
             "nl": "Aliassen",
-            "de": "Aliase"
+            "de": "Aliase",
+            "fr": "Alias",
+            "es": "Alias",
+            "it": "Alias",
+            "da": "Aliaser",
+            "sv": "Alias",
+            "no": "Alias",
+            "pl": "Aliasy",
+            "ru": "Псевдонимы",
+            "ar": "الأسماء المستعارة",
+            "ko": "별칭"
           },
           "children": [
             {
               "id": "alias1",
               "type": "text",
               "label": {
-                "en": "Alias MAC 1"
+                "en": "Alias MAC 1",
+                "nl": "Alias MAC 1",
+                "de": "Alias MAC 1",
+                "fr": "Alias MAC 1",
+                "es": "Alias MAC 1",
+                "it": "Alias MAC 1",
+                "da": "Alias MAC 1",
+                "sv": "Alias MAC 1",
+                "no": "Alias MAC 1",
+                "pl": "Alias MAC 1",
+                "ru": "Алиас MAC 1",
+                "ar": "بديل MAC 1",
+                "ko": "별칭 MAC 1"
               },
               "hint": {
                 "en": "Additional MAC address of the same device.",
                 "nl": "Extra MAC-adres van hetzelfde apparaat.",
-                "de": "Zusätzliche MAC-Adresse des gleichen Geräts."
+                "de": "Zusätzliche MAC-Adresse des gleichen Geräts.",
+                "fr": "Adresse MAC supplémentaire du même appareil.",
+                "es": "Dirección MAC adicional del mismo dispositivo.",
+                "it": "Indirizzo MAC aggiuntivo dello stesso dispositivo.",
+                "da": "Yderligere MAC-adresse på samme enhed.",
+                "sv": "Ytterligare MAC-adress för samma enhet.",
+                "no": "Ytterligere MAC-adresse for samme enhet.",
+                "pl": "Dodatkowy adres MAC tego samego urządzenia.",
+                "ru": "Дополнительный MAC-адрес того же устройства.",
+                "ar": "عنوان MAC إضافي لنفس الجهاز.",
+                "ko": "동일한 장치의 추가 MAC 주소입니다."
               },
               "value": ""
             },
@@ -1141,12 +2164,34 @@
               "id": "alias2",
               "type": "text",
               "label": {
-                "en": "Alias MAC 2"
+                "en": "Alias MAC 2",
+                "nl": "Alias MAC 2",
+                "de": "Alias MAC 2",
+                "fr": "Alias MAC 2",
+                "es": "Alias MAC 2",
+                "it": "Alias MAC 2",
+                "da": "Alias MAC 2",
+                "sv": "Alias MAC 2",
+                "no": "Alias MAC 2",
+                "pl": "Alias MAC 2",
+                "ru": "Алиас MAC 2",
+                "ar": "بديل MAC 2",
+                "ko": "별칭 MAC 2"
               },
               "hint": {
                 "en": "Additional MAC address of the same device.",
                 "nl": "Extra MAC-adres van hetzelfde apparaat.",
-                "de": "Zusätzliche MAC-Adresse des gleichen Geräts."
+                "de": "Zusätzliche MAC-Adresse des gleichen Geräts.",
+                "fr": "Adresse MAC supplémentaire du même appareil.",
+                "es": "Dirección MAC adicional del mismo dispositivo.",
+                "it": "Indirizzo MAC aggiuntivo dello stesso dispositivo.",
+                "da": "Yderligere MAC-adresse på samme enhed.",
+                "sv": "Ytterligare MAC-adress för samma enhet.",
+                "no": "Ytterligere MAC-adresse for samme enhet.",
+                "pl": "Dodatkowy adres MAC tego samego urządzenia.",
+                "ru": "Дополнительный MAC-адрес того же устройства.",
+                "ar": "عنوان MAC إضافي لنفس الجهاز.",
+                "ko": "동일한 장치의 추가 MAC 주소입니다."
               },
               "value": ""
             },
@@ -1154,12 +2199,34 @@
               "id": "alias3",
               "type": "text",
               "label": {
-                "en": "Alias MAC 3"
+                "en": "Alias MAC 3",
+                "nl": "Alias MAC 3",
+                "de": "Alias MAC 3",
+                "fr": "Alias MAC 3",
+                "es": "Alias MAC 3",
+                "it": "Alias MAC 3",
+                "da": "Alias MAC 3",
+                "sv": "Alias MAC 3",
+                "no": "Alias MAC 3",
+                "pl": "Alias MAC 3",
+                "ru": "Алиас MAC 3",
+                "ar": "بديل MAC 3",
+                "ko": "별칭 MAC 3"
               },
               "hint": {
                 "en": "Additional MAC address of the same device.",
                 "nl": "Extra MAC-adres van hetzelfde apparaat.",
-                "de": "Zusätzliche MAC-Adresse des gleichen Geräts."
+                "de": "Zusätzliche MAC-Adresse des gleichen Geräts.",
+                "fr": "Adresse MAC supplémentaire du même appareil.",
+                "es": "Dirección MAC adicional del mismo dispositivo.",
+                "it": "Indirizzo MAC aggiuntivo dello stesso dispositivo.",
+                "da": "Yderligere MAC-adresse på samme enhed.",
+                "sv": "Ytterligare MAC-adress för samma enhet.",
+                "no": "Ytterligere MAC-adresse for samme enhet.",
+                "pl": "Dodatkowy adres MAC tego samego urządzenia.",
+                "ru": "Дополнительный MAC-адрес того же устройства.",
+                "ar": "عنوان MAC إضافي لنفس الجهاز.",
+                "ko": "동일한 장치의 추가 MAC 주소입니다."
               },
               "value": ""
             },
@@ -1167,12 +2234,34 @@
               "id": "alias4",
               "type": "text",
               "label": {
-                "en": "Alias MAC 4"
+                "en": "Alias MAC 4",
+                "nl": "Alias MAC 4",
+                "de": "Alias MAC 4",
+                "fr": "Alias MAC 4",
+                "es": "Alias MAC 4",
+                "it": "Alias MAC 4",
+                "da": "Alias MAC 4",
+                "sv": "Alias MAC 4",
+                "no": "Alias MAC 4",
+                "pl": "Alias MAC 4",
+                "ru": "Алиас MAC 4",
+                "ar": "بديل MAC 4",
+                "ko": "별칭 MAC 4"
               },
               "hint": {
                 "en": "Additional MAC address of the same device.",
                 "nl": "Extra MAC-adres van hetzelfde apparaat.",
-                "de": "Zusätzliche MAC-Adresse des gleichen Geräts."
+                "de": "Zusätzliche MAC-Adresse des gleichen Geräts.",
+                "fr": "Adresse MAC supplémentaire du même appareil.",
+                "es": "Dirección MAC adicional del mismo dispositivo.",
+                "it": "Indirizzo MAC aggiuntivo dello stesso dispositivo.",
+                "da": "Yderligere MAC-adresse på samme enhed.",
+                "sv": "Ytterligare MAC-adress för samma enhet.",
+                "no": "Ytterligere MAC-adresse for samme enhet.",
+                "pl": "Dodatkowy adres MAC tego samego urządzenia.",
+                "ru": "Дополнительный MAC-адрес того же устройства.",
+                "ar": "عنوان MAC إضافي لنفس الجهاز.",
+                "ko": "동일한 장치의 추가 MAC 주소입니다."
               },
               "value": ""
             }
@@ -1183,7 +2272,17 @@
           "label": {
             "en": "Presence settings",
             "nl": "Aanwezigheid instellingen",
-            "de": "Anwesenheitseinstellungen"
+            "de": "Anwesenheitseinstellungen",
+            "fr": "Paramètres de présence",
+            "es": "Ajustes de presencia",
+            "it": "Impostazioni di presenza",
+            "da": "Tilstedeværelsesindstillinger",
+            "sv": "Närvaroinställningar",
+            "no": "Tilstedeværelsesinnstillinger",
+            "pl": "Ustawienia obecności",
+            "ru": "Настройки присутствия",
+            "ar": "إعدادات الحضور",
+            "ko": "재실 설정"
           },
           "children": [
             {
@@ -1192,12 +2291,32 @@
               "label": {
                 "en": "Offline after (seconds)",
                 "nl": "Offline na (seconden)",
-                "de": "Offline nach (Sekunden)"
+                "de": "Offline nach (Sekunden)",
+                "fr": "Hors ligne après (secondes)",
+                "es": "Fuera de línea después de (segundos)",
+                "it": "Offline dopo (secondi)",
+                "da": "Offline efter (sekunder)",
+                "sv": "Offline efter (sekunder)",
+                "no": "Offline etter (sekunder)",
+                "pl": "Offline po (sekundy)",
+                "ru": "Офлайн через (секунды)",
+                "ar": "غير متصل بعد (ثوانٍ)",
+                "ko": "오프라인 처리 시간 (초)"
               },
               "hint": {
                 "en": "Reducing this value will result in faster 'offline' status. If the device is on a wired connection, or if you have a very (very!) stable wifi, you can even set this value to 0.",
                 "nl": "Een lagere waarde leidt tot snellere 'offline' status. Als het apparaat bedraad is aangesloten, of als je een zeer (zeer!) stabiele wifi hebt, kan de waarde zelfs op 0 worden gezet.",
-                "de": "Eine Verringerung dieses Wertes führt zu einem schnelleren 'Offline'-Status. Wenn das Gerät über eine kabelgebundene Verbindung verfügt, oder wenn Sie ein sehr (sehr!) stabiles WLAN haben, können Sie diesen Wert sogar auf 0 setzen."
+                "de": "Eine Verringerung dieses Wertes führt zu einem schnelleren 'Offline'-Status. Wenn das Gerät über eine kabelgebundene Verbindung verfügt, oder wenn Sie ein sehr (sehr!) stabiles WLAN haben, können Sie diesen Wert sogar auf 0 setzen.",
+                "fr": "Réduire cette valeur entraînera un statut 'hors ligne' plus rapide. Si l'appareil est sur une connexion filaire, ou si vous avez un wifi très (très !) stable, vous pouvez même définir cette valeur à 0.",
+                "es": "Reducir este valor dará como resultado un estado 'fuera de línea' más rápido. Si el dispositivo está en una conexión por cable, o si tiene un wifi muy (¡muy!) estable, incluso puede establecer este valor en 0.",
+                "it": "Ridurre questo valore comporterà uno stato 'offline' più rapido. Se il dispositivo è collegato via cavo, o se hai un wifi molto (molto!) stabile, puoi persino impostare questo valore su 0.",
+                "da": "Hvis du reducerer denne værdi, vil det resultere i hurtigere 'offline'-status. Hvis enheden har en kabelforbindelse, eller hvis du har en meget (meget!) stabil wifi, kan du endda sætte denne værdi til 0.",
+                "sv": "Att minska detta värde resulterar i snabbare 'offline'-status. Om enheten har en trådbunden anslutning, eller om du har ett mycket (mycket!) stabilt wifi, kan du till och med sätta detta värde till 0.",
+                "no": "Å redusere denne verdien vil resultere i raskere 'offline'-status. Hvis enheten har en kablet tilkobling, eller hvis du har en veldig (veldig!) stabil wifi, kan du til og med sette denne verdien til 0.",
+                "pl": "Zmniejszenie tej wartości spowoduje szybszy status 'offline'. Jeśli urządzenie jest podłączone przewodowo lub masz bardzo (bardzo!) stabilne wifi, możesz nawet ustawić tę wartość na 0.",
+                "ru": "Уменьшение этого значения приведет к более быстрому переходу в статус 'офлайн'. Если устройство подключено по проводу, или если у вас очень (очень!) стабильный wifi, вы можете даже установить это значение на 0.",
+                "ar": "سيؤدي تقليل هذه القيمة إلى حالة 'غير متصل' أسرع. إذا كان الجهاز متصلاً بشكل سلكي، أو إذا كان لديك واي فاي مستقر جدًا (جدًا!)، يمكنك حتى تعيين هذه القيمة إلى 0.",
+                "ko": "이 값을 줄이면 '오프라인' 상태가 더 빨리 표시됩니다. 장치가 유선 연결이거나 매우 (매우!) 안정적인 와이파이를 사용하는 경우 이 값을 0으로 설정할 수도 있습니다."
               },
               "attr": {
                 "min": 0
@@ -1211,7 +2330,17 @@
           "label": {
             "en": "Device functionality",
             "nl": "Apparaat functionaliteit",
-            "de": "Gerätefunktionalität"
+            "de": "Gerätefunktionalität",
+            "fr": "Fonctionnalité de l'appareil",
+            "es": "Funcionalidad del dispositivo",
+            "it": "Funzionalità del dispositivo",
+            "da": "Enhedsfunktionalitet",
+            "sv": "Enhetsfunktionalitet",
+            "no": "Enhetsfunksjonalitet",
+            "pl": "Funkcjonalność urządzenia",
+            "ru": "Функциональность устройства",
+            "ar": "وظائف الجهاز",
+            "ko": "장치 기능"
           },
           "children": [
             {
@@ -1220,7 +2349,17 @@
               "label": {
                 "en": "Report Wifi link info",
                 "nl": "Rapporteer Wifi link info",
-                "de": "Bericht Wifi Link-Info"
+                "de": "Bericht Wifi Link-Info",
+                "fr": "Signaler les infos de liaison Wifi",
+                "es": "Informar datos de enlace Wifi",
+                "it": "Segnala informazioni sul collegamento Wifi",
+                "da": "Rapporter Wifi-forbindelsesinfo",
+                "sv": "Rapportera Wifi-länkinfo",
+                "no": "Rapporter Wifi-tilkoblingsinfo",
+                "pl": "Zgłaszaj informacje o połączeniu Wifi",
+                "ru": "Сообщать информацию о Wi-Fi соединении",
+                "ar": "الإبلاغ عن معلومات اتصال Wifi",
+                "ko": "Wifi 링크 정보 보고"
               },
               "value": false
             },
@@ -1230,12 +2369,32 @@
               "label": {
                 "en": "Report Up/Down bandwidth",
                 "nl": "Rapporteer Up/Down bandbreedte",
-                "de": "Bericht Up/Down Bandbreite"
+                "de": "Bericht Up/Down Bandbreite",
+                "fr": "Signaler la bande passante montante/descendante",
+                "es": "Informar ancho de banda de subida/bajada",
+                "it": "Segnala larghezza di banda Up/Down",
+                "da": "Rapporter Op/Ned-båndbredde",
+                "sv": "Rapportera upp/ner-bandbredd",
+                "no": "Rapporter opp/ned-båndbredde",
+                "pl": "Zgłaszaj przepustowość Up/Down",
+                "ru": "Сообщать пропускную способность Up/Down",
+                "ar": "الإبلاغ عن نطاق ترددي للتحميل/التنزيل",
+                "ko": "업/다운 대역폭 보고"
               },
               "hint": {
                 "en": "Note that it is very unlikely that bandwidth info is reported by the router.",
                 "nl": "Let op: het is zeer onwaarschijnlijk dat bandbreedte-informatie door de router wordt gerapporteerd.",
-                "de": "Beachten Sie, dass es sehr unwahrscheinlich ist, dass Bandbreiteninformationen vom Router gemeldet werden."
+                "de": "Beachten Sie, dass es sehr unwahrscheinlich ist, dass Bandbreiteninformationen vom Router gemeldet werden.",
+                "fr": "Notez qu'il est très peu probable que les informations de bande passante soient signalées par le routeur.",
+                "es": "Tenga en cuenta que es muy poco probable que el router informe la información de ancho de banda.",
+                "it": "Nota che è molto improbabile che le informazioni sulla larghezza di banda vengano segnalate dal router.",
+                "da": "Bemærk, at det er meget usandsynligt, at båndbreddeoplysninger rapporteres af routeren.",
+                "sv": "Observera att det är mycket osannolikt att bandbreddsinformation rapporteras av routern.",
+                "no": "Merk at det er svært usannsynlig at båndbreddeinformasjon rapporteres av ruteren.",
+                "pl": "Należy pamiętać, że jest bardzo mało prawdopodobne, aby informacje o przepustowości były zgłaszane przez router.",
+                "ru": "Обратите внимание, что маловероятно, что информация о пропускной способности будет предоставлена маршрутизатором.",
+                "ar": "لاحظ أنه من غير المرجح جدًا أن يقوم الراوتر بالإبلاغ عن معلومات النطاق الترددي.",
+                "ko": "라우터가 대역폭 정보를 보고할 가능성은 매우 낮다는 점에 유의하세요."
               },
               "value": false
             },
@@ -1245,12 +2404,32 @@
               "label": {
                 "en": "Report Energy",
                 "nl": "Rapporteer energie",
-                "de": "Bericht Energie"
+                "de": "Bericht Energie",
+                "fr": "Signaler l'énergie",
+                "es": "Informar energía",
+                "it": "Segnala energia",
+                "da": "Rapporter energi",
+                "sv": "Rapportera energi",
+                "no": "Rapporter energi",
+                "pl": "Zgłaszaj energię",
+                "ru": "Сообщать энергию",
+                "ar": "الإبلاغ عن الطاقة",
+                "ko": "에너지 보고"
               },
               "hint": {
                 "en": "Report on/off energy values to Homey Energy",
                 "nl": "Rapporteer aan/uit energy waarden naar Homey Energy",
-                "de": "Ein-/Aus-Energiewerte an Homey Energy melden"
+                "de": "Ein-/Aus-Energiewerte an Homey Energy melden",
+                "fr": "Signaler les valeurs d'énergie marche/arrêt à Homey Energy",
+                "es": "Informar valores de energía encendido/apagado a Homey Energy",
+                "it": "Segnala i valori di energia on/off a Homey Energy",
+                "da": "Rapporter til/fra energiværdier til Homey Energy",
+                "sv": "Rapportera på/av-energivärden till Homey Energy",
+                "no": "Rapporter på/av-energiverdier til Homey Energy",
+                "pl": "Zgłaszaj wartości energii wł./wył. do Homey Energy",
+                "ru": "Сообщать значения энергии вкл/выкл в Homey Energy",
+                "ar": "الإبلاغ عن قيم الطاقة تشغيل/إيقاف إلى Homey Energy",
+                "ko": "Homey Energy에 켜기/끄기 에너지 값 보고"
               },
               "value": false
             }
@@ -1269,7 +2448,17 @@
       "name": {
         "en": " Router",
         "nl": " Router",
-        "de": " Router"
+        "de": " Router",
+        "fr": " Routeur",
+        "es": " Router",
+        "it": " Router",
+        "da": " Router",
+        "sv": " Router",
+        "no": " Router",
+        "pl": " Router",
+        "ru": " Роутер",
+        "ar": " راوتر",
+        "ko": " 라우터"
       },
       "images": {
         "large": "drivers/netgear/assets/images/large.jpg",
@@ -1289,22 +2478,62 @@
           "title": {
             "en": "Internet disconnected",
             "nl": "Internet verbroken",
-            "de": "Internet unterbrochen"
+            "de": "Internet unterbrochen",
+            "fr": "Internet déconnecté",
+            "es": "Internet desconectado",
+            "it": "Internet disconnesso",
+            "da": "Internet afbrudt",
+            "sv": "Internet frånkopplat",
+            "no": "Internett frakoblet",
+            "pl": "Internet rozłączony",
+            "ru": "Интернет отключен",
+            "ar": "الإنترنت غير متصل",
+            "ko": "인터넷 연결 끊김"
           },
           "desc": {
             "en": "Internet disconnected alarm",
             "nl": "Internet verbroken alarm",
-            "de": "Internet unterbrochen Alarm"
+            "de": "Internet unterbrochen Alarm",
+            "fr": "Alarme Internet déconnecté",
+            "es": "Alarma de Internet desconectado",
+            "it": "Allarme Internet disconnesso",
+            "da": "Internet afbrudt alarm",
+            "sv": "Internet frånkopplat larm",
+            "no": "Internett frakoblet-alarm",
+            "pl": "Alarm rozłączenia internetu",
+            "ru": "Аварийный сигнал отключения интернета",
+            "ar": "إنذار انقطاع الإنترنت",
+            "ko": "인터넷 연결 끊김 알람"
           },
           "insightsTitleTrue": {
             "en": "Internet disconnected",
             "nl": "Internet verbroken",
-            "de": "Internet unterbrochen"
+            "de": "Internet unterbrochen",
+            "fr": "Internet déconnecté",
+            "es": "Internet desconectado",
+            "it": "Internet disconnesso",
+            "da": "Internet afbrudt",
+            "sv": "Internet frånkopplat",
+            "no": "Internett frakoblet",
+            "pl": "Internet rozłączony",
+            "ru": "Интернет отключен",
+            "ar": "الإنترنت غير متصل",
+            "ko": "인터넷 연결 끊김"
           },
           "insightsTitleFalse": {
             "en": "Internet connected",
             "nl": "Internet verbonden",
-            "de": "Internet verbunden"
+            "de": "Internet verbunden",
+            "fr": "Internet connecté",
+            "es": "Internet conectado",
+            "it": "Internet connesso",
+            "da": "Internet forbundet",
+            "sv": "Internet anslutet",
+            "no": "Internett tilkoblet",
+            "pl": "Internet połączony",
+            "ru": "Интернет подключен",
+            "ar": "الإنترنت متصل",
+            "ko": "인터넷 연결됨"
           }
         }
       },
@@ -1327,7 +2556,17 @@
           "label": {
             "en": "Router information",
             "nl": "Router informatie",
-            "de": "Router-Information"
+            "de": "Router-Information",
+            "fr": "Informations du routeur",
+            "es": "Información del router",
+            "it": "Informazioni router",
+            "da": "Router information",
+            "sv": "Routerinformation",
+            "no": "Ruterinformasjon",
+            "pl": "Informacje o routerze",
+            "ru": "Информация о роутере",
+            "ar": "معلومات الراوتر",
+            "ko": "라우터 정보"
           },
           "children": [
             {
@@ -1336,7 +2575,17 @@
               "label": {
                 "en": "Model",
                 "nl": "Type",
-                "de": "Modell"
+                "de": "Modell",
+                "fr": "Modèle",
+                "es": "Modelo",
+                "it": "Modello",
+                "da": "Model",
+                "sv": "Modell",
+                "no": "Modell",
+                "pl": "Model",
+                "ru": "Модель",
+                "ar": "الطراز",
+                "ko": "모델"
               },
               "value": "unknown"
             },
@@ -1346,7 +2595,17 @@
               "label": {
                 "en": "Serial number",
                 "nl": "Serienummer",
-                "de": "Seriennummer"
+                "de": "Seriennummer",
+                "fr": "Numéro de série",
+                "es": "Número de serie",
+                "it": "Numero di serie",
+                "da": "Serienummer",
+                "sv": "Serienummer",
+                "no": "Serienummer",
+                "pl": "Numer seryjny",
+                "ru": "Серийный номер",
+                "ar": "الرقم التسلسلي",
+                "ko": "일련 번호"
               },
               "value": "unknown"
             },
@@ -1356,7 +2615,17 @@
               "label": {
                 "en": "Firmware version",
                 "nl": "Firmware versie",
-                "de": "Firmware Version"
+                "de": "Firmware Version",
+                "fr": "Version du firmware",
+                "es": "Versión de firmware",
+                "it": "Versione firmware",
+                "da": "Firmwareversion",
+                "sv": "Firmwareversion",
+                "no": "Firmwareversjon",
+                "pl": "Wersja firmware",
+                "ru": "Версия прошивки",
+                "ar": "إصدار البرنامج الثابت",
+                "ko": "펌웨어 버전"
               },
               "value": "unknown"
             },
@@ -1366,7 +2635,17 @@
               "label": {
                 "en": "Device mode",
                 "nl": "Apparaat modus",
-                "de": "Gerätemodus"
+                "de": "Gerätemodus",
+                "fr": "Mode de l'appareil",
+                "es": "Modo del dispositivo",
+                "it": "Modalità dispositivo",
+                "da": "Enhedstilstand",
+                "sv": "Enhetsläge",
+                "no": "Enhetsmodus",
+                "pl": "Tryb urządzenia",
+                "ru": "Режим устройства",
+                "ar": "وضع الجهاز",
+                "ko": "장치 모드"
               },
               "value": "unknown"
             }
@@ -1377,7 +2656,17 @@
           "label": {
             "en": "Connection settings",
             "nl": "Verbinding instellingen",
-            "de": "Verbindungseinstellungen"
+            "de": "Verbindungseinstellungen",
+            "fr": "Paramètres de connexion",
+            "es": "Ajustes de conexión",
+            "it": "Impostazioni di connessione",
+            "da": "Forbindelsesindstillinger",
+            "sv": "Anslutningsinställningar",
+            "no": "Tilkoblingsinnstillinger",
+            "pl": "Ustawienia połączenia",
+            "ru": "Настройки соединения",
+            "ar": "إعدادات الاتصال",
+            "ko": "연결 설정"
           },
           "children": [
             {
@@ -1386,7 +2675,17 @@
               "label": {
                 "en": "IP address",
                 "nl": "IP adres",
-                "de": "IP-Addresse"
+                "de": "IP-Addresse",
+                "fr": "Adresse IP",
+                "es": "Dirección IP",
+                "it": "Indirizzo IP",
+                "da": "IP-adresse",
+                "sv": "IP-adress",
+                "no": "IP-adresse",
+                "pl": "Adres IP",
+                "ru": "IP-адрес",
+                "ar": "عنوان IP",
+                "ko": "IP 주소"
               },
               "value": "routerlogin.net"
             },
@@ -1396,7 +2695,17 @@
               "label": {
                 "en": "SOAP port",
                 "nl": "SOAP poort",
-                "de": "SOAP-Port"
+                "de": "SOAP-Port",
+                "fr": "Port SOAP",
+                "es": "Puerto SOAP",
+                "it": "Porta SOAP",
+                "da": "SOAP-port",
+                "sv": "SOAP-port",
+                "no": "SOAP-port",
+                "pl": "Port SOAP",
+                "ru": "SOAP-порт",
+                "ar": "منفذ SOAP",
+                "ko": "SOAP 포트"
               },
               "value": 5000
             },
@@ -1406,7 +2715,17 @@
               "label": {
                 "en": "Username",
                 "nl": "Gebruikersnaam",
-                "de": "Benutzername"
+                "de": "Benutzername",
+                "fr": "Nom d'utilisateur",
+                "es": "Nombre de usuario",
+                "it": "Nome utente",
+                "da": "Brugernavn",
+                "sv": "Användarnamn",
+                "no": "Brukernavn",
+                "pl": "Nazwa użytkownika",
+                "ru": "Имя пользователя",
+                "ar": "اسم المستخدم",
+                "ko": "사용자 이름"
               },
               "value": "admin"
             },
@@ -1416,7 +2735,17 @@
               "label": {
                 "en": "Password",
                 "nl": "Wachtwoord",
-                "de": "Passwort"
+                "de": "Passwort",
+                "fr": "Mot de passe",
+                "es": "Contraseña",
+                "it": "Password",
+                "da": "Adgangskode",
+                "sv": "Lösenord",
+                "no": "Passord",
+                "pl": "Hasło",
+                "ru": "Пароль",
+                "ar": "كلمة المرور",
+                "ko": "비밀번호"
               },
               "value": "password"
             },
@@ -1427,7 +2756,17 @@
               "label": {
                 "en": "Login method",
                 "nl": "Login methode",
-                "de": "Login Methode"
+                "de": "Login Methode",
+                "fr": "Méthode de connexion",
+                "es": "Método de inicio de sesión",
+                "it": "Metodo di accesso",
+                "da": "Login metode",
+                "sv": "Inloggningsmetod",
+                "no": "Innloggingsmetode",
+                "pl": "Metoda logowania",
+                "ru": "Метод входа",
+                "ar": "طريقة تسجيل الدخول",
+                "ko": "로그인 방법"
               },
               "values": [
                 {
@@ -1435,7 +2774,17 @@
                   "label": {
                     "en": "Auto",
                     "nl": "Auto",
-                    "de": "Auto"
+                    "de": "Auto",
+                    "fr": "Auto",
+                    "es": "Auto",
+                    "it": "Auto",
+                    "da": "Auto",
+                    "sv": "Auto",
+                    "no": "Auto",
+                    "pl": "Auto",
+                    "ru": "Авто",
+                    "ar": "تلقائي",
+                    "ko": "자동"
                   }
                 },
                 {
@@ -1443,7 +2792,17 @@
                   "label": {
                     "en": "Old",
                     "nl": "Oud",
-                    "de": "Alt"
+                    "de": "Alt",
+                    "fr": "Ancien",
+                    "es": "Antiguo",
+                    "it": "Vecchio",
+                    "da": "Gammel",
+                    "sv": "Gammal",
+                    "no": "Gammel",
+                    "pl": "Stary",
+                    "ru": "Старый",
+                    "ar": "قديم",
+                    "ko": "이전"
                   }
                 },
                 {
@@ -1451,14 +2810,34 @@
                   "label": {
                     "en": "New",
                     "nl": "Nieuw",
-                    "de": "Neu"
+                    "de": "Neu",
+                    "fr": "Nouveau",
+                    "es": "Nuevo",
+                    "it": "Nuovo",
+                    "da": "Ny",
+                    "sv": "Ny",
+                    "no": "Ny",
+                    "pl": "Nowy",
+                    "ru": "Новый",
+                    "ar": "جديد",
+                    "ko": "신규"
                   }
                 }
               ],
               "hint": {
                 "en": "Leave on Auto unless you experience issues",
                 "nl": "Laat op Auto tenzij je problemen hebt",
-                "de": "Auf Auto stehen lassen, außer es treten Probleme auf"
+                "de": "Auf Auto stehen lassen, außer es treten Probleme auf",
+                "fr": "Laissez sur Auto sauf en cas de problème",
+                "es": "Déjelo en Auto a menos que tenga problemas",
+                "it": "Lascia su Auto a meno che non riscontri problemi",
+                "da": "Lad stå på Auto medmindre du oplever problemer",
+                "sv": "Lämna på Auto om du inte upplever problem",
+                "no": "La stå på Auto med mindre du opplever problemer",
+                "pl": "Pozostaw na Auto, chyba że wystąpią problemy",
+                "ru": "Оставьте на Авто, если не возникают проблемы",
+                "ar": "اتركه على تلقائي ما لم تواجه مشاكل",
+                "ko": "문제가 없으면 자동으로 두세요"
               }
             }
           ]
@@ -1468,7 +2847,17 @@
           "label": {
             "en": "Report options",
             "nl": "Rapportage opties",
-            "de": "Berichtsoptionen"
+            "de": "Berichtsoptionen",
+            "fr": "Options de rapport",
+            "es": "Opciones de informe",
+            "it": "Opzioni di report",
+            "da": "Rapporteringsindstillinger",
+            "sv": "Rapportalternativ",
+            "no": "Rapporteringsalternativer",
+            "pl": "Opcje raportowania",
+            "ru": "Параметры отчетов",
+            "ar": "خيارات التقارير",
+            "ko": "보고 옵션"
           },
           "children": [
             {
@@ -1477,28 +2866,71 @@
               "value": "netgear",
               "label": {
                 "en": "Internet check",
-                "de": "Internet-Prüfung"
+                "nl": "Internet controle",
+                "de": "Internet-Prüfung",
+                "fr": "Vérification Internet",
+                "es": "Verificación de Internet",
+                "it": "Verifica Internet",
+                "da": "Internet-tjek",
+                "sv": "Internetkontroll",
+                "no": "Internettsjekk",
+                "pl": "Sprawdzanie internetu",
+                "ru": "Проверка интернета",
+                "ar": "فحص الإنترنت",
+                "ko": "인터넷 확인"
               },
               "values": [
                 {
                   "id": "netgear",
                   "label": {
                     "en": "Netgear",
-                    "de": "Netgear"
+                    "nl": "Netgear",
+                    "de": "Netgear",
+                    "fr": "Netgear",
+                    "es": "Netgear",
+                    "it": "Netgear",
+                    "da": "Netgear",
+                    "sv": "Netgear",
+                    "no": "Netgear",
+                    "pl": "Netgear",
+                    "ru": "Netgear",
+                    "ar": "Netgear",
+                    "ko": "Netgear"
                   }
                 },
                 {
                   "id": "homey",
                   "label": {
                     "en": "Homey",
-                    "de": "Homey"
+                    "nl": "Homey",
+                    "de": "Homey",
+                    "fr": "Homey",
+                    "es": "Homey",
+                    "it": "Homey",
+                    "da": "Homey",
+                    "sv": "Homey",
+                    "no": "Homey",
+                    "pl": "Homey",
+                    "ru": "Homey",
+                    "ar": "Homey",
+                    "ko": "Homey"
                   }
                 }
               ],
               "hint": {
                 "en": "Which device should check if the internet is connected",
                 "nl": "Welk apparaat controleert of internet verbonden is",
-                "de": "Welches Gerät soll prüfen, ob das Internet verbunden ist"
+                "de": "Welches Gerät soll prüfen, ob das Internet verbunden ist",
+                "fr": "Quel appareil doit vérifier si Internet est connecté",
+                "es": "Qué dispositivo debe comprobar si Internet está conectado",
+                "it": "Quale dispositivo deve verificare se Internet è connesso",
+                "da": "Hvilken enhed skal kontrollere, om internettet er forbundet",
+                "sv": "Vilken enhet ska kontrollera om internet är anslutet",
+                "no": "Hvilken enhet skal sjekke om internett er tilkoblet",
+                "pl": "Które urządzenie ma sprawdzać, czy internet jest połączony",
+                "ru": "Какое устройство должно проверять подключение к интернету",
+                "ar": "أي جهاز يجب أن يتحقق مما إذا كان الإنترنت متصلاً",
+                "ko": "인터넷 연결 여부를 확인할 장치"
               }
             },
             {
@@ -1507,7 +2939,17 @@
               "label": {
                 "en": "Report Up/Down traffic",
                 "nl": "Rapporteer Up/Down verkeer",
-                "de": "Up/Down Traffic anzeigen"
+                "de": "Up/Down Traffic anzeigen",
+                "fr": "Rapporter le trafic montant/descendant",
+                "es": "Informar tráfico de subida/bajada",
+                "it": "Segnala traffico Up/Down",
+                "da": "Rapporter Up/Down trafik",
+                "sv": "Rapportera Up/Down-trafik",
+                "no": "Rapporter Up/Down-trafikk",
+                "pl": "Raportuj ruch Up/Down",
+                "ru": "Отчет о трафике Up/Down",
+                "ar": "الإبلاغ عن حركة المرور Up/Down",
+                "ko": "업/다운 트래픽 보고"
               },
               "value": false
             },
@@ -1517,7 +2959,17 @@
               "label": {
                 "en": "Report CPU/MEM load",
                 "nl": "Rapporteer CPU/MEM belasting",
-                "de": "CPU/MEM-Auslastung anzeigen"
+                "de": "CPU/MEM-Auslastung anzeigen",
+                "fr": "Rapporter la charge CPU/MEM",
+                "es": "Informar carga de CPU/MEM",
+                "it": "Segnala carico CPU/MEM",
+                "da": "Rapporter CPU/MEM belastning",
+                "sv": "Rapportera CPU/MEM-belastning",
+                "no": "Rapporter CPU/MEM-belastning",
+                "pl": "Raportuj obciążenie CPU/MEM",
+                "ru": "Отчет о нагрузке CPU/MEM",
+                "ar": "الإبلاغ عن حمل CPU/MEM",
+                "ko": "CPU/MEM 부하 보고"
               },
               "value": false
             },
@@ -1527,7 +2979,17 @@
               "label": {
                 "en": "New firmware check",
                 "nl": "Controleer op nieuwe firmware",
-                "de": "Prüfung auf neue Firmware"
+                "de": "Prüfung auf neue Firmware",
+                "fr": "Vérification de nouveau firmware",
+                "es": "Comprobación de nuevo firmware",
+                "it": "Verifica nuovo firmware",
+                "da": "Tjek for ny firmware",
+                "sv": "Kontroll av ny firmware",
+                "no": "Sjekk for ny firmware",
+                "pl": "Sprawdzanie nowego firmware",
+                "ru": "Проверка новой прошивки",
+                "ar": "التحقق من البرنامج الثابت الجديد",
+                "ko": "새 펌웨어 확인"
               },
               "value": false
             }
@@ -1538,7 +3000,17 @@
           "label": {
             "en": "Presence settings",
             "nl": "Aanwezigheid instellingen",
-            "de": "Anwesenheitseinstellungen"
+            "de": "Anwesenheitseinstellungen",
+            "fr": "Paramètres de présence",
+            "es": "Ajustes de presencia",
+            "it": "Impostazioni di presenza",
+            "da": "Tilstedeværelsesindstillinger",
+            "sv": "Närvaroinställningar",
+            "no": "Tilstedeværelsesinnstillinger",
+            "pl": "Ustawienia obecności",
+            "ru": "Настройки присутствия",
+            "ar": "إعدادات الحضور",
+            "ko": "재실 설정"
           },
           "children": [
             {
@@ -1547,12 +3019,32 @@
               "label": {
                 "en": "Polling interval (seconds)",
                 "nl": "Polling interval (seconden)",
-                "de": "Polling Intervall (Sekunden)"
+                "de": "Polling Intervall (Sekunden)",
+                "fr": "Intervalle d'interrogation (secondes)",
+                "es": "Intervalo de sondeo (segundos)",
+                "it": "Intervallo di polling (secondi)",
+                "da": "Polling interval (sekunder)",
+                "sv": "Pollingintervall (sekunder)",
+                "no": "Polling-intervall (sekunder)",
+                "pl": "Interwał odpytywania (sekundy)",
+                "ru": "Интервал опроса (секунды)",
+                "ar": "فاصل الاستطلاع (ثوانٍ)",
+                "ko": "폴링 간격 (초)"
               },
               "hint": {
                 "en": "A shorter value will update the presence of devices more often, but could lead to router faults",
                 "nl": "Een kortere waarde zal de aanwezigheids detectie verbeteren, maar kan leiden tot fouten in de router.",
-                "de": "Ein kleinerer Wert aktualisiert das Vorhandensein von Geräten häufiger, kann jedoch zu Routerfehlern führen"
+                "de": "Ein kleinerer Wert aktualisiert das Vorhandensein von Geräten häufiger, kann jedoch zu Routerfehlern führen",
+                "fr": "Une valeur plus courte mettra à jour la présence des appareils plus souvent, mais pourrait entraîner des erreurs de routeur",
+                "es": "Un valor más corto actualizará la presencia de los dispositivos con más frecuencia, pero podría provocar fallos en el router",
+                "it": "Un valore più breve aggiornerà la presenza dei dispositivi più spesso, ma potrebbe causare errori del router",
+                "da": "En kortere værdi vil opdatere enhedernes tilstedeværelse oftere, men kan føre til routerfejl",
+                "sv": "Ett kortare värde uppdaterar enheternas närvaro oftare, men kan leda till routerfel",
+                "no": "En kortere verdi vil oppdatere enhetenes tilstedeværelse oftere, men kan føre til ruterfeil",
+                "pl": "Krótsza wartość będzie częściej aktualizować obecność urządzeń, ale może prowadzić do błędów routera",
+                "ru": "Меньшее значение будет чаще обновлять присутствие устройств, но может привести к сбоям роутера",
+                "ar": "ستؤدي القيمة الأقصر إلى تحديث وجود الأجهزة بشكل أكثر تكرارًا، ولكن قد يؤدي ذلك إلى أخطاء في الراوتر",
+                "ko": "값을 짧게 설정하면 장치의 재실 상태가 더 자주 업데이트되지만 라우터 오류가 발생할 수 있습니다"
               },
               "attr": {
                 "min": 15
@@ -1565,12 +3057,32 @@
               "label": {
                 "en": "Offline after (seconds)",
                 "nl": "Offline na (seconden)",
-                "de": "Offline nach (Sekunden)"
+                "de": "Offline nach (Sekunden)",
+                "fr": "Hors ligne après (secondes)",
+                "es": "Fuera de línea después de (segundos)",
+                "it": "Offline dopo (secondi)",
+                "da": "Offline efter (sekunder)",
+                "sv": "Offline efter (sekunder)",
+                "no": "Offline etter (sekunder)",
+                "pl": "Offline po (sekundy)",
+                "ru": "Офлайн через (секунды)",
+                "ar": "غير متصل بعد (ثوانٍ)",
+                "ko": "오프라인 처리 시간 (초)"
               },
               "hint": {
                 "en": "This value will be only used for attached devices that are not individually paired to Homey.",
                 "nl": "Deze waarde wordt alleen gebruikt voor apparaten die niet individueel aan Homey zijn toegevoegd.",
-                "de": "Dieser Wert wird nur für verbundene Geräte verwendet, die nicht einzeln mit Homey gekoppelt sind."
+                "de": "Dieser Wert wird nur für verbundene Geräte verwendet, die nicht einzeln mit Homey gekoppelt sind.",
+                "fr": "Cette valeur ne sera utilisée que pour les appareils connectés qui ne sont pas appairés individuellement à Homey.",
+                "es": "Este valor solo se utilizará para los dispositivos conectados que no estén emparejados individualmente con Homey.",
+                "it": "Questo valore verrà utilizzato solo per i dispositivi collegati che non sono associati individualmente a Homey.",
+                "da": "Denne værdi vil kun blive brugt til tilsluttede enheder, der ikke er individuelt parret med Homey.",
+                "sv": "Detta värde används endast för anslutna enheter som inte är individuellt parkopplade med Homey.",
+                "no": "Denne verdien vil kun bli brukt for tilkoblede enheter som ikke er individuelt paret med Homey.",
+                "pl": "Ta wartość będzie używana tylko dla podłączonych urządzeń, które nie są indywidualnie sparowane z Homey.",
+                "ru": "Это значение будет использоваться только для подключенных устройств, которые не сопряжены отдельно с Homey.",
+                "ar": "سيتم استخدام هذه القيمة فقط للأجهزة المتصلة التي لم يتم إقرانها بشكل فردي بـ Homey.",
+                "ko": "이 값은 Homey에 개별적으로 페어링되지 않은 연결된 장치에만 사용됩니다."
               },
               "attr": {
                 "min": 60
@@ -1584,13 +3096,35 @@
               "label": {
                 "en": "Attached devices method",
                 "nl": "Aangesloten apparaten methode",
-                "de": "Methode der verbundenen Geräte"
+                "de": "Methode der verbundenen Geräte",
+                "fr": "Méthode des appareils connectés",
+                "es": "Método de dispositivos conectados",
+                "it": "Metodo dispositivi collegati",
+                "da": "Metode for tilsluttede enheder",
+                "sv": "Metod för anslutna enheter",
+                "no": "Metode for tilkoblede enheter",
+                "pl": "Metoda podłączonych urządzeń",
+                "ru": "Метод подключенных устройств",
+                "ar": "طريقة الأجهزة المتصلة",
+                "ko": "연결된 장치 방식"
               },
               "values": [
                 {
                   "id": "0",
                   "label": {
-                    "en": "Auto"
+                    "en": "Auto",
+                    "nl": "Auto",
+                    "de": "Auto",
+                    "fr": "Auto",
+                    "es": "Auto",
+                    "it": "Auto",
+                    "da": "Auto",
+                    "sv": "Auto",
+                    "no": "Auto",
+                    "pl": "Auto",
+                    "ru": "Авто",
+                    "ar": "تلقائي",
+                    "ko": "자동"
                   }
                 },
                 {
@@ -1598,7 +3132,17 @@
                   "label": {
                     "en": "Old",
                     "nl": "Oud",
-                    "de": "Alt"
+                    "de": "Alt",
+                    "fr": "Ancien",
+                    "es": "Antiguo",
+                    "it": "Vecchio",
+                    "da": "Gammel",
+                    "sv": "Gammal",
+                    "no": "Gammel",
+                    "pl": "Stary",
+                    "ru": "Старый",
+                    "ar": "قديم",
+                    "ko": "이전"
                   }
                 },
                 {
@@ -1606,14 +3150,34 @@
                   "label": {
                     "en": "New",
                     "nl": "Nieuw",
-                    "de": "Neu"
+                    "de": "Neu",
+                    "fr": "Nouveau",
+                    "es": "Nuevo",
+                    "it": "Nuovo",
+                    "da": "Ny",
+                    "sv": "Ny",
+                    "no": "Ny",
+                    "pl": "Nowy",
+                    "ru": "Новый",
+                    "ar": "جديد",
+                    "ko": "신규"
                   }
                 }
               ],
               "hint": {
                 "en": "Which method to use to get the attached devices list from the router",
                 "nl": "Welke methode gebruiken om de aangesloten apparaten lijst uit de router op te halen",
-                "de": "Welche Methode zum Abrufen der Liste der verbundenen Geräte vom Router verwendet werden soll"
+                "de": "Welche Methode zum Abrufen der Liste der verbundenen Geräte vom Router verwendet werden soll",
+                "fr": "Quelle méthode utiliser pour obtenir la liste des appareils connectés depuis le routeur",
+                "es": "Qué método usar para obtener la lista de dispositivos conectados del router",
+                "it": "Quale metodo utilizzare per ottenere l'elenco dei dispositivi collegati dal router",
+                "da": "Hvilken metode der skal bruges til at hente listen over tilsluttede enheder fra routeren",
+                "sv": "Vilken metod som ska användas för att hämta listan över anslutna enheter från routern",
+                "no": "Hvilken metode som skal brukes for å hente listen over tilkoblede enheter fra ruteren",
+                "pl": "Której metody użyć do pobrania listy podłączonych urządzeń z routera",
+                "ru": "Какой метод использовать для получения списка подключенных устройств с роутера",
+                "ar": "الطريقة المستخدمة للحصول على قائمة الأجهزة المتصلة من الراوتر",
+                "ko": "라우터에서 연결된 장치 목록을 가져오는 데 사용할 방법"
               }
             },
             {
@@ -1622,13 +3186,33 @@
               "label": {
                 "en": "Delete devicelist (!)",
                 "nl": "Apparaatlijst legen (!)",
-                "de": "Geräteliste löschen (!)"
+                "de": "Geräteliste löschen (!)",
+                "fr": "Supprimer la liste des appareils (!)",
+                "es": "Eliminar lista de dispositivos (!)",
+                "it": "Elimina elenco dispositivi (!)",
+                "da": "Slet enhedsliste (!)",
+                "sv": "Ta bort enhetslista (!)",
+                "no": "Slett enhetsliste (!)",
+                "pl": "Usuń listę urządzeń (!)",
+                "ru": "Удалить список устройств (!)",
+                "ar": "حذف قائمة الأجهزة (!)",
+                "ko": "장치 목록 삭제 (!)"
               },
               "value": false,
               "hint": {
                 "en": "When checked, the list of known devices will be emptied. New settings will not be saved!",
                 "nl": "Aangevinkt: de lijst met bekende apparaten zal worden geleegd. Nieuwe instellingen worden niet opgeslagen!",
-                "de": "Wenn aktiviert, wird die Liste der bekannten Geräte gelöscht. Neue Einstellungen werden nicht gespeichert!"
+                "de": "Wenn aktiviert, wird die Liste der bekannten Geräte gelöscht. Neue Einstellungen werden nicht gespeichert!",
+                "fr": "Si cette case est cochée, la liste des appareils connus sera vidée. Les nouveaux paramètres ne seront pas enregistrés !",
+                "es": "Si se marca, la lista de dispositivos conocidos se vaciará. ¡Los nuevos ajustes no se guardarán!",
+                "it": "Se selezionato, l'elenco dei dispositivi conosciuti verrà svuotato. Le nuove impostazioni non verranno salvate!",
+                "da": "Når markeret, tømmes listen over kendte enheder. Nye indstillinger vil ikke blive gemt!",
+                "sv": "Om markerad töms listan över kända enheter. Nya inställningar sparas inte!",
+                "no": "Når merket av, vil listen over kjente enheter bli tømt. Nye innstillinger vil ikke bli lagret!",
+                "pl": "Po zaznaczeniu lista znanych urządzeń zostanie wyczyszczona. Nowe ustawienia nie zostaną zapisane!",
+                "ru": "При установке флажка список известных устройств будет очищен. Новые настройки не будут сохранены!",
+                "ar": "عند التحديد، سيتم إفراغ قائمة الأجهزة المعروفة. لن يتم حفظ الإعدادات الجديدة!",
+                "ko": "선택하면 알려진 장치 목록이 지워집니다. 새 설정은 저장되지 않습니다!"
               }
             }
           ]
@@ -1649,17 +3233,47 @@
       "title": {
         "en": "Device connected",
         "nl": "Apparaat verbonden",
-        "de": "Gerät verbunden"
+        "de": "Gerät verbunden",
+        "fr": "Appareil connecté",
+        "es": "Dispositivo conectado",
+        "it": "Dispositivo connesso",
+        "da": "Enhed forbundet",
+        "sv": "Enhet ansluten",
+        "no": "Enhet tilkoblet",
+        "pl": "Urządzenie połączone",
+        "ru": "Устройство подключено",
+        "ar": "الجهاز متصل",
+        "ko": "기기 연결됨"
       },
       "insightsTitleTrue": {
         "en": "Connected",
         "nl": "Verbonden",
-        "de": "Verbunden"
+        "de": "Verbunden",
+        "fr": "Connecté",
+        "es": "Conectado",
+        "it": "Connesso",
+        "da": "Forbundet",
+        "sv": "Ansluten",
+        "no": "Tilkoblet",
+        "pl": "Połączono",
+        "ru": "Подключено",
+        "ar": "متصل",
+        "ko": "연결됨"
       },
       "insightsTitleFalse": {
         "en": "Disconnected",
         "nl": "Verbroken",
-        "de": "Getrennt"
+        "de": "Getrennt",
+        "fr": "Déconnecté",
+        "es": "Desconectado",
+        "it": "Disconnesso",
+        "da": "Afbrudt",
+        "sv": "Frånkopplad",
+        "no": "Frakoblet",
+        "pl": "Rozłączono",
+        "ru": "Отключено",
+        "ar": "غير متصل",
+        "ko": "연결 끊김"
       },
       "uiComponent": "sensor",
       "uiQuickAction": true,
@@ -1671,7 +3285,19 @@
     "ip_address": {
       "type": "string",
       "title": {
-        "en": "IP address"
+        "en": "IP address",
+        "nl": "IP-adres",
+        "de": "IP-Adresse",
+        "fr": "Adresse IP",
+        "es": "Dirección IP",
+        "it": "Indirizzo IP",
+        "da": "IP-adresse",
+        "sv": "IP-adress",
+        "no": "IP-adresse",
+        "pl": "Adres IP",
+        "ru": "IP-адрес",
+        "ar": "عنوان IP",
+        "ko": "IP 주소"
       },
       "getable": true,
       "setable": false,
@@ -1682,7 +3308,17 @@
       "title": {
         "en": "Attached devices",
         "nl": "Verbonden apparaten",
-        "de": "Verbundene Geräte"
+        "de": "Verbundene Geräte",
+        "fr": "Appareils connectés",
+        "es": "Dispositivos conectados",
+        "it": "Dispositivi collegati",
+        "da": "Tilsluttede enheder",
+        "sv": "Anslutna enheter",
+        "no": "Tilkoblede enheter",
+        "pl": "Podłączone urządzenia",
+        "ru": "Подключенные устройства",
+        "ar": "الأجهزة المتصلة",
+        "ko": "연결된 기기"
       },
       "getable": true,
       "setable": false,
@@ -1694,12 +3330,34 @@
       "title": {
         "en": "CPU utilization",
         "nl": "CPU belasting",
-        "de": "CPU-Auslastung"
+        "de": "CPU-Auslastung",
+        "fr": "Utilisation du CPU",
+        "es": "Uso de CPU",
+        "it": "Utilizzo CPU",
+        "da": "CPU-forbrug",
+        "sv": "CPU-användning",
+        "no": "CPU-bruk",
+        "pl": "Wykorzystanie CPU",
+        "ru": "Загрузка ЦП",
+        "ar": "استخدام المعالج",
+        "ko": "CPU 사용량"
       },
       "getable": true,
       "setable": false,
       "units": {
-        "en": "%"
+        "en": "%",
+        "nl": "%",
+        "de": "%",
+        "fr": "%",
+        "es": "%",
+        "it": "%",
+        "da": "%",
+        "sv": "%",
+        "no": "%",
+        "pl": "%",
+        "ru": "%",
+        "ar": "%",
+        "ko": "%"
       },
       "decimals": 0,
       "insights": true,
@@ -1710,13 +3368,34 @@
       "title": {
         "en": "Download speed",
         "nl": "Download snelheid",
-        "de": "Download-Geschwindigkeit"
+        "de": "Download-Geschwindigkeit",
+        "fr": "Vitesse de téléchargement",
+        "es": "Velocidad de descarga",
+        "it": "Velocità di download",
+        "da": "Downloadhastighed",
+        "sv": "Nedladdningshastighet",
+        "no": "Nedlastingshastighet",
+        "pl": "Prędkość pobierania",
+        "ru": "Скорость загрузки",
+        "ar": "سرعة التنزيل",
+        "ko": "다운로드 속도"
       },
       "getable": true,
       "setable": false,
       "units": {
         "en": "Mbit/s",
-        "de": "Mbit/s"
+        "nl": "Mbit/s",
+        "de": "Mbit/s",
+        "fr": "Mbit/s",
+        "es": "Mbit/s",
+        "it": "Mbit/s",
+        "da": "Mbit/s",
+        "sv": "Mbit/s",
+        "no": "Mbit/s",
+        "pl": "Mbit/s",
+        "ru": "Mbit/s",
+        "ar": "Mbit/s",
+        "ko": "Mbit/s"
       },
       "decimals": 2,
       "insights": true,
@@ -1727,7 +3406,17 @@
       "title": {
         "en": "Link speed",
         "nl": "Verbindingssnelheid",
-        "de": "Verbindungsgeschwindigkeit"
+        "de": "Verbindungsgeschwindigkeit",
+        "fr": "Vitesse de liaison",
+        "es": "Velocidad de enlace",
+        "it": "Velocità di collegamento",
+        "da": "Forbindelseshastighed",
+        "sv": "Länkhastighet",
+        "no": "Tilkoblingshastighet",
+        "pl": "Prędkość łącza",
+        "ru": "Скорость соединения",
+        "ar": "سرعة الاتصال",
+        "ko": "링크 속도"
       },
       "getable": true,
       "setable": false,
@@ -1739,12 +3428,34 @@
       "title": {
         "en": "Memory utilization",
         "nl": "Geheugen belasting",
-        "de": "Speicherauslastung"
+        "de": "Speicherauslastung",
+        "fr": "Utilisation de la mémoire",
+        "es": "Uso de memoria",
+        "it": "Utilizzo memoria",
+        "da": "Hukommelsesforbrug",
+        "sv": "Minnesanvändning",
+        "no": "Minnebruk",
+        "pl": "Wykorzystanie pamięci",
+        "ru": "Использование памяти",
+        "ar": "استخدام الذاكرة",
+        "ko": "메모리 사용량"
       },
       "getable": true,
       "setable": false,
       "units": {
-        "en": "%"
+        "en": "%",
+        "nl": "%",
+        "de": "%",
+        "fr": "%",
+        "es": "%",
+        "it": "%",
+        "da": "%",
+        "sv": "%",
+        "no": "%",
+        "pl": "%",
+        "ru": "%",
+        "ar": "%",
+        "ko": "%"
       },
       "decimals": 0,
       "insights": true,
@@ -1755,7 +3466,17 @@
       "title": {
         "en": "Signal strength",
         "nl": "Signaalsterkte",
-        "de": "Signalstärke"
+        "de": "Signalstärke",
+        "fr": "Force du signal",
+        "es": "Intensidad de la señal",
+        "it": "Intensità del segnale",
+        "da": "Signalstyrke",
+        "sv": "Signalstyrka",
+        "no": "Signalstyrke",
+        "pl": "Siła sygnału",
+        "ru": "Уровень сигнала",
+        "ar": "قوة الإشارة",
+        "ko": "신호 강도"
       },
       "getable": true,
       "setable": false,
@@ -1767,13 +3488,34 @@
       "title": {
         "en": "Upload speed",
         "nl": "Upload snelheid",
-        "de": "Upload-Geschwindigkeit"
+        "de": "Upload-Geschwindigkeit",
+        "fr": "Vitesse d'envoi",
+        "es": "Velocidad de subida",
+        "it": "Velocità di upload",
+        "da": "Uploadhastighed",
+        "sv": "Uppladdningshastighet",
+        "no": "Opplastingshastighet",
+        "pl": "Prędkość wysyłania",
+        "ru": "Скорость отдачи",
+        "ar": "سرعة الرفع",
+        "ko": "업로드 속도"
       },
       "getable": true,
       "setable": false,
       "units": {
         "en": "Mbit/s",
-        "de": "Mbit/s"
+        "nl": "Mbit/s",
+        "de": "Mbit/s",
+        "fr": "Mbit/s",
+        "es": "Mbit/s",
+        "it": "Mbit/s",
+        "da": "Mbit/s",
+        "sv": "Mbit/s",
+        "no": "Mbit/s",
+        "pl": "Mbit/s",
+        "ru": "Mbit/s",
+        "ar": "Mbit/s",
+        "ko": "Mbit/s"
       },
       "decimals": 2,
       "insights": true,
@@ -1782,7 +3524,19 @@
     "name_in_router": {
       "type": "string",
       "title": {
-        "en": "Name in router"
+        "en": "Name in router",
+        "nl": "Naam in router",
+        "de": "Name im Router",
+        "fr": "Nom dans le routeur",
+        "es": "Nombre en el router",
+        "it": "Nome nel router",
+        "da": "Navn i router",
+        "sv": "Namn i router",
+        "no": "Navn i ruter",
+        "pl": "Nazwa w routerze",
+        "ru": "Имя в роутере",
+        "ar": "الاسم في الراوتر",
+        "ko": "라우터 내 이름"
       },
       "getable": true,
       "setable": false,
@@ -1800,13 +3554,33 @@
         "nl": "Aangezet",
         "de": "Eingeschaltet",
         "fr": "Activé",
-        "it": "Attivato"
+        "es": "Encendido",
+        "it": "Attivato",
+        "da": "Tændt",
+        "sv": "Påslagen",
+        "no": "Slått på",
+        "pl": "Włączony",
+        "ru": "Включено",
+        "ar": "قيد التشغيل",
+        "ko": "켜짐"
       }
     },
     "ssid": {
       "type": "string",
       "title": {
-        "en": "SSID"
+        "en": "SSID",
+        "nl": "SSID",
+        "de": "SSID",
+        "fr": "SSID",
+        "es": "SSID",
+        "it": "SSID",
+        "da": "SSID",
+        "sv": "SSID",
+        "no": "SSID",
+        "pl": "SSID",
+        "ru": "SSID",
+        "ar": "SSID",
+        "ko": "SSID"
       },
       "getable": true,
       "setable": false,

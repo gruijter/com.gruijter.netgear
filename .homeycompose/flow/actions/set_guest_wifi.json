@@ -2,12 +2,32 @@
   "title": {
     "en": "Enable or disable guest wifi",
     "nl": "Gast wifi aan of uit zetten",
-    "de": "Ein- oder ausschalten des Gäste-WIFI"
+    "de": "Ein- oder ausschalten des Gäste-WIFI",
+    "fr": "Activer ou désactiver le wifi invité",
+    "es": "Activar o desactivar el wifi de invitados",
+    "it": "Attiva o disattiva il wifi ospiti",
+    "da": "Aktiver eller deaktiver gæste-wifi",
+    "sv": "Aktivera eller inaktivera gäst-wifi",
+    "no": "Aktiver eller deaktiver gjeste-wifi",
+    "pl": "Włącz lub wyłącz wifi dla gości",
+    "ru": "Включить или отключить гостевой wifi",
+    "ar": "تفعيل أو تعطيل واي فاي الضيوف",
+    "ko": "게스트 와이파이 켜기 또는 끄기"
   },
   "titleFormatted": {
     "en": "Turn [[network]] guest wifi [[on_off]]",
     "nl": "Zet [[network]] gast wifi [[on_off]]",
-    "de": "Schalten [[network]] Gäste-WIFI [[on_off]]"
+    "de": "Schalten [[network]] Gäste-WIFI [[on_off]]",
+    "fr": "Mettre le wifi invité [[network]] [[on_off]]",
+    "es": "Poner el wifi de invitados [[network]] [[on_off]]",
+    "it": "Metti il wifi ospiti [[network]] [[on_off]]",
+    "da": "Sæt [[network]] gæste-wifi [[on_off]]",
+    "sv": "Sätt [[network]] gäst-wifi [[on_off]]",
+    "no": "Sett [[network]] gjeste-wifi [[on_off]]",
+    "pl": "Ustaw wifi dla gości [[network]] [[on_off]]",
+    "ru": "Переключить гостевой wifi [[network]] [[on_off]]",
+    "ar": "قم بتبديل واي فاي الضيوف [[network]] [[on_off]]",
+    "ko": "게스트 와이파이 [[network]]를 [[on_off]]"
   },
   "args": [
     {
@@ -24,7 +44,17 @@
           "label": {
             "en": "2.4GHz",
             "nl": "2.4GHz",
-            "de": "2,4 GHz"
+            "de": "2,4 GHz",
+            "fr": "2,4 GHz",
+            "es": "2,4 GHz",
+            "it": "2,4 GHz",
+            "da": "2,4 GHz",
+            "sv": "2,4 GHz",
+            "no": "2,4 GHz",
+            "pl": "2,4 GHz",
+            "ru": "2,4 GHz",
+            "ar": "2.4GHz",
+            "ko": "2.4GHz"
           }
         },
         {
@@ -32,7 +62,17 @@
           "label": {
             "en": "5GHz",
             "nl": "5GHz",
-            "de": "5 GHz"
+            "de": "5 GHz",
+            "fr": "5 GHz",
+            "es": "5 GHz",
+            "it": "5 GHz",
+            "da": "5 GHz",
+            "sv": "5 GHz",
+            "no": "5 GHz",
+            "pl": "5 GHz",
+            "ru": "5 GHz",
+            "ar": "5GHz",
+            "ko": "5GHz"
           }
         },
         {
@@ -40,7 +80,17 @@
           "label": {
             "en": "2.4GHz-2",
             "nl": "2.4GHz-2",
-            "de": "2,4 GHz-2"
+            "de": "2,4 GHz-2",
+            "fr": "2,4 GHz-2",
+            "es": "2,4 GHz-2",
+            "it": "2,4 GHz-2",
+            "da": "2,4 GHz-2",
+            "sv": "2,4 GHz-2",
+            "no": "2,4 GHz-2",
+            "pl": "2,4 GHz-2",
+            "ru": "2,4 GHz-2",
+            "ar": "2.4GHz-2",
+            "ko": "2.4GHz-2"
           }
         },
         {
@@ -48,7 +98,17 @@
           "label": {
             "en": "5GHz-2",
             "nl": "5GHz-2",
-            "de": "5 GHz-2"
+            "de": "5 GHz-2",
+            "fr": "5 GHz-2",
+            "es": "5 GHz-2",
+            "it": "5 GHz-2",
+            "da": "5 GHz-2",
+            "sv": "5 GHz-2",
+            "no": "5 GHz-2",
+            "pl": "5 GHz-2",
+            "ru": "5 GHz-2",
+            "ar": "5GHz-2",
+            "ko": "5GHz-2"
           }
         }
       ]
@@ -62,7 +122,17 @@
           "label": {
             "en": "Enable",
             "nl": "Aan",
-            "de": "An"
+            "de": "An",
+            "fr": "Activer",
+            "es": "Activar",
+            "it": "Attiva",
+            "da": "Aktiver",
+            "sv": "Aktivera",
+            "no": "Aktiver",
+            "pl": "Włącz",
+            "ru": "Включить",
+            "ar": "تفعيل",
+            "ko": "켜기"
           }
         },
         {
@@ -70,7 +140,17 @@
           "label": {
             "en": "Disable",
             "nl": "Uit",
-            "de": "Aus"
+            "de": "Aus",
+            "fr": "Désactiver",
+            "es": "Desactivar",
+            "it": "Disattiva",
+            "da": "Deaktiver",
+            "sv": "Inaktivera",
+            "no": "Deaktiver",
+            "pl": "Wyłącz",
+            "ru": "Отключить",
+            "ar": "تعطيل",
+            "ko": "끄기"
           }
         }
       ]

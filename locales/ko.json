@@ -1,0 +1,80 @@
+{
+	"pair": {
+		"start": {
+			"title": "Netgear 라우터 추가",
+			"intro": "IP 주소와 SOAP 포트를 확인하거나 입력하세요. 그런 다음 Netgear 라우터의 관리자 비밀번호를 입력하고 `다음`을 누르세요.",
+			"discover": "라우터 검색",
+			"error": "오류가 발생했습니다.",
+			"success": "성공! ",
+			"required": "IP 주소, 포트 및 비밀번호가 필요합니다",
+			"username": "사용자 이름",
+			"password": "비밀번호",
+			"host": "IP 주소",
+			"port": "SOAP 포트",
+			"save": "다음"
+		},
+		"select_options": {
+			"title": "장치 옵션",
+			"intro": "",
+			"name": "Homey에서의 이름",
+			"icon": "아이콘",
+			"capabilities": "기능 포함",
+			"use_link_info": "Wifi 연결",
+			"use_bandwidth_info": "대역폭",
+			"report_power": "전력 사용량",
+			"save": "저장"
+		},
+		"select_options_router": {
+			"title": "장치 옵션 선택",
+			"intro": "연결된 장치의 연결 상태는 항상 가져옵니다 (재실 여부). 라우터에서 가져올 추가 정보를 선택하세요. 단, 일부 라우터는 펌웨어 버그로 인해 불안정해질 수 있습니다",
+			"name": "이름",
+			"capabilities": "보고 옵션",
+			"use_traffic_info": "업/다운 트래픽 보고",
+			"use_system_info": "CPU/MEM 부하 보고",
+			"use_firmware_check": "새 펌웨어 확인",
+			"save": "저장",
+			"ready": "최적의 안정성을 위해 지금 라우터를 PTP 하세요! (끄기-30초-켜기)",
+			"duplicate": "이 라우터는 이미 Homey에 추가되어 있습니다"
+		}
+	},
+	"settings": {
+		"benefit": "Netgear 라우터",
+		"tab1": {
+			"title": "지침",
+			"addDeviceTitle": "새 라우터 추가",
+			"addDeviceInstructions": "Homey의 `기기` 탭을 통해 라우터를 추가하고 관리자 비밀번호를 입력하세요. 라우터 유형에 따라 일부 기능을 사용하지 못할 수 있습니다. 테스트 탭에서 호환성 테스트를 실행할 수 있습니다.",
+			"presenceTitle": "재실 감지",
+			"presenceInstructions": "Homey에 라우터를 추가한 후, 재실 여부를 추적하려는 모바일 장치를 추가할 수 있습니다. 이러한 장치는 Netgear 네트워크에 대한 WiFi 연결을 기준으로 연결됨 또는 연결 끊김으로 보고됩니다. 장치 설정에서 '오프라인 지연 시간'을 미세 조정할 수 있습니다. 잘못된 연결 끊김 메시지가 표시되면 이 지연 시간을 늘려야 합니다. 더 빠른 감지를 원하면 이 지연 시간을 줄여 볼 수 있습니다. 또한 라우터의 폴링 간격을 줄여 볼 수도 있습니다. 기본 폴링 간격은 1분이지만, 너무 짧게 설정하면 라우터가 과부하될 수 있습니다.",
+			"energyTitle": "에너지 모니터링",
+			"energyInstructions": "Homey에 라우터를 추가한 후, TV나 프린터와 같이 전력을 모니터링하려는 추가 장치를 추가할 수 있습니다. 장치가 꺼져 있을 때와 켜져 있을 때의 예상/평균 전력 사용량을 입력하세요. 이제 TV를 켜면 예상 전력이 Homey 에너지 탭에 포함되는 것을 확인할 수 있습니다"
+		},
+		"tab2": {
+			"title": "로그",
+			"showLogs": "로그 표시",
+			"showErrors": "오류 표시",
+			"deletelogs": "로그 삭제",
+			"deleteWarning": "모든 로그를 삭제하시겠습니까?",
+			"deleted": "로그가 삭제되었습니다!"
+		},
+		"tab3": {
+			"title": "테스트",
+			"instructionsLegend": "라우터 호환성 테스트",
+			"instructions": "앱에 문제가 있는 경우 호환성 테스트를 수행할 수 있습니다. 결과는 앱을 개선하는 데 사용됩니다. '라우터 검색'을 눌러 IP 주소와 SOAP 포트를 자동으로 찾으세요. 라우터의 비밀번호를 입력하세요. 그런 다음 테스트를 시작하세요. '결과 복사' 버튼을 사용하여 이슈를 생성하고 그곳에 결과를 붙여넣을 수 있습니다. 참고: 이슈를 게시하려면 github 계정이 필요합니다.",
+			"discover": "라우터 검색",
+			"host": "IP 주소",
+			"port": "SOAP 포트",
+			"password": "비밀번호",
+			"startTest": "테스트 시작",
+			"testingNow": "지금 테스트 중입니다. 몇 분 정도 기다려 주세요...",
+			"result": "결과",
+			"copyResult": "결과 복사"
+		},
+		"tab4": {
+			"title": "목록",
+			"instructionsLegend": "알려진 모든 장치 목록",
+			"instructions": "앱은 라우터에 연결된 적이 있는 모든 장치의 MAC 주소를 수집하고 기억하기 시작합니다. 이 목록을 지우려면 장치 설정에서 `기기 목록 삭제` 확인란을 선택하면 됩니다.",
+			"resultList": "장치 목록",
+			"copyList": "목록 복사"
+		}
+	}
+}

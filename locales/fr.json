@@ -1,0 +1,80 @@
+{
+	"pair": {
+		"start": {
+			"title": "Ajouter un routeur Netgear",
+			"intro": "Vérifiez ou saisissez l'adresse IP et le port SOAP. Entrez ensuite le mot de passe administrateur du routeur Netgear et appuyez sur `Suivant`.",
+			"discover": "Rechercher le routeur",
+			"error": "Une erreur s'est produite.",
+			"success": "Succès ! ",
+			"required": "L'adresse IP, le port et le mot de passe sont requis",
+			"username": "Nom d'utilisateur",
+			"password": "Mot de passe",
+			"host": "Adresse IP",
+			"port": "Port SOAP",
+			"save": "Suivant"
+		},
+		"select_options": {
+			"title": "Options de l'appareil",
+			"intro": "",
+			"name": "Nom dans Homey",
+			"icon": "Icône",
+			"capabilities": "Inclure les capacités",
+			"use_link_info": "Liaison Wifi",
+			"use_bandwidth_info": "Bande passante",
+			"report_power": "Consommation d'énergie",
+			"save": "Enregistrer"
+		},
+		"select_options_router": {
+			"title": "Sélectionner les options de l'appareil",
+			"intro": "L'état de connexion des appareils connectés sera toujours récupéré (présence). Sélectionnez les informations supplémentaires que vous souhaitez récupérer depuis le routeur, mais certains routeurs peuvent devenir instables en raison de bugs du firmware",
+			"name": "Nom",
+			"capabilities": "Options de rapport",
+			"use_traffic_info": "Rapporter le trafic montant/descendant",
+			"use_system_info": "Rapporter la charge CPU/MEM",
+			"use_firmware_check": "Vérifier le nouveau firmware",
+			"save": "Enregistrer",
+			"ready": "Pour une stabilité optimale, faites un PTP de votre routeur maintenant ! (éteint-30s-allumé)",
+			"duplicate": "Ce routeur est déjà ajouté à Homey"
+		}
+	},
+	"settings": {
+		"benefit": "Routeur Netgear",
+		"tab1": {
+			"title": "Instructions",
+			"addDeviceTitle": "Ajouter un nouveau routeur",
+			"addDeviceInstructions": "Ajoutez un routeur via l'onglet Homey `Appareils` et saisissez le mot de passe administrateur. Selon le type de votre routeur, certaines fonctionnalités peuvent ne pas être disponibles. Vous pouvez exécuter un test de compatibilité dans l'onglet Test.",
+			"presenceTitle": "Détection de présence",
+			"presenceInstructions": "Après avoir ajouté votre routeur à Homey, vous pouvez commencer à ajouter des appareils mobiles que vous souhaitez suivre pour la présence. Ils seront signalés comme connectés ou déconnectés en fonction de la connexion WiFi à votre réseau Netgear. Vous pouvez ajuster le 'délai hors ligne' dans les paramètres de l'appareil. Si vous recevez de fausses notifications de déconnexion, vous devriez augmenter ce délai. Si vous souhaitez une détection plus rapide, vous pouvez essayer de réduire ce délai. Vous pouvez également essayer de réduire l'intervalle d'interrogation du routeur. L'intervalle d'interrogation par défaut est de 1 minute, mais si vous le rendez trop court, votre routeur peut s'étouffer.",
+			"energyTitle": "Surveillance de l'énergie",
+			"energyInstructions": "Après avoir ajouté votre routeur à Homey, vous pouvez ajouter des appareils supplémentaires que vous souhaitez surveiller pour la consommation d'énergie, par exemple votre télé ou votre imprimante. Entrez la consommation d'énergie estimée / moyenne de l'appareil lorsqu'il est ÉTEINT ou ALLUMÉ. Maintenant, lorsque vous allumez votre télé, vous verrez que la consommation estimée est incluse dans l'onglet Énergie de Homey"
+		},
+		"tab2": {
+			"title": "Journaux",
+			"showLogs": "Afficher les journaux",
+			"showErrors": "Afficher les erreurs",
+			"deletelogs": "Supprimer les journaux",
+			"deleteWarning": "Supprimer tous les journaux ?",
+			"deleted": "Journaux supprimés !"
+		},
+		"tab3": {
+			"title": "Test",
+			"instructionsLegend": "Test de compatibilité du routeur",
+			"instructions": "Si vous rencontrez des problèmes avec l'application, vous pouvez effectuer un test de compatibilité. Le résultat est utilisé pour améliorer l'application. Appuyez sur 'Rechercher le routeur' pour trouver automatiquement l'adresse IP et le port SOAP. Saisissez le mot de passe du routeur. Démarrez ensuite le test. Avec le bouton 'Copier le résultat', vous pouvez créer un ticket et y coller le résultat. Remarque : vous avez besoin d'un compte github pour publier un ticket.",
+			"discover": "Rechercher le routeur",
+			"host": "Adresse IP",
+			"port": "Port SOAP",
+			"password": "Mot de passe",
+			"startTest": "Démarrer le test",
+			"testingNow": "Test en cours. Patientez quelques minutes...",
+			"result": "Résultat",
+			"copyResult": "Copier le résultat"
+		},
+		"tab4": {
+			"title": "Liste",
+			"instructionsLegend": "Liste de tous les appareils connus",
+			"instructions": "L'application commencera à collecter et à mémoriser les adresses MAC de tous les appareils qui se sont déjà connectés au routeur. Si vous devez effacer cette liste, vous pouvez le faire en cochant la case `supprimer la liste des appareils` dans les paramètres de l'appareil.",
+			"resultList": "Liste des appareils",
+			"copyList": "Copier la liste"
+		}
+	}
+}

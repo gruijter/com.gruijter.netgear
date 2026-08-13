@@ -1,168 +1,162 @@
-/* eslint-disable strict */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
+
+/*
+Copyright 2017 - 2026, Robin de Gruijter (gruijter@hotmail.com)
+
+This file is part of com.gruijter.netgear.
+
+com.gruijter.netgear is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+com.gruijter.netgear is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with com.gruijter.netgear.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+'use strict';
+
+// tab 2: logs
+
 function displayLogs(lines) {
-  $('#loglines').html(lines);
-}
-
-function displayTestResult(lines) {
-  $('#testResult').text(lines);
-}
-
-function getList() {
-  Homey.api('GET', 'getkd/', (err, result) => {
-    if (err) {
-      return Homey.alert(err.message, 'error'); // [, String icon], Function callback )
-    }
-    $('#resultList').html(JSON.stringify(result)); // .replace(/"/g, ''));
-    return true;
-  });
+  document.getElementById('loglines').textContent = lines;
 }
 
 function updateLogs() {
-  try {
-    displayLogs('');
-    const showLogs = $('#show_logs').prop('checked');
-    const showErrors = $('#show_errors').prop('checked');
-    Homey.api('GET', 'getlogs/', null, (err, result) => {
-      if (!err) {
-        let lines = '';
-        result
-          .reverse()
-          .forEach((line) => {
-            if (!showLogs) {
-              if (line.includes('[log]')) return;
-            }
-            if (!showErrors) {
-              if (line.includes('[err]')) return;
-            }
-            const logLine = line
-              .replace(' [ManagerDrivers]', '')
-              .replace(/\[Device:(.*?)\]/, '[dev]')
-              .replace(/\[Driver:(.*?)\]/, '[$1]')
-              .replace(' [log] ', '')
-              .replace(' [App] ', '')
-              .replace(' [attached_device]', '');
-            lines += `${logLine}<br />`;
-          });
-        displayLogs(lines);
-      } else {
-        displayLogs(err);
-      }
-    });
-  } catch (e) {
-    displayLogs(e);
-  }
+  displayLogs('');
+  const showLogs = document.getElementById('show_logs').checked;
+  const showErrors = document.getElementById('show_errors').checked;
+  Homey.api('GET', 'getlogs/', null, (err, result) => {
+    if (err) {
+      displayLogs(err.message || String(err));
+      return;
+    }
+    const lines = result
+      .slice()
+      .reverse()
+      .filter((line) => (showLogs || !line.includes('[log]')) && (showErrors || !line.includes('[err]')))
+      .map((line) => line
+        .replace(' [ManagerDrivers]', '')
+        .replace(/\[Device:(.*?)\]/, '[dev]')
+        .replace(/\[Driver:(.*?)\]/, '[$1]')
+        .replace(' [log] ', '')
+        .replace(' [App] ', '')
+        .replace(' [attached_device]', ''));
+    displayLogs(lines.join('\n'));
+  });
 }
 
 function deleteLogs() {
-  Homey.confirm(Homey.__('settings.tab2.deleteWarning'), 'warning', (error, result) => {
-    if (result) {
-      Homey.api('GET', 'deletelogs/', null, (err) => {
-        if (err) {
-          Homey.alert(err.message, 'error'); // [, String icon], Function callback )
-        } else {
-          Homey.alert(Homey.__('settings.tab2.deleted'), 'info');
-          updateLogs();
-        }
-      });
-    }
+  Homey.confirm(Homey.__('settings.tab2.deleteWarning'), (err, result) => {
+    if (err || !result) return;
+    Homey.api('GET', 'deletelogs/', null, (deleteErr) => {
+      if (deleteErr) {
+        Homey.alert(deleteErr.message || String(deleteErr));
+        return;
+      }
+      Homey.alert(Homey.__('settings.tab2.deleted'));
+      updateLogs();
+    });
   });
 }
 
-function showTab(tab) {
-  if (tab === 2) updateLogs();
-  if (tab === 4) getList();
-  $('#copyResult').prop('disabled', true);
-  $('#testResult').prop('disabled', true);
-  $('#runTest').prop('disabled', $('#password').val() === '');
-  $('#password').keyup(() => {
-    $('#runTest').prop('disabled', this.value === '');
-  });
-  $('#resultList').prop('disabled', true);
-  $('.tab').removeClass('tab-active');
-  $('.tab').addClass('tab-inactive');
-  $(`#tabb${tab}`).removeClass('tab-inactive');
-  $(`#tabb${tab}`).addClass('active');
-  $('.panel').hide();
-  $(`#tab${tab}`).show();
-}
+// tab 3: compatibility test
 
 function discover() {
-  $('#host').prop('disabled', true);
-  $('#soapPort').prop('disabled', true);
-  $('#discover').prop('disabled', true);
-  $('#testResult').html('Trying to discover the router now. Hang on........');
+  document.getElementById('host').disabled = true;
+  document.getElementById('soapPort').disabled = true;
+  document.getElementById('discover').disabled = true;
   Homey.api('GET', 'discover/', (err, result) => {
-    $('#host').prop('disabled', false);
-    $('#soapPort').prop('disabled', false);
-    $('#discover').prop('disabled', false);
-    $('#testResult').html(JSON.stringify(result).replace(/"/g, ''));
+    document.getElementById('host').disabled = false;
+    document.getElementById('soapPort').disabled = false;
+    document.getElementById('discover').disabled = false;
     if (err) {
-      $('#host').prop('disabled', false);
-      $('#soapPort').prop('disabled', false);
-      $('#discover').prop('disabled', false);
-      $('#testResult').html('');
-      return Homey.alert(JSON.stringify(err), 'error'); // [, String icon], Function callback )
+      Homey.alert(err.message || String(err));
+      return;
     }
-    $('#host').val(result.host);
-    $('#soapPort').val(result.port);
-    return true;
+    document.getElementById('host').value = result.host;
+    document.getElementById('soapPort').value = result.port;
   });
 }
 
 function runTest() {
-  $('#copyResult').prop('disabled', true);
-  $('#runTest').prop('disabled', true);
-  $('#discover').prop('disabled', true);
-  const password = $('#password').val();
-  const host = $('#host').val();
-  const port = $('#soapPort').val();
-  $('#testResult').html('Testing now. Hang on for three minutes........');
-  Homey.api('GET', `runtest/?password=${password}&host=${host}&port=${port}`, (err, result) => { // , { password, host, port }, (err, result) => {
+  document.getElementById('copyResult').disabled = true;
+  document.getElementById('runTest').disabled = true;
+  document.getElementById('discover').disabled = true;
+  const password = document.getElementById('password').value;
+  const host = document.getElementById('host').value;
+  const port = document.getElementById('soapPort').value;
+  document.getElementById('testResult').value = Homey.__('settings.tab3.testingNow');
+  Homey.api('GET', `runtest/?password=${encodeURIComponent(password)}&host=${encodeURIComponent(host)}&port=${encodeURIComponent(port)}`, (err) => {
     if (err) {
-      $('#copyResult').prop('disabled', false);
-      $('#runTest').prop('disabled', false);
-      $('#discover').prop('disabled', false);
-      return Homey.alert(err.message, 'error'); // [, String icon], Function callback )
+      document.getElementById('copyResult').disabled = false;
+      document.getElementById('runTest').disabled = false;
+      document.getElementById('discover').disabled = false;
+      Homey.alert(err.message || String(err));
     }
-    return true;
   });
 }
 
 function copyResult() {
-  $('#testResult').prop('disabled', false);
-  const copyText = document.querySelector('#testResult');
-  copyText.select();
-  document.execCommand('copy');
+  const testResult = document.getElementById('testResult');
+  navigator.clipboard.writeText(testResult.value).catch(() => {});
   Homey.openURL('https://github.com/gruijter/com.gruijter.netgear/issues/new');
-  $('#testResult').prop('disabled', true);
+}
+
+function displayTestResult(lines) {
+  document.getElementById('testResult').value = lines;
+}
+
+// tab 4: known devices list
+
+function getList() {
+  Homey.api('GET', 'getkd/', (err, result) => {
+    if (err) {
+      Homey.alert(err.message || String(err));
+      return;
+    }
+    document.getElementById('resultList').value = JSON.stringify(result);
+  });
 }
 
 function copyList() {
-  $('#resultList').prop('disabled', false);
-  const copyText = document.querySelector('#resultList');
-  copyText.select();
-  document.execCommand('copy');
-  $('#resultList').prop('disabled', true);
+  const resultList = document.getElementById('resultList');
+  navigator.clipboard.writeText(resultList.value).catch(() => {});
+}
+
+// generic tab handling
+
+function showTab(tab) {
+  if (tab === 2) updateLogs();
+  if (tab === 4) getList();
+  for (let i = 1; i <= 4; i += 1) {
+    document.getElementById(`tabb${i}`).className = tab === i ? 'homey-button-primary' : 'homey-button-secondary';
+    document.getElementById(`tab${i}`).style.display = tab === i ? '' : 'none';
+  }
 }
 
 function addListeners() {
   Homey.on('test_results', (result) => {
-    let lines = '';
-    for (let i = 0; i < (result.length); i += 1) {
-      lines += `${JSON.stringify(result[i]).replace(/"/g, '')}\n`;
-    }
+    const lines = result.map((line) => JSON.stringify(line)).join('\n');
     displayTestResult(lines);
-    $('#copyResult').prop('disabled', false);
-    $('#runTest').prop('disabled', false);
-    $('#discover').prop('disabled', false);
+    document.getElementById('copyResult').disabled = false;
+    document.getElementById('runTest').disabled = false;
+    document.getElementById('discover').disabled = false;
   });
 }
 
 function onHomeyReady(homeyReady) {
   Homey = homeyReady;
   addListeners();
+  document.getElementById('password').addEventListener('input', (event) => {
+    document.getElementById('runTest').disabled = event.target.value === '';
+  });
   showTab(1);
   Homey.ready();
 }

@@ -1,7 +1,19 @@
 {
   "type": "string",
   "title": {
-    "en": "SSID"
+    "en": "SSID",
+    "nl": "SSID",
+    "de": "SSID",
+    "fr": "SSID",
+    "es": "SSID",
+    "it": "SSID",
+    "da": "SSID",
+    "sv": "SSID",
+    "no": "SSID",
+    "pl": "SSID",
+    "ru": "SSID",
+    "ar": "SSID",
+    "ko": "SSID"
   },
   "getable": true,
   "setable": false,

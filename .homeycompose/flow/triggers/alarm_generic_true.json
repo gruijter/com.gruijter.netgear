@@ -2,7 +2,17 @@
   "title": {
     "en": "Internet disconnected",
     "nl": "Internet verbroken",
-    "de": "Internet unterbrochen"
+    "de": "Internet unterbrochen",
+    "fr": "Internet déconnecté",
+    "es": "Internet desconectado",
+    "it": "Internet disconnesso",
+    "da": "Internet afbrudt",
+    "sv": "Internet frånkopplat",
+    "no": "Internett frakoblet",
+    "pl": "Internet rozłączony",
+    "ru": "Интернет отключен",
+    "ar": "الإنترنت غير متصل",
+    "ko": "인터넷 연결 끊김"
   },
   "args": [
     {

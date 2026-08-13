@@ -2,12 +2,32 @@
   "title": {
     "en": "WakeOnLan",
     "nl": "WakeOnLan",
-    "de": "WakeOnLan"
+    "de": "WakeOnLan",
+    "fr": "WakeOnLan",
+    "es": "WakeOnLan",
+    "it": "WakeOnLan",
+    "da": "WakeOnLan",
+    "sv": "WakeOnLan",
+    "no": "WakeOnLan",
+    "pl": "WakeOnLan",
+    "ru": "WakeOnLan",
+    "ar": "WakeOnLan",
+    "ko": "WakeOnLan"
   },
   "titleFormatted": {
     "en": "WakeOnLan [[mac]] [[password]]",
     "nl": "WakeOnLan [[mac]] [[password]]",
-    "de": "WakeOnLan [[mac]] [[password]]"
+    "de": "WakeOnLan [[mac]] [[password]]",
+    "fr": "WakeOnLan [[mac]] [[password]]",
+    "es": "WakeOnLan [[mac]] [[password]]",
+    "it": "WakeOnLan [[mac]] [[password]]",
+    "da": "WakeOnLan [[mac]] [[password]]",
+    "sv": "WakeOnLan [[mac]] [[password]]",
+    "no": "WakeOnLan [[mac]] [[password]]",
+    "pl": "WakeOnLan [[mac]] [[password]]",
+    "ru": "WakeOnLan [[mac]] [[password]]",
+    "ar": "WakeOnLan [[mac]] [[password]]",
+    "ko": "WakeOnLan [[mac]] [[password]]"
   },
   "args": [
     {
@@ -21,10 +41,32 @@
       "title": {
         "en": "Which device (mac address)",
         "nl": "Welk apparaat (mac address)",
-        "de": "Welches Gerät (MAC-Adresse)"
+        "de": "Welches Gerät (MAC-Adresse)",
+        "fr": "Quel appareil (adresse mac)",
+        "es": "Qué dispositivo (dirección mac)",
+        "it": "Quale dispositivo (indirizzo mac)",
+        "da": "Hvilken enhed (mac-adresse)",
+        "sv": "Vilken enhet (mac-adress)",
+        "no": "Hvilken enhet (mac-adresse)",
+        "pl": "Które urządzenie (adres mac)",
+        "ru": "Какое устройство (mac-адрес)",
+        "ar": "أي جهاز (عنوان mac)",
+        "ko": "어느 기기 (mac 주소)"
       },
       "placeholder": {
-        "en": "AA:BB:CC:DD:EE:FF"
+        "en": "AA:BB:CC:DD:EE:FF",
+        "nl": "AA:BB:CC:DD:EE:FF",
+        "de": "AA:BB:CC:DD:EE:FF",
+        "fr": "AA:BB:CC:DD:EE:FF",
+        "es": "AA:BB:CC:DD:EE:FF",
+        "it": "AA:BB:CC:DD:EE:FF",
+        "da": "AA:BB:CC:DD:EE:FF",
+        "sv": "AA:BB:CC:DD:EE:FF",
+        "no": "AA:BB:CC:DD:EE:FF",
+        "pl": "AA:BB:CC:DD:EE:FF",
+        "ru": "AA:BB:CC:DD:EE:FF",
+        "ar": "AA:BB:CC:DD:EE:FF",
+        "ko": "AA:BB:CC:DD:EE:FF"
       }
     },
     {
@@ -33,10 +75,32 @@
       "title": {
         "en": "Password or use 00:00:00:00:00:00",
         "nl": "Password of gebruik 00:00:00:00:00:00",
-        "de": "Passwort oder 00:00:00:00:00:00"
+        "de": "Passwort oder 00:00:00:00:00:00",
+        "fr": "Mot de passe ou utilisez 00:00:00:00:00:00",
+        "es": "Contraseña o usa 00:00:00:00:00:00",
+        "it": "Password oppure usa 00:00:00:00:00:00",
+        "da": "Adgangskode eller brug 00:00:00:00:00:00",
+        "sv": "Lösenord eller använd 00:00:00:00:00:00",
+        "no": "Passord eller bruk 00:00:00:00:00:00",
+        "pl": "Hasło lub użyj 00:00:00:00:00:00",
+        "ru": "Пароль или используйте 00:00:00:00:00:00",
+        "ar": "كلمة المرور أو استخدم 00:00:00:00:00:00",
+        "ko": "비밀번호 또는 00:00:00:00:00:00 사용"
       },
       "placeholder": {
-        "en": "00:00:00:00:00:00"
+        "en": "00:00:00:00:00:00",
+        "nl": "00:00:00:00:00:00",
+        "de": "00:00:00:00:00:00",
+        "fr": "00:00:00:00:00:00",
+        "es": "00:00:00:00:00:00",
+        "it": "00:00:00:00:00:00",
+        "da": "00:00:00:00:00:00",
+        "sv": "00:00:00:00:00:00",
+        "no": "00:00:00:00:00:00",
+        "pl": "00:00:00:00:00:00",
+        "ru": "00:00:00:00:00:00",
+        "ar": "00:00:00:00:00:00",
+        "ko": "00:00:00:00:00:00"
       },
       "value": "00:00:00:00:00:00"
     }

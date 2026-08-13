@@ -2,12 +2,32 @@
   "title": {
     "en": "Block a device with tag",
     "nl": "Apparaat blokkeren met tag",
-    "de": "Ein Gerät mit Tag blockieren"
+    "de": "Ein Gerät mit Tag blockieren",
+    "fr": "Bloquer un appareil avec un tag",
+    "es": "Bloquear un dispositivo con etiqueta",
+    "it": "Blocca un dispositivo con tag",
+    "da": "Bloker en enhed med tag",
+    "sv": "Blockera en enhet med tagg",
+    "no": "Blokker en enhet med tagg",
+    "pl": "Zablokuj urządzenie z tagiem",
+    "ru": "Заблокировать устройство с тегом",
+    "ar": "حظر جهاز بعلامة",
+    "ko": "태그로 기기 차단"
   },
   "titleFormatted": {
     "en": "Block [[mac]] device with tag",
     "nl": "Apparaat [[mac]] blokkeren met tag",
-    "de": "Gerät [[mac]] blockieren mit Tag"
+    "de": "Gerät [[mac]] blockieren mit Tag",
+    "fr": "Bloquer l'appareil [[mac]] avec un tag",
+    "es": "Bloquear el dispositivo [[mac]] con etiqueta",
+    "it": "Blocca il dispositivo [[mac]] con tag",
+    "da": "Bloker enheden [[mac]] med tag",
+    "sv": "Blockera enheten [[mac]] med tagg",
+    "no": "Blokker enheten [[mac]] med tagg",
+    "pl": "Zablokuj urządzenie [[mac]] z tagiem",
+    "ru": "Заблокировать устройство [[mac]] с тегом",
+    "ar": "حظر الجهاز [[mac]] بعلامة",
+    "ko": "태그로 [[mac]] 기기 차단"
   },
   "args": [
     {
@@ -20,7 +40,18 @@
       "type": "text",
       "placeholder": {
         "en": "AA:BB:CC:DD:EE:FF",
-        "de": "AA:BB:CC:DD:EE:FF"
+        "nl": "AA:BB:CC:DD:EE:FF",
+        "de": "AA:BB:CC:DD:EE:FF",
+        "fr": "AA:BB:CC:DD:EE:FF",
+        "es": "AA:BB:CC:DD:EE:FF",
+        "it": "AA:BB:CC:DD:EE:FF",
+        "da": "AA:BB:CC:DD:EE:FF",
+        "sv": "AA:BB:CC:DD:EE:FF",
+        "no": "AA:BB:CC:DD:EE:FF",
+        "pl": "AA:BB:CC:DD:EE:FF",
+        "ru": "AA:BB:CC:DD:EE:FF",
+        "ar": "AA:BB:CC:DD:EE:FF",
+        "ko": "AA:BB:CC:DD:EE:FF"
       }
     }
   ]
