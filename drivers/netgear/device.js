@@ -25,6 +25,7 @@ const NetgearRouter = require('netgear');
 const util = require('util');
 const dns = require('dns');
 const attachRouterLogging = require('../../lib/attachRouterLogging');
+const removeExtraCapabilities = require('../../lib/removeExtraCapabilities');
 
 const dnsLookupPromise = util.promisify(dns.lookup);
 const setTimeoutPromise = util.promisify(setTimeout);
@@ -227,8 +228,8 @@ class NetgearDevice extends Homey.Device {
       if (downloadSpeed >= 0 && uploadSpeed >= 0) { // disregard midnight measurements
         if ((this.getCapabilityValue('meter_download_speed') !== downloadSpeed)
           || (this.getCapabilityValue('meter_upload_speed') !== uploadSpeed)) {
-          this.setCapability('meter_download_speed', downloadSpeed).catch((error) => this.error(error));
-          this.setCapability('meter_upload_speed', uploadSpeed).catch((error) => this.error(error));
+          this.setCapability('meter_download_speed', downloadSpeed).catch(this.error);
+          this.setCapability('meter_upload_speed', uploadSpeed).catch(this.error);
           const tokens = {
             upload_speed: uploadSpeed,
             download_speed: downloadSpeed,
@@ -252,8 +253,8 @@ class NetgearDevice extends Homey.Device {
         });
       if (!this.readings.systemInfo) return Promise.resolve(false);
       // set capabilitie values
-      this.setCapability('meter_cpu_utilization', this.readings.systemInfo.NewCPUUtilization).catch((error) => this.error(error));
-      this.setCapability('meter_mem_utilization', this.readings.systemInfo.NewMemoryUtilization).catch((error) => this.error(error));
+      this.setCapability('meter_cpu_utilization', this.readings.systemInfo.NewCPUUtilization).catch(this.error);
+      this.setCapability('meter_mem_utilization', this.readings.systemInfo.NewMemoryUtilization).catch(this.error);
       return Promise.resolve(true);
     } catch (error) {
       return Promise.reject(error);
@@ -329,7 +330,7 @@ class NetgearDevice extends Homey.Device {
           this.log('the internet connection went down');
         }
       }
-      this.setCapability('alarm_generic', !internetConnectionStatus).catch((error) => this.error(error));
+      this.setCapability('alarm_generic', !internetConnectionStatus).catch(this.error);
       return Promise.resolve(true);
     } catch (error) {
       return Promise.reject(error);
@@ -376,7 +377,22 @@ class NetgearDevice extends Homey.Device {
           this.homey.app.triggerNewAttachedDevice(this, tokens, {});
         }
         // detect device coming online, add online and lastSeen
-        const lastOnline = (knownDevices[attachedDevice.MAC] !== undefined) ? knownDevices[attachedDevice.MAC].online : false;
+        const previousDevice = knownDevices[attachedDevice.MAC];
+        const lastOnline = previousDevice !== undefined ? previousDevice.online : false;
+        // detect name/IP changes for a device we already knew about
+        if (previousDevice) {
+          const changeTokens = {
+            mac: attachedDevice.MAC,
+            name: attachedDevice.Name,
+            ip: attachedDevice.IP,
+          };
+          if (previousDevice.Name !== attachedDevice.Name) {
+            this.homey.app.triggerNameChanged(this, changeTokens, {});
+          }
+          if (previousDevice.IP !== attachedDevice.IP) {
+            this.homey.app.triggerIPChanged(this, changeTokens, {});
+          }
+        }
         knownDevices[attachedDevice.MAC] = attachedDevice;
         knownDevices[attachedDevice.MAC].online = true;
         knownDevices[attachedDevice.MAC].lastSeen = now;
@@ -424,15 +440,6 @@ class NetgearDevice extends Homey.Device {
           device.online = false;
         }
 
-        // trigger when IP changed
-        if (device.Name !== knownDevices[device.MAC].IP) {
-          this.homey.app.triggerNameChanged(this, tokens, {});
-        }
-        // trigger when name changed
-        if (device.IP !== knownDevices[device.MAC].Name) {
-          this.homey.app.triggerIPChanged(this, tokens, {});
-        }
-
         // update knownDevices
         knownDevices[device.MAC] = device;
         // calculate online devices count
@@ -443,7 +450,7 @@ class NetgearDevice extends Homey.Device {
       // store online devices count and set capability
       this.knownDevices = knownDevices;
       this.onlineDeviceCount = onlineCount;
-      this.setCapability('meter_attached_devices', onlineCount).catch((error) => this.error(error));
+      this.setCapability('meter_attached_devices', onlineCount).catch(this.error);
       // send to attached_device driver
       this.homey.emit('listUpdate', JSON.stringify({ routerID: this.getData().id, knownDevices })); // send to attached_device driver
       // save devicelist to persistent storage
@@ -499,7 +506,6 @@ class NetgearDevice extends Homey.Device {
       }
       this.busy = false;
       this.watchDogCounter = 4;
-      this.logs = [];
 
       // create router session
       const options = {
@@ -580,13 +586,7 @@ class NetgearDevice extends Homey.Device {
         }
       }
       // remove any leftover capabilities beyond the correct list (e.g. correctCaps got shorter)
-      const currentCaps = await this.getCapabilities();
-      for (let i = correctCaps.length; i < currentCaps.length; i += 1) {
-        this.log(`removing capability ${currentCaps[i]} for ${this.getName()}`);
-        await this.removeCapability(currentCaps[i])
-          .catch((error) => this.log(error));
-        await setTimeoutPromise(3 * 1000); // wait a bit for Homey to settle
-      }
+      await removeExtraCapabilities(this, correctCaps);
       // set new migrate level
       if (migrate && this.settings.level < '4.0.0') {
         const excerpt = `The Netgear app is migrated to version ${this.homey.app.manifest.version} **CHECK FOR BROKEN FLOWS!**`;

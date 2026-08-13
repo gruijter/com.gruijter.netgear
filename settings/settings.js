@@ -151,7 +151,9 @@ function showTab(tab) {
 
 function addListeners() {
   Homey.on('test_results', (result) => {
-    const lines = result.map((line) => JSON.stringify(line)).join('\n');
+    const lines = Array.isArray(result)
+      ? result.map((line) => JSON.stringify(line)).join('\n')
+      : errMsg(result);
     displayTestResult(lines);
     document.getElementById('copyResult').disabled = false;
     document.getElementById('runTest').disabled = false;

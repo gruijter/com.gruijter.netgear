@@ -22,6 +22,7 @@ along with com.gruijter.netgear.  If not, see <http://www.gnu.org/licenses/>.
 
 const { Device } = require('homey');
 const util = require('util');
+const removeExtraCapabilities = require('../../lib/removeExtraCapabilities');
 
 const setTimeoutPromise = util.promisify(setTimeout);
 
@@ -92,13 +93,7 @@ class attachedNetgearDevice extends Device {
         }
       }
       // remove any leftover capabilities beyond the correct list (e.g. correctCaps got shorter)
-      const currentCaps = this.getCapabilities();
-      for (let i = correctCaps.length; i < currentCaps.length; i += 1) {
-        this.log(`removing capability ${currentCaps[i]} for ${this.getName()}`);
-        await this.removeCapability(currentCaps[i])
-          .catch((error) => this.log(error));
-        await setTimeoutPromise(3 * 1000); // wait a bit for Homey to settle
-      }
+      await removeExtraCapabilities(this, correctCaps);
       // set new migrate level
       if (migrate) this.setSettings({ level: this.homey.app.manifest.version }).catch(this.error);
       this.migrated = true;

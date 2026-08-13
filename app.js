@@ -232,7 +232,7 @@ class MyApp extends Homey.App {
 
     const blockDeviceText = this.homey.flow.getActionCard('block_device_text');
     blockDeviceText
-      .registerRunListener((args) => args.device.blockOrAllow(args.mac.replace(' ', ''), 'Block').catch(this.error));
+      .registerRunListener((args) => args.device.blockOrAllow(args.mac.replace(/\s+/g, ''), 'Block').catch(this.error));
 
     const allowDevice = this.homey.flow.getActionCard('allow_device');
     allowDevice
@@ -241,7 +241,7 @@ class MyApp extends Homey.App {
 
     const allowDeviceText = this.homey.flow.getActionCard('allow_device_text');
     allowDeviceText
-      .registerRunListener((args) => args.device.blockOrAllow(args.mac.replace(' ', ''), 'Allow').catch(this.error));
+      .registerRunListener((args) => args.device.blockOrAllow(args.mac.replace(/\s+/g, ''), 'Allow').catch(this.error));
 
     const wol = this.homey.flow.getActionCard('wol');
     wol
@@ -264,7 +264,7 @@ class MyApp extends Homey.App {
 
     const speedTestStart = this.homey.flow.getActionCard('speed_test_start');
     speedTestStart.registerRunListener(async (args) => {
-      const speed = await args.device.speedTest().catch(this.error);
+      const speed = await args.device.speedTest();
       const tokens = {
         uplink_bandwidth: speed.uplinkBandwidth,
         downlink_bandwidth: speed.downlinkBandwidth,
