@@ -171,17 +171,13 @@ class NetgearDevice extends Homey.Device {
   }
 
   async enableTrafficMeter(action) { // call with NetgearDevice as this
-    try {
-      const enableDisable = (action && 'enable') || 'disable';
-      this.log(`Traffic meter ${enableDisable} requested`);
-      if (!this.routerSession.loggedIn) {
-        await this.routerSession.login();
-      }
-      await this.routerSession.enableTrafficMeter(action);
-      return Promise.resolve(true);
-    } catch (error) {
-      return Promise.reject(error);
+    const enableDisable = action ? 'enable' : 'disable';
+    this.log(`Traffic meter ${enableDisable} requested`);
+    if (!this.routerSession.loggedIn) {
+      await this.routerSession.login();
     }
+    await this.routerSession.enableTrafficMeter(action);
+    return true;
   }
 
   async setBlockDeviceEnable(action) { // call with NetgearDevice as this
@@ -262,48 +258,47 @@ class NetgearDevice extends Homey.Device {
   }
 
   async updateFirmwareInfo() {
-    try {
-      if (!this.settings.use_firmware_check) return Promise.resolve(false);
-      this.readings.info = await this.routerSession.getInfo()
-        .catch((error) => {
-          this.error('error getting router info:', error.message);
-          return undefined;
-        });
-      this.readings.newFirmware = await this.routerSession.checkNewFirmware()
-        .catch((error) => {
-          this.error('error getting new firmware info:', error.message);
-          return undefined;
-        });
-      this.extraPollTime = new Date();
-      // check for new firmware_version and trigger flow
-      const { newFirmware } = this.readings;
-      if (this.readings.newFirmware && this.readings.newFirmware.newVersion && this.readings.newFirmware.newVersion !== '') {
+    if (!this.settings.use_firmware_check) return false;
+    this.readings.info = await this.routerSession.getInfo()
+      .catch((error) => {
+        this.error('error getting router info:', error.message);
+        return undefined;
+      });
+    this.readings.newFirmware = await this.routerSession.checkNewFirmware()
+      .catch((error) => {
+        this.error('error getting new firmware info:', error.message);
+        return undefined;
+      });
+    this.extraPollTime = new Date();
+    // check for new firmware_version and trigger flow
+    const { newFirmware } = this.readings;
+    if (newFirmware && newFirmware.newVersion && newFirmware.newVersion !== '') {
+      if (this.lastNotifiedFirmwareVersion !== newFirmware.newVersion) {
         const tokens = {
           current_version: newFirmware.currentVersion,
           new_version: newFirmware.newVersion,
           release_note: newFirmware.releaseNote,
         };
         this.homey.app.triggerNewRouterFirmware(this, tokens, {});
+        this.lastNotifiedFirmwareVersion = newFirmware.newVersion;
       }
-      // update settings info
-      if (this.readings.info) {
-        if (this.readings.info.Firmwareversion !== this.settings.firmware_version) {
-          this.log('New router firmware installed: ', this.readings.info.Firmwareversion);
-        }
-        if (this.driver.deviceModes[Number(this.readings.info.DeviceMode)] !== this.settings.device_mode) {
-          this.log('New device mode selected: ', this.driver.deviceModes[Number(this.readings.info.DeviceMode)]);
-        }
-        this.setSettings({
-          model_name: this.readings.info.ModelName || this.readings.info.DeviceName || 'Netgear',
-          serial_number: this.readings.info.SerialNumber,
-          firmware_version: this.readings.info.Firmwareversion,
-          device_mode: this.driver.deviceModes[Number(this.readings.info.DeviceMode)],
-        }).catch(this.error);
-      }
-      return Promise.resolve(true);
-    } catch (error) {
-      return Promise.reject(error);
     }
+    // update settings info
+    if (this.readings.info) {
+      if (this.readings.info.Firmwareversion !== this.settings.firmware_version) {
+        this.log('New router firmware installed: ', this.readings.info.Firmwareversion);
+      }
+      if (this.driver.deviceModes[Number(this.readings.info.DeviceMode)] !== this.settings.device_mode) {
+        this.log('New device mode selected: ', this.driver.deviceModes[Number(this.readings.info.DeviceMode)]);
+      }
+      this.setSettings({
+        model_name: this.readings.info.ModelName || this.readings.info.DeviceName || 'Netgear',
+        serial_number: this.readings.info.SerialNumber,
+        firmware_version: this.readings.info.Firmwareversion,
+        device_mode: this.driver.deviceModes[Number(this.readings.info.DeviceMode)],
+      }).catch(this.error);
+    }
+    return true;
   }
 
   async updateInternetConnectionState() {
@@ -519,7 +514,7 @@ class NetgearDevice extends Homey.Device {
       // drop listeners from a previous session before replacing it (device restarts on watchdog/settings changes)
       if (this.routerSession) this.routerSession.removeAllListeners();
       this.routerSession = new NetgearRouter(options);
-      attachRouterLogging(this.routerSession, this.error);
+      attachRouterLogging(this.routerSession, this);
       await this.login().catch((error) => this.error('failed to login during init:', error.message));
 
       // get known device from store
@@ -577,12 +572,12 @@ class NetgearDevice extends Homey.Device {
             this.log(`removing capability ${caps[i]} for ${this.getName()}`);
             await this.removeCapability(caps[i])
               .catch((error) => this.log(error));
-            await setTimeoutPromise(3 * 1000); // wait a bit for Homey to settle
+            await setTimeoutPromise(2 * 1000); // wait a bit for Homey to settle
           }
           // add the new cap
           this.log(`adding capability ${newCap} for ${this.getName()}`);
           await this.addCapability(newCap);
-          await setTimeoutPromise(3 * 1000); // wait a bit for Homey to settle
+          await setTimeoutPromise(2 * 1000); // wait a bit for Homey to settle
         }
       }
       // remove any leftover capabilities beyond the correct list (e.g. correctCaps got shorter)
@@ -595,9 +590,9 @@ class NetgearDevice extends Homey.Device {
         this.log(excerpt);
       }
       this.migrated = true;
-      return Promise.resolve(this.migrated);
+      return this.migrated;
     } catch (error) {
-      return Promise.reject(Error('Migration failed', error));
+      throw new Error(`Migration failed: ${error.message}`, { cause: error });
     }
   }
 

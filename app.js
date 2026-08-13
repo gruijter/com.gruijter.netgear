@@ -70,7 +70,7 @@ class MyApp extends Homey.App {
       this.homey.api.realtime('test_results', output);
       this.log('test ready');
     } catch (error) {
-      this.homey.api.realtime('test_results', error);
+      this.homey.api.realtime('test_results', error.message || String(error));
     }
   }
 
@@ -90,7 +90,10 @@ class MyApp extends Homey.App {
     this.log('Retrieving known devices list');
     const driver = this.homey.drivers.getDriver('netgear');
     const routers = driver.getDevices();
-    return Promise.resolve(routers[0].knownDevices);
+    if (!routers || !routers.length || !routers[0] || !routers[0].knownDevices) {
+      return {};
+    }
+    return routers[0].knownDevices;
   }
 
   registerFlowListeners() {
@@ -200,8 +203,9 @@ class MyApp extends Homey.App {
       .registerRunListener((args) => {
         if (Object.prototype.hasOwnProperty.call(args, 'device')) {
           let isOnline = false;
-          if (Object.prototype.hasOwnProperty.call(args.device.knownDevices, args.mac.name)) {
-            isOnline = args.device.knownDevices[args.mac.name].online; // true or false
+          const mac = typeof args.mac === 'object' ? args.mac.name : args.mac;
+          if (args.device.knownDevices && Object.prototype.hasOwnProperty.call(args.device.knownDevices, mac)) {
+            isOnline = args.device.knownDevices[mac].online; // true or false
           }
           return Promise.resolve(isOnline);
         }
@@ -220,45 +224,56 @@ class MyApp extends Homey.App {
         }
         return total;
       };
-      const devicesOnlineInIpRange = Object.values(args.device.knownDevices).reduce(OnlineInIpRange, 0);
+      const devicesOnlineInIpRange = args.device.knownDevices
+        ? Object.values(args.device.knownDevices).reduce(OnlineInIpRange, 0)
+        : 0;
       return Promise.resolve(devicesOnlineInIpRange > 0);
     });
 
     // action cards for Netgear driver
     const blockDevice = this.homey.flow.getActionCard('block_device');
     blockDevice
-      .registerRunListener((args) => args.device.blockOrAllow(args.mac.name, 'Block').catch(this.error))
+      .registerRunListener((args) => {
+        const mac = typeof args.mac === 'object' ? args.mac.name : args.mac;
+        return args.device.blockOrAllow(mac, 'Block');
+      })
       .registerArgumentAutocompleteListener('mac', autoComplete);
 
     const blockDeviceText = this.homey.flow.getActionCard('block_device_text');
     blockDeviceText
-      .registerRunListener((args) => args.device.blockOrAllow(args.mac.replace(/\s+/g, ''), 'Block').catch(this.error));
+      .registerRunListener((args) => args.device.blockOrAllow(args.mac.replace(/\s+/g, ''), 'Block'));
 
     const allowDevice = this.homey.flow.getActionCard('allow_device');
     allowDevice
-      .registerRunListener((args) => args.device.blockOrAllow(args.mac.name, 'Allow').catch(this.error))
+      .registerRunListener((args) => {
+        const mac = typeof args.mac === 'object' ? args.mac.name : args.mac;
+        return args.device.blockOrAllow(mac, 'Allow');
+      })
       .registerArgumentAutocompleteListener('mac', autoComplete);
 
     const allowDeviceText = this.homey.flow.getActionCard('allow_device_text');
     allowDeviceText
-      .registerRunListener((args) => args.device.blockOrAllow(args.mac.replace(/\s+/g, ''), 'Allow').catch(this.error));
+      .registerRunListener((args) => args.device.blockOrAllow(args.mac.replace(/\s+/g, ''), 'Allow'));
 
     const wol = this.homey.flow.getActionCard('wol');
     wol
-      .registerRunListener((args) => args.device.wol(args.mac.name, args.password).catch(this.error))
+      .registerRunListener((args) => {
+        const mac = typeof args.mac === 'object' ? args.mac.name : args.mac;
+        return args.device.wol(mac, args.password);
+      })
       .registerArgumentAutocompleteListener('mac', autoComplete);
 
     const setGuestWifi = this.homey.flow.getActionCard('set_guest_wifi');
     setGuestWifi
-      .registerRunListener((args) => {
+      .registerRunListener(async (args) => {
         if (args.network === '5') {
-          args.device.set5GGuestWifi(args.on_off).catch(this.error);
+          await args.device.set5GGuestWifi(args.on_off);
         } else if (args.network === '5-2') {
-          args.device.set5GGuestWifi2(args.on_off).catch(this.error);
+          await args.device.set5GGuestWifi2(args.on_off);
         } else if (args.network === '2.4') {
-          args.device.setGuestwifi(args.on_off).catch(this.error);
+          await args.device.setGuestwifi(args.on_off);
         } else {
-          args.device.setGuestwifi2(args.on_off).catch(this.error);
+          await args.device.setGuestwifi2(args.on_off);
         }
       });
 
@@ -275,10 +290,10 @@ class MyApp extends Homey.App {
     });
 
     const updateFirmware = this.homey.flow.getActionCard('update_firmware');
-    updateFirmware.registerRunListener(async (args) => args.device.updateNewFirmware().catch(this.error));
+    updateFirmware.registerRunListener((args) => args.device.updateNewFirmware());
 
     const reboot = this.homey.flow.getActionCard('reboot');
-    reboot.registerRunListener(async (args) => args.device.reboot().catch(this.error));
+    reboot.registerRunListener((args) => args.device.reboot());
   }
 
 }

@@ -73,5 +73,8 @@
   },
   "4.4.0": {
     "en": "Capability flows compatibility >=fw12.2.0. Code cleanup."
+  },
+  "5.0.0": {
+    "en": "Full app rewrite for stability and maintanability. Homey compatibility >=fw12.9.0. Netgear.js@5.0.0"
   }
 }

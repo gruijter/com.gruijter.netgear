@@ -101,7 +101,7 @@ class AttachedDeviceDriver extends Homey.Driver {
       if (deviceRouter !== 'unknown' && deviceRouter !== routerID) return;
       // collect info from all aliasses
       const aliasses = [];
-      pairedDevice.aliasses.forEach((mac) => {
+      (pairedDevice.aliasses || []).forEach((mac) => {
         if (knownDevices[mac]) aliasses.push(knownDevices[mac]);
       });
       const sorted = aliasses.sort((a, b) => new Date(b.lastSeen) - new Date(a.lastSeen));

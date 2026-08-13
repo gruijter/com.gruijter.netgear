@@ -40,16 +40,16 @@ class NetgearDriver extends Homey.Driver {
   async onPair(session) {
     let device;
     const router = new NetgearRouter({ logLevel: 'error' });
-    attachRouterLogging(router, this.error);
+    attachRouterLogging(router, this);
     session.setHandler('discover', async () => {
       try {
         this.log('discovery started from frontend');
         const discover = await router.discover({ family: 4 });
         this.log(discover);
-        return Promise.resolve(JSON.stringify(discover)); // report success to frontend
+        return JSON.stringify(discover); // report success to frontend
       } catch (error) {
         this.log(error);
-        return Promise.reject(Error('Autodiscovery failed. Manual entry required.'));
+        throw Error('Autodiscovery failed. Manual entry required.');
       }
     });
     session.setHandler('check', async (data) => {
@@ -115,10 +115,10 @@ class NetgearDriver extends Homey.Driver {
           },
         };
         await session.showView('select_options');
-        return Promise.resolve(device);
+        return device;
       } catch (error) {
         this.error('Pair error:', error.message);
-        return Promise.reject(error);
+        throw error;
       }
     });
     session.setHandler('save_options', async (options) => {
@@ -126,11 +126,17 @@ class NetgearDriver extends Homey.Driver {
         if (!device || !device.settings) throw Error('Device info went missing.');
         const dev = { ...device };
         dev.settings = { ...dev.settings, ...options };
+        dev.capabilities = capabilities.filter((cap) => {
+          let include = true;
+          if (!options.use_traffic_info && cap.includes('speed')) include = false;
+          if (!options.use_system_info && cap.includes('utilization')) include = false;
+          return include;
+        });
         this.log('saving new router from frontend');
-        return Promise.resolve(dev);
+        return dev;
       } catch (error) {
         this.log(error);
-        return Promise.reject(Error('Autodiscovery failed. Manual entry required.'));
+        throw Error('Autodiscovery failed. Manual entry required.');
       }
     });
   }

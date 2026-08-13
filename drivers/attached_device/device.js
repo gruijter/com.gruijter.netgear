@@ -84,12 +84,12 @@ class attachedNetgearDevice extends Device {
             this.log(`removing capability ${caps[i]} for ${this.getName()}`);
             await this.removeCapability(caps[i])
               .catch((error) => this.log(error));
-            await setTimeoutPromise(3 * 1000); // wait a bit for Homey to settle
+            await setTimeoutPromise(2 * 1000); // wait a bit for Homey to settle
           }
           // add the new cap
           this.log(`adding capability ${newCap} for ${this.getName()}`);
           await this.addCapability(newCap);
-          await setTimeoutPromise(3 * 1000); // wait a bit for Homey to settle
+          await setTimeoutPromise(2 * 1000); // wait a bit for Homey to settle
         }
       }
       // remove any leftover capabilities beyond the correct list (e.g. correctCaps got shorter)
@@ -97,9 +97,9 @@ class attachedNetgearDevice extends Device {
       // set new migrate level
       if (migrate) this.setSettings({ level: this.homey.app.manifest.version }).catch(this.error);
       this.migrated = true;
-      Promise.resolve(this.migrated);
+      return this.migrated;
     } catch (error) {
-      Promise.reject(Error('Migration failed', error));
+      throw new Error(`Migration failed: ${error.message}`, { cause: error });
     }
   }
 
