@@ -1,6 +1,6 @@
 /* eslint-disable prefer-destructuring */
 /*
-Copyright 2017 - 2024, Robin de Gruijter (gruijter@hotmail.com)
+Copyright 2017 - 2026, Robin de Gruijter (gruijter@hotmail.com)
 
 This file is part of com.gruijter.netgear.
 
