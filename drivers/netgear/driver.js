@@ -22,6 +22,7 @@ along with com.gruijter.netgear.  If not, see <http://www.gnu.org/licenses/>.
 
 const Homey = require('homey');
 const NetgearRouter = require('netgear');
+const attachRouterLogging = require('../../lib/attachRouterLogging');
 
 const deviceModes = ['Router', 'Access Point', 'Bridge', '3: Unknown', '4: Unknown'];
 
@@ -39,7 +40,7 @@ class NetgearDriver extends Homey.Driver {
   async onPair(session) {
     let device;
     const router = new NetgearRouter({ logLevel: 'error' });
-    router.on('log', ({ message, ...context }) => this.error(`[netgear] ${message}`, context));
+    attachRouterLogging(router, this.error);
     session.setHandler('discover', async () => {
       try {
         this.log('discovery started from frontend');

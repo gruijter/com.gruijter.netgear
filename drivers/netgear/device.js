@@ -24,6 +24,7 @@ const Homey = require('homey');
 const NetgearRouter = require('netgear');
 const util = require('util');
 const dns = require('dns');
+const attachRouterLogging = require('../../lib/attachRouterLogging');
 
 const dnsLookupPromise = util.promisify(dns.lookup);
 const setTimeoutPromise = util.promisify(setTimeout);
@@ -197,15 +198,10 @@ class NetgearDevice extends Homey.Device {
   }
 
   async setCapability(capability, value) {
-    if (this.hasCapability(capability) && value !== undefined) {
-      // only update changed capabilities
-      if (value !== await this.getCapabilityValue(capability)) {
-        this.setCapabilityValue(capability, value)
-          .catch((error) => {
-            this.error(error, capability, value);
-          });
-      }
-    }
+    if (!this.hasCapability(capability) || value === undefined) return;
+    // only update changed capabilities
+    if (value === await this.getCapabilityValue(capability)) return;
+    await this.setCapabilityValue(capability, value);
   }
 
   async updateSpeed() {
@@ -514,8 +510,10 @@ class NetgearDevice extends Homey.Device {
         tls: this.settings.port === 443 || this.settings.port === 5555,
         logLevel: 'error',
       };
+      // drop listeners from a previous session before replacing it (device restarts on watchdog/settings changes)
+      if (this.routerSession) this.routerSession.removeAllListeners();
       this.routerSession = new NetgearRouter(options);
-      this.routerSession.on('log', ({ message, ...context }) => this.error(`[netgear] ${message}`, context));
+      attachRouterLogging(this.routerSession, this.error);
       await this.login().catch((error) => this.error('failed to login during init:', error.message));
 
       // get known device from store
@@ -580,6 +578,14 @@ class NetgearDevice extends Homey.Device {
           await this.addCapability(newCap);
           await setTimeoutPromise(3 * 1000); // wait a bit for Homey to settle
         }
+      }
+      // remove any leftover capabilities beyond the correct list (e.g. correctCaps got shorter)
+      const currentCaps = await this.getCapabilities();
+      for (let i = correctCaps.length; i < currentCaps.length; i += 1) {
+        this.log(`removing capability ${currentCaps[i]} for ${this.getName()}`);
+        await this.removeCapability(currentCaps[i])
+          .catch((error) => this.log(error));
+        await setTimeoutPromise(3 * 1000); // wait a bit for Homey to settle
       }
       // set new migrate level
       if (migrate && this.settings.level < '4.0.0') {

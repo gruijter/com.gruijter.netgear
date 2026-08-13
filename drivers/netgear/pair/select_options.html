@@ -12,8 +12,8 @@
 			};
 			const device = await Homey.emit('save_options', options);
 			await Homey.createDevice(device);
-			Homey.done();
 			Homey.alert(Homey.__('pair.select_options_router.ready'), 'info');
+			Homey.done();
 		} catch (error) {
 			Homey.hideLoadingOverlay();
 			if (error.message && error.message.includes('Duplicate')) Homey.alert(Homey.__('pair.select_options_router.duplicate'), 'error');

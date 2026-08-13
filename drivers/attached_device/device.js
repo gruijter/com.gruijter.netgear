@@ -91,6 +91,14 @@ class attachedNetgearDevice extends Device {
           await setTimeoutPromise(3 * 1000); // wait a bit for Homey to settle
         }
       }
+      // remove any leftover capabilities beyond the correct list (e.g. correctCaps got shorter)
+      const currentCaps = this.getCapabilities();
+      for (let i = correctCaps.length; i < currentCaps.length; i += 1) {
+        this.log(`removing capability ${currentCaps[i]} for ${this.getName()}`);
+        await this.removeCapability(currentCaps[i])
+          .catch((error) => this.log(error));
+        await setTimeoutPromise(3 * 1000); // wait a bit for Homey to settle
+      }
       // set new migrate level
       if (migrate) this.setSettings({ level: this.homey.app.manifest.version }).catch(this.error);
       this.migrated = true;
@@ -204,7 +212,7 @@ class attachedNetgearDevice extends Device {
           metrics.ssid = info.SSID ? info.SSID : info.ConnectionType;
           metrics.ip_address = info.IP ? info.IP : 'unknown';
           metrics.name_in_router = info.Name ? info.Name : 'unknown';
-          metrics.meter_link_speed = info.Linkspeed ? info.Linkspeed : 100;
+          metrics.meter_link_speed = info.Linkspeed ?? 100;
           metrics.meter_signal_strength = info.SignalStrength ? info.SignalStrength : 0;
           metrics.meter_download_speed = info.Download ? info.Download : 0;
           metrics.meter_upload_speed = info.Upload ? info.Upload : 0;

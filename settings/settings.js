@@ -22,6 +22,16 @@ along with com.gruijter.netgear.  If not, see <http://www.gnu.org/licenses/>.
 
 'use strict';
 
+function errMsg(err) {
+  return (err && err.message) || String(err);
+}
+
+function copyToClipboard(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).catch(() => {});
+  }
+}
+
 // tab 2: logs
 
 function displayLogs(lines) {
@@ -34,7 +44,7 @@ function updateLogs() {
   const showErrors = document.getElementById('show_errors').checked;
   Homey.api('GET', 'getlogs/', null, (err, result) => {
     if (err) {
-      displayLogs(err.message || String(err));
+      displayLogs(errMsg(err));
       return;
     }
     const lines = result
@@ -57,7 +67,7 @@ function deleteLogs() {
     if (err || !result) return;
     Homey.api('GET', 'deletelogs/', null, (deleteErr) => {
       if (deleteErr) {
-        Homey.alert(deleteErr.message || String(deleteErr));
+        Homey.alert(errMsg(deleteErr));
         return;
       }
       Homey.alert(Homey.__('settings.tab2.deleted'));
@@ -77,7 +87,7 @@ function discover() {
     document.getElementById('soapPort').disabled = false;
     document.getElementById('discover').disabled = false;
     if (err) {
-      Homey.alert(err.message || String(err));
+      Homey.alert(errMsg(err));
       return;
     }
     document.getElementById('host').value = result.host;
@@ -98,14 +108,13 @@ function runTest() {
       document.getElementById('copyResult').disabled = false;
       document.getElementById('runTest').disabled = false;
       document.getElementById('discover').disabled = false;
-      Homey.alert(err.message || String(err));
+      Homey.alert(errMsg(err));
     }
   });
 }
 
 function copyResult() {
-  const testResult = document.getElementById('testResult');
-  navigator.clipboard.writeText(testResult.value).catch(() => {});
+  copyToClipboard(document.getElementById('testResult').value);
   Homey.openURL('https://github.com/gruijter/com.gruijter.netgear/issues/new');
 }
 
@@ -118,7 +127,7 @@ function displayTestResult(lines) {
 function getList() {
   Homey.api('GET', 'getkd/', (err, result) => {
     if (err) {
-      Homey.alert(err.message || String(err));
+      Homey.alert(errMsg(err));
       return;
     }
     document.getElementById('resultList').value = JSON.stringify(result);
@@ -126,8 +135,7 @@ function getList() {
 }
 
 function copyList() {
-  const resultList = document.getElementById('resultList');
-  navigator.clipboard.writeText(resultList.value).catch(() => {});
+  copyToClipboard(document.getElementById('resultList').value);
 }
 
 // generic tab handling
