@@ -2,3 +2,6 @@ env.json
 .vscode
 roadmap.txt
 
+.claude
+.github
+AGENTS.md
