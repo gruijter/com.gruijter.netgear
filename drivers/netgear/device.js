@@ -406,12 +406,20 @@ class NetgearDevice extends Homey.Device {
 
       // calculate number online, detect devices going offline, add pollTime
       const offlineDelay = this.getSettings().offline_after * 1000; // default 5 minutes
+      const staleDelay = 60 * 24 * 60 * 60 * 1000; // 60 days
       let onlineCount = 0;
       Object.keys(knownDevices).forEach((key) => {
         const device = knownDevices[key];
         // filter corrupt stuff
         if (!device || !device.MAC || (key.length !== 17)) {
           this.log(`deleting corrupt device@detachCheck: ${key}`);
+          delete knownDevices[key];
+          return;
+        }
+        // prune long-gone devices so knownDevices can't grow without bound (MAC-randomizing
+        // phones/IoT churn through hundreds of one-off entries over months)
+        if (device.lastSeen && (Date.parse(now) - Date.parse(device.lastSeen)) > staleDelay) {
+          this.log(`pruning stale known device: ${device.MAC} ${device.Name}`);
           delete knownDevices[key];
           return;
         }

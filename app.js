@@ -24,6 +24,11 @@ const v8 = require('v8');
 const _test = require('netgear/test/_test');
 const Logger = require('./lib/captureLogs');
 
+// Flow run/autocomplete listeners live on persistent FlowCard objects and throw if
+// registered twice. Guarded at module scope (not on the instance) so a fresh MyApp in
+// the same process re-runs onInit without re-registering them and crashing.
+let runListenersRegistered = false;
+
 class MyApp extends Homey.App {
 
   onInit() {
@@ -196,6 +201,11 @@ class MyApp extends Homey.App {
         .trigger(device, tokens, state)
         .catch(this.error);
     };
+
+    // Everything above (trigger-card refs + helpers) must be reassigned on every new
+    // instance. Everything below registers run/autocomplete listeners once per process.
+    if (runListenersRegistered) return;
+    runListenersRegistered = true;
 
     // condition cards for attachedDevice
     const deviceIsOnline = this.homey.flow.getConditionCard('device_is_online');
