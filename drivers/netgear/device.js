@@ -714,7 +714,10 @@ class NetgearDevice extends Homey.Device {
   }
 
   async onSettings({ newSettings }) { // , changedKeys }) { // , oldSettings, changedKeys) {
-    this.log(`${this.getName()} device settings changed by user`, newSettings);
+    // newSettings holds the router admin password, and captureLogs mirrors this into the
+    // diagnostics report users post publicly - so never log the object as a whole
+    const { password, ...loggable } = newSettings;
+    this.log(`${this.getName()} device settings changed by user`, loggable);
     this.stopPolling();
     if (newSettings.clear_known_devices) {
       this.knownDevices = {};

@@ -30,6 +30,16 @@ const deviceModes = ['Router', 'Access Point', 'Bridge', '3: Unknown', '4: Unkno
 const capabilities = ['alarm_generic', 'meter_attached_devices', 'meter_download_speed',
   'meter_upload_speed', 'meter_cpu_utilization', 'meter_mem_utilization'];
 
+// device settings hold the router admin password, and captureLogs mirrors every log line
+// into the diagnostics report users post publicly. Log only the connection fields a repair
+// can actually change - never the whole settings object
+const connectionFields = (settings) => ({
+  host: settings.host,
+  port: settings.port,
+  username: settings.username,
+  tls: settings.tls,
+});
+
 class NetgearDriver extends Homey.Driver {
 
   onInit() {
@@ -191,9 +201,9 @@ class NetgearDriver extends Homey.Driver {
         firmware_version: info.Firmwareversion,
         device_mode: deviceModes[Number(info.DeviceMode)],
       };
-      this.log('old settings:', device.getSettings());
+      this.log('old settings:', connectionFields(device.getSettings()));
       await device.setSettings(newSettings);
-      this.log('new settings:', device.getSettings());
+      this.log('new settings:', connectionFields(device.getSettings()));
       await device.unsetWarning().catch(() => null);
       device.restartDevice(2000);
       return true;
