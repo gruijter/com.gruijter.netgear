@@ -645,8 +645,9 @@ class NetgearDevice extends Homey.Device {
 
   restartDevice(delay) {
     if (this.restarting) return;
-    this.restarting = true;
+    // stopPolling() clears any pending restart state, so claim the flag after it
     this.stopPolling();
+    this.restarting = true;
     const dly = delay || 2000;
     this.log(`Device will restart in ${dly / 1000} seconds`);
     // Homey-managed timer: disposed automatically on device destroy, so a pending
@@ -677,7 +678,11 @@ class NetgearDevice extends Homey.Device {
   stopPolling() {
     this.log(`Stop polling ${this.getName()}`);
     this.homey.clearInterval(this.intervalIdDevicePoll);
+    // cancelling the pending restart must also drop the flag that guards it. Otherwise
+    // a caller that stops and then restarts (onSettings) leaves `restarting` stuck true,
+    // and every later restartDevice() no-ops - killing the device until the app restarts
     this.homey.clearTimeout(this.restartTimer);
+    this.restarting = false;
     this.homey.clearTimeout(this.debugTimer);
   }
 
