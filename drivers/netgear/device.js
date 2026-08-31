@@ -46,7 +46,12 @@ class NetgearDevice extends Homey.Device {
         this.log('Login successful');
       }
       this.setAvailable().catch(this.error);
-      this.unsetWarning().catch(() => null);
+      // only clear a warning we actually set - login() runs on every poll, so an
+      // unconditional unsetWarning() is ~1440 no-op round-trips per router per day
+      if (this.portWarningSet) {
+        this.portWarningSet = false;
+        this.unsetWarning().catch(() => null);
+      }
       this.portChecked = false; // outage over - allow one probe again on the next failure
       return Promise.resolve(true);
     } catch (error) {
@@ -74,6 +79,7 @@ class NetgearDevice extends Homey.Device {
   async warnIfPortChanged() {
     const cs = await this.routerSession.getCurrentSetting().catch(() => null);
     if (cs && cs.port && Number(cs.port) !== Number(this.settings.port)) {
+      this.portWarningSet = true;
       await this.setWarning(this.homey.__('warning.port', { port: cs.port })).catch(this.error);
     }
   }

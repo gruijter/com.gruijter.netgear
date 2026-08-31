@@ -48,10 +48,6 @@ class NetgearDriver extends Homey.Driver {
     this.deviceModes = deviceModes;
   }
 
-  onUninit() {
-    this.log('NetgearDriver onUninit');
-  }
-
   // shared by pair (check) and repair: connect to a router and read its identity.
   // autodiscovers host/port only when the frontend left them blank.
   async connectRouter(router, data) {
@@ -84,6 +80,10 @@ class NetgearDriver extends Homey.Driver {
         this.log(error);
         throw Error(this.homey.__('errors.discoveryFailed'));
       }
+    });
+    session.setHandler('disconnect', () => {
+      router.removeAllListeners();
+      this.log('Pairing of new router ended');
     });
     session.setHandler('check', async (data) => {
       try {
