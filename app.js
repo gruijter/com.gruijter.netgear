@@ -24,11 +24,6 @@ const v8 = require('v8');
 const _test = require('netgear/test/_test');
 const Logger = require('./lib/captureLogs');
 
-// Flow run/autocomplete listeners live on persistent FlowCard objects and throw if
-// registered twice. Guarded at module scope (not on the instance) so a fresh MyApp in
-// the same process re-runs onInit without re-registering them and crashing.
-let runListenersRegistered = false;
-
 class MyApp extends Homey.App {
 
   onInit() {
@@ -41,15 +36,17 @@ class MyApp extends Homey.App {
     this.onUncaughtException = (error) => this.error('uncaughtException! ', error);
     process.on('unhandledRejection', this.onUnhandledRejection);
     process.on('uncaughtException', this.onUncaughtException);
+    this.onHomeyUnload = () => {
+      this.log('app unload called');
+      // save logs to persistant storage
+      this.logger.saveLogs();
+    };
+    this.onHomeyMemwarn = () => {
+      this.log('memwarn! heap stats:', v8.getHeapStatistics());
+    };
     this.homey
-      .on('unload', () => {
-        this.log('app unload called');
-        // save logs to persistant storage
-        this.logger.saveLogs();
-      })
-      .on('memwarn', () => {
-        this.log('memwarn! heap stats:', v8.getHeapStatistics());
-      });
+      .on('unload', this.onHomeyUnload)
+      .on('memwarn', this.onHomeyMemwarn);
     this.startHeapLogging();
     this.registerFlowListeners();
   }
@@ -75,11 +72,33 @@ class MyApp extends Homey.App {
     this.homey.clearInterval(this.heapInterval);
     if (this.onUnhandledRejection) process.removeListener('unhandledRejection', this.onUnhandledRejection);
     if (this.onUncaughtException) process.removeListener('uncaughtException', this.onUncaughtException);
+    // these capture `this`, so leaving them attached pins the dead app instance in memory
+    if (this.onHomeyUnload) this.homey.removeListener('unload', this.onHomeyUnload);
+    if (this.onHomeyMemwarn) this.homey.removeListener('memwarn', this.onHomeyMemwarn);
     if (this.logger) {
       this.logger.saveLogs();
       this.logger.releaseStdOut();
       this.logger.releaseStdErr();
     }
+  }
+
+  // A FlowCard throws if the same listener is registered twice, and it is undocumented
+  // whether FlowCard objects survive an app re-init. Always attempt registration and
+  // swallow only that error, so the listeners are correct under either behaviour.
+  // Returns a chainable stand-in, since registration calls are chained.
+  safeCard(card) {
+    const proxy = {};
+    ['registerRunListener', 'registerArgumentAutocompleteListener'].forEach((method) => {
+      proxy[method] = (...args) => {
+        try {
+          card[method](...args);
+        } catch (error) {
+          this.log(`${method} already registered, skipping:`, error.message);
+        }
+        return proxy;
+      };
+    });
+    return proxy;
   }
 
   //  stuff for frontend API
@@ -220,23 +239,22 @@ class MyApp extends Homey.App {
     };
 
     // Everything above (trigger-card refs + helpers) must be reassigned on every new
-    // instance. Everything below registers run/autocomplete listeners once per process.
-    if (runListenersRegistered) return;
-    runListenersRegistered = true;
-
+    // instance. Everything below registers run/autocomplete listeners, wrapped by
+    // safeCard() so a second MyApp in the same process cannot be left with no listeners
+    // (nor crash if the FlowCard object turned out to be persistent).
     // condition cards for attachedDevice
-    const deviceIsOnline = this.homey.flow.getConditionCard('device_is_online');
+    const deviceIsOnline = this.safeCard(this.homey.flow.getConditionCard('device_is_online'));
     deviceIsOnline.registerRunListener((args) => args.device.getCapabilityValue('device_connected'));
 
     // condition cards for Netgear driver
-    const internetConnected = this.homey.flow.getConditionCard('alarm_generic');
+    const internetConnected = this.safeCard(this.homey.flow.getConditionCard('alarm_generic'));
     internetConnected.registerRunListener((args) => !args.device.getCapabilityValue('alarm_generic'));
 
-    const newFirmware = this.homey.flow.getConditionCard('new_firmware_condition');
+    const newFirmware = this.safeCard(this.homey.flow.getConditionCard('new_firmware_condition'));
     newFirmware.registerRunListener((args) => (args.device.readings.newFirmware.newVersion
       && args.device.readings.newFirmware.newVersion !== ''));
 
-    const deviceIsOnlineAutocomplete = this.homey.flow.getConditionCard('device_is_online_autocomplete');
+    const deviceIsOnlineAutocomplete = this.safeCard(this.homey.flow.getConditionCard('device_is_online_autocomplete'));
     deviceIsOnlineAutocomplete
       .registerRunListener((args) => {
         if (Object.prototype.hasOwnProperty.call(args, 'device')) {
@@ -251,7 +269,7 @@ class MyApp extends Homey.App {
       })
       .registerArgumentAutocompleteListener('mac', autoComplete);
 
-    const deviceIsOnlineIpRange = this.homey.flow.getConditionCard('device_is_online_ip_range');
+    const deviceIsOnlineIpRange = this.safeCard(this.homey.flow.getConditionCard('device_is_online_ip_range'));
     deviceIsOnlineIpRange.registerRunListener((args) => {
       const OnlineInIpRange = (total, knownDevice) => {
         if (!knownDevice.online) return total;
@@ -269,7 +287,7 @@ class MyApp extends Homey.App {
     });
 
     // action cards for Netgear driver
-    const blockDevice = this.homey.flow.getActionCard('block_device');
+    const blockDevice = this.safeCard(this.homey.flow.getActionCard('block_device'));
     blockDevice
       .registerRunListener((args) => {
         const mac = typeof args.mac === 'object' ? args.mac.name : args.mac;
@@ -277,11 +295,11 @@ class MyApp extends Homey.App {
       })
       .registerArgumentAutocompleteListener('mac', autoComplete);
 
-    const blockDeviceText = this.homey.flow.getActionCard('block_device_text');
+    const blockDeviceText = this.safeCard(this.homey.flow.getActionCard('block_device_text'));
     blockDeviceText
       .registerRunListener((args) => args.device.blockOrAllow(args.mac.replace(/\s+/g, ''), 'Block'));
 
-    const allowDevice = this.homey.flow.getActionCard('allow_device');
+    const allowDevice = this.safeCard(this.homey.flow.getActionCard('allow_device'));
     allowDevice
       .registerRunListener((args) => {
         const mac = typeof args.mac === 'object' ? args.mac.name : args.mac;
@@ -289,11 +307,11 @@ class MyApp extends Homey.App {
       })
       .registerArgumentAutocompleteListener('mac', autoComplete);
 
-    const allowDeviceText = this.homey.flow.getActionCard('allow_device_text');
+    const allowDeviceText = this.safeCard(this.homey.flow.getActionCard('allow_device_text'));
     allowDeviceText
       .registerRunListener((args) => args.device.blockOrAllow(args.mac.replace(/\s+/g, ''), 'Allow'));
 
-    const wol = this.homey.flow.getActionCard('wol');
+    const wol = this.safeCard(this.homey.flow.getActionCard('wol'));
     wol
       .registerRunListener((args) => {
         const mac = typeof args.mac === 'object' ? args.mac.name : args.mac;
@@ -301,7 +319,7 @@ class MyApp extends Homey.App {
       })
       .registerArgumentAutocompleteListener('mac', autoComplete);
 
-    const setGuestWifi = this.homey.flow.getActionCard('set_guest_wifi');
+    const setGuestWifi = this.safeCard(this.homey.flow.getActionCard('set_guest_wifi'));
     setGuestWifi
       .registerRunListener(async (args) => {
         if (args.network === '5') {
@@ -315,7 +333,7 @@ class MyApp extends Homey.App {
         }
       });
 
-    const speedTestStart = this.homey.flow.getActionCard('speed_test_start');
+    const speedTestStart = this.safeCard(this.homey.flow.getActionCard('speed_test_start'));
     speedTestStart.registerRunListener(async (args) => {
       const speed = await args.device.speedTest();
       const tokens = {
@@ -324,13 +342,13 @@ class MyApp extends Homey.App {
         average_ping: speed.averagePing,
       };
       this.log(tokens);
-      this.homey.app.triggerSpeedTestResult(args.device, tokens, {}).catch(this.error);
+      this.triggerSpeedTestResult(args.device, tokens, {});
     });
 
-    const updateFirmware = this.homey.flow.getActionCard('update_firmware');
+    const updateFirmware = this.safeCard(this.homey.flow.getActionCard('update_firmware'));
     updateFirmware.registerRunListener((args) => args.device.updateNewFirmware());
 
-    const reboot = this.homey.flow.getActionCard('reboot');
+    const reboot = this.safeCard(this.homey.flow.getActionCard('reboot'));
     reboot.registerRunListener((args) => args.device.reboot());
   }
 

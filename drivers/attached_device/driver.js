@@ -171,20 +171,31 @@ class AttachedDeviceDriver extends Homey.Driver {
   async onRepair(session, device) {
     this.log('Repairing of device started', device.getName());
 
+    // updateDevices() matches on the whole alias list, so the repair screen has to look
+    // the device up the same way - searching only getData().id reports "not found" for a
+    // device that is tracked, and working, through one of its aliasses
+    const macsOf = () => {
+      const settings = device.getSettings();
+      if (device.aliasses && device.aliasses.length) return device.aliasses;
+      return [settings.mac || device.getData().id];
+    };
+
     session.setHandler('get_status', async () => {
       const settings = device.getSettings();
-      const router = this.findRouter(device.getData().id);
+      const router = this.findRouter(macsOf());
       return {
         mac: settings.mac,
         routerModel: settings.router_model,
         found: !!router,
         newRouterModel: router ? router.getSettings().model_name : '',
-        linked: !!router && router.getData().id === settings.router_id,
+        // 'unknown' is a deliberate wildcard - updateDevices() accepts any router for it,
+        // so such a device is correctly linked and must not be narrowed to a single router
+        linked: !!router && (settings.router_id === 'unknown' || router.getData().id === settings.router_id),
       };
     });
 
     session.setHandler('relink', async () => {
-      const router = this.findRouter(device.getData().id);
+      const router = this.findRouter(macsOf());
       if (!router) throw Error('No paired router reports this MAC address. Add or repair the router first.');
       const newSettings = {
         router_id: router.getData().id,
@@ -202,11 +213,13 @@ class AttachedDeviceDriver extends Homey.Driver {
     });
   }
 
-  // returns the first paired netgear router whose knownDevices contains this MAC
-  findRouter(mac) {
+  // returns the first paired netgear router whose knownDevices contains any of these MACs
+  findRouter(macs) {
+    const list = Array.isArray(macs) ? macs : [macs];
     const netgearDriver = this.homey.drivers.getDriver('netgear');
     const routers = netgearDriver.getDevices() || [];
-    return routers.find((router) => router.knownDevices && router.knownDevices[mac]);
+    return routers.find((router) => router.knownDevices
+      && list.some((mac) => router.knownDevices[mac]));
   }
 
 }

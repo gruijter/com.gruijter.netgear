@@ -47,9 +47,16 @@ class NetgearDevice extends Homey.Device {
       }
       this.setAvailable().catch(this.error);
       this.unsetWarning().catch(() => null);
+      this.portChecked = false; // outage over - allow one probe again on the next failure
       return Promise.resolve(true);
     } catch (error) {
-      this.warnIfPortChanged().catch(() => null);
+      // getCurrentSetting() probes the router and mutates the session's loginMethod/
+      // soapVersion, so it must not overlap the next login() attempt: await it, and run
+      // it only once per outage instead of on every failed poll
+      if (!this.portChecked) {
+        this.portChecked = true;
+        await this.warnIfPortChanged().catch(() => null);
+      }
       return Promise.reject(error);
     }
   }
@@ -291,7 +298,7 @@ class NetgearDevice extends Homey.Device {
         this.error('error getting new firmware info:', error.message);
         return undefined;
       });
-    this.extraPollTime = new Date();
+    this.readings.extraPollTime = Date.now();
     // check for new firmware_version and trigger flow
     const { newFirmware } = this.readings;
     if (newFirmware && newFirmware.newVersion && newFirmware.newVersion !== '') {
@@ -373,7 +380,12 @@ class NetgearDevice extends Homey.Device {
       const attachedList = {};
       pairedDeviceDriver.getDevices().forEach((device) => {
         const settings = device.getSettings();
-        attachedList[settings.mac] = { offlineDelay: settings.offline_after * 1000 };
+        // index every alias, not just settings.mac - updateDevices() matches on the whole
+        // alias list, so all of them need the paired offlineDelay and stale-prune exemption
+        const macs = (device.aliasses && device.aliasses.length) ? device.aliasses : [settings.mac];
+        macs.forEach((mac) => {
+          attachedList[mac] = { offlineDelay: settings.offline_after * 1000 };
+        });
       });
 
       // detect online and new attached devices
@@ -440,7 +452,9 @@ class NetgearDevice extends Homey.Device {
         }
         // prune long-gone devices so knownDevices can't grow without bound (MAC-randomizing
         // phones/IoT churn through hundreds of one-off entries over months)
-        if (device.lastSeen && (Date.parse(now) - Date.parse(device.lastSeen)) > staleDelay) {
+        // never prune a device that is paired as an attached_device: it is merely away
+        // (long trip, seasonal home), and deleting it breaks its presence updates for good
+        if (!attachedList[key] && device.lastSeen && (Date.parse(now) - Date.parse(device.lastSeen)) > staleDelay) {
           this.log(`pruning stale known device: ${device.MAC} ${device.Name}`);
           delete knownDevices[key];
           return;
@@ -536,7 +550,11 @@ class NetgearDevice extends Homey.Device {
       // create router session. Starts at 'debug' so a diagnostics report taken shortly
       // after an app/device restart contains a full SOAP trace of the startup sequence
       // (see endDebugWindow: downgraded to 'error' on the first successful poll, or after
-      // DEBUG_WINDOW at the latest, so a router that never connects can't log debug forever)
+      // DEBUG_WINDOW at the latest). The deadline is kept on the instance and survives a
+      // restart, so a router that never connects - restarting every 5 min - can't re-arm
+      // debug logging forever and flood the 200-entry log ring with SOAP traces
+      if (!this.debugUntil) this.debugUntil = Date.now() + DEBUG_WINDOW;
+      const debugLeft = this.debugUntil - Date.now();
       const options = {
         password: this.settings.password,
         username: this.settings.username,
@@ -545,14 +563,14 @@ class NetgearDevice extends Homey.Device {
         // stored at pair/repair. Devices paired before `tls` was a setting have no value
         // yet, so fall back to deriving it from the port (checkCaps writes it back).
         tls: this.settings.tls === undefined ? tlsForPort(this.settings.port) : this.settings.tls,
-        logLevel: 'debug',
+        logLevel: debugLeft > 0 ? 'debug' : 'error',
       };
       // drop listeners from a previous session before replacing it (device restarts on watchdog/settings changes)
       if (this.routerSession) this.routerSession.removeAllListeners();
       this.routerSession = new NetgearRouter(options);
       attachRouterLogging(this.routerSession, this);
       this.homey.clearTimeout(this.debugTimer);
-      this.debugTimer = this.homey.setTimeout(() => this.endDebugWindow('timeout'), DEBUG_WINDOW);
+      if (debugLeft > 0) this.debugTimer = this.homey.setTimeout(() => this.endDebugWindow('timeout'), debugLeft);
       await this.login().catch((error) => this.error('failed to login during init:', error.message));
 
       // get known device from store
