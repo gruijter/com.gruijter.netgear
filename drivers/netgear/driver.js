@@ -37,6 +37,10 @@ class NetgearDriver extends Homey.Driver {
     this.deviceModes = deviceModes;
   }
 
+  onUninit() {
+    this.log('NetgearDriver onUninit');
+  }
+
   async onPair(session) {
     let device;
     const router = new NetgearRouter({ logLevel: 'error' });

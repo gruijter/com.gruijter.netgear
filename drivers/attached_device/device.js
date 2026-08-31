@@ -21,10 +21,8 @@ along with com.gruijter.netgear.  If not, see <http://www.gnu.org/licenses/>.
 'use strict';
 
 const { Device } = require('homey');
-const util = require('util');
 const removeExtraCapabilities = require('../../lib/removeExtraCapabilities');
-
-const setTimeoutPromise = util.promisify(setTimeout);
+const settle = require('../../lib/settle');
 
 class attachedNetgearDevice extends Device {
 
@@ -51,6 +49,7 @@ class attachedNetgearDevice extends Device {
 
   // this method is called before the Device is unloaded (app stop/restart or deletion)
   onUninit() {
+    this.homey.clearTimeout(this.restartTimer);
     this.log(`Device uninit: ${this.getName()}`);
   }
 
@@ -59,7 +58,9 @@ class attachedNetgearDevice extends Device {
     this.restarting = true;
     const dly = delay || 2000;
     this.log(`Device will restart in ${dly / 1000} seconds`);
-    setTimeoutPromise(dly).then(() => this.onInit());
+    // Homey-managed timer: disposed automatically on device destroy, so a pending
+    // restart can't fire this.onInit() against an already-destroyed instance
+    this.restartTimer = this.homey.setTimeout(() => this.onInit(), dly);
   }
 
   // migrate stuff from old version < 4.0.0 and reset capabilities after settings change
@@ -84,12 +85,12 @@ class attachedNetgearDevice extends Device {
             this.log(`removing capability ${caps[i]} for ${this.getName()}`);
             await this.removeCapability(caps[i])
               .catch((error) => this.log(error));
-            await setTimeoutPromise(2 * 1000); // wait a bit for Homey to settle
+            await settle(this.homey); // wait a bit for Homey to settle
           }
           // add the new cap
           this.log(`adding capability ${newCap} for ${this.getName()}`);
           await this.addCapability(newCap);
-          await setTimeoutPromise(2 * 1000); // wait a bit for Homey to settle
+          await settle(this.homey); // wait a bit for Homey to settle
         }
       }
       // remove any leftover capabilities beyond the correct list (e.g. correctCaps got shorter)

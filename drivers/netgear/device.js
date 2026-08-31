@@ -26,9 +26,9 @@ const util = require('util');
 const dns = require('dns');
 const attachRouterLogging = require('../../lib/attachRouterLogging');
 const removeExtraCapabilities = require('../../lib/removeExtraCapabilities');
+const settle = require('../../lib/settle');
 
 const dnsLookupPromise = util.promisify(dns.lookup);
-const setTimeoutPromise = util.promisify(setTimeout);
 
 class NetgearDevice extends Homey.Device {
 
@@ -572,12 +572,12 @@ class NetgearDevice extends Homey.Device {
             this.log(`removing capability ${caps[i]} for ${this.getName()}`);
             await this.removeCapability(caps[i])
               .catch((error) => this.log(error));
-            await setTimeoutPromise(2 * 1000); // wait a bit for Homey to settle
+            await settle(this.homey); // wait a bit for Homey to settle
           }
           // add the new cap
           this.log(`adding capability ${newCap} for ${this.getName()}`);
           await this.addCapability(newCap);
-          await setTimeoutPromise(2 * 1000); // wait a bit for Homey to settle
+          await settle(this.homey); // wait a bit for Homey to settle
         }
       }
       // remove any leftover capabilities beyond the correct list (e.g. correctCaps got shorter)
@@ -602,7 +602,9 @@ class NetgearDevice extends Homey.Device {
     this.stopPolling();
     const dly = delay || 2000;
     this.log(`Device will restart in ${dly / 1000} seconds`);
-    setTimeoutPromise(dly).then(() => this.onInit());
+    // Homey-managed timer: disposed automatically on device destroy, so a pending
+    // restart can't fire this.onInit() against an already-destroyed instance
+    this.restartTimer = this.homey.setTimeout(() => this.onInit(), dly);
   }
 
   // this method is called when the Device is added
@@ -621,12 +623,14 @@ class NetgearDevice extends Homey.Device {
   // this method is called before the Device is unloaded (app stop/restart or deletion)
   onUninit() {
     this.stopPolling();
+    if (this.routerSession) this.routerSession.removeAllListeners();
     this.log(`Device uninit: ${this.getName()}`);
   }
 
   stopPolling() {
     this.log(`Stop polling ${this.getName()}`);
     this.homey.clearInterval(this.intervalIdDevicePoll);
+    this.homey.clearTimeout(this.restartTimer);
   }
 
   // register polling stuff

@@ -30,13 +30,12 @@ class MyApp extends Homey.App {
     if (!this.logger) this.logger = new Logger({ name: 'netgearLog', length: 200, homey: this.homey });
     this.log('Netgear App is running!');
 
-    // register some listeners
-    process.on('unhandledRejection', (error) => {
-      this.error('unhandledRejection! ', error);
-    });
-    process.on('uncaughtException', (error) => {
-      this.error('uncaughtException! ', error);
-    });
+    // register some listeners (kept as refs so onUninit can remove them again;
+    // `process` is a Node global that outlives the app instance)
+    this.onUnhandledRejection = (error) => this.error('unhandledRejection! ', error);
+    this.onUncaughtException = (error) => this.error('uncaughtException! ', error);
+    process.on('unhandledRejection', this.onUnhandledRejection);
+    process.on('uncaughtException', this.onUncaughtException);
     this.homey
       .on('unload', () => {
         this.log('app unload called');
@@ -47,6 +46,18 @@ class MyApp extends Homey.App {
         this.log('memwarn! heap stats:', v8.getHeapStatistics());
       });
     this.registerFlowListeners();
+  }
+
+  // this method is called before the app is unloaded (Homey stop/restart or app update)
+  onUninit() {
+    this.log('app onUninit called');
+    if (this.onUnhandledRejection) process.removeListener('unhandledRejection', this.onUnhandledRejection);
+    if (this.onUncaughtException) process.removeListener('uncaughtException', this.onUncaughtException);
+    if (this.logger) {
+      this.logger.saveLogs();
+      this.logger.releaseStdOut();
+      this.logger.releaseStdErr();
+    }
   }
 
   //  stuff for frontend API

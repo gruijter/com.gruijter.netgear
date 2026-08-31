@@ -86,9 +86,15 @@ class AttachedDeviceDriver extends Homey.Driver {
   async onInit() {
     this.log('AttachedDeviceDriver onInit');
     this.capabilities = capabilities;
-    this.homey.on('listUpdate', (info) => {
-      this.updateDevices(JSON.parse(info));
-    });
+    // kept as a ref so onUninit can remove it again (`this.homey` events are not
+    // auto-cleaned on driver destroy)
+    this.onListUpdate = (info) => this.updateDevices(JSON.parse(info));
+    this.homey.on('listUpdate', this.onListUpdate);
+  }
+
+  onUninit() {
+    this.log('AttachedDeviceDriver onUninit');
+    if (this.onListUpdate) this.homey.removeListener('listUpdate', this.onListUpdate);
   }
 
   updateDevices(info) {
