@@ -76,5 +76,8 @@
 			"resultList": "Lista urządzeń",
 			"copyList": "Kopiuj listę"
 		}
+	},
+	"warning": {
+		"port": "Zły port? Spróbuj __port__ lub sparuj ponownie."
 	}
 }

@@ -76,5 +76,8 @@
 			"resultList": "Device list",
 			"copyList": "Copy list"
 		}
+	},
+	"warning": {
+		"port": "Wrong port? Try __port__ or re-pair."
 	}
 }

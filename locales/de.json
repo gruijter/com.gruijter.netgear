@@ -76,5 +76,8 @@
 			"resultList": "Geräteliste",
 			"copyList": "Kopiere die Liste"
 		}
+	},
+	"warning": {
+		"port": "Falscher Port? Versuche __port__ oder neu koppeln."
 	}
 }

@@ -76,5 +76,8 @@
 			"resultList": "Elenco dispositivi",
 			"copyList": "Copia elenco"
 		}
+	},
+	"warning": {
+		"port": "Porta errata? Prova __port__ o riassocia."
 	}
 }

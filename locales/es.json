@@ -76,5 +76,8 @@
 			"resultList": "Lista de dispositivos",
 			"copyList": "Copiar lista"
 		}
+	},
+	"warning": {
+		"port": "¿Puerto incorrecto? Prueba __port__ o vuelve a emparejar."
 	}
 }

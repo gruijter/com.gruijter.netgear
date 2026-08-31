@@ -76,5 +76,8 @@
 			"resultList": "Enhetslista",
 			"copyList": "Kopiera lista"
 		}
+	},
+	"warning": {
+		"port": "Fel port? Prova __port__ eller para om."
 	}
 }

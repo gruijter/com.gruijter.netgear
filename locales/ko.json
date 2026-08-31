@@ -76,5 +76,8 @@
 			"resultList": "장치 목록",
 			"copyList": "목록 복사"
 		}
+	},
+	"warning": {
+		"port": "포트가 틀렸나요? __port__ 시도 또는 재연결."
 	}
 }

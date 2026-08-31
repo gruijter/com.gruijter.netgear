@@ -43,9 +43,20 @@ class NetgearDevice extends Homey.Device {
         this.log('Login successful');
       }
       this.setAvailable().catch(this.error);
+      this.unsetWarning().catch(() => null);
       return Promise.resolve(true);
     } catch (error) {
+      this.warnIfPortChanged().catch(() => null);
       return Promise.reject(error);
+    }
+  }
+
+  // on login failure, hint the user (device warning) if the router reports a different
+  // SOAP port than the one stored in settings - detection stays a suggestion, never auto-applied
+  async warnIfPortChanged() {
+    const cs = await this.routerSession.getCurrentSetting().catch(() => null);
+    if (cs && cs.port && Number(cs.port) !== Number(this.settings.port)) {
+      await this.setWarning(this.homey.__('warning.port', { port: cs.port })).catch(this.error);
     }
   }
 
