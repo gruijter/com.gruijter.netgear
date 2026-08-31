@@ -50,12 +50,29 @@ class MyApp extends Homey.App {
       .on('memwarn', () => {
         this.log('memwarn! heap stats:', v8.getHeapStatistics());
       });
+    this.startHeapLogging();
     this.registerFlowListeners();
+  }
+
+  // One compact heap line every 30 minutes. memwarn only fires if Homey warns in time,
+  // which it may not before an OOM kill - a trend in the diagnostics report shows whether
+  // the heap is climbing between restarts. process.memoryUsage() crashes the Homey
+  // sandbox (ENOENT uv_resident_set_memory); v8.getHeapStatistics() is the supported way.
+  startHeapLogging() {
+    this.homey.clearInterval(this.heapInterval);
+    const logHeap = () => {
+      const { used_heap_size: used, heap_size_limit: limit } = v8.getHeapStatistics();
+      const mb = (bytes) => Math.round(bytes / 1024 / 1024);
+      this.log(`heap: ${mb(used)}/${mb(limit)} MB (${Math.round((used / limit) * 100)}%)`);
+    };
+    logHeap(); // one at boot, so a report always has a baseline to compare against
+    this.heapInterval = this.homey.setInterval(logHeap, 30 * 60 * 1000);
   }
 
   // this method is called before the app is unloaded (Homey stop/restart or app update)
   onUninit() {
     this.log('app onUninit called');
+    this.homey.clearInterval(this.heapInterval);
     if (this.onUnhandledRejection) process.removeListener('unhandledRejection', this.onUnhandledRejection);
     if (this.onUncaughtException) process.removeListener('uncaughtException', this.onUncaughtException);
     if (this.logger) {

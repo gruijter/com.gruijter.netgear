@@ -30,6 +30,8 @@ const settle = require('../../lib/settle');
 
 const dnsLookupPromise = util.promisify(dns.lookup);
 
+const DEBUG_WINDOW = 5 * 60 * 1000; // max time the router session logs at 'debug' after a (re)start
+
 class NetgearDevice extends Homey.Device {
 
   async login() {
@@ -49,6 +51,14 @@ class NetgearDevice extends Homey.Device {
       this.warnIfPortChanged().catch(() => null);
       return Promise.reject(error);
     }
+  }
+
+  // drop the router session back to 'error' logging after the post-restart debug window
+  endDebugWindow(reason) {
+    this.homey.clearTimeout(this.debugTimer);
+    if (!this.routerSession || this.routerSession.logLevel !== 'debug') return;
+    this.routerSession.logLevel = 'error';
+    this.log(`debug logging ended (${reason})`);
   }
 
   // on login failure, hint the user (device warning) if the router reports a different
@@ -489,6 +499,7 @@ class NetgearDevice extends Homey.Device {
         await this.updateFirmwareInfo().catch(this.error); // firmware and router mode
       }
       this.busy = false;
+      this.endDebugWindow('poll ok'); // startup went fine - stop the verbose SOAP tracing
       return Promise.resolve(this.busy);
     } catch (error) {
       this.busy = false;
@@ -521,19 +532,24 @@ class NetgearDevice extends Homey.Device {
       this.busy = false;
       this.watchDogCounter = 4;
 
-      // create router session
+      // create router session. Starts at 'debug' so a diagnostics report taken shortly
+      // after an app/device restart contains a full SOAP trace of the startup sequence
+      // (see endDebugWindow: downgraded to 'error' on the first successful poll, or after
+      // DEBUG_WINDOW at the latest, so a router that never connects can't log debug forever)
       const options = {
         password: this.settings.password,
         username: this.settings.username,
         host: this.settings.host,
         port: this.settings.port,
         tls: this.settings.port === 443 || this.settings.port === 5555,
-        logLevel: 'error',
+        logLevel: 'debug',
       };
       // drop listeners from a previous session before replacing it (device restarts on watchdog/settings changes)
       if (this.routerSession) this.routerSession.removeAllListeners();
       this.routerSession = new NetgearRouter(options);
       attachRouterLogging(this.routerSession, this);
+      this.homey.clearTimeout(this.debugTimer);
+      this.debugTimer = this.homey.setTimeout(() => this.endDebugWindow('timeout'), DEBUG_WINDOW);
       await this.login().catch((error) => this.error('failed to login during init:', error.message));
 
       // get known device from store
@@ -650,6 +666,7 @@ class NetgearDevice extends Homey.Device {
     this.log(`Stop polling ${this.getName()}`);
     this.homey.clearInterval(this.intervalIdDevicePoll);
     this.homey.clearTimeout(this.restartTimer);
+    this.homey.clearTimeout(this.debugTimer);
   }
 
   // register polling stuff
