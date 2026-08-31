@@ -31,7 +31,7 @@
     "ko": "Netgear 라우터를 모니터링하세요"
   },
   "brandColor": "#751939",
-  "version": "5.0.0",
+  "version": "5.1.1",
   "sdk": 3,
   "compatibility": ">=12.9.0",
   "author": {

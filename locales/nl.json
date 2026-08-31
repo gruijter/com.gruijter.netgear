@@ -78,7 +78,9 @@
 		}
 	},
 	"warning": {
-		"port": "Verkeerde poort? Probeer __port__ of herkoppel."
+		"port": "Verkeerde instellingen? Probeer poort __port__ met TLS __tls__, of herkoppel.",
+		"tlsOn": "aan",
+		"tlsOff": "uit"
 	},
 	"repair": {
 		"title": "Verbinding herstellen",

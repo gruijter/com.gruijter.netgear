@@ -78,7 +78,9 @@
 		}
 	},
 	"warning": {
-		"port": "Porta errata? Prova __port__ o riassocia."
+		"port": "Impostazioni errate? Prova la porta __port__ con TLS __tls__, o riassocia.",
+		"tlsOn": "attivo",
+		"tlsOff": "disattivo"
 	},
 	"repair": {
 		"title": "Ripara connessione",

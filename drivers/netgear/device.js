@@ -76,14 +76,20 @@ class NetgearDevice extends Homey.Device {
     this.log(`debug logging ended (${reason})`);
   }
 
-  // on login failure, hint the user (device warning) if the router reports a different
-  // SOAP port than the one stored in settings - detection stays a suggestion, never auto-applied
+  // on login failure, hint the user (device warning) if the router reports a different SOAP
+  // port or TLS setting than the one stored in settings - detection stays a suggestion, never
+  // auto-applied. Both are reported together: a port alone is not actionable, since e.g. 443
+  // with the TLS checkbox left off fails exactly like the wrong port did.
   async warnIfPortChanged() {
     const cs = await this.routerSession.getCurrentSetting().catch(() => null);
-    if (cs && cs.port && Number(cs.port) !== Number(this.settings.port)) {
-      this.portWarningSet = true;
-      await this.setWarning(this.homey.__('warning.port', { port: cs.port })).catch(this.error);
-    }
+    if (!cs || !cs.port) return;
+    const tls = this.settings.tls === undefined ? tlsForPort(this.settings.port) : this.settings.tls;
+    const portChanged = Number(cs.port) !== Number(this.settings.port);
+    const tlsChanged = !!cs.tls !== !!tls;
+    if (!portChanged && !tlsChanged) return;
+    this.portWarningSet = true;
+    const tlsState = this.homey.__(cs.tls ? 'warning.tlsOn' : 'warning.tlsOff');
+    await this.setWarning(this.homey.__('warning.port', { port: cs.port, tls: tlsState })).catch(this.error);
   }
 
   async wol(mac, password) {

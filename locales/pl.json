@@ -78,7 +78,9 @@
 		}
 	},
 	"warning": {
-		"port": "Zły port? Spróbuj __port__ lub sparuj ponownie."
+		"port": "Złe ustawienia? Spróbuj portu __port__ z TLS __tls__ lub sparuj ponownie.",
+		"tlsOn": "wł.",
+		"tlsOff": "wył."
 	},
 	"repair": {
 		"title": "Napraw połączenie",

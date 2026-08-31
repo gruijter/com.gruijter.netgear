@@ -78,7 +78,9 @@
 		}
 	},
 	"warning": {
-		"port": "Wrong port? Try __port__ or re-pair."
+		"port": "Wrong settings? Try port __port__ with TLS __tls__, or re-pair.",
+		"tlsOn": "on",
+		"tlsOff": "off"
 	},
 	"repair": {
 		"title": "Repair connection",

@@ -76,5 +76,8 @@
   },
   "5.0.0": {
     "en": "Full app rewrite for stability and maintanability. Many fixes. Full translation done. Homey compatibility >=fw12.9.0. Netgear.js@5.0.0"
+  },
+  "5.1.1": {
+    "en": "Fix login on HTTPS-only routers (Orbi). Added router and attached device repair. Added manual TLS setting and wrong port/TLS warning. Improved restart stability and diagnostics logging. Netgear.js@5.1.1"
   }
 }

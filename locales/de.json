@@ -78,7 +78,9 @@
 		}
 	},
 	"warning": {
-		"port": "Falscher Port? Versuche __port__ oder neu koppeln."
+		"port": "Falsche Einstellungen? Versuche Port __port__ mit TLS __tls__, oder neu koppeln.",
+		"tlsOn": "ein",
+		"tlsOff": "aus"
 	},
 	"repair": {
 		"title": "Verbindung reparieren",

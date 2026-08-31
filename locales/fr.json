@@ -78,7 +78,9 @@
 		}
 	},
 	"warning": {
-		"port": "Mauvais port ? Essayez __port__ ou réappairez."
+		"port": "Mauvais réglages ? Essayez le port __port__ avec TLS __tls__, ou réappairez.",
+		"tlsOn": "activé",
+		"tlsOff": "désactivé"
 	},
 	"repair": {
 		"title": "Réparer la connexion",

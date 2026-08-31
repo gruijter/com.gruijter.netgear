@@ -1,6 +1,6 @@
 {
   "name": "com.gruijter.netgear",
-  "version": "5.0.0",
+  "version": "5.1.1",
   "description": "Homey app for Netgear routers",
   "main": "api.js",
   "engines": {
@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "fixture-stdout": "^0.2.1",
-    "netgear": "^5.1.0"
+    "netgear": "^5.1.1"
   },
   "scripts": {
     "lint": "eslint --ext .js --ignore-path .gitignore ."

@@ -78,7 +78,9 @@
 		}
 	},
 	"warning": {
-		"port": "Forkert port? Prøv __port__ eller par igen."
+		"port": "Forkerte indstillinger? Prøv port __port__ med TLS __tls__, eller par igen.",
+		"tlsOn": "til",
+		"tlsOff": "fra"
 	},
 	"repair": {
 		"title": "Reparer forbindelse",

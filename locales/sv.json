@@ -78,7 +78,9 @@
 		}
 	},
 	"warning": {
-		"port": "Fel port? Prova __port__ eller para om."
+		"port": "Fel inställningar? Prova port __port__ med TLS __tls__, eller para om.",
+		"tlsOn": "på",
+		"tlsOff": "av"
 	},
 	"repair": {
 		"title": "Reparera anslutning",
