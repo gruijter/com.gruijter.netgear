@@ -99,6 +99,7 @@
 		"noSerial": "No se encontró SerialNumber",
 		"discoveryFailed": "Error en la detección automática. Se requiere entrada manual.",
 		"differentRouter": "Este es un router diferente. Añádelo como un dispositivo nuevo.",
-		"macNotFound": "Ningún router emparejado informa de esta dirección MAC. Añade o repara primero el router."
+		"macNotFound": "Ningún router emparejado informa de esta dirección MAC. Añade o repara primero el router.",
+		"knownDevicesDeleted": "Lista de dispositivos conocidos eliminada"
 	}
 }

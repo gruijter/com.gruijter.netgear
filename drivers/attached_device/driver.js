@@ -177,7 +177,10 @@ class AttachedDeviceDriver extends Homey.Driver {
     const macsOf = () => {
       const settings = device.getSettings();
       if (device.aliasses && device.aliasses.length) return device.aliasses;
-      return [settings.mac || device.getData().id];
+      // settings.mac defaults to the truthy placeholder 'unknown' on legacy devices, so
+      // only trust it when it is a real MAC - otherwise use the paired id
+      const mac = settings.mac && settings.mac.length === 17 ? settings.mac : device.getData().id;
+      return [mac];
     };
 
     session.setHandler('get_status', async () => {
@@ -213,13 +216,21 @@ class AttachedDeviceDriver extends Homey.Driver {
     });
   }
 
-  // returns the first paired netgear router whose knownDevices contains any of these MACs
+  // returns the paired netgear router that saw any of these MACs most recently. Ranking by
+  // lastSeen matches updateDevices(), so relink can't pin a roaming device to a stale router
   findRouter(macs) {
     const list = Array.isArray(macs) ? macs : [macs];
     const netgearDriver = this.homey.drivers.getDriver('netgear');
     const routers = netgearDriver.getDevices() || [];
-    return routers.find((router) => router.knownDevices
-      && list.some((mac) => router.knownDevices[mac]));
+    const seen = (router) => list
+      .map((mac) => router.knownDevices && router.knownDevices[mac])
+      .filter((entry) => entry && entry.lastSeen)
+      .reduce((newest, entry) => Math.max(newest, Date.parse(entry.lastSeen) || 0), 0);
+    const candidates = routers
+      .map((router) => ({ router, lastSeen: seen(router) }))
+      .filter((c) => c.lastSeen > 0)
+      .sort((a, b) => b.lastSeen - a.lastSeen);
+    return candidates.length ? candidates[0].router : undefined;
   }
 
 }

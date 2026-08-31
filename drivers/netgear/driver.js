@@ -209,6 +209,9 @@ class NetgearDriver extends Homey.Driver {
       await device.setStoreValue('tlsMigrated', true);
       this.log('new settings:', connectionFields(device.getSettings()));
       await device.unsetWarning().catch(() => null);
+      // clear any pending/in-flight restart first, otherwise restartDevice() no-ops and the
+      // repaired connection settings are never picked up (restartDevice guards on `restarting`)
+      device.stopPolling();
       device.restartDevice(2000);
       return true;
     });

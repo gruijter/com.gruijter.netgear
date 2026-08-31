@@ -99,6 +99,7 @@
 		"noSerial": "Keine SerialNumber gefunden",
 		"discoveryFailed": "Automatische Suche fehlgeschlagen. Manuelle Eingabe erforderlich.",
 		"differentRouter": "Dies ist ein anderer Router. Füge ihn als neues Gerät hinzu.",
-		"macNotFound": "Kein gekoppelter Router meldet diese MAC-Adresse. Füge zuerst den Router hinzu oder repariere ihn."
+		"macNotFound": "Kein gekoppelter Router meldet diese MAC-Adresse. Füge zuerst den Router hinzu oder repariere ihn.",
+		"knownDevicesDeleted": "Liste bekannter Geräte gelöscht"
 	}
 }

@@ -46,9 +46,10 @@ class NetgearDevice extends Homey.Device {
         this.log('Login successful');
       }
       this.setAvailable().catch(this.error);
-      // only clear a warning we actually set - login() runs on every poll, so an
-      // unconditional unsetWarning() is ~1440 no-op round-trips per router per day
-      if (this.portWarningSet) {
+      // clear the warning we set, but also once per fresh instance: the flag is in-memory
+      // while the warning is persisted by Homey, so after a restart `undefined` must still
+      // clear a banner left behind by a previous instance
+      if (this.portWarningSet !== false) {
         this.portWarningSet = false;
         this.unsetWarning().catch(() => null);
       }
@@ -69,6 +70,7 @@ class NetgearDevice extends Homey.Device {
   // drop the router session back to 'error' logging after the post-restart debug window
   endDebugWindow(reason) {
     this.homey.clearTimeout(this.debugTimer);
+    this.debugUntil = -1; // truthy, but always expired: a restart must not re-arm debug
     if (!this.routerSession || this.routerSession.logLevel !== 'debug') return;
     this.routerSession.logLevel = 'error';
     this.log(`debug logging ended (${reason})`);
@@ -552,6 +554,7 @@ class NetgearDevice extends Homey.Device {
       }
       this.busy = false;
       this.watchDogCounter = 4;
+      this.portChecked = false; // settings may have changed - allow a fresh port probe
 
       // create router session. Starts at 'debug' so a diagnostics report taken shortly
       // after an app/device restart contains a full SOAP trace of the startup sequence
@@ -627,9 +630,11 @@ class NetgearDevice extends Homey.Device {
       // predates the setting. Pair and repair seed the flag, so they are never re-derived.
       if (!(await this.getStoreValue('tlsMigrated'))) {
         const tls = tlsForPort(this.settings.port);
+        // only mark the migration done once the write succeeded, otherwise a transient
+        // setSettings failure would skip it permanently and strand the wrong tls value
         if (tls !== this.settings.tls) {
           this.log(`migrating tls setting to ${tls} for ${this.getName()}`);
-          await this.setSettings({ tls }).catch(this.error);
+          await this.setSettings({ tls });
           this.settings = await this.getSettings();
         }
         await this.setStoreValue('tlsMigrated', true);
@@ -690,6 +695,9 @@ class NetgearDevice extends Homey.Device {
   // this method is called when the Device is added
   async onAdded() {
     const settings = this.getSettings();
+    // pairing sets tls explicitly; onAdded is guaranteed to run, unlike the pair payload's
+    // `store`, so seed the flag here too - the port heuristic must never override the choice
+    await this.setStoreValue('tlsMigrated', true).catch(this.error);
     this.log(`router ${settings.model_name} added as device @ ${settings.host}:${settings.port}`);
     this.setAvailable().catch(this.error);
   }
@@ -755,7 +763,8 @@ class NetgearDevice extends Homey.Device {
       this.knownDevices = {};
       await this.setStoreValue('knownDevicesString', JSON.stringify(this.knownDevices));
       this.log('known devices were deleted on request of user');
-      throw Error('Known devices list deleted');
+      this.restartDevice(3000); // stopPolling() ran above - without this the device stays dead
+      throw Error(this.homey.__('errors.knownDevicesDeleted'));
     }
     if (newSettings.use_traffic_info) {
       await this.addCapability('meter_download_speed');

@@ -93,6 +93,9 @@ class MyApp extends Homey.App {
         try {
           card[method](...args);
         } catch (error) {
+          // only a duplicate registration is expected and harmless here - anything else
+          // (e.g. an argument name that no longer matches app.json) must not be hidden
+          if (!/already/i.test(error.message || '')) throw error;
           this.log(`${method} already registered, skipping:`, error.message);
         }
         return proxy;
@@ -342,7 +345,7 @@ class MyApp extends Homey.App {
         average_ping: speed.averagePing,
       };
       this.log(tokens);
-      this.triggerSpeedTestResult(args.device, tokens, {});
+      this.homey.app.triggerSpeedTestResult(args.device, tokens, {});
     });
 
     const updateFirmware = this.safeCard(this.homey.flow.getActionCard('update_firmware'));

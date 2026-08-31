@@ -99,6 +99,7 @@
 		"noSerial": "Inget SerialNumber hittades",
 		"discoveryFailed": "Automatisk sökning misslyckades. Manuell inmatning krävs.",
 		"differentRouter": "Detta är en annan router. Lägg till den som en ny enhet.",
-		"macNotFound": "Ingen parkopplad router rapporterar denna MAC-adress. Lägg till eller reparera routern först."
+		"macNotFound": "Ingen parkopplad router rapporterar denna MAC-adress. Lägg till eller reparera routern först.",
+		"knownDevicesDeleted": "Listan över kända enheter har raderats"
 	}
 }

@@ -99,6 +99,7 @@
 		"noSerial": "Nie znaleziono SerialNumber",
 		"discoveryFailed": "Automatyczne wykrywanie nie powiodło się. Wymagane wprowadzenie ręczne.",
 		"differentRouter": "To jest inny router. Dodaj go jako nowe urządzenie.",
-		"macNotFound": "Żaden sparowany router nie zgłasza tego adresu MAC. Najpierw dodaj lub napraw router."
+		"macNotFound": "Żaden sparowany router nie zgłasza tego adresu MAC. Najpierw dodaj lub napraw router.",
+		"knownDevicesDeleted": "Lista znanych urządzeń została usunięta"
 	}
 }

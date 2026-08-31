@@ -99,6 +99,7 @@
 		"noSerial": "Geen SerialNumber gevonden",
 		"discoveryFailed": "Automatisch zoeken mislukt. Handmatige invoer vereist.",
 		"differentRouter": "Dit is een andere router. Voeg deze toe als nieuw apparaat.",
-		"macNotFound": "Geen gekoppelde router meldt dit MAC-adres. Voeg eerst de router toe of repareer deze."
+		"macNotFound": "Geen gekoppelde router meldt dit MAC-adres. Voeg eerst de router toe of repareer deze.",
+		"knownDevicesDeleted": "Lijst met bekende apparaten verwijderd"
 	}
 }
