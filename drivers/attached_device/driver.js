@@ -196,7 +196,7 @@ class AttachedDeviceDriver extends Homey.Driver {
 
     session.setHandler('relink', async () => {
       const router = this.findRouter(macsOf());
-      if (!router) throw Error('No paired router reports this MAC address. Add or repair the router first.');
+      if (!router) throw Error(this.homey.__('errors.macNotFound'));
       const newSettings = {
         router_id: router.getData().id,
         router_model: router.getSettings().model_name,

@@ -92,6 +92,13 @@
 		"notfound": "Ikke fundet på nogen router",
 		"relink": "Tilknyt igen",
 		"save": "Reparer",
-		"success": "Repareret!"
+		"success": "Repareret!",
+		"tls": "Sikker TLS"
+	},
+	"errors": {
+		"noSerial": "Intet SerialNumber fundet",
+		"discoveryFailed": "Automatisk søgning mislykkedes. Manuel indtastning kræves.",
+		"differentRouter": "Dette er en anden router. Tilføj den som en ny enhed.",
+		"macNotFound": "Ingen parret router rapporterer denne MAC-adresse. Tilføj eller reparer routeren først."
 	}
 }

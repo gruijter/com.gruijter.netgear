@@ -92,6 +92,13 @@
 		"notfound": "Non trovato su alcun router",
 		"relink": "Ricollega",
 		"save": "Ripara",
-		"success": "Riparato!"
+		"success": "Riparato!",
+		"tls": "TLS sicuro"
+	},
+	"errors": {
+		"noSerial": "Nessun SerialNumber trovato",
+		"discoveryFailed": "Rilevamento automatico non riuscito. Immissione manuale necessaria.",
+		"differentRouter": "Questo è un router diverso. Aggiungilo come nuovo dispositivo.",
+		"macNotFound": "Nessun router associato segnala questo indirizzo MAC. Aggiungi o ripara prima il router."
 	}
 }

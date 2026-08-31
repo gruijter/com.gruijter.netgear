@@ -92,6 +92,13 @@
 		"notfound": "Ikke funnet på noen ruter",
 		"relink": "Koble på nytt",
 		"save": "Reparer",
-		"success": "Reparert!"
+		"success": "Reparert!",
+		"tls": "Sikker TLS"
+	},
+	"errors": {
+		"noSerial": "Ingen SerialNumber funnet",
+		"discoveryFailed": "Automatisk søk mislyktes. Manuell inntasting kreves.",
+		"differentRouter": "Dette er en annen ruter. Legg den til som en ny enhet.",
+		"macNotFound": "Ingen tilkoblet ruter rapporterer denne MAC-adressen. Legg til eller reparer ruteren først."
 	}
 }

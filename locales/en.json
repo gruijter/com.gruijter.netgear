@@ -92,6 +92,13 @@
 		"notfound": "Not found on any router",
 		"relink": "Re-link",
 		"save": "Repair",
-		"success": "Repaired!"
+		"success": "Repaired!",
+		"tls": "Secure TLS"
+	},
+	"errors": {
+		"noSerial": "No SerialNumber found",
+		"discoveryFailed": "Autodiscovery failed. Manual entry required.",
+		"differentRouter": "This is a different router. Add it as a new device instead.",
+		"macNotFound": "No paired router reports this MAC address. Add or repair the router first."
 	}
 }

@@ -66,7 +66,7 @@ class NetgearDriver extends Homey.Driver {
       password: data.password, username: data.username, host, port, tls,
     });
     const info = await router.getInfo();
-    if (!Object.prototype.hasOwnProperty.call(info, 'SerialNumber')) throw Error('No SerialNumber found');
+    if (!Object.prototype.hasOwnProperty.call(info, 'SerialNumber')) throw Error(this.homey.__('errors.noSerial'));
     return info;
   }
 
@@ -82,7 +82,7 @@ class NetgearDriver extends Homey.Driver {
         return JSON.stringify(discover); // report success to frontend
       } catch (error) {
         this.log(error);
-        throw Error('Autodiscovery failed. Manual entry required.');
+        throw Error(this.homey.__('errors.discoveryFailed'));
       }
     });
     session.setHandler('check', async (data) => {
@@ -150,7 +150,7 @@ class NetgearDriver extends Homey.Driver {
         return dev;
       } catch (error) {
         this.log(error);
-        throw Error('Autodiscovery failed. Manual entry required.');
+        throw Error(this.homey.__('errors.discoveryFailed'));
       }
     });
   }
@@ -183,7 +183,7 @@ class NetgearDriver extends Homey.Driver {
         return JSON.stringify(discover);
       } catch (error) {
         this.log(error);
-        throw Error('Autodiscovery failed. Manual entry required.');
+        throw Error(this.homey.__('errors.discoveryFailed'));
       }
     });
 
@@ -191,7 +191,7 @@ class NetgearDriver extends Homey.Driver {
       this.log('Checking new router settings from repair frontend');
       const info = await this.connectRouter(router, data);
       // guard against repairing a device onto a different physical router
-      if (info.SerialNumber !== device.getData().id) throw Error('This is a different router. Add it as a new device instead.');
+      if (info.SerialNumber !== device.getData().id) throw Error(this.homey.__('errors.differentRouter'));
       const newSettings = {
         username: router.username,
         password: router.password,

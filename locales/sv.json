@@ -92,6 +92,13 @@
 		"notfound": "Hittas inte på någon router",
 		"relink": "Länka om",
 		"save": "Reparera",
-		"success": "Reparerad!"
+		"success": "Reparerad!",
+		"tls": "Säker TLS"
+	},
+	"errors": {
+		"noSerial": "Inget SerialNumber hittades",
+		"discoveryFailed": "Automatisk sökning misslyckades. Manuell inmatning krävs.",
+		"differentRouter": "Detta är en annan router. Lägg till den som en ny enhet.",
+		"macNotFound": "Ingen parkopplad router rapporterar denna MAC-adress. Lägg till eller reparera routern först."
 	}
 }
