@@ -119,6 +119,8 @@ class NetgearDriver extends Homey.Driver {
             clear_known_devices: false,
           },
           class: 'sensor',
+          // `tls` is set explicitly here, so this device must never be re-derived from the port
+          store: { tlsMigrated: true },
           capabilities,
           energy: {
             approximation: {
@@ -203,6 +205,8 @@ class NetgearDriver extends Homey.Driver {
       };
       this.log('old settings:', connectionFields(device.getSettings()));
       await device.setSettings(newSettings);
+      // the user just chose tls explicitly - don't let the port-derived migration override it
+      await device.setStoreValue('tlsMigrated', true);
       this.log('new settings:', connectionFields(device.getSettings()));
       await device.unsetWarning().catch(() => null);
       device.restartDevice(2000);

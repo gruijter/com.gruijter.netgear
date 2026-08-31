@@ -595,12 +595,20 @@ class NetgearDevice extends Homey.Device {
       if (migrate) this.log(`checking device migration for ${this.getName()}`);
 
       // `tls` became a stored setting - backfill it from the port for devices paired before
-      // that, so the value the user sees and edits matches what the session actually uses
-      if (this.settings.tls === undefined) {
+      // that, so the value the user sees and edits matches what the session actually uses.
+      // NB `settings.tls === undefined` is not a reliable "never set" signal: the manifest
+      // declares a default of false, and whether Homey applies a newly declared default to
+      // already-paired devices is undocumented. Key this one-off migration on a store value
+      // instead - the store is app-owned, so an absent flag unambiguously means the device
+      // predates the setting. Pair and repair seed the flag, so they are never re-derived.
+      if (!(await this.getStoreValue('tlsMigrated'))) {
         const tls = tlsForPort(this.settings.port);
-        this.log(`migrating tls setting to ${tls} for ${this.getName()}`);
-        await this.setSettings({ tls }).catch(this.error);
-        this.settings = await this.getSettings();
+        if (tls !== this.settings.tls) {
+          this.log(`migrating tls setting to ${tls} for ${this.getName()}`);
+          await this.setSettings({ tls }).catch(this.error);
+          this.settings = await this.getSettings();
+        }
+        await this.setStoreValue('tlsMigrated', true);
       }
 
       // check and repair incorrect capability(order) // remove unselected optional capabilities
