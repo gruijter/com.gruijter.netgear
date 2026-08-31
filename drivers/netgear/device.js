@@ -27,6 +27,7 @@ const dns = require('dns');
 const attachRouterLogging = require('../../lib/attachRouterLogging');
 const removeExtraCapabilities = require('../../lib/removeExtraCapabilities');
 const settle = require('../../lib/settle');
+const tlsForPort = require('../../lib/tlsForPort');
 
 const dnsLookupPromise = util.promisify(dns.lookup);
 
@@ -541,7 +542,9 @@ class NetgearDevice extends Homey.Device {
         username: this.settings.username,
         host: this.settings.host,
         port: this.settings.port,
-        tls: this.settings.port === 443 || this.settings.port === 5555,
+        // stored at pair/repair. Devices paired before `tls` was a setting have no value
+        // yet, so fall back to deriving it from the port (checkCaps writes it back).
+        tls: this.settings.tls === undefined ? tlsForPort(this.settings.port) : this.settings.tls,
         logLevel: 'debug',
       };
       // drop listeners from a previous session before replacing it (device restarts on watchdog/settings changes)
@@ -590,6 +593,15 @@ class NetgearDevice extends Homey.Device {
   async checkCaps(migrate) {
     try {
       if (migrate) this.log(`checking device migration for ${this.getName()}`);
+
+      // `tls` became a stored setting - backfill it from the port for devices paired before
+      // that, so the value the user sees and edits matches what the session actually uses
+      if (this.settings.tls === undefined) {
+        const tls = tlsForPort(this.settings.port);
+        this.log(`migrating tls setting to ${tls} for ${this.getName()}`);
+        await this.setSettings({ tls }).catch(this.error);
+        this.settings = await this.getSettings();
+      }
 
       // check and repair incorrect capability(order) // remove unselected optional capabilities
       const correctCaps = this.driver.capabilities.filter((cap) => {

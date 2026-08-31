@@ -2720,6 +2720,26 @@
               "value": 5000
             },
             {
+              "id": "tls",
+              "type": "checkbox",
+              "label": {
+                "en": "Secure TLS",
+                "nl": "Beveiligd TLS",
+                "de": "Sicheres TLS",
+                "fr": "TLS sécurisé",
+                "es": "TLS seguro",
+                "it": "TLS sicuro",
+                "da": "Sikker TLS",
+                "sv": "Säker TLS",
+                "no": "Sikker TLS",
+                "pl": "Bezpieczne TLS",
+                "ru": "Защищённый TLS",
+                "ar": "TLS آمن",
+                "ko": "보안 TLS"
+              },
+              "value": false
+            },
+            {
               "id": "username",
               "type": "text",
               "label": {

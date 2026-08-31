@@ -23,6 +23,7 @@ along with com.gruijter.netgear.  If not, see <http://www.gnu.org/licenses/>.
 const Homey = require('homey');
 const NetgearRouter = require('netgear');
 const attachRouterLogging = require('../../lib/attachRouterLogging');
+const tlsForPort = require('../../lib/tlsForPort');
 
 const deviceModes = ['Router', 'Access Point', 'Bridge', '3: Unknown', '4: Unknown'];
 
@@ -92,7 +93,8 @@ class NetgearDriver extends Homey.Driver {
             username: router.username,
             password: router.password,
             host: router.host,
-            port: router.port,
+            port: Number(router.port),
+            tls: !!router.tls,
             model_name: info.ModelName || info.DeviceName || 'Netgear',
             serial_number: info.SerialNumber,
             firmware_version: info.Firmwareversion,
@@ -156,7 +158,8 @@ class NetgearDriver extends Homey.Driver {
         host: settings.host,
         port: settings.port,
         username: settings.username,
-        tls: settings.port === 443 || settings.port === 5555,
+        // fall back to the port-derived guess for devices paired before `tls` was stored
+        tls: settings.tls === undefined ? tlsForPort(settings.port) : settings.tls,
       };
     });
 
@@ -182,6 +185,7 @@ class NetgearDriver extends Homey.Driver {
         password: router.password,
         host: router.host,
         port: Number(router.port),
+        tls: !!router.tls,
         model_name: info.ModelName || info.DeviceName || 'Netgear',
         serial_number: info.SerialNumber,
         firmware_version: info.Firmwareversion,

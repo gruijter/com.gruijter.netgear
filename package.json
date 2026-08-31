@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "fixture-stdout": "^0.2.1",
-    "netgear": "^5.0.1"
+    "netgear": "^5.1.0"
   },
   "scripts": {
     "lint": "eslint --ext .js --ignore-path .gitignore ."
