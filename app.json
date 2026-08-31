@@ -2011,6 +2011,11 @@
           "id": "select_options"
         }
       ],
+      "repair": [
+        {
+          "id": "repair"
+        }
+      ],
       "settings": [
         {
           "type": "group",
@@ -2548,6 +2553,11 @@
         },
         {
           "id": "select_options"
+        }
+      ],
+      "repair": [
+        {
+          "id": "repair"
         }
       ],
       "settings": [

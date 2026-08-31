@@ -79,5 +79,19 @@
 	},
 	"warning": {
 		"port": "Mauvais port ? Essayez __port__ ou réappairez."
+	},
+	"repair": {
+		"title": "Réparer la connexion",
+		"intro": "Vérifiez l'adresse IP et le port SOAP, puis saisissez le mot de passe admin.",
+		"attachedIntro": "Relier cet appareil au routeur qui le voit actuellement.",
+		"mac": "MAC",
+		"router": "Routeur",
+		"state": "État",
+		"linked": "Déjà relié",
+		"relinkable": "Trouvé sur un autre routeur",
+		"notfound": "Introuvable sur tout routeur",
+		"relink": "Relier",
+		"save": "Réparer",
+		"success": "Réparé !"
 	}
 }

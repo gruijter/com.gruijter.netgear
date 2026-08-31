@@ -1,0 +1,82 @@
+<script>
+	Homey.hideLoadingOverlay();
+	getSettings();
+
+	async function getSettings() {
+		try {
+			const settings = await Homey.emit('get_settings');
+			document.getElementById('host').value = settings.host;
+			document.getElementById('port').value = Number(settings.port);
+			document.getElementById('username').value = settings.username;
+			document.getElementById('tls').checked = settings.tls;
+		} catch (error) {
+			Homey.alert(error.message || error, 'error');
+		}
+	}
+
+	async function discover() {
+		try {
+			Homey.showLoadingOverlay();
+			const info = JSON.parse(await Homey.emit('discover'));
+			document.getElementById('host').value = info.host;
+			document.getElementById('port').value = Number(info.port);
+			document.getElementById('tls').checked = info.tls;
+			Homey.hideLoadingOverlay();
+		} catch (error) {
+			Homey.hideLoadingOverlay();
+			Homey.alert(error.message || error, 'error');
+		}
+	}
+
+	async function save() {
+		try {
+			Homey.showLoadingOverlay();
+			const settings = {
+				username: document.getElementById('username').value,
+				password: document.getElementById('password').value,
+				host: document.getElementById('host').value,
+				port: Number(document.getElementById('port').value),
+				tls: document.getElementById('tls').checked,
+			};
+			if (!settings.host || settings.host.length < 8 || !settings.port || settings.password === '') throw new Error(Homey.__('pair.start.required'));
+			await Homey.emit('check', settings);
+			Homey.hideLoadingOverlay();
+			Homey.alert(Homey.__('repair.success'), 'info');
+			Homey.done();
+		} catch (error) {
+			Homey.hideLoadingOverlay();
+			Homey.alert(error.message || error, 'error');
+		}
+	}
+
+</script>
+
+<form class="homey-form">
+	<div class="homey-form-group">
+		<h1 class="homey-title" data-i18n="repair.title">Repair connection</h1>
+		<p class="homey-subtitle" data-i18n="repair.intro">Instructions</p>
+
+		<label class="homey-form-label" for="host" data-i18n="pair.start.host"></label>
+		<input class="homey-form-input" id="host" type="text" placeholder="e.g. 10.0.0.100" value="" />
+
+		<label class="homey-form-label" for="port" data-i18n="pair.start.port"></label>
+		<input class="homey-form-input" id="port" type="number" value="" />
+
+		<label class="homey-form-label" for="username" data-i18n="pair.start.username"></label>
+		<input class="homey-form-input" id="username" type="text" value="admin" />
+
+		<label class="homey-form-label" for="password" data-i18n="pair.start.password"></label>
+		<input class="homey-form-input" id="password" type="password" value="" />
+
+		<label class="homey-form-checkbox">
+			<input class="homey-form-checkbox-input" type="checkbox" id="tls" name="tls" />
+			<span class="homey-form-checkbox-checkmark"></span>
+			<span class="homey-form-checkbox-text">Secure TLS</span>
+		</label>
+
+	</div>
+</form>
+<br>
+<button class="homey-button-secondary-shadow" id="discoverButton" onclick="discover()" data-i18n="pair.start.discover"></button>
+<br>
+<button class="homey-button-primary-full" id="repair" onclick="save()" data-i18n="repair.save"></button>

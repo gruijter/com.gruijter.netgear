@@ -79,5 +79,19 @@
 	},
 	"warning": {
 		"port": "Verkeerde poort? Probeer __port__ of herkoppel."
+	},
+	"repair": {
+		"title": "Verbinding herstellen",
+		"intro": "Controleer het IP-adres en de SOAP-poort en vul het admin wachtwoord in.",
+		"attachedIntro": "Koppel dit apparaat opnieuw aan de router die het nu ziet.",
+		"mac": "MAC",
+		"router": "Router",
+		"state": "Status",
+		"linked": "Al gekoppeld",
+		"relinkable": "Gevonden op andere router",
+		"notfound": "Op geen enkele router gevonden",
+		"relink": "Opnieuw koppelen",
+		"save": "Herstellen",
+		"success": "Hersteld!"
 	}
 }

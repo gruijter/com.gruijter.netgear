@@ -79,5 +79,19 @@
 	},
 	"warning": {
 		"port": "Forkert port? Prøv __port__ eller par igen."
+	},
+	"repair": {
+		"title": "Reparer forbindelse",
+		"intro": "Tjek IP-adressen og SOAP-porten, og indtast derefter admin-adgangskoden.",
+		"attachedIntro": "Tilknyt denne enhed til den router, der ser den nu.",
+		"mac": "MAC",
+		"router": "Router",
+		"state": "Status",
+		"linked": "Allerede tilknyttet",
+		"relinkable": "Fundet på en anden router",
+		"notfound": "Ikke fundet på nogen router",
+		"relink": "Tilknyt igen",
+		"save": "Reparer",
+		"success": "Repareret!"
 	}
 }

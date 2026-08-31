@@ -1,0 +1,51 @@
+<script>
+	Homey.hideLoadingOverlay();
+	getStatus();
+
+	async function getStatus() {
+		try {
+			const status = await Homey.emit('get_status');
+			document.getElementById('mac').innerText = status.mac;
+			document.getElementById('router').innerText = status.found ? status.newRouterModel : status.routerModel;
+			document.getElementById('state').innerText = status.found
+				? (status.linked ? Homey.__('repair.linked') : Homey.__('repair.relinkable'))
+				: Homey.__('repair.notfound');
+			document.getElementById('relink').disabled = !status.found || status.linked;
+		} catch (error) {
+			Homey.alert(error.message || error, 'error');
+		}
+	}
+
+	async function relink() {
+		try {
+			Homey.showLoadingOverlay();
+			await Homey.emit('relink');
+			Homey.hideLoadingOverlay();
+			Homey.alert(Homey.__('repair.success'), 'info');
+			Homey.done();
+		} catch (error) {
+			Homey.hideLoadingOverlay();
+			Homey.alert(error.message || error, 'error');
+		}
+	}
+
+</script>
+
+<form class="homey-form">
+	<div class="homey-form-group">
+		<h1 class="homey-title" data-i18n="repair.title">Repair connection</h1>
+		<p class="homey-subtitle" data-i18n="repair.attachedIntro">Instructions</p>
+
+		<label class="homey-form-label" data-i18n="repair.mac"></label>
+		<p class="homey-subtitle" id="mac">-</p>
+
+		<label class="homey-form-label" data-i18n="repair.router"></label>
+		<p class="homey-subtitle" id="router">-</p>
+
+		<label class="homey-form-label" data-i18n="repair.state"></label>
+		<p class="homey-subtitle" id="state">-</p>
+
+	</div>
+</form>
+<br>
+<button class="homey-button-primary-full" id="relink" onclick="relink()" data-i18n="repair.relink"></button>

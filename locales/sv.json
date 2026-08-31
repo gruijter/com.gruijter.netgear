@@ -79,5 +79,19 @@
 	},
 	"warning": {
 		"port": "Fel port? Prova __port__ eller para om."
+	},
+	"repair": {
+		"title": "Reparera anslutning",
+		"intro": "Kontrollera IP-adressen och SOAP-porten, ange sedan admin-lösenordet.",
+		"attachedIntro": "Länka om enheten till routern som ser den nu.",
+		"mac": "MAC",
+		"router": "Router",
+		"state": "Status",
+		"linked": "Redan länkad",
+		"relinkable": "Hittad på en annan router",
+		"notfound": "Hittas inte på någon router",
+		"relink": "Länka om",
+		"save": "Reparera",
+		"success": "Reparerad!"
 	}
 }

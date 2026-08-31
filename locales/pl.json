@@ -79,5 +79,19 @@
 	},
 	"warning": {
 		"port": "Zły port? Spróbuj __port__ lub sparuj ponownie."
+	},
+	"repair": {
+		"title": "Napraw połączenie",
+		"intro": "Sprawdź adres IP i port SOAP, a następnie wpisz hasło administratora.",
+		"attachedIntro": "Ponownie powiąż to urządzenie z routerem, który je teraz widzi.",
+		"mac": "MAC",
+		"router": "Router",
+		"state": "Stan",
+		"linked": "Już powiązane",
+		"relinkable": "Znaleziono na innym routerze",
+		"notfound": "Nie znaleziono na żadnym routerze",
+		"relink": "Powiąż ponownie",
+		"save": "Napraw",
+		"success": "Naprawiono!"
 	}
 }

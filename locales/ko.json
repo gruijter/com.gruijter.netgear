@@ -79,5 +79,19 @@
 	},
 	"warning": {
 		"port": "포트가 틀렸나요? __port__ 시도 또는 재연결."
+	},
+	"repair": {
+		"title": "연결 복구",
+		"intro": "IP 주소와 SOAP 포트를 확인한 뒤 관리자 비밀번호를 입력하세요.",
+		"attachedIntro": "현재 이 기기를 인식하는 라우터에 다시 연결합니다.",
+		"mac": "MAC",
+		"router": "라우터",
+		"state": "상태",
+		"linked": "이미 연결됨",
+		"relinkable": "다른 라우터에서 발견됨",
+		"notfound": "어떤 라우터에서도 찾을 수 없음",
+		"relink": "다시 연결",
+		"save": "복구",
+		"success": "복구되었습니다!"
 	}
 }

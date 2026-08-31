@@ -165,6 +165,50 @@ class AttachedDeviceDriver extends Homey.Driver {
     });
   }
 
+  // repair re-links an attached device to the router that currently reports it. Needed
+  // when the source router was re-paired (new device id) or replaced: updateDevices()
+  // filters on router_id, so a stale id silently stops all presence updates.
+  async onRepair(session, device) {
+    this.log('Repairing of device started', device.getName());
+
+    session.setHandler('get_status', async () => {
+      const settings = device.getSettings();
+      const router = this.findRouter(device.getData().id);
+      return {
+        mac: settings.mac,
+        routerModel: settings.router_model,
+        found: !!router,
+        newRouterModel: router ? router.getSettings().model_name : '',
+        linked: !!router && router.getData().id === settings.router_id,
+      };
+    });
+
+    session.setHandler('relink', async () => {
+      const router = this.findRouter(device.getData().id);
+      if (!router) throw Error('No paired router reports this MAC address. Add or repair the router first.');
+      const newSettings = {
+        router_id: router.getData().id,
+        router_model: router.getSettings().model_name,
+      };
+      this.log('old settings:', device.getSettings());
+      await device.setSettings(newSettings);
+      this.log('new settings:', device.getSettings());
+      device.restartDevice(2000);
+      return true;
+    });
+
+    session.setHandler('disconnect', () => {
+      this.log('Repairing of device ended', device.getName());
+    });
+  }
+
+  // returns the first paired netgear router whose knownDevices contains this MAC
+  findRouter(mac) {
+    const netgearDriver = this.homey.drivers.getDriver('netgear');
+    const routers = netgearDriver.getDevices() || [];
+    return routers.find((router) => router.knownDevices && router.knownDevices[mac]);
+  }
+
 }
 
 module.exports = AttachedDeviceDriver;

@@ -79,5 +79,19 @@
 	},
 	"warning": {
 		"port": "¿Puerto incorrecto? Prueba __port__ o vuelve a emparejar."
+	},
+	"repair": {
+		"title": "Reparar conexión",
+		"intro": "Comprueba la dirección IP y el puerto SOAP, luego introduce la contraseña de admin.",
+		"attachedIntro": "Vuelve a vincular este dispositivo al router que lo ve ahora.",
+		"mac": "MAC",
+		"router": "Router",
+		"state": "Estado",
+		"linked": "Ya vinculado",
+		"relinkable": "Encontrado en otro router",
+		"notfound": "No encontrado en ningún router",
+		"relink": "Volver a vincular",
+		"save": "Reparar",
+		"success": "¡Reparado!"
 	}
 }

@@ -79,5 +79,19 @@
 	},
 	"warning": {
 		"port": "Falscher Port? Versuche __port__ oder neu koppeln."
+	},
+	"repair": {
+		"title": "Verbindung reparieren",
+		"intro": "IP-Adresse und SOAP-Port prüfen, dann das Admin-Passwort eingeben.",
+		"attachedIntro": "Dieses Gerät neu mit dem Router verbinden, der es aktuell sieht.",
+		"mac": "MAC",
+		"router": "Router",
+		"state": "Status",
+		"linked": "Bereits verbunden",
+		"relinkable": "Auf anderem Router gefunden",
+		"notfound": "Auf keinem Router gefunden",
+		"relink": "Neu verbinden",
+		"save": "Reparieren",
+		"success": "Repariert!"
 	}
 }

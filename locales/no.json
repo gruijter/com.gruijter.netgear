@@ -79,5 +79,19 @@
 	},
 	"warning": {
 		"port": "Feil port? Prøv __port__ eller par på nytt."
+	},
+	"repair": {
+		"title": "Reparer tilkobling",
+		"intro": "Sjekk IP-adressen og SOAP-porten, og skriv deretter inn admin-passordet.",
+		"attachedIntro": "Koble denne enheten til ruteren som ser den nå.",
+		"mac": "MAC",
+		"router": "Ruter",
+		"state": "Status",
+		"linked": "Allerede koblet",
+		"relinkable": "Funnet på en annen ruter",
+		"notfound": "Ikke funnet på noen ruter",
+		"relink": "Koble på nytt",
+		"save": "Reparer",
+		"success": "Reparert!"
 	}
 }

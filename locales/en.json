@@ -79,5 +79,19 @@
 	},
 	"warning": {
 		"port": "Wrong port? Try __port__ or re-pair."
+	},
+	"repair": {
+		"title": "Repair connection",
+		"intro": "Check the router IP address and SOAP port, then enter the admin password.",
+		"attachedIntro": "Re-link this device to the router that currently sees it.",
+		"mac": "MAC",
+		"router": "Router",
+		"state": "Status",
+		"linked": "Already linked",
+		"relinkable": "Found on another router",
+		"notfound": "Not found on any router",
+		"relink": "Re-link",
+		"save": "Repair",
+		"success": "Repaired!"
 	}
 }

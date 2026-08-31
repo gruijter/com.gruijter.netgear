@@ -41,6 +41,24 @@ class NetgearDriver extends Homey.Driver {
     this.log('NetgearDriver onUninit');
   }
 
+  // shared by pair (check) and repair: connect to a router and read its identity.
+  // autodiscovers host/port only when the frontend left them blank.
+  async connectRouter(router, data) {
+    let { host, port, tls } = data;
+    if (!port || !host || host === '') {
+      const discovered = await router.discover();
+      host = host || discovered.host;
+      port = port || discovered.port;
+      tls = discovered.tls;
+    }
+    await router.login({
+      password: data.password, username: data.username, host, port, tls,
+    });
+    const info = await router.getInfo();
+    if (!Object.prototype.hasOwnProperty.call(info, 'SerialNumber')) throw Error('No SerialNumber found');
+    return info;
+  }
+
   async onPair(session) {
     let device;
     const router = new NetgearRouter({ logLevel: 'error' });
@@ -59,29 +77,7 @@ class NetgearDriver extends Homey.Driver {
     session.setHandler('check', async (data) => {
       try {
         this.log('Checking router settings from frontend');
-        const password = data.password;
-        const username = data.username;
-        let host = data.host;
-        let port = data.port;
-        let tls = data.tls;
-        let discover = {};
-        if (!port || !host || host === '') {
-          discover = await router.discover();
-          port = port || discover.port;
-          host = host || discover.host;
-          tls = discover.tls;
-        }
-        // try to login
-        const options = {
-          password,
-          username,
-          host,
-          port,
-          tls,
-        };
-        await router.login(options);
-        const info = await router.getInfo();
-        if (!Object.prototype.hasOwnProperty.call(info, 'SerialNumber')) throw Error('No SerialNumber found');
+        const info = await this.connectRouter(router, data);
         let knownRouter;
         try {
           knownRouter = this.getDevice({ id: info.SerialNumber });
@@ -142,6 +138,66 @@ class NetgearDriver extends Homey.Driver {
         this.log(error);
         throw Error('Autodiscovery failed. Manual entry required.');
       }
+    });
+  }
+
+  // repair lets the user fix connection settings (host/port/tls/credentials) of an
+  // already paired router - e.g. after the router's IP or SOAP port changed - without
+  // losing the device, its flows or its known-devices list.
+  async onRepair(session, device) {
+    this.log('Repairing of device started', device.getName());
+    const router = new NetgearRouter({ logLevel: 'error' });
+    attachRouterLogging(router, this);
+
+    // prefill the form with the device's current settings
+    session.setHandler('get_settings', async () => {
+      const settings = device.getSettings();
+      return {
+        host: settings.host,
+        port: settings.port,
+        username: settings.username,
+        tls: settings.port === 443 || settings.port === 5555,
+      };
+    });
+
+    session.setHandler('discover', async () => {
+      try {
+        this.log('discovery started from repair frontend');
+        const discover = await router.discover({ family: 4 });
+        this.log(discover);
+        return JSON.stringify(discover);
+      } catch (error) {
+        this.log(error);
+        throw Error('Autodiscovery failed. Manual entry required.');
+      }
+    });
+
+    session.setHandler('check', async (data) => {
+      this.log('Checking new router settings from repair frontend');
+      const info = await this.connectRouter(router, data);
+      // guard against repairing a device onto a different physical router
+      if (info.SerialNumber !== device.getData().id) throw Error('This is a different router. Add it as a new device instead.');
+      const newSettings = {
+        username: router.username,
+        password: router.password,
+        host: router.host,
+        port: Number(router.port),
+        model_name: info.ModelName || info.DeviceName || 'Netgear',
+        serial_number: info.SerialNumber,
+        firmware_version: info.Firmwareversion,
+        device_mode: deviceModes[Number(info.DeviceMode)],
+      };
+      this.log('old settings:', device.getSettings());
+      await device.setSettings(newSettings);
+      this.log('new settings:', device.getSettings());
+      await device.unsetWarning().catch(() => null);
+      device.restartDevice(2000);
+      return true;
+    });
+
+    session.setHandler('disconnect', () => {
+      router.removeAllListeners();
+      this.log('Repairing of device ended', device.getName());
     });
   }
 
