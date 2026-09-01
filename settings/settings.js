@@ -81,10 +81,12 @@ function deleteLogs() {
 function discover() {
   document.getElementById('host').disabled = true;
   document.getElementById('soapPort').disabled = true;
+  document.getElementById('tls').disabled = true;
   document.getElementById('discover').disabled = true;
   Homey.api('GET', 'discover/', (err, result) => {
     document.getElementById('host').disabled = false;
     document.getElementById('soapPort').disabled = false;
+    document.getElementById('tls').disabled = false;
     document.getElementById('discover').disabled = false;
     if (err) {
       Homey.alert(errMsg(err));
@@ -92,6 +94,9 @@ function discover() {
     }
     document.getElementById('host').value = result.host;
     document.getElementById('soapPort').value = result.port;
+    // an HTTPS-only router is only reachable over TLS, so the test has to be told - the
+    // package derives nothing from the port once one is given
+    document.getElementById('tls').checked = !!result.tls;
   });
 }
 
@@ -102,8 +107,9 @@ function runTest() {
   const password = document.getElementById('password').value;
   const host = document.getElementById('host').value;
   const port = document.getElementById('soapPort').value;
+  const tls = document.getElementById('tls').checked;
   document.getElementById('testResult').value = Homey.__('settings.tab3.testingNow');
-  Homey.api('GET', `runtest/?password=${encodeURIComponent(password)}&host=${encodeURIComponent(host)}&port=${encodeURIComponent(port)}`, (err) => {
+  Homey.api('GET', `runtest/?password=${encodeURIComponent(password)}&host=${encodeURIComponent(host)}&port=${encodeURIComponent(port)}&tls=${tls}`, (err) => {
     if (err) {
       document.getElementById('copyResult').disabled = false;
       document.getElementById('runTest').disabled = false;

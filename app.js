@@ -119,6 +119,9 @@ class MyApp extends Homey.App {
         password: data.password,
         host: data.host,
         port: Number(data.port),
+        // arrives as a query string; passing it explicitly also pins it in the test session,
+        // which otherwise keeps the package's port-independent default of TLS on
+        tls: data.tls === true || data.tls === 'true',
         info: `Homey fw:${this.homey.version} app: ${this.homey.manifest.version}`,
       };
       const output = await _test.test(options);
