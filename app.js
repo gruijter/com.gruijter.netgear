@@ -254,8 +254,12 @@ class MyApp extends Homey.App {
     internetConnected.registerRunListener((args) => !args.device.getCapabilityValue('alarm_generic'));
 
     const newFirmware = this.safeCard(this.homey.flow.getConditionCard('new_firmware_condition'));
-    newFirmware.registerRunListener((args) => (args.device.readings.newFirmware.newVersion
-      && args.device.readings.newFirmware.newVersion !== ''));
+    // updateFirmwareInfo() stores undefined when the (cloud-dependent) check fails, and
+    // readings itself is unset until the device finished its first init
+    newFirmware.registerRunListener((args) => {
+      const info = args.device.readings && args.device.readings.newFirmware;
+      return !!(info && info.newVersion && info.newVersion !== '');
+    });
 
     const deviceIsOnlineAutocomplete = this.safeCard(this.homey.flow.getConditionCard('device_is_online_autocomplete'));
     deviceIsOnlineAutocomplete
@@ -268,7 +272,7 @@ class MyApp extends Homey.App {
           }
           return Promise.resolve(isOnline);
         }
-        return Promise.reject(Error('The netgear device is unknown or not ready'));
+        return Promise.reject(Error(this.homey.__('errors.deviceNotReady')));
       })
       .registerArgumentAutocompleteListener('mac', autoComplete);
 

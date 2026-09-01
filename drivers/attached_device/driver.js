@@ -20,6 +20,7 @@ along with com.gruijter.netgear.  If not, see <http://www.gnu.org/licenses/>.
 'use strict';
 
 const Homey = require('homey');
+const macAliasses = require('../../lib/macAliasses');
 
 const capabilities = ['device_connected', 'ip_address', 'name_in_router', 'ssid',
   'meter_link_speed', 'meter_signal_strength', 'meter_download_speed', 'meter_upload_speed', 'onoff'];
@@ -130,7 +131,7 @@ class AttachedDeviceDriver extends Homey.Driver {
         await netgearDriver.ready(() => null);
         const routers = await netgearDriver.getDevices();
         const router = routers ? routers[0] : null;
-        if (!router || !router.knownDevices) throw Error('Cannot find router device in Homey. Router needs to be added first!');
+        if (!router || !router.knownDevices) throw Error(this.homey.__('errors.noRouter'));
         const devices = [];
         const { knownDevices } = router;
         Object.keys(knownDevices).forEach((attachedDevice) => {
@@ -174,20 +175,23 @@ class AttachedDeviceDriver extends Homey.Driver {
     // updateDevices() matches on the whole alias list, so the repair screen has to look
     // the device up the same way - searching only getData().id reports "not found" for a
     // device that is tracked, and working, through one of its aliasses
-    const macsOf = () => {
-      const settings = device.getSettings();
-      if (device.aliasses && device.aliasses.length) return device.aliasses;
-      // settings.mac defaults to the truthy placeholder 'unknown' on legacy devices, so
-      // only trust it when it is a real MAC - otherwise use the paired id
-      const mac = settings.mac && settings.mac.length === 17 ? settings.mac : device.getData().id;
-      return [mac];
-    };
+    // The paired id is a MAC too, and on legacy devices (settings.mac still at its
+    // 'unknown' manifest default, so it never made it into aliasses) it is the ONLY one the
+    // device can be found by - so it is always searched alongside the aliasses, never
+    // instead of them.
+    const macsOf = () => macAliasses([
+      ...(device.aliasses || []),
+      device.getSettings().mac,
+      device.getData().id,
+    ]);
 
     session.setHandler('get_status', async () => {
       const settings = device.getSettings();
       const router = this.findRouter(macsOf());
       return {
-        mac: settings.mac,
+        // settings.mac is the 'unknown' placeholder on legacy devices - show the paired id
+        // instead of a literal 'unknown' the user cannot act on
+        mac: settings.mac && settings.mac.length === 17 ? settings.mac : device.getData().id,
         routerModel: settings.router_model,
         found: !!router,
         newRouterModel: router ? router.getSettings().model_name : '',

@@ -21,6 +21,7 @@ along with com.gruijter.netgear.  If not, see <http://www.gnu.org/licenses/>.
 'use strict';
 
 const { Device } = require('homey');
+const macAliasses = require('../../lib/macAliasses');
 const removeExtraCapabilities = require('../../lib/removeExtraCapabilities');
 const settle = require('../../lib/settle');
 
@@ -31,7 +32,7 @@ class attachedNetgearDevice extends Device {
     this.restarting = false;
     this.settings = await this.getSettings();
     const aliasses = [this.settings.mac, this.settings.alias1, this.settings.alias2, this.settings.alias3, this.settings.alias4];
-    this.aliasses = aliasses.filter((mac) => mac && mac.length === 17);
+    this.aliasses = macAliasses(aliasses);
 
     if (!this.lastInfo) {
       this.lastInfo = {
@@ -118,7 +119,7 @@ class attachedNetgearDevice extends Device {
     this.log(`${this.getData().id} ${this.getName()} device settings changed by user`, newSettings);
     changedKeys.forEach((key) => {
       if (key.includes('alias') && newSettings[key] !== '') {
-        if (newSettings[key].length !== 17 || newSettings[key].split(':').length !== 6) throw Error('Invalid MAC alias');
+        if (newSettings[key].length !== 17 || newSettings[key].split(':').length !== 6) throw Error(this.homey.__('errors.invalidMac'));
       }
     });
     this.migrated = false;

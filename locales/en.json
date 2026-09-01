@@ -102,6 +102,11 @@
 		"discoveryFailed": "Autodiscovery failed. Manual entry required.",
 		"differentRouter": "This is a different router. Add it as a new device instead.",
 		"macNotFound": "No paired router reports this MAC address. Add or repair the router first.",
-		"knownDevicesDeleted": "Known devices list deleted"
+		"knownDevicesDeleted": "Known devices list deleted",
+		"alreadyPaired": "This router is already paired in Homey.",
+		"deviceInfoLost": "Device info went missing. Please start pairing again.",
+		"noRouter": "Cannot find a router in Homey. Add the router first.",
+		"invalidMac": "Invalid MAC alias.",
+		"deviceNotReady": "The Netgear device is unknown or not ready."
 	}
 }

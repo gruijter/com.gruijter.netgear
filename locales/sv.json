@@ -102,6 +102,11 @@
 		"discoveryFailed": "Automatisk sökning misslyckades. Manuell inmatning krävs.",
 		"differentRouter": "Detta är en annan router. Lägg till den som en ny enhet.",
 		"macNotFound": "Ingen parkopplad router rapporterar denna MAC-adress. Lägg till eller reparera routern först.",
-		"knownDevicesDeleted": "Listan över kända enheter har raderats"
+		"knownDevicesDeleted": "Listan över kända enheter har raderats",
+		"alreadyPaired": "Den här routern är redan parad i Homey.",
+		"deviceInfoLost": "Enhetsinformationen försvann. Starta parkopplingen igen.",
+		"noRouter": "Hittar ingen router i Homey. Lägg till routern först.",
+		"invalidMac": "Ogiltigt MAC-alias.",
+		"deviceNotReady": "Netgear-enheten är okänd eller inte redo."
 	}
 }

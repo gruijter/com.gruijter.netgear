@@ -102,6 +102,11 @@
 		"discoveryFailed": "Automatisk søgning mislykkedes. Manuel indtastning kræves.",
 		"differentRouter": "Dette er en anden router. Tilføj den som en ny enhed.",
 		"macNotFound": "Ingen parret router rapporterer denne MAC-adresse. Tilføj eller reparer routeren først.",
-		"knownDevicesDeleted": "Listen over kendte enheder er slettet"
+		"knownDevicesDeleted": "Listen over kendte enheder er slettet",
+		"alreadyPaired": "Denne router er allerede parret i Homey.",
+		"deviceInfoLost": "Enhedsoplysninger forsvandt. Start parringen igen.",
+		"noRouter": "Kan ikke finde en router i Homey. Tilføj routeren først.",
+		"invalidMac": "Ugyldigt MAC-alias.",
+		"deviceNotReady": "Netgear-enheden er ukendt eller ikke klar."
 	}
 }

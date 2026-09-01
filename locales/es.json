@@ -102,6 +102,11 @@
 		"discoveryFailed": "Error en la detección automática. Se requiere entrada manual.",
 		"differentRouter": "Este es un router diferente. Añádelo como un dispositivo nuevo.",
 		"macNotFound": "Ningún router emparejado informa de esta dirección MAC. Añade o repara primero el router.",
-		"knownDevicesDeleted": "Lista de dispositivos conocidos eliminada"
+		"knownDevicesDeleted": "Lista de dispositivos conocidos eliminada",
+		"alreadyPaired": "Este router ya está emparejado en Homey.",
+		"deviceInfoLost": "Se perdió la información del dispositivo. Vuelve a emparejar.",
+		"noRouter": "No se encuentra ningún router en Homey. Añade primero el router.",
+		"invalidMac": "Alias MAC no válido.",
+		"deviceNotReady": "El dispositivo Netgear es desconocido o no está listo."
 	}
 }

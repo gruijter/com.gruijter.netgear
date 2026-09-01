@@ -102,6 +102,11 @@
 		"discoveryFailed": "Échec de la découverte automatique. Saisie manuelle requise.",
 		"differentRouter": "Ceci est un autre routeur. Ajoutez-le comme nouvel appareil.",
 		"macNotFound": "Aucun routeur associé ne signale cette adresse MAC. Ajoutez ou réparez d'abord le routeur.",
-		"knownDevicesDeleted": "Liste des appareils connus supprimée"
+		"knownDevicesDeleted": "Liste des appareils connus supprimée",
+		"alreadyPaired": "Ce routeur est déjà appairé dans Homey.",
+		"deviceInfoLost": "Les informations de l'appareil ont été perdues. Recommencez l'appairage.",
+		"noRouter": "Aucun routeur trouvé dans Homey. Ajoutez d'abord le routeur.",
+		"invalidMac": "Alias MAC invalide.",
+		"deviceNotReady": "L'appareil Netgear est inconnu ou pas encore prêt."
 	}
 }

@@ -95,7 +95,7 @@ class NetgearDriver extends Homey.Driver {
         } catch (error) {
           knownRouter = false;
         }
-        if (knownRouter) throw Error('This router is already paired in Homey');
+        if (knownRouter) throw Error(this.homey.__('errors.alreadyPaired'));
         device = {
           name: info.ModelName || info.DeviceName || 'Netgear',
           data: { id: info.SerialNumber },
@@ -137,7 +137,7 @@ class NetgearDriver extends Homey.Driver {
     });
     session.setHandler('save_options', async (options) => {
       try {
-        if (!device || !device.settings) throw Error('Device info went missing.');
+        if (!device || !device.settings) throw Error(this.homey.__('errors.deviceInfoLost'));
         const dev = { ...device };
         dev.settings = { ...dev.settings, ...options };
         dev.capabilities = capabilities.filter((cap) => {

@@ -25,6 +25,7 @@ const NetgearRouter = require('netgear');
 const util = require('util');
 const dns = require('dns');
 const attachRouterLogging = require('../../lib/attachRouterLogging');
+const macAliasses = require('../../lib/macAliasses');
 const removeExtraCapabilities = require('../../lib/removeExtraCapabilities');
 const settle = require('../../lib/settle');
 const tlsForPort = require('../../lib/tlsForPort');
@@ -67,10 +68,14 @@ class NetgearDevice extends Homey.Device {
     }
   }
 
-  // drop the router session back to 'error' logging after the post-restart debug window
-  endDebugWindow(reason) {
+  // drop the router session back to 'error' logging after the post-restart debug window.
+  // `rearmable` keeps the window available to a LATER restart of this same device: after a
+  // successful poll a fresh trace is exactly what a repair-then-diagnostics run needs. The
+  // timeout path stays pinned, so a router that never connects - and so restarts every 5
+  // minutes - still can't re-arm debug forever and flood the 200-entry log ring.
+  endDebugWindow(reason, rearmable = false) {
     this.homey.clearTimeout(this.debugTimer);
-    this.debugUntil = -1; // truthy, but always expired: a restart must not re-arm debug
+    this.debugUntil = rearmable ? undefined : -1; // -1: truthy, but always expired
     if (!this.routerSession || this.routerSession.logLevel !== 'debug') return;
     this.routerSession.logLevel = 'error';
     this.log(`debug logging ended (${reason})`);
@@ -301,6 +306,10 @@ class NetgearDevice extends Homey.Device {
   }
 
   async updateFirmwareInfo() {
+    // stamped before the early return as well: otherwise the once-an-hour gate in
+    // updateRouterDeviceState() never engages for users who have the check disabled, and
+    // this method is re-entered on every single poll
+    this.readings.extraPollTime = Date.now();
     if (!this.settings.use_firmware_check) return false;
     this.readings.info = await this.routerSession.getInfo()
       .catch((error) => {
@@ -312,7 +321,6 @@ class NetgearDevice extends Homey.Device {
         this.error('error getting new firmware info:', error.message);
         return undefined;
       });
-    this.readings.extraPollTime = Date.now();
     // check for new firmware_version and trigger flow
     const { newFirmware } = this.readings;
     if (newFirmware && newFirmware.newVersion && newFirmware.newVersion !== '') {
@@ -396,7 +404,9 @@ class NetgearDevice extends Homey.Device {
         const settings = device.getSettings();
         // index every alias, not just settings.mac - updateDevices() matches on the whole
         // alias list, so all of them need the paired offlineDelay and stale-prune exemption
-        const macs = (device.aliasses && device.aliasses.length) ? device.aliasses : [settings.mac];
+        // same key set the repair screen matches on: aliasses, the mac setting, and the
+        // paired id - which is the only one a legacy device (mac still 'unknown') has
+        const macs = macAliasses([...(device.aliasses || []), settings.mac, device.getData().id]);
         macs.forEach((mac) => {
           attachedList[mac] = { offlineDelay: settings.offline_after * 1000 };
         });
@@ -528,7 +538,7 @@ class NetgearDevice extends Homey.Device {
         await this.updateFirmwareInfo().catch(this.error); // firmware and router mode
       }
       this.busy = false;
-      this.endDebugWindow('poll ok'); // startup went fine - stop the verbose SOAP tracing
+      this.endDebugWindow('poll ok', true); // startup went fine - stop the verbose SOAP tracing
       return Promise.resolve(this.busy);
     } catch (error) {
       this.busy = false;
@@ -764,29 +774,24 @@ class NetgearDevice extends Homey.Device {
     // diagnostics report users post publicly - so never log the object as a whole
     const { password, ...loggable } = newSettings;
     this.log(`${this.getName()} device settings changed by user`, loggable);
-    this.stopPolling();
     if (newSettings.clear_known_devices) {
       this.knownDevices = {};
-      await this.setStoreValue('knownDevicesString', JSON.stringify(this.knownDevices));
+      await this.setStoreValue('knownDevicesString', JSON.stringify(this.knownDevices)).catch(this.error);
       this.log('known devices were deleted on request of user');
-      this.restartDevice(3000); // stopPolling() ran above - without this the device stays dead
-      throw Error(this.homey.__('errors.knownDevicesDeleted'));
     }
-    if (newSettings.use_traffic_info) {
-      await this.addCapability('meter_download_speed');
-      await this.addCapability('meter_upload_speed');
-    } else {
-      await this.removeCapability('meter_download_speed');
-      await this.removeCapability('meter_upload_speed');
-    }
-    if (newSettings.use_system_info) {
-      await this.addCapability('meter_cpu_utilization');
-      await this.addCapability('meter_mem_utilization');
-    } else {
-      await this.removeCapability('meter_cpu_utilization');
-      await this.removeCapability('meter_mem_utilization');
-    }
+    // Don't add/remove capabilities here: checkCaps() already derives the whole correct
+    // list AND its order from these same settings, so re-running the migration on the next
+    // init does the job completely - and does it where a failure is caught and retried.
+    // Doing it inline meant an unguarded await between stopPolling() and restartDevice()
+    // could leave the device with polling stopped and no restart armed, i.e. dead until the
+    // app restarts. Same pattern as the attached_device driver.
+    this.migrated = false;
+    // clear any pending restart (e.g. one the watchdog armed) first, otherwise
+    // restartDevice() no-ops on its `restarting` guard and the new settings only take
+    // effect whenever that older timer happens to fire - up to 5 minutes later
+    this.stopPolling();
     this.restartDevice(3000);
+    if (newSettings.clear_known_devices) throw Error(this.homey.__('errors.knownDevicesDeleted'));
   }
 
 }

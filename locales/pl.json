@@ -102,6 +102,11 @@
 		"discoveryFailed": "Automatyczne wykrywanie nie powiodło się. Wymagane wprowadzenie ręczne.",
 		"differentRouter": "To jest inny router. Dodaj go jako nowe urządzenie.",
 		"macNotFound": "Żaden sparowany router nie zgłasza tego adresu MAC. Najpierw dodaj lub napraw router.",
-		"knownDevicesDeleted": "Lista znanych urządzeń została usunięta"
+		"knownDevicesDeleted": "Lista znanych urządzeń została usunięta",
+		"alreadyPaired": "Ten router jest już sparowany w Homey.",
+		"deviceInfoLost": "Utracono dane urządzenia. Rozpocznij parowanie ponownie.",
+		"noRouter": "Nie znaleziono routera w Homey. Najpierw dodaj router.",
+		"invalidMac": "Nieprawidłowy alias MAC.",
+		"deviceNotReady": "Urządzenie Netgear jest nieznane lub niegotowe."
 	}
 }

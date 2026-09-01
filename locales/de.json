@@ -102,6 +102,11 @@
 		"discoveryFailed": "Automatische Suche fehlgeschlagen. Manuelle Eingabe erforderlich.",
 		"differentRouter": "Dies ist ein anderer Router. Füge ihn als neues Gerät hinzu.",
 		"macNotFound": "Kein gekoppelter Router meldet diese MAC-Adresse. Füge zuerst den Router hinzu oder repariere ihn.",
-		"knownDevicesDeleted": "Liste bekannter Geräte gelöscht"
+		"knownDevicesDeleted": "Liste bekannter Geräte gelöscht",
+		"alreadyPaired": "Dieser Router ist bereits in Homey gekoppelt.",
+		"deviceInfoLost": "Gerätedaten sind verloren gegangen. Bitte erneut koppeln.",
+		"noRouter": "Kein Router in Homey gefunden. Füge zuerst den Router hinzu.",
+		"invalidMac": "Ungültiger MAC-Alias.",
+		"deviceNotReady": "Das Netgear-Gerät ist unbekannt oder nicht bereit."
 	}
 }

@@ -102,6 +102,11 @@
 		"discoveryFailed": "Automatisk søk mislyktes. Manuell inntasting kreves.",
 		"differentRouter": "Dette er en annen ruter. Legg den til som en ny enhet.",
 		"macNotFound": "Ingen tilkoblet ruter rapporterer denne MAC-adressen. Legg til eller reparer ruteren først.",
-		"knownDevicesDeleted": "Listen over kjente enheter er slettet"
+		"knownDevicesDeleted": "Listen over kjente enheter er slettet",
+		"alreadyPaired": "Denne ruteren er allerede paret i Homey.",
+		"deviceInfoLost": "Enhetsinformasjonen forsvant. Start paringen på nytt.",
+		"noRouter": "Finner ingen ruter i Homey. Legg til ruteren først.",
+		"invalidMac": "Ugyldig MAC-alias.",
+		"deviceNotReady": "Netgear-enheten er ukjent eller ikke klar."
 	}
 }
