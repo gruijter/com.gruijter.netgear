@@ -1,6 +1,6 @@
 Version changelog
 
-v5,2,0  2026.09.01 Fix login on HTTPS-only routers (Orbi). Added router and attached device repair. Added manual TLS setting and wrong port/TLS warning. Improved restart stability and diagnostics logging. Netgear.js@5.2.0
+v5.2.0  2026.09.01 Fix login on HTTPS-only routers (Orbi). Added router and attached device repair. Added manual TLS setting and wrong port/TLS warning. Improved restart stability and diagnostics logging. Netgear.js@5.2.0
 v5.0.0  2026.08.13 Full app rewrite for stability and maintanability. Many fixes. Full translation done. Homey compatibility >=fw12.9.0. Netgear.js@5.0.0.
 v4.4.0  2024.09.28 Capability flows compatibility >=fw12.2.0. Code cleanup.
 v4.3.0  2023.09.22 Stability improvements. Improved SOAP port detection and autodiscovery. Fixed pairing and improved GUI. Netgear package 4.4.3.
