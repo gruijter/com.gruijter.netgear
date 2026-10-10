@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/gruijter/com.gruijter.netgear#readme",
   "devDependencies": {
-    "eslint": "^7.32.0",
-    "eslint-config-athom": "^3.1.5"
+    "eslint": "^10.9.1",
+    "eslint-config-athom": "^4.0.1"
   }
 }
